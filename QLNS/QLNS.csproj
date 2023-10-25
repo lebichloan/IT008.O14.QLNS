@@ -75,9 +75,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-	  <Compile Include="ResourceXAML\LoginWindow.xaml.cs">
-		  <DependentUpon>LoginWindow.xaml</DependentUpon>
-	  </Compile>
+    <Compile Include="ResourceXAML\ForgotPasswordWindow.xaml.cs">
+      <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\CHUCNANG.cs">
       <DependentUpon>ConfigDatabase.tt</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceXAML\ForgotPasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceXAML\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

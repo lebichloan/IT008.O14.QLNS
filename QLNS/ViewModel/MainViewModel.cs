@@ -13,8 +13,8 @@ namespace QLNS.ViewModel
     {
         public MainViewModel() 
         {
-            LoginWindow loginwd = new LoginWindow();
-            loginwd.ShowDialog();
+            ForgotPasswordWindow fpwd= new ForgotPasswordWindow();
+            fpwd.ShowDialog();
         }
     }
 }
