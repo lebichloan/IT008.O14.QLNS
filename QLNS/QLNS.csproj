@@ -135,6 +135,12 @@
     <Compile Include="Model\SANPHAM.cs">
       <DependentUpon>ConfigDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\ResetPasswordWindow.xaml.cs">
+      <DependentUpon>ResetPasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\VerifyEmailWindow.xaml.cs">
+      <DependentUpon>VerifyEmailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -158,6 +164,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\ResetPasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\VerifyEmailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,6 +224,8 @@
       <DependentUpon>ConfigDatabase.edmx</DependentUpon>
       <LastGenOutput>ConfigDatabase.cs</LastGenOutput>
     </Content>
+    <Resource Include="Picture\Icon2.png" />
+    <Resource Include="Picture\Icon1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Picture\BackGroundLogin.png" />

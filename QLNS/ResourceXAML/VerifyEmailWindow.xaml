@@ -1,11 +1,11 @@
-﻿<Window x:Class="QLNS.ResourceXAML.ForgotPasswordWindow"
+﻿<Window x:Class="QLNS.ResourceXAML.VerifyEmailWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -20,7 +20,7 @@
         ResizeMode="NoResize"
         Name="forgotWindow"
         FontSize="18">
-    
+
     <Grid Margin="20">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="30"
@@ -31,7 +31,7 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1.22*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <!--Left UI-->
         <Border Grid.Column="0"
                 Background="#B88E2F"
@@ -52,17 +52,15 @@
 
                     <TextBlock FontSize="40"
                                FontWeight="Light"
-                               Text="Forgot password"
+                               Text="Verify your email"
                                Foreground="#ffffff"
                                TextAlignment="Center"/>
-
                     <TextBlock FontSize="16"
-                               Text="Don't wory about your account"
+                               Text="Enter your OTP Code !"
                                FontWeight="Light"
                                Margin="0 15 0 3"
                                Foreground="#d1f2eb"
                                TextAlignment="Center"/>
-
                 </StackPanel>
                 <!--Ellipse-->
 
@@ -191,60 +189,48 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
+
                     
-                    <!--<Grid Grid.Row="0"
-                          Height="200"
-                          Width="200"
-                          Margin="0 50 0 0">
-                        <Ellipse HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 Height="150"
-                                 Width="150"
-                                 Fill="#fefbea"></Ellipse>
-                        <Image Source="/Picture/Icon2.png"
-                               Height="60"
-                               Width="60"></Image>
-                    </Grid>-->
                     <Grid Grid.Row="0"
-                          Margin="0 30 0 0">
+                          Margin="0 0 0 0">
 
                         <StackPanel HorizontalAlignment="Center">
-                            <Image Source="/Picture/Icon1.jpg"
-                                    Height="200"
-                                    Width="200"/>
+                            <Grid Grid.Row="0"
+                                  Height="200"
+                                  Width="200"
+                                  Margin="0 50 0 0">
+                                <Ellipse HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Height="175"
+                                         Width="175"
+                                         Fill="#fefbea">
+                                </Ellipse>
+                                <Image Source="/Picture/Icon2.png"
+                                       Height="60"
+                                       Width="60"></Image>
+                            </Grid>
                             <TextBlock Margin="0 5 0 5"
+                                       HorizontalAlignment="Center"
                                        Foreground="Black"
                                        FontSize="16">
-                                Please Enter Your Email Address To
+                                Please Enter Code Sent To
                             </TextBlock>
                             <TextBlock HorizontalAlignment="Center"
                                        FontSize="16"
                                        Foreground="Black">
-                                Recieve a Vertification Card
+                                Your Email
                             </TextBlock>
                         </StackPanel>
-                        
+
                     </Grid>
                     <Grid Grid.Row="1" 
                           Margin="0 80 0 10"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <materialDesign:PackIcon Kind="EmailOutline"
-                                                     Height="25"
-                                                     Width="25"
-                                                     Margin="0 25 10 10">
-                                
-                            </materialDesign:PackIcon>
-                        </Grid>
-                        <Grid Grid.Column="1">
+                        <Grid>
                             <TextBox VerticalAlignment="Center" 
                                      Width="320"
-                                     materialDesign:HintAssist.Hint="Email"
+                                     materialDesign:HintAssist.Hint="Code"
                                      materialDesign:HintAssist.Foreground="#B88E2F"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                                      materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"/>
@@ -256,7 +242,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Button Margin="0 0 30 0"
                                     Background="#B88E2F" Width="150" Height="50"
-                                    Content="Send" FontWeight="Medium" 
+                                    Content="Verify" FontWeight="Medium" 
                                     BorderThickness="0"
                                     FontSize="20"
                                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
