@@ -17,6 +17,10 @@ namespace QLNS.ViewModel
             login.ShowDialog();
             ForgotPasswordWindow fpwd= new ForgotPasswordWindow();
             fpwd.ShowDialog();
+            VerifyEmailWindow verifyEmail = new VerifyEmailWindow();
+            verifyEmail.ShowDialog();
+            ResetPasswordWindow resetPassword = new ResetPasswordWindow();
+            resetPassword.ShowDialog();
         }
     }
 }
