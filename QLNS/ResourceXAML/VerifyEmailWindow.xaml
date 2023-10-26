@@ -224,21 +224,59 @@
 
                     </Grid>
                     <Grid Grid.Row="1" 
-                          Margin="0 80 0 10"
+                          Margin="0 40 0 10"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center">
-                        <Grid>
-                            <TextBox VerticalAlignment="Center" 
-                                     Width="320"
-                                     materialDesign:HintAssist.Hint="Code"
-                                     materialDesign:HintAssist.Foreground="#B88E2F"
-                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                     materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"/>
-                        </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox  Width="25" Height="75" Margin="0 0 10 0"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Foreground="#B88E2F"
+                                      FontSize="30"
+                                      MaxLength="1"
+                                      InputScope="Number"
+                                      BorderThickness="0 0 0 2"
+                                      materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
+                                      materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox  Width="25" Height="75" Margin="10 0 10 0"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Foreground="#B88E2F"
+                                      FontSize="30"
+                                      MaxLength="1"
+                                      InputScope="Number"
+                                      BorderThickness="0 0 0 2"
+                                      materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
+                                      materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox  Width="25" Height="75" Margin="10 0 10 0"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Foreground="#B88E2F"
+                                      FontSize="30"
+                                      MaxLength="1"
+                                      InputScope="Number"
+                                      BorderThickness="0 0 0 2"
+                                      materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
+                                      materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox  Width="25" Height="75" Margin="10 0 0 0"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Foreground="#B88E2F"
+                                      FontSize="30"
+                                      MaxLength="1"
+                                      InputScope="Number"
+                                      BorderThickness="0 0 0 2"
+                                      materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
+                                      materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </StackPanel>
                     </Grid>
                     <Grid Grid.Row="2" HorizontalAlignment="Center"
-                          Margin="10"
-                          VerticalAlignment="Top">
+                          Margin="0 0 0 20"
+                          VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal">
                             <Button Margin="0 0 30 0"
                                     Background="#B88E2F" Width="150" Height="50"

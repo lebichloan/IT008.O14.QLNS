@@ -97,7 +97,8 @@
                     <Button Background="#B88E2F" Width="150" Height="40"
                             Content="ĐĂNG NHẬP" FontWeight="Bold" BorderThickness="0"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignFlatMidBgButton}">
+                            Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+                            materialDesign:ButtonAssist.CornerRadius="20">
 
                     </Button>
                 </Grid>
