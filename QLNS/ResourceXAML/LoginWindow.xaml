@@ -18,7 +18,7 @@
     <Grid>
         <!--Background window-->
         <Grid.Background>
-            <ImageBrush ImageSource="/Picture/BackGroundLogin.png"></ImageBrush>
+            <ImageBrush ImageSource="/Resources/BackGroundLogin.png"></ImageBrush>
         </Grid.Background>
         <!--Giao diện login-->
         <materialDesign:Card Width="425" Height="425" 
