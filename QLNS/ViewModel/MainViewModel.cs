@@ -13,14 +13,17 @@ namespace QLNS.ViewModel
     {
         public MainViewModel() 
         {
-            LoginWindow login = new LoginWindow();
-            login.ShowDialog();
-            ForgotPasswordWindow fpwd= new ForgotPasswordWindow();
-            fpwd.ShowDialog();
-            VerifyEmailWindow verifyEmail = new VerifyEmailWindow();
-            verifyEmail.ShowDialog();
-            ResetPasswordWindow resetPassword = new ResetPasswordWindow();
-            resetPassword.ShowDialog();
+            //LoginWindow login = new LoginWindow();
+            //login.ShowDialog();
+            //ForgotPasswordWindow fpwd= new ForgotPasswordWindow();
+            //fpwd.ShowDialog();
+            //VerifyEmailWindow verifyEmail = new VerifyEmailWindow();
+            //verifyEmail.ShowDialog();
+            //ResetPasswordWindow resetPassword = new ResetPasswordWindow();
+            //resetPassword.ShowDialog();
+
+            MainThuNgan mainThuNgan = new MainThuNgan();
+            mainThuNgan.ShowDialog();
         }
     }
 }
