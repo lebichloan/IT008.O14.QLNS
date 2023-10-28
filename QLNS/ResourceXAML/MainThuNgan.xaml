@@ -26,6 +26,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -49,14 +50,6 @@
                                 </EventTrigger>
                             </ToggleButton.Triggers>
                         </ToggleButton>
-
-                        <Label Content="Poppins"
-                               Foreground="{DynamicResource PrimaryTextColor}"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Margin="60 0 0 0"/>
                     </Grid>
 
                     <!-- Start: MenuItem -->
@@ -79,6 +72,12 @@
                     </Popup>
                     <!-- End: Popup User Control -->
 
+                    <Grid Grid.Row="2">
+                        <Button x:Name="btnLogOut" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnLogOut_MouseEnter" MouseLeave="btnLogOut_MouseLeave" Click="btnLogOut_Click">
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource logout}" IconWidth="16" Text="Log out" VerticalAlignment="Center"/>
+                        </Button>
+                    </Grid>
+
                 </Grid>
             </Border>
 
@@ -98,6 +97,7 @@
                                 <Setter Property="Content" Value="{DynamicResource maximize}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                        <Setter Property="Content" Value="{DynamicResource restore}"/>
                                         <Setter Property="Content" Value="{DynamicResource restore}"/>
                                     </DataTrigger>
                                 </Style.Triggers>

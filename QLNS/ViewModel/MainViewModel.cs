@@ -24,6 +24,7 @@ namespace QLNS.ViewModel
 
             MainThuNgan mainThuNgan = new MainThuNgan();
             mainThuNgan.ShowDialog();
+            
         }
     }
 }
