@@ -25,6 +25,7 @@ namespace QLNS.ResourceXAML
         {
             InitializeComponent();
         }
+
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Tg_Btn.IsChecked = false;

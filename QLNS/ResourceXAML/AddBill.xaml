@@ -1,0 +1,207 @@
+﻿<Window x:Class="QLNS.ResourceXAML.AddBill"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLNS.ResourceXAML"
+        xmlns:uc="clr-namespace:QLNS.Controls"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="AddBill" 
+        Height="790" Width="1150"
+        MinHeight="790" WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="{DynamicResource SecundaryBackgroundColor}">
+
+    <Border CornerRadius="5"
+            Background="{DynamicResource SecundaryBackgroundColor}"
+            MouseDown="Border_MouseDown"
+            MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--App Title-->
+            <TextBlock Text="Thêm hóa đơn" 
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="55 0 0 2"
+                           FontSize="25" 
+                           FontWeight="Bold"
+                           />
+            
+            <!-- Start: Button Close | Restore | Minimize -->
+            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
+                <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
+                            <Setter Property="Content" Value="{DynamicResource maximize}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
+                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
+            </StackPanel>
+            <!-- End: Button Close | Restore | Minimize -->
+
+            <!--Start: Right Section-->
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    CornerRadius="0 0 5 0"
+                    Background="{DynamicResource CardBackgroundColor}">
+                <StackPanel Margin="60 0 10 0">
+                    <uc:AddBillStepItem Title="1111111"
+                                        Step="1"
+                                        Number="1"
+                                        Image="/Resources/Icon1.jpg"
+                                        IsActive="True"
+                        />
+
+                    <uc:AddBillStepItem Step="2"
+                                        Title="Chon khach hang"
+                                        Number="2"
+                                        Image="/Resources/Icon1.jpg"/>
+                </StackPanel>
+            </Border>
+            <!--End: Right Section-->
+            
+            
+            <!--Start: Left Section-->
+            <Border Grid.Row="1"
+                    Background="{DynamicResource SecundaryBackgroundColor}"
+                    CornerRadius="0 0 0 5">
+                
+                <Grid VerticalAlignment="Center"
+                      Margin="70 0 -60 0">
+                    
+                    <!--Background Layer-->
+                    <Border CornerRadius="7 0 0 0"
+                            Background="{DynamicResource PrimaryBackgroundColor}"
+                            Height="50"
+                            Margin="40 -30 60 0"
+                            VerticalAlignment="Top"/>
+
+                    <Border CornerRadius="7 0 0 0"
+                            Background="{DynamicResource PrimaryBackgroundColor}"
+                            Height="50"
+                            Margin="20 -15 60 0"
+                            VerticalAlignment="Top"/>
+
+                    <!--Main Layer-->
+                    <Border CornerRadius="10"
+                            Background="{DynamicResource SecundaryBackgroundColor}">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="30" 
+                                              ShadowDepth="5"
+                                              Direction="-130"
+                                              Opacity="0.1"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                    Text="Chọn sản phẩm"
+                                    Foreground="{DynamicResource PrimaryTextColor}"
+                                    FontWeight="Bold"
+                                    FontSize="25"
+                                    Margin="20 10 0 10"
+                                    VerticalAlignment="Center"/>
+
+                        <!-- Add Product Button -->
+                        <Button x:Name="btnAddProduct"
+                                Grid.Column="1"
+                                Margin="0 0 20 0"
+                            Style="{StaticResource addButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Plus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Margin="0 0 10 0"
+                                            Foreground="{DynamicResource IconButtonColor}"/>
+
+                                <TextBlock Text="Thêm mới"
+                                Foreground="{DynamicResource TextButtonColor}"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <!-- Seprator -->
+                        <Separator Height="1" 
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   Margin="0 0 0 5"
+                                   Background="{DynamicResource SepratorBackgroundColor}"
+                               />
+
+                        <TextBlock Grid.ColumnSpan="2"
+                                   Grid.Row="2"
+                            Text="Nhap vao o day ne"/>
+                        
+                        <!--Form Button Background-->
+                        <Border Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Height="80"
+                                Background="{DynamicResource PrimaryBackgroundColor}"
+                                CornerRadius="0 0 10 10"/>
+                        
+                        <!--Next Button-->
+                        <Button Grid.Column="1"
+                                    Grid.Row="3"
+                                    HorizontalAlignment="Right"
+                                    Margin="0 0 20 0"
+                                    Style="{DynamicResource nextButton}"
+                                    Content="Tiếp tục">
+                            <Button.Effect>
+                                <DropShadowEffect BlurRadius="10"
+                                                  ShadowDepth="5"
+                                                  Color="#FFF"
+                                                  Opacity="0.3"
+                                                  Direction="-120"/>
+                            </Button.Effect>
+                        </Button>
+                            
+                        <!--Back Button-->
+                        <Button Grid.Column="0"
+                                Grid.Row="3"
+                                HorizontalAlignment="Left"
+                                Margin="20 0 0 0"
+                                Style="{DynamicResource backButton}"
+                                Content="Quay lại"/>
+                    </Grid>
+                </Grid>
+                
+            </Border>
+            <!--End: Left Section-->
+        </Grid>
+        
+    </Border>
+    
+</Window>
