@@ -190,34 +190,4 @@
     </Style>
     <!-- End: Add new Button -->
 
-    <!-- Start: Paging Button -->
-    <Style x:Key="pagingButton" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="FontSize" Value="13"/>
-        <Setter Property="Margin" Value="1 0"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="10 5">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 1"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="pagingButtonIcon" TargetType="Icon:PackIconMaterial">
-        <Setter Property="Width" Value="10"/>
-        <Setter Property="Height" Value="10"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-    <!-- End: Paging Button -->
-
 </ResourceDictionary>

@@ -30,8 +30,9 @@
 
     <!-- Button Color -->
     <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#879FFF"/>
-    <SolidColorBrush x:Key="ClickButtonBackgroundColor" Color="#98A8BF"/>
+    <SolidColorBrush x:Key="ClickButtonBackgroundColor" Color="#556CC9"/>
     <SolidColorBrush x:Key="TextButtonColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="IconButtonColor" Color="#FFFFFF"/>
 
     <!-- Seprator Color -->
     <SolidColorBrush x:Key="SepratorBackgroundColor" Color="#DAE2EA"/>
