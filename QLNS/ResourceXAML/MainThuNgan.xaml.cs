@@ -81,7 +81,25 @@ namespace QLNS.ResourceXAML
             Popup.Visibility = Visibility.Collapsed;
             Popup.IsOpen = false;
         }
+
+        private void btnLogOut_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnLogOut;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Log out";
+            }
+        }
+
+        private void btnLogOut_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+        }
         // End: MenuLeft PopupButton //
+
 
         // Start: Button Close | Restore | Minimize 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -113,5 +131,9 @@ namespace QLNS.ResourceXAML
             fContainer.Navigate(new System.Uri("Pages/BillManage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            // Xu ly code log out
+        }
     }
 }
