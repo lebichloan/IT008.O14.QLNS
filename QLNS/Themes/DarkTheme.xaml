@@ -37,4 +37,8 @@
     <!-- Seprator Color -->
     <SolidColorBrush x:Key="SepratorBackgroundColor" Color="#DAE2EA"/>
     
+    <!--Card Color-->
+    <SolidColorBrush x:Key="CardBackgroundColor" Color="#879FFF"/>
+    <SolidColorBrush x:Key="TextCardColor" Color="#FFFFFF"/>
+
 </ResourceDictionary>

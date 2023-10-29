@@ -16,7 +16,8 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="55*"/>
+                <ColumnDefinition Width="39*"/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0"
@@ -81,7 +82,7 @@
                 </Grid>
             </Border>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="44.8"/>
                     <RowDefinition Height="15.2"/>
@@ -110,7 +111,7 @@
 
                 <Frame Grid.Row="2"
                        Name="fContainer"
-                       Margin="20,20,20,20"
+                       Margin="20 20 20 20"
                        NavigationUIVisibility="Hidden">
 
                 </Frame>
