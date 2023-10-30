@@ -39,7 +39,7 @@ namespace QLNS.ResourceXAML
                 Popup.PlacementTarget = btnHome;
                 Popup.Placement = PlacementMode.Right;
                 Popup.IsOpen = true;
-                Header.PopupText.Text = "Home";
+                Header.PopupText.Text = "Trang chủ";
             }
         }
 
@@ -49,6 +49,62 @@ namespace QLNS.ResourceXAML
             Popup.IsOpen = false;
         }
 
+        private void btnProduct_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnProduct;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Quản lý sản phẩm";
+            }
+        }
+
+        private void btnProduct_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+
+        }
+
+        private void btnSale_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnSale;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Quản lý khuyến mãi";
+            }
+
+        }
+
+        private void btnSale_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+
+        }
+
+        private void btnCustomer_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnCustomer;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Quản lý khách hàng";
+            }
+
+        }
+
+        private void btnCustomer_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+
+        }
+
         private void btnBill_MouseEnter(object sender, MouseEventArgs e)
         {
             if (Tg_Btn.IsChecked == false)
@@ -56,7 +112,7 @@ namespace QLNS.ResourceXAML
                 Popup.PlacementTarget = btnBill;
                 Popup.Placement = PlacementMode.Right;
                 Popup.IsOpen = true;
-                Header.PopupText.Text = "Bill Manage";
+                Header.PopupText.Text = "Quản lý hóa đơn";
             }
         }
 
@@ -73,7 +129,7 @@ namespace QLNS.ResourceXAML
                 Popup.PlacementTarget = btnSetting;
                 Popup.Placement = PlacementMode.Right;
                 Popup.IsOpen = true;
-                Header.PopupText.Text = "Setting";
+                Header.PopupText.Text = "Cài đặt";
             }
         }
 
@@ -90,7 +146,7 @@ namespace QLNS.ResourceXAML
                 Popup.PlacementTarget = btnLogOut;
                 Popup.Placement = PlacementMode.Right;
                 Popup.IsOpen = true;
-                Header.PopupText.Text = "Log out";
+                Header.PopupText.Text = "Đăng xuất";
             }
         }
 
@@ -127,14 +183,38 @@ namespace QLNS.ResourceXAML
             fContainer.Navigate(new System.Uri("Pages/Home.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        private void btnProduct_Click(object sender, RoutedEventArgs e)
+        {
+            fContainer.Navigate(new System.Uri("Pages/ProductManage.xaml", UriKind.RelativeOrAbsolute));
+
+        }
+
+        private void btnSale_Click(object sender, RoutedEventArgs e)
+        {
+            fContainer.Navigate(new System.Uri("Pages/SaleManage.xaml", UriKind.RelativeOrAbsolute));
+
+        }
+
+        private void btnCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            fContainer.Navigate(new System.Uri("Pages/CustomerManage.xaml", UriKind.RelativeOrAbsolute));
+
+        }
+
         private void btnBill_Click(object sender, RoutedEventArgs e)
         {
             fContainer.Navigate(new System.Uri("Pages/BillManage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void btnSetting_Click(object sender, RoutedEventArgs e)
+        {
+            fContainer.Navigate(new System.Uri("Pages/Setting.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
             // Xu ly code log out
         }
+
     }
 }

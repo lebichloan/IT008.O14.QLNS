@@ -159,8 +159,20 @@
     <Compile Include="Pages\BillManage.xaml.cs">
       <DependentUpon>BillManage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CustomerManage.xaml.cs">
+      <DependentUpon>CustomerManage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProductManage.xaml.cs">
+      <DependentUpon>ProductManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SaleManage.xaml.cs">
+      <DependentUpon>SaleManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Setting.xaml.cs">
+      <DependentUpon>Setting.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResourceXAML\AddBill.xaml.cs">
       <DependentUpon>AddBill.xaml</DependentUpon>
@@ -222,7 +234,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\CustomerManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProductManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SaleManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Setting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
