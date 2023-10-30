@@ -19,7 +19,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>
-                    <Setter Property="Background" Value="{DynamicResource TextFourthColor}"/>
+                    <Setter Property="Background" Value="{DynamicResource SecundaryTextColor}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>

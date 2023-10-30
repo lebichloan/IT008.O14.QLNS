@@ -180,7 +180,7 @@ namespace QLNS.ResourceXAML
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/Home.xaml", UriKind.RelativeOrAbsolute));
+            fContainer.Navigate(new System.Uri("Pages/HomeThuNgan.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnProduct_Click(object sender, RoutedEventArgs e)
@@ -216,5 +216,9 @@ namespace QLNS.ResourceXAML
             // Xu ly code log out
         }
 
+        private void mainThuNgan_Loaded(object sender, RoutedEventArgs e)
+        {
+            fContainer.Navigate(new System.Uri("Pages/HomeThuNgan.xaml", UriKind.RelativeOrAbsolute));
+        }
     }
 }
