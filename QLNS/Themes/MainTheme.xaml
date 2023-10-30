@@ -15,6 +15,7 @@
     
     <!--Border Color-->
     <SolidColorBrush x:Key="PrimaryBorderColor" Color="#EFF3F4"/>
+    <SolidColorBrush x:Key="SecundaryBorderColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="FocusBorderColor" Color="#879FFF"/>
     <SolidColorBrush x:Key="ErrorBorderColor" Color="#FF0000"/>
 

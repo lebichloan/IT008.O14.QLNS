@@ -6,7 +6,7 @@
         <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Width" Value="150"/>
+        <Setter Property="Width" Value="120"/>
         <Setter Property="Height" Value="35"/>
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="Template">
@@ -29,10 +29,10 @@
 
     <!-- Start: Back Button -->
     <Style x:Key="backButton" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Width" Value="150"/>
+        <Setter Property="Width" Value="120"/>
         <Setter Property="Height" Value="35"/>
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="Template">
@@ -47,7 +47,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+                <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
