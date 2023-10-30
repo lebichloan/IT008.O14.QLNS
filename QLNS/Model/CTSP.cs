@@ -18,11 +18,11 @@ namespace QLNS.Model
         public CTSP()
         {
             this.CTHDs = new HashSet<CTHD>();
+            this.SANPHAMLOIs = new HashSet<SANPHAMLOI>();
         }
     
         public int idCTSP { get; set; }
         public string MaCTSP { get; set; }
-        public System.DateTime NgayNhap { get; set; }
         public decimal DonGiaNhap { get; set; }
         public short SoLuongNhap { get; set; }
         public short SoLuongLoi { get; set; }
@@ -30,6 +30,7 @@ namespace QLNS.Model
         public short DaBan { get; set; }
         public short SLConLai { get; set; }
         public string GhiChu { get; set; }
+        public int TinhTrang { get; set; }
         public int idSP { get; set; }
         public int idNH { get; set; }
     
@@ -37,5 +38,7 @@ namespace QLNS.Model
         public virtual ICollection<CTHD> CTHDs { get; set; }
         public virtual NHAPHANG NHAPHANG { get; set; }
         public virtual SANPHAM SANPHAM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SANPHAMLOI> SANPHAMLOIs { get; set; }
     }
 }

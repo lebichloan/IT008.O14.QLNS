@@ -12,27 +12,20 @@ namespace QLNS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class LOAIKHACHHANG
+    public partial class PTTHANHTOAN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LOAIKHACHHANG()
+        public PTTHANHTOAN()
         {
             this.HOADONs = new HashSet<HOADON>();
-            this.KHACHHANGs = new HashSet<KHACHHANG>();
-            this.KHUYENMAIs = new HashSet<KHUYENMAI>();
         }
     
-        public int idLKH { get; set; }
-        public string MaLKH { get; set; }
-        public string TenLKH { get; set; }
+        public int idPT { get; set; }
+        public string MaPT { get; set; }
+        public string TenPT { get; set; }
         public string MoTa { get; set; }
-        public int DiemTichLuyToiThieu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADONs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KHACHHANG> KHACHHANGs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KHUYENMAI> KHUYENMAIs { get; set; }
     }
 }

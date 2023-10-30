@@ -26,14 +26,18 @@ namespace QLNS.Model
         public decimal GiamGia { get; set; }
         public decimal ThanhTien { get; set; }
         public string GhiChu { get; set; }
+        public Nullable<int> idLKH { get; set; }
         public Nullable<int> idKH { get; set; }
         public Nullable<int> idKM { get; set; }
-        public int idNV { get; set; }
+        public int idND { get; set; }
+        public int idPT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHD> CTHDs { get; set; }
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual KHUYENMAI KHUYENMAI { get; set; }
-        public virtual NHANVIEN NHANVIEN { get; set; }
+        public virtual LOAIKHACHHANG LOAIKHACHHANG { get; set; }
+        public virtual NGUOIDUNG NGUOIDUNG { get; set; }
+        public virtual PTTHANHTOAN PTTHANHTOAN { get; set; }
     }
 }
