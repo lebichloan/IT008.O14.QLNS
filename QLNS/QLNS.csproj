@@ -96,6 +96,66 @@
     <Compile Include="Controls\UserPopup.xaml.cs">
       <DependentUpon>UserPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\CHUCNANG.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CTHD.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CTSP.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DANHMUC.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HOADON.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KHACHHANG.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KHUYENMAI.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LOAIKHACHHANG.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LOAINGUOIDUNG.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NGUOIDUNG.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NHANVIEN.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NHAPHANG.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PTTHANHTOAN.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\QLNS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\QLNS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\QLNS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SANPHAM.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SANPHAMLOI.cs">
+      <DependentUpon>QLNS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BillManage.xaml.cs">
       <DependentUpon>BillManage.xaml</DependentUpon>
     </Compile>
@@ -110,60 +170,6 @@
     </Compile>
     <Compile Include="ResourceXAML\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\CHUCNANG.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ConfigDatabase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfigDatabase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ConfigDatabase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ConfigDatabase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfigDatabase.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\CTHD.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\CTSP.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\DANHMUC.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\HOADON.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\KHACHHANG.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\KHUYENMAI.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LOAIKHACHHANG.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LOAINGUOIDUNG.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\NGUOIDUNG.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\NHANVIEN.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\NHAPHANG.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\SANPHAM.cs">
-      <DependentUpon>ConfigDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="ResourceXAML\MainThuNgan.xaml.cs">
       <DependentUpon>MainThuNgan.xaml</DependentUpon>
@@ -283,12 +289,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\ConfigDatabase.edmx">
+    <EntityDeploy Include="Model\QLNS.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConfigDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>QLNS.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\ConfigDatabase.edmx.diagram">
-      <DependentUpon>ConfigDatabase.edmx</DependentUpon>
+    <None Include="Model\QLNS.edmx.diagram">
+      <DependentUpon>QLNS.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -303,16 +309,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\ConfigDatabase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConfigDatabase.edmx</DependentUpon>
-      <LastGenOutput>ConfigDatabase.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\ConfigDatabase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConfigDatabase.edmx</DependentUpon>
-      <LastGenOutput>ConfigDatabase.cs</LastGenOutput>
-    </Content>
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\Icon2.png" />
     <Resource Include="Resources\Icon1.jpg" />
@@ -321,6 +317,18 @@
     <Resource Include="Resources\BackGroundLogin.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Model\QLNS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNS.edmx</DependentUpon>
+      <LastGenOutput>QLNS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\QLNS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNS.edmx</DependentUpon>
+      <LastGenOutput>QLNS.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

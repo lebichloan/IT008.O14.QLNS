@@ -13,10 +13,10 @@ namespace QLNS.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QLNS : DbContext
+    public partial class QLNSEntities : DbContext
     {
-        public QLNS()
-            : base("name=QLNS")
+        public QLNSEntities()
+            : base("name=QLNSEntities")
         {
         }
     
