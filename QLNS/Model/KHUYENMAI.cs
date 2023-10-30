@@ -27,12 +27,12 @@ namespace QLNS.Model
         public Nullable<int> idLKH { get; set; }
         public System.DateTime NgayBD { get; set; }
         public System.DateTime NgayKT { get; set; }
-        public decimal GiamGia { get; set; }
-        public int idNV { get; set; }
+        public short GiamGia { get; set; }
+        public int idND { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADONs { get; set; }
         public virtual LOAIKHACHHANG LOAIKHACHHANG { get; set; }
-        public virtual NHANVIEN NHANVIEN { get; set; }
+        public virtual NGUOIDUNG NGUOIDUNG { get; set; }
     }
 }

@@ -37,6 +37,8 @@ namespace QLNS.Model
         public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<NHAPHANG> NHAPHANGs { get; set; }
+        public virtual DbSet<PTTHANHTOAN> PTTHANHTOANs { get; set; }
         public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
+        public virtual DbSet<SANPHAMLOI> SANPHAMLOIs { get; set; }
     }
 }

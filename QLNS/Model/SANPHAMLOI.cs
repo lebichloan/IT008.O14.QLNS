@@ -12,23 +12,18 @@ namespace QLNS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class NHAPHANG
+    public partial class SANPHAMLOI
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NHAPHANG()
-        {
-            this.CTSPs = new HashSet<CTSP>();
-        }
-    
-        public int idNH { get; set; }
-        public string MaNH { get; set; }
-        public System.DateTime NgayNhap { get; set; }
-        public decimal ThanhTien { get; set; }
+        public int idSPL { get; set; }
+        public string MaSPL { get; set; }
+        public int idCTSP { get; set; }
+        public short SoLuongLoi { get; set; }
+        public System.DateTime NgayLoi { get; set; }
+        public string ChiTietLoi { get; set; }
         public string GhiChu { get; set; }
         public int idND { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTSP> CTSPs { get; set; }
+        public virtual CTSP CTSP { get; set; }
         public virtual NGUOIDUNG NGUOIDUNG { get; set; }
     }
 }

@@ -14,16 +14,33 @@ namespace QLNS.Model
     
     public partial class NGUOIDUNG
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NGUOIDUNG()
+        {
+            this.HOADONs = new HashSet<HOADON>();
+            this.KHUYENMAIs = new HashSet<KHUYENMAI>();
+            this.NHAPHANGs = new HashSet<NHAPHANG>();
+            this.SANPHAMLOIs = new HashSet<SANPHAMLOI>();
+        }
+    
         public int idND { get; set; }
         public string MaND { get; set; }
         public string TenDN { get; set; }
         public string MatKhau { get; set; }
-        public Nullable<System.DateTime> NgayTao { get; set; }
-        public bool TinhTrang { get; set; }
+        public System.DateTime NgayTao { get; set; }
+        public int TinhTrang { get; set; }
         public int idNV { get; set; }
         public int idLND { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HOADON> HOADONs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KHUYENMAI> KHUYENMAIs { get; set; }
         public virtual LOAINGUOIDUNG LOAINGUOIDUNG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NHAPHANG> NHAPHANGs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SANPHAMLOI> SANPHAMLOIs { get; set; }
     }
 }
