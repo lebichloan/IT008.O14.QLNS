@@ -16,8 +16,8 @@
     <SolidColorBrush x:Key="TextFourthColor" Color="#4B5D78"/>
 
     <!-- Icon Colors -->
-    <SolidColorBrush x:Key="PrimaryIconColor" Color="#B0B7C3"/>
-    <SolidColorBrush x:Key="SecundaryIconColor" Color="#000000"/>
+    <SolidColorBrush x:Key="PrimaryIconColor" Color="#000000"/>
+    <SolidColorBrush x:Key="SecundaryIconColor" Color="#B0B7C3"/>
     <SolidColorBrush x:Key="TertiarIconyColor" Color="#4B5D78"/>
     <SolidColorBrush x:Key="FourthIconColor" Color="#323B4B"/>
 
