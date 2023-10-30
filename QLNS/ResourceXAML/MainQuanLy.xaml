@@ -1,15 +1,15 @@
-﻿<Window x:Class="QLNS.ResourceXAML.MainThuNgan"
+﻿<Window x:Class="QLNS.ResourceXAML.MainQuanLy"
         xmlns:ctls="clr-namespace:QLNS.Controls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
-        mc:Ignorable="d" Name="mainThuNgan"
-        Title="MainThuNgan" Height="650" Width="1000"
+        mc:Ignorable="d" Name="mainQuanLy"
+        Title="MainQuanLy" Height="650" Width="1000"
         WindowStartupLocation="CenterScreen" WindowStyle="None"
         Background="Transparent" AllowsTransparency="True"
-        ResizeMode="NoResize" FontFamily="Poppins" Loaded="mainThuNgan_Loaded">
+        ResizeMode="NoResize" FontFamily="Poppins" Loaded="mainQuanLy_Loaded">
 
     <Border Background="{DynamicResource PrimaryBackgroundColor}"
             CornerRadius="8">
@@ -58,6 +58,9 @@
                         <Button x:Name="btnHome" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnHome_MouseEnter" MouseLeave="btnHome_MouseLeave" Click="btnHome_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource home}" IconWidth="16" Text="Trang chủ" VerticalAlignment="Center"/>
                         </Button>
+                        <Button x:Name="btnImport" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnImport_MouseEnter" MouseLeave="btnImport_MouseLeave" Click="btnImport_Click">
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource supplier}" IconWidth="16" Text="Quản lý nhập hàng" VerticalAlignment="Center"/>
+                        </Button>
                         <Button x:Name="btnProduct" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnProduct_MouseEnter" MouseLeave="btnProduct_MouseLeave" Click="btnProduct_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource products}" IconWidth="16" Text="Quản lý sản phẩm" VerticalAlignment="Center"/>
                         </Button>
@@ -70,7 +73,13 @@
                         <Button x:Name="btnBill" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnBill_MouseEnter" MouseLeave="btnBill_MouseLeave" Click="btnBill_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource car}" IconWidth="16" Text="Quản lý hóa đơn" VerticalAlignment="Center"/>
                         </Button>
-                        <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
+                        <Button x:Name="btnStaff" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnStaff_MouseEnter" MouseLeave="btnStaff_MouseLeave" Click="btnStaff_Click">
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource customers}" IconWidth="16" Text="Quản lý nhân viên" VerticalAlignment="Center"/>
+                        </Button>
+                        <Button x:Name="btnReport" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnReport_MouseEnter" MouseLeave="btnReport_MouseLeave" Click="btnReport_Click">
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource dashboard}" IconWidth="16" Text="Báo cáo thống kê" VerticalAlignment="Center"/>
+                        </Button>
+                       <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource settings}" IconWidth="16" Text="Cài đặt" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>

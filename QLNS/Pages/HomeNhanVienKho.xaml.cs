@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace QLNS.Pages
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for HomeNhanVienKho.xaml
     /// </summary>
-    public partial class Home : Page
+    public partial class HomeNhanVienKho : Page
     {
-        public Home()
+        public HomeNhanVienKho()
         {
             InitializeComponent();
         }
