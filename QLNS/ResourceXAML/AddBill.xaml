@@ -7,12 +7,14 @@
         xmlns:uc="clr-namespace:QLNS.Controls"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
+        Name="addBill"
         Title="AddBill" 
         Height="790" Width="1150"
         MinHeight="790" WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
-        Background="{DynamicResource SecundaryBackgroundColor}">
+        Background="{DynamicResource SecundaryBackgroundColor}"
+        Loaded="addBill_Loaded">
 
     <Border CornerRadius="5"
             Background="{DynamicResource SecundaryBackgroundColor}"
@@ -70,18 +72,19 @@
                     Grid.Column="1"
                     CornerRadius="7 0 0 7"
                     Background="{DynamicResource CardBackgroundColor}">
-                <StackPanel Margin="60 0 10 0">
-                    <uc:AddBillStepItem Title="1111111"
-                                        Step="1"
-                                        Number="1"
-                                        Image="/Resources/Icon1.jpg"
-                                        IsActive="True"
-                        />
-
-                    <uc:AddBillStepItem Step="2"
-                                        Title="Chon khach hang"
-                                        Number="2"
-                                        Image="/Resources/Icon1.jpg"/>
+                <StackPanel Margin="60 0 10 0"
+                            VerticalAlignment="Center">
+                    <Button Style="{DynamicResource stepButton}"
+                            x:Name="btnAddProduct"
+                            >
+                        <uc:AddBillStepItem Step="Thêm sản phẩm"
+                                            Title="Vui lòng chọn các sản phẩm của hóa đơn"
+                                            Number="1"
+                                            IsActive="True"
+                                            x:Name="ucAddProduct"
+                                            />
+                    </Button>
+                    
                 </StackPanel>
             </Border>
             <!--End: Right Section-->
@@ -144,7 +147,8 @@
                                 CornerRadius="0 0 7 7"/>
                         
                         <!--Next Button-->
-                        <Button Grid.Column="1"
+                        <Button x:Name="btnNext"
+                                Grid.Column="1"
                                 Grid.Row="1"
                                 HorizontalAlignment="Right"
                                 Margin="0 10 20 10"
@@ -178,7 +182,7 @@
                                 HorizontalAlignment="Left"
                                 Margin="20 0 0 0"
                                 BorderThickness="1"
-                                BorderBrush="{DynamicResource FocusBorderColor}"
+                                BorderBrush="{DynamicResource BorderButtonColor}"
                                 CornerRadius="7 7 7 7"
                                 Panel.ZIndex="2"/>
 

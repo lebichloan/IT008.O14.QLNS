@@ -29,7 +29,7 @@
 
     <!-- Start: Back Button -->
     <Style x:Key="backButton" TargetType="Button">
-        <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
+        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Width" Value="120"/>
@@ -47,10 +47,51 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+                <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <!-- End: Back Button -->
 
+    <!--Start: Step Button-->
+    <Style x:Key="stepButton" TargetType="Button">
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Margin" Value="0 10 0 10"/>
+        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderButtonColor}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource SecundaryBackgroundColor}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource SecundaryBorderColor}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+    <!--End: Step Button-->
 </ResourceDictionary>

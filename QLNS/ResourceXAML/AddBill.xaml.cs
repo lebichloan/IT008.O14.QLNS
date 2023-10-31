@@ -58,8 +58,12 @@ namespace QLNS.ResourceXAML
         {
             WindowState = WindowState.Minimized;
         }
+
         // End: Button Close | Restore | Minimize
 
+        private void addBill_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
 
     }
 }
