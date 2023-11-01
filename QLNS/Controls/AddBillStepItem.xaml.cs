@@ -62,14 +62,23 @@ namespace QLNS.Controls
         public static readonly DependencyProperty IsActiveProperty =
             DependencyProperty.Register("IsActive", typeof(bool), typeof(AddBillStepItem));
 
-        public ImageSource Image
+        public bool IsUnable
         {
-            get { return (ImageSource)GetValue(ImageProperty); }
-            set { SetValue(ImageProperty, value); }
+            get { return (bool)GetValue(IsUnableProperty); }
+            set { SetValue(IsUnableProperty, value); }
         }
 
-        public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(ImageSource), typeof(AddBillStepItem));
+        public static readonly DependencyProperty IsUnableProperty =
+            DependencyProperty.Register("IsUnable", typeof(bool), typeof(AddBillStepItem));
+
+        public bool IsPre
+        {
+            get { return (bool)GetValue(IsPreProperty); }
+            set { SetValue(IsPreProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsPreProperty =
+            DependencyProperty.Register("IsPre", typeof(bool), typeof(AddBillStepItem));
 
     }
 }

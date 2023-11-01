@@ -11,10 +11,12 @@
     <!--Text color-->
     <SolidColorBrush x:Key="PrimaryTextColor" Color="#000000"/>
     <SolidColorBrush x:Key="SecundaryTextColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="UnableTextColor" Color="#EFF3F4"/>
     <SolidColorBrush x:Key="BlueTextColor" Color="#879FFF"/>
     
     <!--Border Color-->
     <SolidColorBrush x:Key="PrimaryBorderColor" Color="#EFF3F4"/>
+    <SolidColorBrush x:Key="SecundaryBorderColor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="FocusBorderColor" Color="#879FFF"/>
     <SolidColorBrush x:Key="ErrorBorderColor" Color="#FF0000"/>
 
