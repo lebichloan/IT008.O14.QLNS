@@ -24,5 +24,28 @@ namespace QLNS.Controls
         {
             InitializeComponent();
         }
+
+        private void InputTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FloatingLabel.Visibility = Visibility.Collapsed;
+        }
+
+        private void InputTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(InputTextBox.Text))
+            {
+                FloatingLabel.Visibility = Visibility.Visible;
+            }
+        }
+
+        public string Label
+        {
+            get { return (string)GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
+        }
+
+        public static readonly DependencyProperty LabelProperty =
+            DependencyProperty.Register("Label", typeof(string), typeof(AddBillStepItem));
+
     }
 }

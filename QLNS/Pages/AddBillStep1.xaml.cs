@@ -34,5 +34,10 @@ namespace QLNS.Pages
         {
 
         }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
