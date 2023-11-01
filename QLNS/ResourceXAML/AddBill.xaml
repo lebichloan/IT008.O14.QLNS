@@ -76,34 +76,56 @@
                             VerticalAlignment="Center">
                     <Button Style="{DynamicResource stepButton}"
                             x:Name="btnAddProduct"
+                            Click="btnAddProduct_Click"
                             >
-                        <uc:AddBillStepItem Step="Thêm sản phẩm"
+                        <uc:AddBillStepItem Step="Thông tin sản phẩm"
                                             Title="Vui lòng chọn các sản phẩm của hóa đơn"
                                             Number="1"
                                             x:Name="ucAddProduct"
-                                            IsUnable="True"
                                             />
                     </Button>
 
                     <Button Style="{DynamicResource stepButton}"
                             x:Name="btnAddCustomer"
+                            Click="btnAddCustomer_Click"
                             >
-                        <uc:AddBillStepItem Step="Thêm khách hàng"
-                                            Title="Vui lòng chọn các sản phẩm của hóa đơn"
+                        <uc:AddBillStepItem Step="Thông tin khách hàng"
+                                            Title="Vui lòng chọn thông tin khách hàng"
                                             Number="2"
                                             x:Name="ucAddCustomer"
-                                            IsActive="True"
                                             />
                     </Button>
 
                     <Button Style="{DynamicResource stepButton}"
-                            x:Name="btnCheckOut"
+                            x:Name="btnCheckBill"
+                            Click="btnCheckBill_Click"
                             >
-                        <uc:AddBillStepItem Step="Kiểm tra thông tin"
-                                            Title="Vui lòng kiểm tra lại các thông tin của hóa đơn"
+                        <uc:AddBillStepItem Step="Chương trình ưu đãi"
+                                            Title="Vui lòng chọn chương trình ưu đãi"
                                             Number="3"
+                                            x:Name="ucCheckBill"
+                                            />
+                    </Button>
+                    
+                    <Button Style="{DynamicResource stepButton}"
+                            x:Name="btnCheckOut"
+                            Click="btnCheckOut_Click"
+                            >
+                        <uc:AddBillStepItem Step="Thanh toán"
+                                            Title="Vui lòng chọn phương thức thanh toán"
+                                            Number="4"
                                             x:Name="ucCheckOut"
-                                            IsPre="True"
+                                            />
+                    </Button>
+
+                    <Button Style="{DynamicResource stepButton}"
+                            x:Name="btnExport"
+                            Click="btnExport_Click"
+                            >
+                        <uc:AddBillStepItem Step="Xác nhận và xuất hóa đơn"
+                                            Title="Vui lòng kiểm tra thông tin và xác nhận"
+                                            Number="5"
+                                            x:Name="ucExport"
                                             />
                     </Button>
 
@@ -145,97 +167,12 @@
                     </Border>
 
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
                         <Frame Grid.ColumnSpan="2"
                                Grid.Row="0"
                                Name="stepContainer"
-                               Margin="20 20 20 20"
+                               Margin="0"
                                NavigationUIVisibility="Hidden">
                         </Frame>
-
-                        <!--Form Button Background-->
-                        <Border Grid.Row="1"
-                                Grid.ColumnSpan="2"
-                                Background="{DynamicResource PrimaryBackgroundColor}"
-                                CornerRadius="0 0 7 7"/>
-                        
-                        <!--Next Button-->
-                        <Button x:Name="btnNext"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                HorizontalAlignment="Right"
-                                Margin="0 10 20 10"
-                                Style="{DynamicResource nextButton}">
-                            
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tiếp tục"
-                                   Foreground="{DynamicResource TextButtonColor}"/>
-                                <Icon:PackIconMaterial Kind="ChevronRight"
-                                                VerticalAlignment="Center"
-                                                Width="11"
-                                                Height="11"
-                                               Margin="10 0 0 0"
-                                               Foreground="{DynamicResource IconButtonColor}"/>
-                            </StackPanel>
-
-                            <Button.Effect>
-                                <DropShadowEffect BlurRadius="10"
-                                                  ShadowDepth="5"
-                                                  Color="#FFF"
-                                                  Opacity="0.3"
-                                                  Direction="-120"/>
-                            </Button.Effect>
-                        </Button>
-
-                        <!--Start: Preious button-->
-                        <Border Grid.Column="0"
-                                Grid.Row="1"
-                                Width="120"
-                                Height="35"
-                                HorizontalAlignment="Left"
-                                Margin="20 0 0 0"
-                                BorderThickness="1"
-                                BorderBrush="{DynamicResource BorderButtonColor}"
-                                CornerRadius="7 7 7 7"
-                                Panel.ZIndex="2"/>
-
-                        <Button Grid.Column="0"
-                                Grid.Row="1"
-                                HorizontalAlignment="Left"
-                                Margin="20 0 0 0"
-                                Style="{DynamicResource backButton}">
-
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="ChevronLeft"
-                                                VerticalAlignment="Center"
-                                                Width="11"
-                                                Height="11"
-                                               Margin="0 0 10 0"
-                                               Foreground="{DynamicResource PrimaryTextColor}"/>
-                                <TextBlock Text="Quay lại"
-                                   Foreground="{DynamicResource PrimaryTextColor}"/>
-                            </StackPanel>
-
-                            <Button.Effect>
-                                <DropShadowEffect BlurRadius="10"
-                                                  ShadowDepth="5"
-                                                  Color="#FFF"
-                                                  Opacity="0.3"
-                                                  Direction="-120"/>
-                            </Button.Effect>
-
-                        </Button>
-                        <!--End: Preious button-->
-                        
                     </Grid>
                 </Grid>
                 

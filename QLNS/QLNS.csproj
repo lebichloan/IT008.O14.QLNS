@@ -157,6 +157,21 @@
     <Compile Include="Model\SANPHAMLOI.cs">
       <DependentUpon>QLNS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddBillStep1.xaml.cs">
+      <DependentUpon>AddBillStep1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep2.xaml.cs">
+      <DependentUpon>AddBillStep2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep3.xaml.cs">
+      <DependentUpon>AddBillStep3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep4.xaml.cs">
+      <DependentUpon>AddBillStep4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep5.xaml.cs">
+      <DependentUpon>AddBillStep5.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BillManage.xaml.cs">
       <DependentUpon>BillManage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +267,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddBillStep1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BillManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
