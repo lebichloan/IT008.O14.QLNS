@@ -57,8 +57,8 @@
     <Style x:Key="stepButton" TargetType="Button">
         <Setter Property="Width" Value="300"/>
         <Setter Property="Height" Value="70"/>
-        <Setter Property="Margin" Value="0 10 0 10"/>
-        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="Margin" Value="0 5 0 5"/>
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
 

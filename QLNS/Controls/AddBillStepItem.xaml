@@ -4,26 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
-             Name="addBillStepItem">
+             Name="addBillStepItem"
+             Width="300" Height="70"
+             >
 
     <UserControl.Resources>
+        
+        <!--Start: Card Background-->
+        <Style x:Key="cardGrid" TargetType="{x:Type Grid}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPre, ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding IsActive, ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding IsUnable,ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!--End: Card Background-->
         
         <!--Start: Title TextBlock-->
         <Style x:Key="titleTextBlock" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
             
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsPre, ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+                </DataTrigger>
 
-                <Trigger Property="IsFocused" Value="True">
+                <DataTrigger Binding="{Binding IsActive, ElementName=addBillStepItem}" Value="True">
                     <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
-                </Trigger>
+                </DataTrigger>
 
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="{DynamicResource UnableTextColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsUnable,ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
         <!--End: Title TextBlock-->
@@ -34,21 +54,21 @@
             <Setter Property="CornerRadius" Value="20"/>
             <Setter Property="Width" Value="40"/>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="10 10 20 10"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsPre, ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+                </DataTrigger>
 
-                <Trigger Property="IsFocused" Value="True">
+                <DataTrigger Binding="{Binding IsActive, ElementName=addBillStepItem}" Value="True">
                     <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
-                </Trigger>
+                </DataTrigger>
 
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsUnable,ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
         <!--End: Step Border-->
@@ -61,31 +81,31 @@
             <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource BlueTextColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsPre, ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
+                </DataTrigger>
 
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource BlueTextColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsActive, ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+                </DataTrigger>
 
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="{DynamicResource UnableTextColor}"/>
-                </Trigger>
+                <DataTrigger Binding="{Binding IsUnable,ElementName=addBillStepItem}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource TextButtonColor}"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
         <!--End: Step TextBlock-->
         
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Style="{StaticResource cardGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0"
-                        Margin="15 0 0 0"
+                        Margin="30 0 0 0"
                         VerticalAlignment="Center">
 
             <TextBlock Style="{StaticResource titleTextBlock}"
@@ -102,7 +122,9 @@
         </StackPanel>
 
         <Border Grid.Column="1"
-                Style="{StaticResource stepBorder}">
+                Style="{StaticResource stepBorder}"
+                BorderBrush="{DynamicResource BorderButtonColor}"
+                BorderThickness="1">
             <TextBlock Style="{StaticResource stepTextBlock}"
                         Text="{Binding ElementName=addBillStepItem, Path=Number}"/>
         </Border>

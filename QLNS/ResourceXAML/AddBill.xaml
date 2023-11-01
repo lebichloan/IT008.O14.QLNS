@@ -80,11 +80,33 @@
                         <uc:AddBillStepItem Step="Thêm sản phẩm"
                                             Title="Vui lòng chọn các sản phẩm của hóa đơn"
                                             Number="1"
-                                            IsActive="True"
                                             x:Name="ucAddProduct"
+                                            IsUnable="True"
                                             />
                     </Button>
-                    
+
+                    <Button Style="{DynamicResource stepButton}"
+                            x:Name="btnAddCustomer"
+                            >
+                        <uc:AddBillStepItem Step="Thêm khách hàng"
+                                            Title="Vui lòng chọn các sản phẩm của hóa đơn"
+                                            Number="2"
+                                            x:Name="ucAddCustomer"
+                                            IsActive="True"
+                                            />
+                    </Button>
+
+                    <Button Style="{DynamicResource stepButton}"
+                            x:Name="btnCheckOut"
+                            >
+                        <uc:AddBillStepItem Step="Kiểm tra thông tin"
+                                            Title="Vui lòng kiểm tra lại các thông tin của hóa đơn"
+                                            Number="3"
+                                            x:Name="ucCheckOut"
+                                            IsPre="True"
+                                            />
+                    </Button>
+
                 </StackPanel>
             </Border>
             <!--End: Right Section-->
