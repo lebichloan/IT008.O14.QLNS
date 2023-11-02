@@ -23,12 +23,218 @@
         <!--Start: Main Grid Step 1-->
         <Grid Grid.ColumnSpan="2"
               Grid.Row="0"
-              Margin="20"
+              Margin="20 10 20 10"
               Background="{DynamicResource SecundaryBackgroundColor}"
               >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Start: Input Product-->
+            <TextBlock Text="Thông tin khách hàng"
+                       Grid.Column="0"
+                        Grid.Row="0"
+                        FontSize="20"
+                        FontWeight="SemiBold"                               
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0 10 0 10"
+                            />
+
+            <!-- Add Button -->
+            <Button x:Name="btnAddProduct"
+                    Style="{StaticResource nextButton}" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Grid.Column="0"
+                    Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Plus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Margin="0 0 10 0"
+                                            Foreground="{DynamicResource IconButtonColor}"/>
+
+                    <TextBlock Text="Thêm mới"
+                                Foreground="{DynamicResource TextButtonColor}"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Seprator -->
+            <Separator Height="1" 
+                       Grid.Column="0"
+                       Grid.Row="1"
+                            Background="{DynamicResource SepratorBackgroundColor}"
+                            Margin="0 0 0 5"/>
+
+            <!--End: Input Product-->
+            <Rectangle Grid.Column="1"
+                       Grid.RowSpan="5"
+                       VerticalAlignment="Stretch" 
+                       Width="1" 
+                       Margin="10 5 10 5" 
+                       Stroke="{DynamicResource SepratorBackgroundColor}" />
+
+            <!--Start: Right Section-->
+            <!-- Page title -->
+            <TextBlock Text="Chi tiết hóa đơn"
+                       Grid.Column="2"
+                        Grid.Row="0"
+                        FontSize="20"
+                        FontWeight="SemiBold"                               
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0 10 0 10"
+                            />
+
+            <!-- Add Button -->
+            <!--<Button x:Name="btnAddProduct"
+                    Style="{StaticResource nextButton}" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Click="btnAddProduct_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Plus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Margin="0 0 10 0"
+                                            Foreground="{DynamicResource IconButtonColor}"/>
+
+                    <TextBlock Text="Thêm mới"
+                                Foreground="{DynamicResource TextButtonColor}"/>
+                </StackPanel>
+            </Button>-->
+
+            <!-- Seprator -->
+            <Separator Height="1" 
+                       Grid.Column="2"
+                       Grid.Row="1"
+                            Background="{DynamicResource SepratorBackgroundColor}"
+                            Margin="0 0 0 5"/>
+
+            <!-- Member datagrid -->
+            <DataGrid Grid.Column="2"
+                Grid.Row="2"
+                x:Name="productDataGrid"
+                AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Header="Mã sản phẩm"
+                                            Binding="{Binding idHD}"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="auto"/>-->
+
+                    <DataGridTextColumn Header="Tên sản phẩm"
+                                            Binding="{Binding SoHD}"
+                                            IsReadOnly="True"
+                                            Width="auto"/>
+
+                    <DataGridTextColumn Header="Số lượng"
+                                            Binding="{Binding NgayHD}"
+                                            IsReadOnly="True"
+                                            Width="auto"/>
+
+                    <DataGridTextColumn Header="Đơn giá"
+                                            Binding="{Binding TenKH}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                    <DataGridTextColumn Header="Thành tiền"
+                                            Binding="{Binding ThanhTien}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                    <DataGridTemplateColumn Header="Operations"
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{DynamicResource gridViewButton}">
+                                        <Icon:PackIconMaterial Kind="EyeCheckOutline"
+                                                                       Style="{DynamicResource gridButtonIcon}"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Seprator -->
+            <Separator Height="1" 
+                       Grid.Column="2"
+                       Grid.Row="3"
+                            Background="{DynamicResource SepratorBackgroundColor}"
+                            Margin="0 5 0 0"/>
+
+            <!--Total Product-->
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="4"
+                        Grid.Column="2">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <TextBlock 
+                       Text="Tổng số lượng"
+                       FontSize="15"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="0 5 10 5"
+                       />
+
+                    <TextBlock 
+                       Width="100"
+                       Text=""
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       TextAlignment="Right"
+                       />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <TextBlock 
+                       x:Name="txtTongSoLuong"
+                       Text="Tổng tiền"
+                       FontSize="15"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="0 5 10 5"
+                        />
+
+                    <TextBlock 
+                       x:Name="txtTongTien"
+                       Width="100"
+                       Text=""
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       TextAlignment="Right"
+                        />
+                </StackPanel>
+            </StackPanel>
+            <!--End: Right Section-->
 
         </Grid>
-        <!--End: Main Grid Step 1-->
+        <!--End: Main Grid Step 2-->
 
         <!--Start: Form Button Background-->
         <Border Grid.Row="1"

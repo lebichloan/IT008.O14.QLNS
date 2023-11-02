@@ -188,5 +188,47 @@
         </Style.Triggers>
     </Style>
     <!-- End: Add new Button -->
+    
+    <!--Start: Text Input Style-->
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBorderColor}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Padding" Value="10 8"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Border x:Name="border" 
+                            CornerRadius="5"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="False"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource ClickButtonBackgroundColor}"/>   
+                        </Trigger>
+
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource FocusBorderColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+                
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--End: Text Input Style-->
 
 </ResourceDictionary>

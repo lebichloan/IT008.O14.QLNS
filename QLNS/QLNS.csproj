@@ -211,6 +211,9 @@
     <Compile Include="ResourceXAML\AddBill.xaml.cs">
       <DependentUpon>AddBill.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\DetailBill.xaml.cs">
+      <DependentUpon>DetailBill.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -339,6 +342,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailBill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
