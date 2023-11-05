@@ -170,7 +170,9 @@
                             Margin="0 10 10 0"
                             >
                     <StackPanel Orientation="Horizontal">
-                        <Button Style="{DynamicResource pagingButton}">
+                        <Button Style="{DynamicResource pagingButton}"
+                                Name="btnPre"
+                                Click="btnPre_Click">
                             <Icon:PackIconMaterial Kind="ChevronLeft"
                                                        Style="{DynamicResource pagingButtonIcon}"/>
                         </Button>
@@ -178,16 +180,21 @@
                         <Rectangle Width="1" 
                                        Fill="{DynamicResource SepratorBackgroundColor}"
                                        Margin="3 7"/>
-
+                        
                         <Button Style="{DynamicResource pagingButton}"
-                                    Content="1">
+                                >
+                            <TextBlock Name="lblPage"
+                                   Text="1/2"
+                                   />
                         </Button>
 
                         <Rectangle Width="1" 
                                        Fill="{DynamicResource SepratorBackgroundColor}"
                                        Margin="3 7"/>
 
-                        <Button Style="{DynamicResource pagingButton}">
+                        <Button Style="{DynamicResource pagingButton}"
+                                Name="btnNext"
+                                Click="btnNext_Click">
                             <Icon:PackIconMaterial Kind="ChevronRight"
                                                    Style="{DynamicResource pagingButtonIcon}"
                             />

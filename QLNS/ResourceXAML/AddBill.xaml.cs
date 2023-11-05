@@ -63,7 +63,70 @@ namespace QLNS.ResourceXAML
 
         private void addBill_Loaded(object sender, RoutedEventArgs e)
         {
+            ucAddProduct.IsActive = true;
+            ucAddCustomer.IsUnable = true;
+            ucCheckBill.IsUnable = true;
+            ucCheckOut.IsUnable = true;
+            ucExport.IsUnable=true;
+
+            ucAddCustomer.IsEnabled = false;
+            ucCheckBill.IsEnabled=false;
+            ucCheckOut.IsEnabled=false;
+            ucExport.IsEnabled=false;
+
+            stepContainer.Navigate(new System.Uri("Pages/AddBillStep1.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        private int current_step = 1;
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (current_step >= 1 )
+            {
+                stepContainer.Navigate(new System.Uri("Pages/AddBillStep1.xaml", UriKind.RelativeOrAbsolute));
+                ucAddProduct.IsActive=true;
+                current_step = 2;
+            }
+        }
+
+        private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            if (current_step >= 2)
+            {
+                stepContainer.Navigate(new System.Uri("Pages/AddBillStep2.xaml", UriKind.RelativeOrAbsolute));
+                ucAddProduct.IsActive = true;
+                current_step = 3;
+            }
+        }
+
+        private void btnCheckBill_Click(object sender, RoutedEventArgs e)
+        {
+            if (current_step >= 3)
+            {
+                stepContainer.Navigate(new System.Uri("Pages/AddBillStep3.xaml", UriKind.RelativeOrAbsolute));
+                ucAddProduct.IsActive = true;
+                current_step = 4;
+            }
+        }
+
+        private void btnCheckOut_Click(object sender, RoutedEventArgs e)
+        {
+            if (current_step >= 4)
+            {
+                stepContainer.Navigate(new System.Uri("Pages/AddBillStep4.xaml", UriKind.RelativeOrAbsolute));
+                ucAddProduct.IsActive = true;
+                current_step = 5;
+            }
+        }
+
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (current_step >= 5)
+            {
+                stepContainer.Navigate(new System.Uri("Pages/AddBillStep5.xaml", UriKind.RelativeOrAbsolute));
+                ucAddProduct.IsActive = true;
+                current_step = 6;
+            }
+        }
     }
 }

@@ -97,6 +97,9 @@
     <Compile Include="Controls\Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TextInput.xaml.cs">
+      <DependentUpon>TextInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TotalItem.xaml.cs">
       <DependentUpon>TotalItem.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,21 @@
     <Compile Include="Model\SANPHAMLOI.cs">
       <DependentUpon>QLNS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddBillStep1.xaml.cs">
+      <DependentUpon>AddBillStep1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep2.xaml.cs">
+      <DependentUpon>AddBillStep2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep3.xaml.cs">
+      <DependentUpon>AddBillStep3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep4.xaml.cs">
+      <DependentUpon>AddBillStep4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddBillStep5.xaml.cs">
+      <DependentUpon>AddBillStep5.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BillManage.xaml.cs">
       <DependentUpon>BillManage.xaml</DependentUpon>
     </Compile>
@@ -199,6 +217,9 @@
     </Compile>
     <Compile Include="ResourceXAML\AddBill.xaml.cs">
       <DependentUpon>AddBill.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\DetailBill.xaml.cs">
+      <DependentUpon>DetailBill.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResourceXAML\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
@@ -240,6 +261,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\TextInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TotalItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +285,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddBillStep1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddBillStep5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BillManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -305,6 +350,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailBill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
