@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -14,7 +15,9 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name ="loginWindow"
+        DataContext="{StaticResource LoginViewModel}"
         Title="LoginWindow" Height="600" Width="950">
+
     <Grid>
         <!--Background window-->
         <Grid.Background>
@@ -51,6 +54,7 @@
                              materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
                              materialDesign:HintAssist.Foreground="#B88E2F"
                              FontWeight="Bold" FontSize="15"
+                             Text ="{Binding UserName}"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}">
                     </TextBox>
                 </Grid>
@@ -62,7 +66,8 @@
                         <ColumnDefinition Width="55*"/>
                         <ColumnDefinition Width="21*"/>
                     </Grid.ColumnDefinitions>
-                    <PasswordBox Background="White" Width="325" Height="60" BorderBrush="White"
+                    <PasswordBox x:Name="passwordBox"
+                                 Background="White" Width="325" Height="60" BorderBrush="White"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
                                  materialDesign:TextFieldAssist.HasClearButton="True"
                                  materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
@@ -70,6 +75,12 @@
                                  FontWeight="Bold" FontSize="15"
                                  Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" 
                                  Grid.ColumnSpan="2" Margin="40,0,40,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                       CommandParameter="{Binding ElementName=passwordBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </PasswordBox>
                 </Grid>
                 
@@ -98,8 +109,9 @@
                             Content="ĐĂNG NHẬP" FontWeight="Bold" BorderThickness="0"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                            materialDesign:ButtonAssist.CornerRadius="20">
-
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=loginWindow}">
                     </Button>
                 </Grid>
                 
