@@ -9,6 +9,7 @@
       Title="StaffManage">
 
     <Grid>
-        <TextBlock>Quan ly nhan vien</TextBlock>
+        <TextBlock>
+        </TextBlock>
     </Grid>
 </Page>

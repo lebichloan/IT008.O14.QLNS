@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:QLNS.ViewModel">
     
-    <vm:MainViewModel x:Key="MainViewModel"></vm:MainViewModel>
     <vm:BaseViewModel x:Key="baseViewModel"></vm:BaseViewModel>
     <vm:LoginViewModel x:Key="LoginViewModel"></vm:LoginViewModel>
 </ResourceDictionary>
