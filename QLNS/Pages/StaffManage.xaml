@@ -1,15 +1,181 @@
 ﻿<Page x:Class="QLNS.Pages.StaffManage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QLNS.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StaffManage">
+      Title="staffManage"
+      Name="staffManage"
+      Loaded="staffManage_Loaded">
 
-    <Grid>
-        <TextBlock>
-        </TextBlock>
-    </Grid>
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}" Padding="10 5 10 5">
+        <DockPanel LastChildFill="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!-- Page title -->
+                <TextBlock Grid.Row="0"
+                           Text="Quản lý nhân viên"
+                           FontSize="25"
+                           FontWeight="Bold"                               
+                           HorizontalAlignment="Left"
+                           Margin="0 10 0 10" />
+                
+                <!--Add staff-->
+                <Button x:Name="btnAddBill" 
+                        Grid.Row="0"
+                        Style="{StaticResource addButton}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Plus"
+                                               VerticalAlignment="Center"
+                                               Width="11"
+                                               Height="11"
+                                               Margin="0 0 10 0"
+                                               Foreground="{DynamicResource IconButtonColor}"/>
+                        <TextBlock Text="Thêm nhân viên"
+                                   Foreground="{DynamicResource TextButtonColor}"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Seprator -->
+                <Separator Height="5" Grid.Row="1" 
+                           Background="{DynamicResource SepratorBackgroundColor}"
+                           Margin="0 0 0 5"/>
+
+                <!-- Counter Title -->
+                <TextBlock Grid.Row="2"
+                           Text="Nhân viên"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+
+                <!-- Staff datagrid -->
+                <DataGrid Grid.Row="3"
+                          x:Name="staffDataGrid"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <!--Checkbox-->
+                        <DataGridCheckBoxColumn CanUserResize="False"
+                                                Width="auto">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox/>
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
+
+                        <!-- # -->
+                        <DataGridTextColumn Header="#"
+                                            Binding="{Binding idNV}"
+                                            IsReadOnly="True"
+                                            CanUserResize="False"
+                                            Width="auto"/>
+                        <!-- Tên nhân viên -->
+                        <DataGridTextColumn Header="Tên nhân viên"
+                                            Binding="{Binding TenNV}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Giới tính -->
+                        <DataGridTextColumn Header="Giới tính"
+                                            Binding="{Binding GioiTinh}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- SDT -->
+                        <DataGridTextColumn Header="SDT"
+                                            Binding="{Binding SDT}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Địa chỉ -->
+                        <DataGridTextColumn Header="Địa chỉ"
+                                            Binding="{Binding DiaChi}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Ngày vào làm -->
+                        <DataGridTextColumn Header="Ngày vào làm"
+                                            Binding="{Binding NgayVL}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Chức vụ -->
+                        <DataGridTextColumn Header="Chức vụ"
+                                            Binding="{Binding ChucVu}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Tình trạng -->
+                        <DataGridTextColumn Header="Tình trạng"
+                                            Binding="{Binding TinhTrang}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Ghi chú -->
+                        <DataGridTextColumn Header="Ghi chú"
+                                            Binding="{Binding GhiChu}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+                        <!-- Button Sửa thông tin -->
+                        <DataGridTemplateColumn IsReadOnly="True"
+                                                Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{DynamicResource gridViewButton}">
+                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
+                                              Style="{DynamicResource gridButtonIcon}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!-- Pagination Section -->
+                <Border Grid.Row="4"
+                            HorizontalAlignment="Right"
+                            BorderBrush="{DynamicResource FocusBorderColor}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="5"
+                            Background="{DynamicResource SecundaryBackgroundColor}"
+                            Margin="0 10 10 0"
+                            >
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{DynamicResource pagingButton}"
+                                Name="btnPre"
+                                >
+                            <Icon:PackIconMaterial Kind="ChevronLeft"
+                                                       Style="{DynamicResource pagingButtonIcon}"/>
+                        </Button>
+
+                        <Rectangle Width="1" 
+                                       Fill="{DynamicResource SepratorBackgroundColor}"
+                                       Margin="3 7"/>
+
+                        <Button Style="{DynamicResource pagingButton}"
+                                >
+                            <TextBlock Name="lblPage"
+                                   Text="1/2"/>
+                        </Button>
+
+                        <Rectangle Width="1" 
+                                       Fill="{DynamicResource SepratorBackgroundColor}"
+                                       Margin="3 7"/>
+                        
+                        <Button Style="{DynamicResource pagingButton}"
+                                Name="btnNext"
+                                >
+                            <Icon:PackIconMaterial Kind="ChevronRight"
+                                                   Style="{DynamicResource pagingButtonIcon}"
+                            />
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Border>
 </Page>
