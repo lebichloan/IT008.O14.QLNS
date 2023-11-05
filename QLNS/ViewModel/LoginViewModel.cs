@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,41 +15,15 @@ namespace QLNS.ViewModel
     {
         //UserName
         private string _UserName;
-        public string UserName
-        {
-            get
-            {
-                return _UserName;
-            }
-            set
-            {
-                _UserName = value;
-                OnPropertyChanged();
-            }
-        }
+        public string UserName { get { return _UserName; } set { _UserName = value; OnPropertyChanged(); } }
         // Password
         private string _Password;
-        public string Password
-        {
-            get
-            {
-                return _Password;
-            }
-            set
-            {
-                _Password = value;
-                OnPropertyChanged();
-            }
-        }
-        // kiem tra login
-        public bool IsLogin { get; set; }
-        public int IdWindowShow { get; set; }
+        public string Password { get { return _Password; } set { _Password = value; OnPropertyChanged(); } }
+        // Kiểm tra login
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public LoginViewModel()
         {
-            IsLogin = false;
-            IdWindowShow = 0;
             Password = string.Empty;
             UserName = string.Empty;
             // Thực hiện chức năng đăng nhập thông qua relaycommand
@@ -68,19 +43,29 @@ namespace QLNS.ViewModel
             var existingUser = DataProvider.Ins.DB.NGUOIDUNGs.SingleOrDefault(nguoidung => nguoidung.TenDN == UserName && nguoidung.MatKhau == Password);
             if (existingUser != null)
             {
-                IsLogin = true;
+                
                 // Loại người dùng
                 if (existingUser.idLND == 1)
-                    IdWindowShow = 1;
+                {
+                    MainQuanLy mainQuanLy = new MainQuanLy();
+                    p.Close();
+                    mainQuanLy.ShowDialog();
+                }
                 else if (existingUser.idLND == 2)
-                    IdWindowShow = 2;
+                {
+                    MainThuNgan mainThuNgan = new MainThuNgan();
+                    p.Close();
+                    mainThuNgan.ShowDialog();
+                }
                 else if (existingUser.idLND == 3)
-                    IdWindowShow = 3;
-                p.Close();
+                {
+                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho();
+                    p.Close();
+                    mainNhanVienKho.ShowDialog();
+                }  
             }
             else
             {
-                IsLogin = false;
                 MessageBox.Show("Thông tin tài khoản hoặc mật khẩu không chính xác");
             }
         }
