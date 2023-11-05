@@ -3,5 +3,5 @@
                     xmlns:vm="clr-namespace:QLNS.ViewModel">
     
     <vm:MainViewModel x:Key="MainViewModel"></vm:MainViewModel>
-    
+    <vm:LoginViewModel x:Key="LoginViewModel"></vm:LoginViewModel>
 </ResourceDictionary>
