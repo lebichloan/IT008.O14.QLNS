@@ -36,64 +36,26 @@ namespace QLNS.Pages
             addBill.ShowDialog();
         }
 
-        int pageNumber = 1;
+        int pageNumber = 0;
         int pageSize = 10;
-
         private void billManage_Loaded(object sender, RoutedEventArgs e)
         {
-            var query =
-                from hoadon in qLNSEntities.HOADONs
-                orderby hoadon.idHD
-                //where hoadon.idHD == 0
-                select new { 
-                    idHD = hoadon.idHD, 
-                    SoHD = hoadon.SoHD, 
-                    NgayHD = hoadon.NgayHD, 
-                    TenKH = hoadon.KHACHHANG.TenKH, 
-                    ThanhTien = hoadon.ThanhTien, 
-                    PTThanhToan = hoadon.PTTHANHTOAN.TenPT, 
-                    GhiChu = hoadon.GhiChu 
-                };
-
-            //memberDataGrid.ItemsSource = query.ToList();
-            memberDataGrid.ItemsSource = query.Skip(pageSize * (pageNumber)).Take(pageSize).ToList();
-            btnPre.IsEnabled = false;
-            lblPage.Text = string.Format("{0}/{1}", pageNumber, query.Count() / pageSize);
+            // Load dữ liệu ban đầu khi vừa vào
+            LoadData(0);
         }
-
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
-            var query =
-                from hoadon in qLNSEntities.HOADONs
-                orderby hoadon.idHD
-                //where hoadon.idHD == 0
-                select new
-                {
-                    idHD = hoadon.idHD,
-                    SoHD = hoadon.SoHD,
-                    NgayHD = hoadon.NgayHD,
-                    TenKH = hoadon.KHACHHANG.TenKH,
-                    ThanhTien = hoadon.ThanhTien,
-                    PTThanhToan = hoadon.PTTHANHTOAN.TenPT,
-                    GhiChu = hoadon.GhiChu
-                };
-
+            // Load dữ liệu page trước đó
             pageNumber--;
-            memberDataGrid.ItemsSource = query.Skip(pageSize * (pageNumber)).Take(pageSize).ToList();
-            if (query.Skip(pageSize * (pageNumber + 1)).Take(pageSize).Count() > 0)
-            {
-                btnPre.IsEnabled = true;
-            }
-            else
-            {
-                btnPre.IsEnabled = false;
-            }
-            btnNext.IsEnabled = true;
-            btnPre.IsEnabled = !(pageNumber == 1);
-            lblPage.Text = string.Format("{0}/{1}", pageNumber, query.Count() / pageSize);
+            LoadData(pageNumber);
         }
-
         private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            // Load dữ liệu page kế tiếp
+            pageNumber++;
+            LoadData(pageNumber);
+        }
+        private void LoadData(int page)
         {
             var query =
                 from hoadon in qLNSEntities.HOADONs
@@ -110,19 +72,10 @@ namespace QLNS.Pages
                     GhiChu = hoadon.GhiChu
                 };
 
-            pageNumber++;
-            memberDataGrid.ItemsSource = query.Skip(pageSize * pageNumber).Take(pageSize).ToList();
-            if (query.Skip(pageSize * (pageNumber + 1)).Take(pageSize).Count() >= 0)
-            {
-                btnNext.IsEnabled = true;
-            }
-            else
-            {
-                btnNext.IsEnabled = false;
-            }
-            btnPre.IsEnabled = true;
-            btnNext.IsEnabled = !(pageNumber == 1);
-            lblPage.Text = string.Format("{0}/{1}", pageNumber, query.Count() / pageSize);
+            memberDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
     }
 }

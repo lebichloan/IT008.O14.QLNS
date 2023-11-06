@@ -95,11 +95,6 @@
                                             Binding="{Binding SDT}"
                                             IsReadOnly="True"
                                             Width="*"/>
-                        <!-- Địa chỉ -->
-                        <DataGridTextColumn Header="Địa chỉ"
-                                            Binding="{Binding DiaChi}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
                         <!-- Ngày vào làm -->
                         <DataGridTextColumn Header="Ngày vào làm"
                                             Binding="{Binding NgayVL}"
@@ -110,28 +105,32 @@
                                             Binding="{Binding ChucVu}"
                                             IsReadOnly="True"
                                             Width="*"/>
-                        <!-- Tình trạng -->
-                        <DataGridTextColumn Header="Tình trạng"
+                        <!-- Đang làm việc -->
+                        <DataGridTextColumn Header="Đang làm việc"
                                             Binding="{Binding TinhTrang}"
                                             IsReadOnly="True"
                                             Width="*"/>
-                        <!-- Ghi chú -->
-                        <DataGridTextColumn Header="Ghi chú"
-                                            Binding="{Binding GhiChu}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-                        <!-- Button Sửa thông tin -->
+
                         <DataGridTemplateColumn IsReadOnly="True"
                                                 Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Style="{DynamicResource gridViewButton}">
-                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Style="{DynamicResource gridViewButton}"
+                                                Margin="0 0 5 0">
+                                            <Icon:PackIconMaterial Kind="EyeCheckOutline"
+                                                                       Style="{DynamicResource gridButtonIcon}"/>
+                                        </Button>
+                                        <Button Style="{DynamicResource gridViewButton}">
+                                            <Icon:PackIconMaterial Kind="SquareEditOutline"
                                               Style="{DynamicResource gridButtonIcon}"/>
-                                    </Button>
+                                        </Button>
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+
+
                     </DataGrid.Columns>
                 </DataGrid>
                 <!-- Pagination Section -->
@@ -147,7 +146,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{DynamicResource pagingButton}"
                                 Name="btnPre"
-                                >
+                                Click="btnPre_Click">
                             <Icon:PackIconMaterial Kind="ChevronLeft"
                                                        Style="{DynamicResource pagingButtonIcon}"/>
                         </Button>
@@ -168,7 +167,7 @@
                         
                         <Button Style="{DynamicResource pagingButton}"
                                 Name="btnNext"
-                                >
+                                Click="btnNext_Click">
                             <Icon:PackIconMaterial Kind="ChevronRight"
                                                    Style="{DynamicResource pagingButtonIcon}"
                             />
