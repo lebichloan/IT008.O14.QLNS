@@ -53,12 +53,12 @@
                                Margin="0 0 0 5"/>
 
                 <!-- Counter Title -->
-                <TextBlock Text="so luong hoa don"
-                               Grid.Row="2"
-                               FontSize="18"
-                               FontWeight="SemiBold"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
+                <TextBlock Name="lblTotal" 
+                            Grid.Row="2"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"/>
 
                 <TextBlock Text="Filter by"
                                Grid.Row="2"
@@ -182,6 +182,7 @@
                                        Margin="3 7"/>
                         
                         <Button Style="{DynamicResource pagingButton}"
+                                Name="btnPageNumber"
                                 >
                             <TextBlock Name="lblPage"
                                    Text="1/2"

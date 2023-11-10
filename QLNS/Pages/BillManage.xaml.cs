@@ -42,6 +42,7 @@ namespace QLNS.Pages
         {
             // Load dữ liệu ban đầu khi vừa vào
             LoadData(0);
+            btnPageNumber.IsEnabled = false;
         }
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
@@ -76,6 +77,7 @@ namespace QLNS.Pages
             btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+            lblTotal.Text = string.Format("{0} {1} {2}", "Danh sách bao gồm", query.Count(), "hóa đơn");
         }
     }
 }
