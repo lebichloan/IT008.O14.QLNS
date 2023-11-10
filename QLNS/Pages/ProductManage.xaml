@@ -164,6 +164,8 @@
                                 Name="categoryComboBox"
                                 Grid.Row="0"
                                 Width="auto"
+                                DisplayMemberPath="idDM"
+                                SelectedValuePath="idDM"
                                 HorizontalAlignment="Center"
                                 DataContextChanged="categoryComboBox_DataContextChanged" />
                         </Grid>

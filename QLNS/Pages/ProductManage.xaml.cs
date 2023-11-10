@@ -73,6 +73,7 @@ namespace QLNS.Pages
         {
             LoadCategory(categoryComboBox.Text, 0);
         }
+
         private void LoadCategoryComboBox()
         {
 
@@ -87,6 +88,7 @@ namespace QLNS.Pages
                 };
             categoryComboBox.ItemsSource = query.Distinct().ToList();
         }
+
         private void LoadCategory(string categoryName,int page)
         {
             var query =
