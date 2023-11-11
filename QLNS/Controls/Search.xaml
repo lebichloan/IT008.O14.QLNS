@@ -25,27 +25,38 @@
 
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         
+        <!--Start: Container Search-->
+        <Style x:Key="ContainerSearchStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderButtonColor}"/>
+            
+
+        </Style>
+        <!--End: Container Search-->
+        
     </UserControl.Resources>
-    
-    <Grid Width="300" HorizontalAlignment="Left">
-        <TextBlock Margin="20 0"
-                       VerticalAlignment="Center"
-                       Foreground="{DynamicResource PrimaryBackgroundColor}"
-                       IsHitTestVisible="False"
-                       Panel.ZIndex="1"
-                       Text="Search here"
-                       
+
+    <Border Style="{StaticResource ContainerSearchStyle}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="2">
+
+            </TextBox>
+
+            <TextBlock Grid.Column="2"
+                   Text="Search"
                    />
 
-        <!--Visibility="{Binding ElementName=txtSearch, Path=Text.Length, Converter={StaticResource BoolToVis}"-->
-        
-        <TextBox x:Name="txtSearch" Style="{StaticResource TextBoxSearchStyle}"/>
+            <!-- Icon -->
+            <Path Data="{DynamicResource search}"
+              Style="{StaticResource MenuIconStyle}"
+              />
 
-        <Icon:PackIconMaterial Kind="Magnify" 
-                               Width="15" Height="15" 
-                               VerticalAlignment="Center"
-                               Margin="0 0 15 0" 
-                               HorizontalAlignment="Right"/>
-    </Grid>
-    
+        </Grid>
+    </Border>
+        
 </UserControl>
