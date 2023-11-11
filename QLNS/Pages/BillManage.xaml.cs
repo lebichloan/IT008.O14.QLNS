@@ -79,5 +79,26 @@ namespace QLNS.Pages
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
             lblTotal.Text = string.Format("{0} {1} {2}", "Danh sách bao gồm", query.Count(), "hóa đơn");
         }
+
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            DetailBill detailBill = new DetailBill();
+            detailBill.ShowDialog();
+        }
+
+        private void memberDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (memberDataGrid.SelectedItems.Count > 0)
+            {
+                // get id hoa don duoc chon
+                var selectedHoaDon = (dynamic)memberDataGrid.SelectedItem;
+                int selectedId = selectedHoaDon.idHD;
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
