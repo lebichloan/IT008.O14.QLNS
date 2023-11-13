@@ -105,10 +105,7 @@ namespace QLNS.ResourceXAML
             {
                 TenNV = tennv,
                 GioiTinh = gioitinh,
-                DiaChi = diachi,
-                SDT = sdt,
                 ChucVu = chucvu,
-                GhiChu = ghichu,
                 TinhTrang = tinhtrang,
             };
 
@@ -116,12 +113,24 @@ namespace QLNS.ResourceXAML
             {
                 NHANVIEN.NgaySinh = ngaysinh.Value;
             }
-
             if (ngayvl.HasValue)
             {
                 NHANVIEN.NgayVL = ngayvl.Value;
             }
-            MessageBox.Show($"{NHANVIEN.TenNV}, {NHANVIEN.NgaySinh}, {NHANVIEN.GioiTinh}, {NHANVIEN.DiaChi}, {NHANVIEN.SDT}, {NHANVIEN.NgayVL}, {NHANVIEN.ChucVu}, {NHANVIEN.TinhTrang}, {NHANVIEN.GhiChu}");
+            if (ghichu != null)
+            {
+                NHANVIEN.GhiChu = ghichu;
+            }
+            if (diachi != null)
+            {
+                NHANVIEN.DiaChi = diachi;
+            }
+            if (sdt != null)
+            {
+                NHANVIEN.SDT = sdt;
+            }
+            DataProvider.Ins.DB.NHANVIENs.Add(NHANVIEN);
+            DataProvider.Ins.DB.SaveChanges();
         }
     }
 }
