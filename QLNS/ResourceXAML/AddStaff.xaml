@@ -58,60 +58,64 @@
                    Margin="0 0 0 5"/>
 
             <StackPanel Grid.Row="2" Orientation="Vertical" >
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="tenNV" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Tên nhân viên"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <DatePicker Margin="10 5 0 0" HorizontalAlignment="Left"
+                <DatePicker x:Name="ngaySinh" Margin="10 5 0 0" HorizontalAlignment="Left"
                             SelectedDate="{Binding ContractDate}"
                             Width="110"  
                             materialDesign:HintAssist.Hint="Ngày sinh" 
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="gioiTinh" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Giới tính"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="diaChi"  VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Địa chỉ"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="sDT" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Số điện thoại"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <DatePicker Margin="10 5 0 0" HorizontalAlignment="Left"
+                <DatePicker x:Name="ngayVL" Margin="10 5 0 0" HorizontalAlignment="Left"
                             SelectedDate="{Binding ContractDate}"
                             Width="110"  
                             materialDesign:HintAssist.Hint="Ngày vào làm" 
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="chucVu" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Chức vụ"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="tinhTrang" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Tình trạng"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox VerticalAlignment="Center"
+                <TextBox x:Name="ghiChu" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Ghi chú"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Button Height="35" Margin="5" Width="150"
+                        Click="ButtonAdd_Click"
+                        Content="Thêm mới">
+                </Button>
             </StackPanel>
             
         </Grid>
