@@ -69,44 +69,13 @@ namespace QLNS.Pages
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
-        private void categoryComboBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            LoadCategory(categoryComboBox.Text, 0);
-        }
 
-        private void LoadCategoryComboBox()
+        
+        
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
-            var query =
-                from sanpham in qLNSEntities.SANPHAMs
-                orderby sanpham.MaSP
-                //where hoadon.idHD == 0
-                select new 
-                {
-                    idDM = sanpham.idDM,
-                    
-                };
-            categoryComboBox.ItemsSource = query.Distinct().ToList();
-        }
-
-        private void LoadCategory(string categoryName,int page)
-        {
-            var query =
-                from sanpham in qLNSEntities.SANPHAMs
-                orderby sanpham.MaSP
-                //where hoadon.idHD == 0
-                select new
-                {
-                    idDM = sanpham.idDM,
-                };
-            productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
-            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
-            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
-            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
-        }
-        private void categoryTabItem_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadCategoryComboBox();
         }
     }
 }
