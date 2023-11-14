@@ -11,10 +11,11 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
+        Background="Transparent"
         Name="addStaff"
-        Background="{DynamicResource SecundaryBackgroundColor}"
         Title="AddStaff" Height="500" Width="800">
-    <Border CornerRadius="20"
+    
+    <Border CornerRadius="5"
             Background="{DynamicResource SecundaryBackgroundColor}"
             MouseDown="Border_MouseDown"
             MouseLeftButtonDown="Border_MouseLeftButtonDown">
