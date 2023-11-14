@@ -117,15 +117,15 @@ namespace QLNS.ResourceXAML
             {
                 NHANVIEN.NgayVL = ngayvl.Value;
             }
-            if (ghichu != null)
+            if (ghichu != "")
             {
                 NHANVIEN.GhiChu = ghichu;
             }
-            if (diachi != null)
+            if (diachi != "")
             {
                 NHANVIEN.DiaChi = diachi;
             }
-            if (sdt != null)
+            if (sdt != "")
             {
                 NHANVIEN.SDT = sdt;
             }
