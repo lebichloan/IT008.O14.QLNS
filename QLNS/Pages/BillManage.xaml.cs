@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace QLNS.Pages
 {
@@ -96,9 +97,41 @@ namespace QLNS.Pages
             }
         }
 
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        private string searchTerm = null;
 
+        private void FilterData(string searchTerm)
+        {
+            using (qLNSEntities)
+            {
+                var query = from hoadon in qLNSEntities.HOADONs
+                            where 
+                            //hoadon.idHD == searchTerm
+                            hoadon.SoHD.ToLower().Contains(searchTerm)
+                            || hoadon.KHACHHANG.TenKH.ToLower().Contains(searchTerm)
+                            || hoadon.PTTHANHTOAN.TenPT.ToLower().Contains(searchTerm)                          
+                            select new
+                            {
+                                idHD = hoadon.idHD,
+                                SoHD = hoadon.SoHD,
+                                NgayHD = hoadon.NgayHD,
+                                TenKH = hoadon.KHACHHANG.TenKH,
+                                ThanhTien = hoadon.ThanhTien,
+                                PTThanhToan = hoadon.PTTHANHTOAN.TenPT,
+                                GhiChu = hoadon.GhiChu
+                            };
+
+                memberDataGrid.ItemsSource = query.ToList();
+                lblTotal.Text = string.Format("{0} {1} {2}", "Danh sách bao gồm", query.Count(), "hóa đơn");
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                searchTerm = txtSearch.Text.ToLower();
+                FilterData(searchTerm);
+            }
         }
     }
 }

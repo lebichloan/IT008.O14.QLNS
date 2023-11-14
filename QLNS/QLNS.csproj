@@ -243,6 +243,7 @@
       <DependentUpon>VerifyEmailWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BillManageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Page Include="Assets\Icons.xaml">
       <SubType>Designer</SubType>

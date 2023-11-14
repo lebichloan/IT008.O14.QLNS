@@ -89,12 +89,12 @@
                             IsHitTestVisible="False"
                             Panel.ZIndex="1"
                             Text="Search here"
-                            Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
+                            Visibility="{Binding ElementName=txtSearch, Converter={StaticResource BoolToVis}}"
                             />
 
                     <TextBox x:Name="txtSearch" 
                             Style="{DynamicResource searchTextBox}"
-                            TextChanged="txtSearch_TextChanged"
+                            KeyDown="txtSearch_KeyDown"
                             />
 
                     <Icon:PackIconMaterial Kind="Magnify"
