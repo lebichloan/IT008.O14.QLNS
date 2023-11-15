@@ -33,6 +33,7 @@
                 <!--Add staff-->
                 <Button x:Name="btnAddBill" 
                         Grid.Row="0"
+                        Click="btnAddStaff_Click"
                         Style="{StaticResource addButton}" >
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus"
