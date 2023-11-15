@@ -22,6 +22,7 @@ namespace QLNS.ViewModel
         // Kiểm tra login
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
+
         public LoginViewModel()
         {
             Password = string.Empty;
@@ -35,29 +36,30 @@ namespace QLNS.ViewModel
             // Mã hóa Password
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
         }
+
         void Login(Window p)
         {
             if (p == null)
                 return;
             // Tim người dùng tương ứng bằng Dataprovider.Ins.DB
             var existingUser = DataProvider.Ins.DB.NGUOIDUNGs.SingleOrDefault(nguoidung => nguoidung.TenDN == UserName && nguoidung.MatKhau == Password);
-            if (existingUser != null)
+            if (existingUser != null && existingUser.TinhTrang == 1)
             {
                 
                 // Loại người dùng
-                if (existingUser.idLND == 1)
+                if (existingUser.idLND == 1 )
                 {
                     MainQuanLy mainQuanLy = new MainQuanLy();
                     p.Close();
                     mainQuanLy.ShowDialog();
                 }
-                else if (existingUser.idLND == 2)
+                else if (existingUser.idLND == 2 )
                 {
                     MainThuNgan mainThuNgan = new MainThuNgan();
                     p.Close();
                     mainThuNgan.ShowDialog();
                 }
-                else if (existingUser.idLND == 3)
+                else if (existingUser.idLND == 3 )
                 {
                     MainNhanVienKho mainNhanVienKho = new MainNhanVienKho();
                     p.Close();

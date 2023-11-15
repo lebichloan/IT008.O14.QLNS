@@ -80,6 +80,67 @@
     </Style>
     <!--  End: Grid Button Icon  -->
 
-    <!--  Start: Datagrid Style  -->
-    <!--  End: Datagrid Style  -->
+    <!-- Start: Datagrid Style-->
+    <!-- End: Datagrid Style-->
+    
+    <!--Start: Search Style-->
+    <Style x:Key="searchStyle" TargetType="Border">
+        <!--<Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}"/>-->
+        <Setter Property="Grid.Row" Value="2"/>
+        <Setter Property="Padding" Value="10 5 10 5"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+    <!--End: Search Style-->
+    
+    <!--Start: Search TextBox Style-->
+    <Style x:Key="searchTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Margin" Value="19 0 10 0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Border x:Name="border" CornerRadius="13"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="False"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"
+                                      />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" 
+                                    Value="{DynamicResource ClickButtonBackgroundColor}"
+                                    TargetName="border"
+                                    />
+                        </Trigger>
+
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" 
+                                    Value="{DynamicResource FocusBorderColor}"
+                                    TargetName="border"
+                                    />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--End: Search TextBox Style-->
+
 </ResourceDictionary>

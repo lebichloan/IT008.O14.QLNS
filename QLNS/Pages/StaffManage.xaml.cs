@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,12 @@ namespace QLNS.Pages
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+        }
+
+        private void btnAddStaff_Click(object sender, RoutedEventArgs e)
+        {
+            AddStaff addStaff = new AddStaff();
+            addStaff.ShowDialog();
         }
     }
 }

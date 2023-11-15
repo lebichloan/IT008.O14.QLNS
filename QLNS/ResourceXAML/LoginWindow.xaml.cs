@@ -23,5 +23,38 @@ namespace QLNS.ResourceXAML
         {
             InitializeComponent();
         }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                ErrorTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorTextBlock.Visibility = Visibility.Hidden;
+            }
+        }
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordbox = (PasswordBox)sender;
+
+            if (passwordbox.SecurePassword.Length == 0)
+            {
+                ErrorTextBlockPw.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorTextBlockPw.Visibility = Visibility.Hidden;
+            }
+        }
+
     }
 }

@@ -4,6 +4,7 @@
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:uc="clr-namespace:QLNS.Controls"
       xmlns:local="clr-namespace:QLNS.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -11,7 +12,11 @@
       Name="billManage"
       Loaded="billManage_Loaded">
 
-    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}" Padding="10 5 10 5">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
+    
+        <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}" Padding="10 5 10 5">
         <DockPanel Grid.Column="0" LastChildFill="True">
             <Grid>
                 <Grid.RowDefinitions>
@@ -53,13 +58,14 @@
                                Margin="0 0 0 5"/>
 
                 <!-- Counter Title -->
-                <TextBlock Text="so luong hoa don"
-                               Grid.Row="2"
-                               FontSize="18"
-                               FontWeight="SemiBold"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"/>
+                <TextBlock Name="lblTotal" 
+                            Grid.Row="2"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"/>
 
+                <!--Search-->
                 <TextBlock Text="Filter by"
                                Grid.Row="2"
                                FontSize="13"
@@ -68,10 +74,43 @@
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"/>
 
+                <Grid 
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="190"
+                    Height="25"
+                    Margin="20 0 10 0"
+                    >
+
+                    <TextBlock Margin="20 0 100 0"
+                            Foreground="{DynamicResource PrimaryTextColor}"
+                            VerticalAlignment="Center"
+                            IsHitTestVisible="False"
+                            Panel.ZIndex="1"
+                            Text="Search here"
+                            Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
+                            />
+
+                    <TextBox x:Name="txtSearch" 
+                            Style="{DynamicResource searchTextBox}"
+                            TextChanged="txtSearch_TextChanged"
+                            />
+
+                    <Icon:PackIconMaterial Kind="Magnify"
+                                        Width="14"
+                                        Height="14"
+                                        Foreground="{DynamicResource PrimaryTextColor}"
+                                        VerticalAlignment="Center"
+                                        />
+                </Grid>
+                
                 <!-- Member datagrid -->
                 <DataGrid Grid.Row="3"
                           x:Name="memberDataGrid"
-                          AutoGenerateColumns="False">
+                          AutoGenerateColumns="False"
+                          SelectionChanged="memberDataGrid_SelectionChanged"
+                          >
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn CanUserResize="False"
                                                     Width="auto">
@@ -141,13 +180,16 @@
                                             Binding="{Binding GhiChu}"
                                             IsReadOnly="True"
                                             Width="*"/>
-                        <DataGridTemplateColumn Header="Operations"
+                        <DataGridTemplateColumn Header=""
                                                     IsReadOnly="True"
                                                     Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{DynamicResource gridViewButton}">
+                                        <Button Style="{DynamicResource gridViewButton}" 
+                                                Name="btnDetail"
+                                                Click="btnDetail_Click"
+                                                >
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                        Style="{DynamicResource gridButtonIcon}"/>
                                         </Button>
@@ -182,6 +224,7 @@
                                        Margin="3 7"/>
                         
                         <Button Style="{DynamicResource pagingButton}"
+                                Name="btnPageNumber"
                                 >
                             <TextBlock Name="lblPage"
                                    Text="1/2"

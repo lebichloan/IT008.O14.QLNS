@@ -12,118 +12,252 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name ="loginWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        FontSize="18"
         DataContext="{StaticResource LoginViewModel}"
-        Title="LoginWindow" Height="600" Width="950">
+        Title="LoginWindow" Height="645" Width="875">
 
-    <Grid>
-        <!--Background window-->
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/BackGroundLogin.png"></ImageBrush>
-        </Grid.Background>
-        <!--Giao diện login-->
-        <materialDesign:Card Width="425" Height="425" 
-                             Padding="5"
-                             Background="#FFF3E3"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             UniformCornerRadius="10">
+    <Grid Margin="20">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="30"
+                      ShadowDepth="1"
+                      Opacity="0.4" />
+        </Grid.Effect>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="1.22*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                CornerRadius="10 0 0 10"
+                ClipToBounds="True" >
+            <Border.Clip>
+                <RectangleGeometry Rect="0,0,400,605"
+                           RadiusX="10"
+                           RadiusY="10"/>
+            </Border.Clip>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#3AA9AD" Offset="0"></GradientStop>
+                    <GradientStop Color="#3AADA1" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                </Grid.RowDefinitions>
+                <!--Titles-->
+                <Canvas>
+                    <Polygon Points="0, 20, 250, 140, 0 270" Fill="#4EB1B6"/>
+                    <Polygon Points="275, 0, 400, 20, 325, 100" Fill="#4EB1B6"/>
+                    <Polygon Points="30, 520, 120, 370, 250, 570" Fill="#4EB1B6"/>
+                    <Polygon Points="230, 250, 400, 300, 275, 400" Fill="#4EB1B6"/>
+                    <Ellipse Margin="300 525 0 0" Width="50" Height="50" Fill="#4EB1B6" />
+                    <Ellipse Margin="300 150 0 0" Width="40" Height="40" Fill="#4EB1B6" />
+                    <Ellipse Margin="-30 350 0 0" Width="80" Height="80" Fill="#4EB1B6" />
+                </Canvas>
+                <StackPanel Margin="0 120 0 0"
+                    VerticalAlignment="Top">
 
-                <!--Text: Đăng nhập-->
-                <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                      Margin="0,35,0,0">
-                    <TextBlock FontSize="30" FontWeight="Bold" Foreground="Black">ĐĂNG NHẬP</TextBlock>
-                </Grid>
-                
-                <!--Tên đăng nhập-->
-                <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                      Margin="0,35,0,0">
-                    <TextBox Background="White" Width="325" Height="60" BorderBrush="White"
-                             materialDesign:HintAssist.Hint="Tên đăng nhập"
-                             materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
-                             materialDesign:HintAssist.Foreground="#B88E2F"
-                             FontWeight="Bold" FontSize="15"
-                             Text ="{Binding UserName}"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}">
-                    </TextBox>
-                </Grid>
-                
-                <!--Mật khẩu-->
-                <Grid Grid.Row="2"
-                      Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55*"/>
-                        <ColumnDefinition Width="21*"/>
-                    </Grid.ColumnDefinitions>
-                    <PasswordBox x:Name="passwordBox"
-                                 Background="White" Width="325" Height="60" BorderBrush="White"
-                                 materialDesign:HintAssist.Hint="Mật khẩu"
-                                 materialDesign:TextFieldAssist.HasClearButton="True"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="#B88E2F"
-                                 materialDesign:HintAssist.Foreground="#B88E2F"
+                    <TextBlock FontSize="40"
+                       FontWeight="Light"
+                       Text="Welcome Back!"
+                       Foreground="#ffffff"
+                       TextAlignment="Center"/>
+
+                    <TextBlock FontSize="16"
+                       Text="Please login to continue."
+                       FontWeight="Light"
+                       Margin="0 15 0 3"
+                       Foreground="#d1f2eb"
+                       TextAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <!--Icons-->
+                <Border Background="#fdfdfd"
+                CornerRadius="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Height="110"
+                Width="110"
+                Margin="0 0 0 80" >
+
+                    <Grid>
+                        <Ellipse Width="100"
+                         Height="100"
+                         StrokeThickness="4">
+                            <Ellipse.Stroke>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="#e27c53"
+                                          Offset="0.1" />
+                                    <GradientStop Color="#dca530"
+                                          Offset="0.2" />
+                                    <GradientStop Color="#8bb356"
+                                          Offset="0.3" />
+                                    <GradientStop Color="#3bb799"
+                                          Offset="0.4" />
+                                    <GradientStop Color="#67cbee"
+                                          Offset="0.5" />
+                                    <GradientStop Color="#3699db"
+                                          Offset="0.6" />
+                                    <GradientStop Color="#9264aa"
+                                          Offset="0.7" />
+                                    <GradientStop Color="#6e94de"
+                                          Offset="0.8" />
+                                </LinearGradientBrush>
+                            </Ellipse.Stroke>
+                        </Ellipse>
+                        <!--Color tick icon-->
+                        <materialDesign:PackIcon Kind="Tick"
+                                         Width="70"
+                                         Height="70"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center">
+                            <materialDesign:PackIcon.Foreground>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="#e27c53"
+                                          Offset="0.2" />
+                                    <GradientStop Color="#dca530"
+                                          Offset="0.3" />
+                                    <GradientStop Color="#3bb799"
+                                          Offset="0.5" />
+                                    <GradientStop Color="#67cbee"
+                                          Offset="0.7" />
+                                    <GradientStop Color="#9264aa"
+                                          Offset="0.9" />
+                                </LinearGradientBrush>
+                            </materialDesign:PackIcon.Foreground>
+                        </materialDesign:PackIcon>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+        <!--Giao diện login-->
+        <Border Grid.Column="1"
+                Background="#ffffff"
+                CornerRadius="0 10 10 0"
+                ClipToBounds="True" >
+            <Grid>
+                <Button  BorderThickness="0"
+                         Width="25"
+                         Height="25"
+                         Background="White"
+                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                         Style="{StaticResource MaterialDesignOutlinedButton}"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         Margin="5"
+                         Padding="0"
+                         Click="ButtonClose_Click"
+                         Foreground="#493534">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="Close"
+                                 Height="25"
+                                 Width="25">
+                        </materialDesign:PackIcon>
+                    </Button.Content>
+                </Button>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Text: Đăng nhập-->
+                    <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Margin="0,120,0,0">
+                        <TextBlock FontSize="40" FontWeight="Bold" Foreground="#3AA9AD">ĐĂNG NHẬP</TextBlock>
+                    </Grid>
+
+                    <!--Tên đăng nhập-->
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                          Margin="0,35,0,0">
+                        <TextBox Background="White" Width="325" Height="60" 
+                                 materialDesign:HintAssist.Hint="Tên đăng nhập"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#3AA9AD"
+                                 materialDesign:HintAssist.Foreground="#3AA9AD"
                                  FontWeight="Bold" FontSize="15"
-                                 Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" 
-                                 Grid.ColumnSpan="2" Margin="40,0,40,0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                                       CommandParameter="{Binding ElementName=passwordBox}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </PasswordBox>
-                </Grid>
-                
-                <!--Checkbox: nhớ mật khẩu và Quên mật khẩu-->
-                <Grid Grid.Row="3" 
-                      Margin="40,10,40,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <CheckBox Content="Nhớ mật khẩu" Background="#B88E2F" 
-                                  FontSize="15" Foreground="Black"></CheckBox>
+                                 Text ="{Binding UserName}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 LostFocus="TextBox_LostFocus">
+                        </TextBox>
+                        <TextBlock x:Name="ErrorTextBlock" 
+                                   Text="Vui lòng nhập tên đăng nhập." 
+                                   Foreground="Red" 
+                                   FontSize="13"
+                                   Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!--Mật khẩu-->
+                    <StackPanel Grid.Row="2" 
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Margin="0,20,0,0">
+                        <PasswordBox x:Name="passwordBox"
+                                     Background="White" Width="325" Height="60" 
+                                     materialDesign:HintAssist.Hint="Mật khẩu"
+                                     materialDesign:TextFieldAssist.HasClearButton="True"
+                                     materialDesign:TextFieldAssist.UnderlineBrush="#3AA9AD"
+                                     materialDesign:HintAssist.Foreground="#3AA9AD"
+                                     FontWeight="Bold" FontSize="15"
+                                     Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" 
+                                     Grid.ColumnSpan="2" Margin="40,0,40,0"
+                                     LostFocus="PasswordBox_LostFocus">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                   CommandParameter="{Binding ElementName=passwordBox}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
+                        <TextBlock x:Name="ErrorTextBlockPw"
+                                   Width="325"
+                                   Text="Vui lòng nhập mật khẩu." 
+                                   Foreground="Red" 
+                                   FontSize="13"
+                                   Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!--Checkbox: nhớ mật khẩu và Quên mật khẩu-->
+                    <Grid Grid.Row="3" 
+                          Margin="65,30,65,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <CheckBox Content="Nhớ mật khẩu" Background="#3AA9AD" 
+                                      FontSize="15" Foreground="Black"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <TextBlock FontSize="15">
+                                <Hyperlink Foreground="Black">Quên mật khẩu?</Hyperlink>
+                            </TextBlock>
+                        </Grid>
                     </Grid>
-                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-                        <TextBlock FontSize="15">
-                            <Hyperlink Foreground="Black">Quên mật khẩu?</Hyperlink>
-                        </TextBlock>
+
+                    <!--Button đăng nhập-->
+                    <Grid Grid.Row="4"
+                          Margin="0,40,0,0">
+                        <Button Background="#3AA9AD" Width="180" Height="50" FontSize="18"
+                                Content="ĐĂNG NHẬP" FontWeight="Bold" BorderThickness="0"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFlatMidBgButton}" 
+                                materialDesign:ButtonAssist.CornerRadius="25"
+                                Command="{Binding LoginCommand}"
+                                CommandParameter="{Binding ElementName=loginWindow}">
+                        </Button>
                     </Grid>
-                </Grid>
-                
-                <!--Button đăng nhập-->
-                <Grid Grid.Row="4"
-                      Margin="0,25,0,0">
-                    <Button Background="#B88E2F" Width="150" Height="40"
-                            Content="ĐĂNG NHẬP" FontWeight="Bold" BorderThickness="0"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignFlatMidBgButton}" 
-                            materialDesign:ButtonAssist.CornerRadius="20"
-                            Command="{Binding LoginCommand}"
-                            CommandParameter="{Binding ElementName=loginWindow}">
-                    </Button>
-                </Grid>
-                
-                <!--Text: Chưa có tài khoản? Đăng ký-->
-                <Grid Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                      Margin="0,15,0,0">
-                    <TextBlock Foreground="Black" FontSize="15">
-                        Chưa có tài khoản? 
-                        <Hyperlink Foreground="#B88E2F" FontSize="15">Đăng ký</Hyperlink>
-                    </TextBlock>
                 </Grid>
             </Grid>
-        </materialDesign:Card>
+
+        </Border>
     </Grid>
 </Window>
