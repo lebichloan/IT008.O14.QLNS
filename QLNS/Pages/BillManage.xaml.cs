@@ -48,14 +48,30 @@ namespace QLNS.Pages
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page trước đó
-            pageNumber--;
-            LoadData(pageNumber);
+            if (isSearch == 1)
+            {
+                pageNumberFilter--;
+                FilterData(searchTerm, pageNumberFilter);
+            }
+            else
+            {
+                pageNumber--;
+                LoadData(pageNumber);
+            }
         }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
-            pageNumber++;
-            LoadData(pageNumber);
+            if (isSearch == 1)
+            {
+                pageNumberFilter++;
+                FilterData(searchTerm, pageNumberFilter);
+            }
+            else
+            {
+                pageNumber++;
+                LoadData(pageNumber);
+            }
         }
         private void LoadData(int page)
         {
@@ -98,31 +114,34 @@ namespace QLNS.Pages
         }
 
         private string searchTerm = null;
-
-        private void FilterData(string searchTerm)
+        private int pageNumberFilter = 0;
+        private int isSearch = 0;
+        private void FilterData(string searchTerm, int page)
         {
-            using (qLNSEntities)
-            {
-                var query = from hoadon in qLNSEntities.HOADONs
-                            where 
-                            //hoadon.idHD == searchTerm
-                            hoadon.SoHD.ToLower().Contains(searchTerm)
-                            || hoadon.KHACHHANG.TenKH.ToLower().Contains(searchTerm)
-                            || hoadon.PTTHANHTOAN.TenPT.ToLower().Contains(searchTerm)                          
-                            select new
-                            {
-                                idHD = hoadon.idHD,
-                                SoHD = hoadon.SoHD,
-                                NgayHD = hoadon.NgayHD,
-                                TenKH = hoadon.KHACHHANG.TenKH,
-                                ThanhTien = hoadon.ThanhTien,
-                                PTThanhToan = hoadon.PTTHANHTOAN.TenPT,
-                                GhiChu = hoadon.GhiChu
-                            };
+            var query = from hoadon in qLNSEntities.HOADONs
+                        orderby hoadon.idHD
+                        where 
+                        //hoadon.idHD == searchTerm
+                        hoadon.SoHD.ToLower().Contains(searchTerm)
+                        || hoadon.KHACHHANG.TenKH.ToLower().Contains(searchTerm)
+                        || hoadon.PTTHANHTOAN.TenPT.ToLower().Contains(searchTerm)                          
+                        select new
+                        {
+                            idHD = hoadon.idHD,
+                            SoHD = hoadon.SoHD,
+                            NgayHD = hoadon.NgayHD,
+                            TenKH = hoadon.KHACHHANG.TenKH,
+                            ThanhTien = hoadon.ThanhTien,
+                            PTThanhToan = hoadon.PTTHANHTOAN.TenPT,
+                            GhiChu = hoadon.GhiChu
+                        };
 
-                memberDataGrid.ItemsSource = query.ToList();
-                lblTotal.Text = string.Format("{0} {1} {2}", "Danh sách bao gồm", query.Count(), "hóa đơn");
-            }
+            //memberDataGrid.ItemsSource = query.ToList();
+            memberDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+            lblTotal.Text = string.Format("{0} {1} {2}", "Danh sách bao gồm", query.Count(), "hóa đơn");
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)
@@ -130,7 +149,16 @@ namespace QLNS.Pages
             if (e.Key == Key.Enter)
             {
                 searchTerm = txtSearch.Text.ToLower();
-                FilterData(searchTerm);
+                if (searchTerm == null)
+                {
+                    LoadData(0);
+                    isSearch = 0;
+                }
+                else
+                {
+                    FilterData(searchTerm, 0);
+                    isSearch = 1;
+                }
             }
         }
     }
