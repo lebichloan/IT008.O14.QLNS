@@ -1,9 +1,9 @@
-﻿<Application x:Class="QLNS.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:QLNS"
-             StartupUri="/ResourceXAML/MainThuNgan.xaml"
-    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+<Application x:Class="QLNS.App"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:local="clr-namespace:QLNS"
+     StartupUri="/ResourceXAML/MainQuanLy.xaml"
+     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,12 +11,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-                <ResourceDictionary Source="/ResourceXAML/MainResource.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="Themes/MainTheme.xaml"/>
-                <ResourceDictionary Source="Assets/Icons.xaml"/>
-                <ResourceDictionary Source="Styles/MainStyle.xaml"/>
-                <ResourceDictionary Source="Styles/BillManageStyle.xaml"/>
-                <ResourceDictionary Source="Styles/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="/ResourceXAML/MainResource.xaml" />
+                <ResourceDictionary Source="Themes/MainTheme.xaml" />
+                <ResourceDictionary Source="Assets/Icons.xaml" />
+                <ResourceDictionary Source="Styles/MainStyle.xaml" />
+                <ResourceDictionary Source="Styles/BillManageStyle.xaml" />
+                <ResourceDictionary Source="Styles/DataGridStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
