@@ -149,7 +149,7 @@ namespace QLNS.Pages
             if (e.Key == Key.Enter)
             {
                 searchTerm = txtSearch.Text.ToLower();
-                if (searchTerm == null)
+                if (searchTerm == "")
                 {
                     LoadData(0);
                     isSearch = 0;

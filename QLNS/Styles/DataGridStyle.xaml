@@ -92,17 +92,18 @@
     
     <!--Start: Search TextBox Style-->
     <Style x:Key="searchTextBox" TargetType="TextBox">
+        <Setter Property="Height" Value="25"/>
         <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="FontSize" Value="13"/>
-        <Setter Property="Margin" Value="19 0 10 0"/>
+        <!--<Setter Property="Padding" Value="100 5 10 5"/>-->
         <Setter Property="VerticalAlignment" Value="Center"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBoxBase">
-                    <Border x:Name="border" CornerRadius="13"
+                    <Border x:Name="border" CornerRadius="5"
                             Background="{TemplateBinding Background}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{TemplateBinding BorderBrush}"
