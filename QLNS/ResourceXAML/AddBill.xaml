@@ -16,6 +16,27 @@
         Background="{DynamicResource SecundaryBackgroundColor}"
         Loaded="addBill_Loaded">
 
+    <Window.Resources>
+        
+        <Style x:Key="TitleText" TargetType="TextBlock">
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0 5 0 0"/>
+        </Style>
+
+        <Style x:Key="ContentText" TargetType="TextBlock">
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0 5 0 0"/>
+        </Style>
+        
+    </Window.Resources>
+    
     <Border CornerRadius="5"
             Background="{DynamicResource SecundaryBackgroundColor}"
             MouseDown="Border_MouseDown"
@@ -24,7 +45,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -71,65 +92,139 @@
             <Border Grid.Row="2"
                     Grid.Column="1"
                     CornerRadius="7 0 0 7"
-                    Background="{DynamicResource CardBackgroundColor}">
-                <StackPanel Margin="60 0 10 0"
-                            VerticalAlignment="Center">
-                    <Button Style="{DynamicResource stepButton}"
-                            x:Name="btnAddProduct"
-                            Click="btnAddProduct_Click"
-                            >
-                        <uc:AddBillStepItem Step="Thông tin sản phẩm"
-                                            Title="Vui lòng chọn các sản phẩm của hóa đơn"
-                                            Number="1"
-                                            x:Name="ucAddProduct"
-                                            />
-                    </Button>
+                    Background="{DynamicResource SecundaryBackgroundColor}">
 
-                    <Button Style="{DynamicResource stepButton}"
-                            x:Name="btnAddCustomer"
-                            Click="btnAddCustomer_Click"
-                            >
-                        <uc:AddBillStepItem Step="Thông tin khách hàng"
-                                            Title="Vui lòng chọn thông tin khách hàng"
-                                            Number="2"
-                                            x:Name="ucAddCustomer"
-                                            />
-                    </Button>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                    <Button Style="{DynamicResource stepButton}"
-                            x:Name="btnCheckBill"
-                            Click="btnCheckBill_Click"
-                            >
-                        <uc:AddBillStepItem Step="Chương trình ưu đãi"
-                                            Title="Vui lòng chọn chương trình ưu đãi"
-                                            Number="3"
-                                            x:Name="ucCheckBill"
-                                            />
-                    </Button>
+                    <Grid Grid.Row="0">
+                        <TextBlock 
+                            Text="nhan vien"
+                            Grid.Row="0"
+                            Style="{StaticResource TitleText}"
+                            />
+
+                        <TextBlock
+                            Text="thoi gian"
+                            Grid.Row="0"
+                            Style="{StaticResource ContentText}"
+                            />
+                    </Grid>
                     
-                    <Button Style="{DynamicResource stepButton}"
-                            x:Name="btnCheckOut"
-                            Click="btnCheckOut_Click"
+                    <DataGrid Grid.Row="1"
+                          x:Name="productOfBillDatagrid"
+                          AutoGenerateColumns="False"
+                          >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tên sản phẩm"
+                                            Binding="{Binding NgayHD}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                            <DataGridTextColumn Header="Số lượng"
+                                            Binding="{Binding TenKH}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                            <DataGridTextColumn Header="Đơn giá"
+                                            Binding="{Binding ThanhTien}"
+                                            IsReadOnly="True"
+                                            Width="auto"/>
+
+                            <DataGridTextColumn Header="Thành tiền"
+                                            Binding="{Binding PTThanhToan}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                            <DataGridTemplateColumn Header=""
+                                                    IsReadOnly="True"
+                                                    Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Style="{DynamicResource gridViewButton}" 
+                                                Name="btnDetail"
+                                                >
+                                                <Icon:PackIconMaterial Kind="EyeCheckOutline"
+                                                                       Style="{DynamicResource gridButtonIcon}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Seprator -->
+                    <Separator Height="1" Grid.Row="2"
+                                    Background="{DynamicResource SepratorBackgroundColor}"
+                                    Margin="0 5 0 5"/>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock 
+                            Text="Số lượng sản phẩm"
+                            Grid.Row="0"
+                            Style="{StaticResource TitleText}"
+                            />
+
+                        <TextBlock
+                            Text="10"
+                            Grid.Row="0"
+                            Style="{StaticResource ContentText}"
+                            />
+
+                        <TextBlock 
+                            Text="Thành tiền"
+                            Grid.Row="1"
+                            Style="{StaticResource TitleText}"
+                            />
+
+                        <TextBlock
+                            Text="100000"
+                            Grid.Row="1"
+                            Style="{StaticResource ContentText}"
+                            FontWeight="Bold"
+                            />
+
+                    </Grid>
+
+                    <!-- Add Button -->
+                    <Button x:Name="btnCheckOut"
+                            Grid.Row="4"
+                            Style="{StaticResource checkOutButton}" 
                             >
-                        <uc:AddBillStepItem Step="Thanh toán"
-                                            Title="Vui lòng chọn phương thức thanh toán"
-                                            Number="4"
-                                            x:Name="ucCheckOut"
-                                            />
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Plus"
+                                                VerticalAlignment="Center"
+                                                Width="11"
+                                                Height="11"
+                                               Margin="0 0 10 0"
+                                               Foreground="{DynamicResource IconButtonColor}"/>
+
+                            <TextBlock Text="Thanh toán"
+                                   Foreground="{DynamicResource TextButtonColor}"/>
+                        </StackPanel>
                     </Button>
 
-                    <Button Style="{DynamicResource stepButton}"
-                            x:Name="btnExport"
-                            Click="btnExport_Click"
-                            >
-                        <uc:AddBillStepItem Step="Xác nhận và xuất hóa đơn"
-                                            Title="Vui lòng kiểm tra thông tin và xác nhận"
-                                            Number="5"
-                                            x:Name="ucExport"
-                                            />
-                    </Button>
-
-                </StackPanel>
+                </Grid>
+                
             </Border>
             <!--End: Right Section-->
             
@@ -138,42 +233,67 @@
             <Border Grid.Row="2"
                     Background="{DynamicResource SecundaryBackgroundColor}"
                     CornerRadius="0 0 0 0">
-                
-                <Grid VerticalAlignment="Center"
-                      Margin="70 0 -60 0">
-                    
-                    <!--Background Layer-->
-                    <Border CornerRadius="7 0 0 0"
-                            Background="{DynamicResource PrimaryBackgroundColor}"
-                            Height="50"
-                            Margin="40 -30 60 0"
-                            VerticalAlignment="Top"/>
 
-                    <Border CornerRadius="7 0 0 0"
-                            Background="{DynamicResource PrimaryBackgroundColor}"
-                            Height="50"
-                            Margin="20 -15 60 0"
-                            VerticalAlignment="Top"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                    <!--Main Layer-->
-                    <Border CornerRadius="7"
-                            Background="{DynamicResource SecundaryBackgroundColor}">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="30" 
-                                              ShadowDepth="5"
-                                              Direction="-130"
-                                              Opacity="0.1"/>
-                        </Border.Effect>
-                    </Border>
+                    <TextBlock Grid.Row="0">Tim kiem + loc</TextBlock>
 
-                    <Grid>
-                        <Frame Grid.ColumnSpan="2"
-                               Grid.Row="0"
-                               Name="stepContainer"
-                               Margin="0"
-                               NavigationUIVisibility="Hidden">
-                        </Frame>
+                    <DataGrid Grid.Row="1"
+                          x:Name="allProductDataGrid"
+                          AutoGenerateColumns="False"
+                          >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tên sản phẩm"
+                                            Binding="{Binding NgayHD}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                            <DataGridTextColumn Header="Số lượng còn lại"
+                                            Binding="{Binding TenKH}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                            <DataGridTextColumn Header="Đơn giá"
+                                            Binding="{Binding ThanhTien}"
+                                            IsReadOnly="True"
+                                            Width="auto"/>
+
+                            <DataGridTextColumn Header="Ghi chú"
+                                            Binding="{Binding PTThanhToan}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Grid Grid.Row="2">
+                        <TextBlock>Thong tin don hang</TextBlock>
                     </Grid>
+
+                    <!-- Add Button -->
+                    <Button x:Name="btnAddBill"
+                            Style="{StaticResource addButton}"
+                            Grid.Row="3"
+                            >
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Plus"
+                                                VerticalAlignment="Center"
+                                                Width="11"
+                                                Height="11"
+                                               Margin="0 0 10 0"
+                                               Foreground="{DynamicResource IconButtonColor}"/>
+
+                            <TextBlock Text="Thêm mới"
+                                   Foreground="{DynamicResource TextButtonColor}"/>
+                        </StackPanel>
+                    </Button>
+
                 </Grid>
                 
             </Border>

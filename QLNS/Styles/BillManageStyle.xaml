@@ -92,5 +92,35 @@
 
         </Style.Triggers>
     </Style>
-    <!--  End: Step Button  -->
+    <!--End: Step Button-->
+    
+    <!--Start: Checkout Button-->
+    <Style x:Key="checkOutButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <!--<Setter Property="Width" Value="150"/>-->
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--End: Checkout Button-->
+
 </ResourceDictionary>
