@@ -242,9 +242,72 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0">Tim kiem + loc</TextBlock>
+                    <Grid Grid.Row="0"
+                          Margin="10 5">
+                        
+                        <TextBox x:Name="txtSearch" 
+                            Style="{DynamicResource searchTextBox}"
+                            KeyDown="txtSearch_KeyDown"
+                            />
+                                              
+                        <Icon:PackIconMaterial Kind="Magnify"
+                                        Width="14"
+                                        Height="14"
+                                        Foreground="{DynamicResource PrimaryTextColor}"
+                                        VerticalAlignment="Center"
+                                        />
+                    </Grid>
 
-                    <DataGrid Grid.Row="1"
+                    <TabControl
+                        x:Name="categoryTabControl"
+                        Grid.Row="1"
+                        >
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TypeName}"/>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
+
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <DataGrid 
+                                    ItemsSource="{Binding listProducts}"
+                                    x:Name="allProductDataGrid"
+                                    AutoGenerateColumns="False"
+                                    >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Mã SP"
+                                                            Binding="{Binding MaSP}"
+                                                            IsReadOnly="True"
+                                                            Width="auto"/>
+                                        
+                                        <DataGridTextColumn Header="Tên sản phẩm"
+                                                        Binding="{Binding TenSP}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
+
+                                        <DataGridTextColumn Header="SLCL"
+                                                        Binding="{Binding SLCL}"
+                                                        IsReadOnly="True"
+                                                        Width="auto"/>
+
+                                        <DataGridTextColumn Header="Đơn giá"
+                                                        Binding="{Binding DonGia}"
+                                                        IsReadOnly="True"
+                                                        Width="auto"/>
+
+                                        <DataGridTextColumn Header="Ghi chú"
+                                                        Binding="{Binding GhiChu}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
+                    
+                    <!--<DataGrid Grid.Row="1"
                           x:Name="allProductDataGrid"
                           AutoGenerateColumns="False"
                           >
@@ -270,7 +333,7 @@
                                             Width="*"/>
 
                         </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid>-->
 
                     <Grid Grid.Row="2">
                         <TextBlock>Thong tin don hang</TextBlock>
