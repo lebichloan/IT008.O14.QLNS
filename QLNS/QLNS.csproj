@@ -218,6 +218,15 @@
     <Compile Include="ResourceXAML\AddBill.xaml.cs">
       <DependentUpon>AddBill.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\AddCustomer.xaml.cs">
+      <DependentUpon>AddCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\AddCustomerType.xaml.cs">
+      <DependentUpon>AddCustomerType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\AddSale.xaml.cs">
+      <DependentUpon>AddSale.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\AddStaff.xaml.cs">
       <DependentUpon>AddStaff.xaml</DependentUpon>
     </Compile>
@@ -356,6 +365,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddCustomerType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddSale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

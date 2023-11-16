@@ -16,377 +16,205 @@
     </Page.Resources>
 
     <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}" Padding="10 5 10 5">
-        <TabControl HorizontalContentAlignment="Left" >
-            <TabItem Header="Quản lý khách hàng" Width="200" Loaded="customer_Loaded" HorizontalAlignment="Left">
-                <DockPanel Grid.Column="0" LastChildFill="True">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-                        <!-- Page title -->
-                        <!--
-                        <TextBlock Text="Quản lý khách hàng"
-                                   Grid.Row="0"
-                                   FontSize="25"
-                                   FontWeight="Bold"                               
-                                   HorizontalAlignment="Left"
-                                   Margin="0 10 0 10"
-                                       />-->
+            <!-- Page title -->
 
+            <TextBlock Text="Quản lý khách hàng"
+                       Grid.Row="0"
+                       FontSize="25"
+                       FontWeight="Bold"                               
+                       HorizontalAlignment="Left"
+                       Margin="0 10 0 10"/>
 
-                        <!-- Add Button -->
-                        <Button x:Name="btnAddCustomer"
-                                Grid.Row="0"
-                                Style="{StaticResource addButton}"
-                                >
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Plus"
-                                                        VerticalAlignment="Center"
-                                                        Width="11"
-                                                        Height="11"
-                                                        Margin="0 0 10 0"
-                                                        Foreground="{DynamicResource IconButtonColor}"/>
+            <TabControl HorizontalContentAlignment="Left" 
+                        Grid.Row="1">
+                <TabItem Header="Quản lý khách hàng" 
+                         Width="200" 
+                         Loaded="customer_Loaded" 
+                         HorizontalAlignment="Left">
+                    <DockPanel Grid.Column="0" LastChildFill="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                                <TextBlock Text="Thêm mới"
-                                            Foreground="{DynamicResource TextButtonColor}"/>
-                            </StackPanel>
-                        </Button>
+                            
 
 
-                        <!-- Seprator -->
-                        
-                        <Separator Height="1" Grid.Row="1" 
-                                       Background="{DynamicResource SepratorBackgroundColor}"
-                                       Margin="0 0 0 5"/>
+                            <!-- Add Button -->
+                            <Button x:Name="btnAddCustomer"
+                                    Grid.Row="0"
+                                    Style="{StaticResource addButton}" Click="btnAddCustomer_Click"
+                                    >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Plus"
+                                                            VerticalAlignment="Center"
+                                                            Width="11"
+                                                            Height="11"
+                                                            Margin="0 0 10 0"
+                                                            Foreground="{DynamicResource IconButtonColor}"/>
 
-                        
-                        <!-- Counter Title -->
-                        <!--<TextBlock Text="so luong khach hang"
-                                       Grid.Row="1"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"/>-->
+                                    <TextBlock Text="Thêm mới"
+                                                Foreground="{DynamicResource TextButtonColor}"/>
+                                </StackPanel>
+                            </Button>
 
-                        
-                        <!--Search-->
-                        <TextBlock Text="Filter by"
-                                       Grid.Row="2"
-                                       FontSize="13"
-                                       FontWeight="SemiBold"
-                                       Margin="0 10 215 10"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"/>
-                        <Grid 
-                                Grid.Row="2"
-                                HorizontalAlignment="Right"
+
+                            <!-- Seprator -->
+
+                            <Separator Height="1" Grid.Row="1" 
+                                           Background="{DynamicResource SepratorBackgroundColor}"
+                                           Margin="0 0 0 5"/>
+
+
+                            <!-- Counter Title -->
+                            <!--<TextBlock Text="so luong khach hang"
+                                           Grid.Row="1"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"/>-->
+
+
+                            <!--Search-->
+                            <TextBlock Text="Filter by"
+                                           Grid.Row="2"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Margin="0 10 215 10"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"/>
+                            <Grid 
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Width="190"
+                                    Height="25"
+                                    Margin="20 0 10 0">
+
+                                <TextBlock Margin="20 0 100 0"
+                                Foreground="{DynamicResource PrimaryTextColor}"
                                 VerticalAlignment="Center"
-                                Width="190"
-                                Height="25"
-                                Margin="20 0 10 0">
+                                IsHitTestVisible="False"
+                                Panel.ZIndex="1"
+                                Text="Search here"
+                                Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
+                                />
 
-                            <TextBlock Margin="20 0 100 0"
-                            Foreground="{DynamicResource PrimaryTextColor}"
-                            VerticalAlignment="Center"
-                            IsHitTestVisible="False"
-                            Panel.ZIndex="1"
-                            Text="Search here"
-                            Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
-                            />
+                                <TextBox x:Name="txtCustomerSearch" 
+                                Style="{DynamicResource searchTextBox}"
+                                />
 
-                            <TextBox x:Name="txtCustomerSearch" 
-                            Style="{DynamicResource searchTextBox}"
-                            />
+                                <Icon:PackIconMaterial Kind="Magnify"
+                                            Width="14"
+                                            Height="14"
+                                            Foreground="{DynamicResource PrimaryTextColor}"
+                                            VerticalAlignment="Center"
+                                            />
+                            </Grid>
 
-                            <Icon:PackIconMaterial Kind="Magnify"
-                                        Width="14"
-                                        Height="14"
-                                        Foreground="{DynamicResource PrimaryTextColor}"
-                                        VerticalAlignment="Center"
-                                        />
-                        </Grid>
+                            <!-- Member datagrid -->
 
-                        <!-- Member datagrid -->
+                            <DataGrid Grid.Row="3"
+                                      x:Name="CustomerDataGrid"
+                                      AutoGenerateColumns="False"
+                                      VerticalAlignment="Top">
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn CanUserResize="False"
+                                                                Width="auto">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <CheckBox/>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
 
-                        <DataGrid Grid.Row="3"
-                                  x:Name="CustomerDataGrid"
-                                  AutoGenerateColumns="False"
-                                  VerticalAlignment="Top">
-                            <DataGrid.Columns>
-                                <DataGridCheckBoxColumn CanUserResize="False"
-                                                            Width="auto">
-                                    <DataGridCheckBoxColumn.HeaderTemplate>
-                                        <DataTemplate>
-                                            <CheckBox/>
-                                        </DataTemplate>
-                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                </DataGridCheckBoxColumn>
+                                    <DataGridTextColumn Header="#"
+                                                        Binding="{Binding idKH}"
+                                                        IsReadOnly="True"
+                                                        CanUserResize="False"
+                                                        Width="auto"/>
 
-                                <DataGridTextColumn Header="#"
-                                                    Binding="{Binding idKH}"
-                                                    IsReadOnly="True"
-                                                    CanUserResize="False"
-                                                    Width="auto"/>
+                                    <DataGridTextColumn Header="Mã khách hàng"
+                                                        Binding="{Binding MaKH}"
+                                                        IsReadOnly="True"
+                                                        Width="auto"/>
 
-                                <DataGridTextColumn Header="Mã khách hàng"
-                                                    Binding="{Binding MaKH}"
-                                                    IsReadOnly="True"
-                                                    Width="auto"/>
+                                    <DataGridTextColumn Header="Tên khách hàng"
+                                                        Binding="{Binding TenKH}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Tên khách hàng"
-                                                    Binding="{Binding TenKH}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTextColumn Header="Giới tính"
+                                                        Binding="{Binding GioiTinh}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Giới tính"
-                                                    Binding="{Binding GioiTinh}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTextColumn Header="Ngày sinh"
+                                                        Binding="{Binding NgaySinh}"
+                                                        IsReadOnly="True"
+                                                        Width="auto"/>
 
-                                <DataGridTextColumn Header="Ngày sinh"
-                                                    Binding="{Binding NgaySinh}"
-                                                    IsReadOnly="True"
-                                                    Width="auto"/>
+                                    <DataGridTextColumn Header="Địa chỉ"
+                                                        Binding="{Binding DiaChi}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Địa chỉ"
-                                                    Binding="{Binding DiaChi}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTextColumn Header="Số điện thoại"
+                                                        Binding="{Binding SDT}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Số điện thoại"
-                                                    Binding="{Binding SDT}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTextColumn Header="Ngày tham gia"
+                                                        Binding="{Binding NgayTG}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Ngày tham gia"
-                                                    Binding="{Binding NgayTG}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTextColumn Header="Điểm tích lũy"
+                                                        Binding="{Binding DiemTichLuy}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Điểm tích lũy"
-                                                    Binding="{Binding DiemTichLuy}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTextColumn Header="Loại khách hàng"
+                                                        Binding="{Binding idLKH}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
 
-                                <DataGridTextColumn Header="Loại khách hàng"
-                                                    Binding="{Binding idLKH}"
-                                                    IsReadOnly="True"
-                                                    Width="*"/>
+                                    <DataGridTemplateColumn Header="Operations"
+                                                                IsReadOnly="True"
+                                                                Width="auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Style="{DynamicResource gridViewButton}"
+                                                                    Margin="5,0">
+                                                        <Icon:PackIconMaterial Kind="EyeCheckOutline"
+                                                                                        Style="{DynamicResource gridButtonIcon}"/>
+                                                    </Button>
 
-                                <DataGridTemplateColumn Header="Operations"
-                                                            IsReadOnly="True"
-                                                            Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0">
-                                                    <Icon:PackIconMaterial Kind="EyeCheckOutline"
-                                                                                    Style="{DynamicResource gridButtonIcon}"/>
-                                                </Button>
+                                                    <Button Style="{DynamicResource gridViewButton}"
+                                                                    Margin="5,0">
+                                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
+                                                                            Style="{DynamicResource gridButtonIcon}"/>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
-                                                <Button Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0">
-                                                    <Icon:PackIconMaterial Kind="SquareEditOutline"
-                                                                        Style="{DynamicResource gridButtonIcon}"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-
-                        <!--Pagination Section-->
-                        <Border Grid.Row="4"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                BorderBrush="{DynamicResource FocusBorderColor}"
-                                BorderThickness="1"
-                                CornerRadius="5"
-                                Padding="5"
-                                Background="{DynamicResource SecundaryBackgroundColor}"
-                                Margin="0 10 10 0"
-                            >
-                            <StackPanel Orientation="Horizontal">
-                                <Button Style="{DynamicResource pagingButton}"
-                                            Name="btnPre"
-                                            Click="btnPre_Click">
-                                    <Icon:PackIconMaterial Kind="ChevronLeft"
-                                                    Style="{DynamicResource pagingButtonIcon}"/>
-                                </Button>
-
-                                <Rectangle Width="1" 
-                                        Fill="{DynamicResource SepratorBackgroundColor}"
-                                        Margin="3 7"/>
-
-                                <Button Style="{DynamicResource pagingButton}"
-                                >
-                                    <TextBlock Name="lblPage"
-                                    Text="0/0"
-                                    />
-                                </Button>
-
-                                <Rectangle Width="1" 
-                                        Fill="{DynamicResource SepratorBackgroundColor}"
-                                        Margin="3 7"/>
-
-                                <Button Style="{DynamicResource pagingButton}"
-                                Name="btnNext"
-                                Click="btnNext_Click">
-                                    <Icon:PackIconMaterial Kind="ChevronRight"
-                                                    Style="{DynamicResource pagingButtonIcon}"
-                                                    />
-                                </Button>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-
-            <TabItem Header="Quản lý loại khách hàng" Loaded="customerTypes_Loaded" HorizontalAlignment="Left" Width="200">
-                <DockPanel Grid.Column="0" LastChildFill="True">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <!-- Add Button -->
-                        <Button x:Name="btnAddCustomerTypes"
-                                Grid.Row="0"
-                                Style="{StaticResource addButton}"
-                                >
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Plus"
-                                                        VerticalAlignment="Center"
-                                                        Width="11"
-                                                        Height="11"
-                                                        Margin="0 0 10 0"
-                                                        Foreground="{DynamicResource IconButtonColor}"/>
-
-                                <TextBlock Text="Thêm mới"
-                                            Foreground="{DynamicResource TextButtonColor}"/>
-                            </StackPanel>
-                        </Button>
-
-                        <!-- Seprator -->
-
-                        <Separator Height="1" Grid.Row="1" 
-                                       Background="{DynamicResource SepratorBackgroundColor}"
-                                       Margin="0 0 0 5"/>
-
-
-                        <!--Search-->
-                        <TextBlock Text="Filter by"
-                                       Grid.Row="2"
-                                       FontSize="13"
-                                       FontWeight="SemiBold"
-                                       Margin="0 10 215 10"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"/>
-                        <Grid 
-                                Grid.Row="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Width="190"
-                                Height="25"
-                                Margin="20 0 10 0">
-
-                            <TextBlock Margin="20 0 100 0"
-                            Foreground="{DynamicResource PrimaryTextColor}"
-                            VerticalAlignment="Center"
-                            IsHitTestVisible="False"
-                            Panel.ZIndex="1"
-                            Text="Search here"
-                            Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
-                            />
-
-                            <TextBox x:Name="txtCustomerTypeSearch" 
-                            Style="{DynamicResource searchTextBox}"
-                            />
-
-                            <Icon:PackIconMaterial Kind="Magnify"
-                                        Width="14"
-                                        Height="14"
-                                        Foreground="{DynamicResource PrimaryTextColor}"
-                                        VerticalAlignment="Center"
-                                        />
-                        </Grid>
-
-                        <DataGrid x:Name="CustomerTypesDataGrid"
-                                  AutoGenerateColumns="False"
-                                  Grid.Row="3">
-                            <DataGrid.Columns>
-                                <DataGridCheckBoxColumn CanUserResize="False"
-                                                    Width="auto">
-                                    <DataGridCheckBoxColumn.HeaderTemplate>
-                                        <DataTemplate>
-                                            <CheckBox/>
-                                        </DataTemplate>
-                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                </DataGridCheckBoxColumn>
-
-                                <DataGridTextColumn Header="#"
-                                            Binding="{Binding idLKH}"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="auto"/>
-
-                                <DataGridTextColumn Header="Mã loại khách hàng"
-                                            Binding="{Binding MaLKH}"
-                                            IsReadOnly="True"
-                                            Width="auto"/>
-
-                                <DataGridTextColumn Header="Tên loại khách hàng"
-                                            Binding="{Binding TenLKH}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                                <DataGridTextColumn Header="Mô tả"
-                                            Binding="{Binding MoTa}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                                <DataGridTextColumn Header="Điểm tích lũy tối thiểu"
-                                            Binding="{Binding DiemTichLuyToiThieu}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                                <DataGridTemplateColumn Header="Operations"
-                                                    IsReadOnly="True"
-                                                    Width="auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button Style="{DynamicResource gridViewButton}"
-                                                            Margin="5,0">
-                                                    <Icon:PackIconMaterial Kind="EyeCheckOutline"
-                                                                    Style="{DynamicResource gridButtonIcon}"/>
-                                                </Button>
-
-                                                <Button Style="{DynamicResource gridViewButton}"
-                                                            Margin="5,0">
-                                                    <Icon:PackIconMaterial Kind="SquareEditOutline"
-                                                                    Style="{DynamicResource gridButtonIcon}"/>
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-
-                        <!--Pagination Section-->
-                        <Border Grid.Row="4"
+                            <!--Pagination Section-->
+                            <Border Grid.Row="4"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     BorderBrush="{DynamicResource FocusBorderColor}"
@@ -395,42 +223,226 @@
                                     Padding="5"
                                     Background="{DynamicResource SecundaryBackgroundColor}"
                                     Margin="0 10 10 0"
-                            >
-                            <StackPanel Orientation="Horizontal">
-                                <Button Style="{DynamicResource pagingButton}"
-                                            Name="btnCTPre"
-                                            Click="btnCTPre_Click">
-                                    <Icon:PackIconMaterial Kind="ChevronLeft"
-                                                    Style="{DynamicResource pagingButtonIcon}"/>
-                                </Button>
-
-                                <Rectangle Width="1" 
-                                        Fill="{DynamicResource SepratorBackgroundColor}"
-                                        Margin="3 7"/>
-
-                                <Button Style="{DynamicResource pagingButton}"
                                 >
-                                    <TextBlock Name="lblCTPage"
-                                    Text="0/0"
-                                    />
-                                </Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{DynamicResource pagingButton}"
+                                                Name="btnPre"
+                                                Click="btnPre_Click">
+                                        <Icon:PackIconMaterial Kind="ChevronLeft"
+                                                        Style="{DynamicResource pagingButtonIcon}"/>
+                                    </Button>
 
-                                <Rectangle Width="1" 
-                                        Fill="{DynamicResource SepratorBackgroundColor}"
-                                        Margin="3 7"/>
+                                    <Rectangle Width="1" 
+                                            Fill="{DynamicResource SepratorBackgroundColor}"
+                                            Margin="3 7"/>
 
-                                <Button Style="{DynamicResource pagingButton}"
-                                Name="btnCTNext"
-                                Click="btnCTNext_Click">
-                                    <Icon:PackIconMaterial Kind="ChevronRight"
-                                                    Style="{DynamicResource pagingButtonIcon}"
-                                                    />
-                                </Button>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-        </TabControl>
+                                    <Button Style="{DynamicResource pagingButton}"
+                                    >
+                                        <TextBlock Name="lblPage"
+                                        Text="0/0"
+                                        />
+                                    </Button>
+
+                                    <Rectangle Width="1" 
+                                            Fill="{DynamicResource SepratorBackgroundColor}"
+                                            Margin="3 7"/>
+
+                                    <Button Style="{DynamicResource pagingButton}"
+                                    Name="btnNext"
+                                    Click="btnNext_Click">
+                                        <Icon:PackIconMaterial Kind="ChevronRight"
+                                                        Style="{DynamicResource pagingButtonIcon}"
+                                                        />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+
+                <TabItem Header="Quản lý loại khách hàng" Loaded="customerTypes_Loaded" HorizontalAlignment="Left" Width="200">
+                    <DockPanel Grid.Column="0" LastChildFill="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!-- Add Button -->
+                            <Button x:Name="btnAddCustomerTypes"
+                                    Grid.Row="0"
+                                    Style="{StaticResource addButton}"
+                                    >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Plus"
+                                                            VerticalAlignment="Center"
+                                                            Width="11"
+                                                            Height="11"
+                                                            Margin="0 0 10 0"
+                                                            Foreground="{DynamicResource IconButtonColor}"/>
+
+                                    <TextBlock Text="Thêm mới"
+                                                Foreground="{DynamicResource TextButtonColor}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Seprator -->
+
+                            <Separator Height="1" Grid.Row="1" 
+                                           Background="{DynamicResource SepratorBackgroundColor}"
+                                           Margin="0 0 0 5"/>
+
+
+                            <!--Search-->
+                            <TextBlock Text="Filter by"
+                                           Grid.Row="2"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Margin="0 10 215 10"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"/>
+                            <Grid 
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Width="190"
+                                    Height="25"
+                                    Margin="20 0 10 0">
+
+                                <TextBlock Margin="20 0 100 0"
+                                Foreground="{DynamicResource PrimaryTextColor}"
+                                VerticalAlignment="Center"
+                                IsHitTestVisible="False"
+                                Panel.ZIndex="1"
+                                Text="Search here"
+                                Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
+                                />
+
+                                <TextBox x:Name="txtCustomerTypeSearch" 
+                                Style="{DynamicResource searchTextBox}"
+                                />
+
+                                <Icon:PackIconMaterial Kind="Magnify"
+                                            Width="14"
+                                            Height="14"
+                                            Foreground="{DynamicResource PrimaryTextColor}"
+                                            VerticalAlignment="Center"
+                                            />
+                            </Grid>
+
+                            <DataGrid x:Name="CustomerTypesDataGrid"
+                                      AutoGenerateColumns="False"
+                                      Grid.Row="3">
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn CanUserResize="False"
+                                                        Width="auto">
+                                        <DataGridCheckBoxColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <CheckBox/>
+                                            </DataTemplate>
+                                        </DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridCheckBoxColumn>
+
+                                    <DataGridTextColumn Header="#"
+                                                Binding="{Binding idLKH}"
+                                                IsReadOnly="True"
+                                                CanUserResize="False"
+                                                Width="auto"/>
+
+                                    <DataGridTextColumn Header="Mã loại khách hàng"
+                                                Binding="{Binding MaLKH}"
+                                                IsReadOnly="True"
+                                                Width="auto"/>
+
+                                    <DataGridTextColumn Header="Tên loại khách hàng"
+                                                Binding="{Binding TenLKH}"
+                                                IsReadOnly="True"
+                                                Width="*"/>
+
+                                    <DataGridTextColumn Header="Mô tả"
+                                                Binding="{Binding MoTa}"
+                                                IsReadOnly="True"
+                                                Width="*"/>
+
+                                    <DataGridTextColumn Header="Điểm tích lũy tối thiểu"
+                                                Binding="{Binding DiemTichLuyToiThieu}"
+                                                IsReadOnly="True"
+                                                Width="*"/>
+
+                                    <DataGridTemplateColumn Header="Operations"
+                                                        IsReadOnly="True"
+                                                        Width="auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Style="{DynamicResource gridViewButton}"
+                                                                Margin="5,0">
+                                                        <Icon:PackIconMaterial Kind="EyeCheckOutline"
+                                                                        Style="{DynamicResource gridButtonIcon}"/>
+                                                    </Button>
+
+                                                    <Button Style="{DynamicResource gridViewButton}"
+                                                                Margin="5,0">
+                                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
+                                                                        Style="{DynamicResource gridButtonIcon}"/>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <!--Pagination Section-->
+                            <Border Grid.Row="4"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        BorderBrush="{DynamicResource FocusBorderColor}"
+                                        BorderThickness="1"
+                                        CornerRadius="5"
+                                        Padding="5"
+                                        Background="{DynamicResource SecundaryBackgroundColor}"
+                                        Margin="0 10 10 0"
+                                >
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{DynamicResource pagingButton}"
+                                                Name="btnCTPre"
+                                                Click="btnCTPre_Click">
+                                        <Icon:PackIconMaterial Kind="ChevronLeft"
+                                                        Style="{DynamicResource pagingButtonIcon}"/>
+                                    </Button>
+
+                                    <Rectangle Width="1" 
+                                            Fill="{DynamicResource SepratorBackgroundColor}"
+                                            Margin="3 7"/>
+
+                                    <Button Style="{DynamicResource pagingButton}"
+                                    >
+                                        <TextBlock Name="lblCTPage"
+                                        Text="0/0"
+                                        />
+                                    </Button>
+
+                                    <Rectangle Width="1" 
+                                            Fill="{DynamicResource SepratorBackgroundColor}"
+                                            Margin="3 7"/>
+
+                                    <Button Style="{DynamicResource pagingButton}"
+                                    Name="btnCTNext"
+                                    Click="btnCTNext_Click">
+                                        <Icon:PackIconMaterial Kind="ChevronRight"
+                                                        Style="{DynamicResource pagingButtonIcon}"
+                                                        />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Border>
 </Page>

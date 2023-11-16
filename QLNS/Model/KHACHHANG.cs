@@ -27,7 +27,7 @@ namespace QLNS.Model
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
-        public System.DateTime NgayTG { get; set; }
+        public System.DateTime? NgayTG { get; set; }
         public int DiemTichLuy { get; set; }
         public int idLKH { get; set; }
     
