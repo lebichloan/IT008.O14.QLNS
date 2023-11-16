@@ -131,6 +131,21 @@ namespace QLNS.ResourceXAML
             tabItem.Header = "Tất cả sản phẩm";
             tabItem.Content = new {listProducts = queryAllProduct.ToList() };
             categoryTabControl.Items.Add(tabItem);
+
+            var queryItemListBox = from sanpham in qLNSEntities.SANPHAMs
+                                  join ctsp in qLNSEntities.CTSPs
+                                  on sanpham.idSP equals ctsp.idSP
+                                  orderby ctsp.idCTSP
+                                  select new
+                                  {
+                                      MaSP = ctsp.MaCTSP,
+                                      HDTenSP = sanpham.TenSP,
+                                      HDSoLuong = ctsp.SLConLai,
+                                      HDDonGia = ctsp.DonGiaXuat,
+                                      HDThanhTien = ctsp.GhiChu,
+                                  };
+
+            itemProduct.ItemsSource = queryItemListBox.ToList();
         }
 
         private string searchterm = null;
@@ -191,6 +206,41 @@ namespace QLNS.ResourceXAML
             {
                 categoryTabControl.SelectedIndex = 0;
             }
+        }
+
+        private void allProductDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //if (allProductDataGrid.SelectedItems.Count > 0)
+            //{
+            //    // get id hoa don duoc chon
+            //    var selectedHoaDon = (dynamic)allProductDataGrid.SelectedItem;
+            //    int selectedId = selectedHoaDon.idHD;
+            //}
+        }
+
+        private void txtSoLuong_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void btnSub_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCheckOut_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }
