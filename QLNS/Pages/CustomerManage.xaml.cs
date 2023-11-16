@@ -119,5 +119,11 @@ namespace QLNS.Pages
             lblCTPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize1 - 1) / pageSize1);
 
         }
+
+        private void btnAddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            AddCustomer addCustomer = new AddCustomer();
+            addCustomer.ShowDialog();
+        }
     }
 }
