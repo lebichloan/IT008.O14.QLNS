@@ -136,7 +136,7 @@
                     <Grid Grid.Row="1">
                         <ListBox 
                             x:Name="itemProduct"
-                            ItemsSource="{Binding itemProduct}"
+                            ItemsSource="{Binding itemProduct}" d:ItemsSource="{d:SampleData ItemCount=5}"
                                  >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
