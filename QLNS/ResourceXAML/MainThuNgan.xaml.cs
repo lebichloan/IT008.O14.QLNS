@@ -213,7 +213,16 @@ namespace QLNS.ResourceXAML
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            // Xu ly code log out
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window != this)
+                {
+                    window.Close();
+                }
+            }
+            LoginWindow Login = new LoginWindow();
+            this.Close();
+            Login.Show();
         }
 
         private void mainThuNgan_Loaded(object sender, RoutedEventArgs e)

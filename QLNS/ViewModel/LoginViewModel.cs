@@ -51,19 +51,19 @@ namespace QLNS.ViewModel
                 {
                     MainQuanLy mainQuanLy = new MainQuanLy();
                     p.Close();
-                    mainQuanLy.ShowDialog();
+                    mainQuanLy.Show();
                 }
                 else if (existingUser.idLND == 2 )
                 {
                     MainThuNgan mainThuNgan = new MainThuNgan();
                     p.Close();
-                    mainThuNgan.ShowDialog();
+                    mainThuNgan.Show();
                 }
                 else if (existingUser.idLND == 3 )
                 {
                     MainNhanVienKho mainNhanVienKho = new MainNhanVienKho();
                     p.Close();
-                    mainNhanVienKho.ShowDialog();
+                    mainNhanVienKho.Show();
                 }  
             }
             else
