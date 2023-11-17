@@ -21,7 +21,7 @@ namespace QLNS.ResourceXAML
     public partial class AddCustomer : Window
     {
         private string _MaKH;
-        public string makh { get => makh; set { makh = value; } }
+        public string makh { get => _MaKH; set { _MaKH = value; } }
 
         private string _TenKH;
         public string tenkh { get => _TenKH; set { _TenKH = value; } }
@@ -39,13 +39,13 @@ namespace QLNS.ResourceXAML
         public string gioitinh { get => _GioiTinh; set { _GioiTinh = value; } }
 
         private DateTime? _NgayTG;
-        public DateTime? ngaytg { get => ngaytg; set => ngaytg = value; }
+        public DateTime? ngaytg { get => _NgayTG; set => _NgayTG = value; }
 
         private int _DiemTichLuy;
-        public int diemtl { get => diemtl; set { diemtl = value; } }
+        public int diemtl { get => _DiemTichLuy; set { _DiemTichLuy = value; } }
 
         private int _LoaiKH;
-        public int loaikh { get => loaikh; set { loaikh = value; } }
+        public int loaikh { get => _LoaiKH; set { _LoaiKH = value; } }
 
         public AddCustomer()
         {
@@ -86,6 +86,7 @@ namespace QLNS.ResourceXAML
         {
             WindowState = WindowState.Minimized;
         }
+        // End: Button Close | Restore | Minimize
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -135,6 +136,5 @@ namespace QLNS.ResourceXAML
             DataProvider.Ins.DB.SaveChanges();
         }
     }
-    // End: Button Close | Restore | Minimize
 }
 

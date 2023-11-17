@@ -125,5 +125,11 @@ namespace QLNS.Pages
             AddCustomer addCustomer = new AddCustomer();
             addCustomer.ShowDialog();
         }
+
+        private void btnAddCustomerTypes_Click(object sender, RoutedEventArgs e)
+        {
+            AddCustomerType addCustomerType = new AddCustomerType();
+            addCustomerType.ShowDialog();
+        }
     }
 }
