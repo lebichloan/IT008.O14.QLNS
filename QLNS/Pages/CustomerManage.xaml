@@ -274,7 +274,7 @@
                             <!-- Add Button -->
                             <Button x:Name="btnAddCustomerTypes"
                                     Grid.Row="0"
-                                    Style="{StaticResource addButton}"
+                                    Style="{StaticResource addButton}" Click="btnAddCustomerTypes_Click"
                                     >
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Plus"
