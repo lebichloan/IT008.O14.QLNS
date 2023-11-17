@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,5 +74,10 @@ namespace QLNS.Pages
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
+        private void btnAddSale_Click(object sender, RoutedEventArgs e)
+        {
+            AddSale addSale = new AddSale();
+            addSale.ShowDialog();
+        }
     }
 }

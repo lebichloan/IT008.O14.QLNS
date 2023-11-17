@@ -36,7 +36,7 @@
                                />
                 <!-- Add Button -->
                 <Button x:Name="btnAddSale"
-                    Style="{StaticResource addButton}">
+                    Style="{StaticResource addButton}" Click="btnAddSale_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus"
                                                 VerticalAlignment="Center"
