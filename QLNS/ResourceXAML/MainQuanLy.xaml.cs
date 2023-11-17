@@ -74,7 +74,16 @@ namespace QLNS.ResourceXAML
 
         private void btnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            //xu ly code dang xuat
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window != this)
+                {
+                    window.Close();
+                }
+            }
+            LoginWindow Login = new LoginWindow();
+            this.Close();
+            Login.Show();
         }
 
         private void btnHome_MouseEnter(object sender, MouseEventArgs e)

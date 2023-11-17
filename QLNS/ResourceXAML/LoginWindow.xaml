@@ -23,7 +23,7 @@
         DataContext="{StaticResource LoginViewModel}"
         Title="LoginWindow" Height="645" Width="875">
 
-    <Grid Margin="20">
+    <Grid Margin="20" MouseDown="Grid_MouseDown">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="30"
                       ShadowDepth="1"
