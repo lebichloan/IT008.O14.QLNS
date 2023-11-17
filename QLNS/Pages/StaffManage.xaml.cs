@@ -73,7 +73,7 @@ namespace QLNS.Pages
 
         private void btnAddStaff_Click(object sender, RoutedEventArgs e)
         {
-            AddStaff addStaff = new AddStaff();
+            OptionAddStaff addStaff = new OptionAddStaff();
             addStaff.ShowDialog();
         }
     }
