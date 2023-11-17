@@ -5,8 +5,115 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
         mc:Ignorable="d"
-        Title="AddSale" Height="450" Width="800">
-    <Grid>
-        <TextBlock>Them khuyen mai</TextBlock>
-    </Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:uc="clr-namespace:QLNS.Controls"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Name="addSale"
+        Title="AddSale" Height="500" Width="800">
+
+    <Border CornerRadius="5"
+            Background="{DynamicResource SecundaryBackgroundColor}"
+            MouseDown="Border_MouseDown"
+            MouseLeftButtonDown="Border_MouseLeftButtonDown">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Thêm khuyến mãi"
+                       Grid.Row="0"
+                       FontSize="25"
+                       FontWeight="Bold"   
+                       Margin="5 5 0 0"
+                       HorizontalAlignment="Left" />
+
+            <!-- Start: Button Close | Restore | Minimize -->
+            <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
+
+                <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
+                <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
+                            <Setter Property="Content" Value="{DynamicResource maximize}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
+                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
+            </StackPanel>
+
+            <!-- Seprator -->
+            <Separator Height="1" Grid.Row="1" Grid.ColumnSpan="2"
+                   Background="{DynamicResource SepratorBackgroundColor}"
+                   Margin="0 0 0 5"/>
+
+            <StackPanel Grid.Row="2" Orientation="Vertical" >
+                <TextBox x:Name="maKM" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Width="300" Height="40"
+                         Margin="10 5 0 0"
+                         materialDesign:HintAssist.Hint="Mã khuyến mãi"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox x:Name="tenKM" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Width="300" Height="40"
+                         Margin="10 5 0 0"
+                         materialDesign:HintAssist.Hint="Tên khuyến mãi"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox x:Name="moTa" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Width="300" Height="40"
+                         Margin="10 5 0 0"
+                         materialDesign:HintAssist.Hint="Mô tả"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox x:Name="loaiKH" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Width="300" Height="40"
+                         Margin="10 5 0 0"
+                         materialDesign:HintAssist.Hint="Loại khách hàng"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <DatePicker x:Name="ngayBatDau" Margin="10 5 0 0" HorizontalAlignment="Left"
+                            SelectedDate="{Binding ContractDate}"
+                            Width="120"  
+                            materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                <DatePicker x:Name="ngayKetThuc" Margin="10 5 0 0" HorizontalAlignment="Left"
+                            SelectedDate="{Binding ContractDate}"
+                            Width="120"  
+                            materialDesign:HintAssist.Hint="Ngày kết thúc" 
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                <TextBox x:Name="giamGia" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Width="300" Height="40"
+                         Margin="10 5 0 0"
+                         materialDesign:HintAssist.Hint="Giảm giá"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox x:Name="loaiND" VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Width="300" Height="40"
+                         Margin="10 5 0 0"
+                         materialDesign:HintAssist.Hint="Loại người dùng"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Button Height="35" Margin="5" Width="150"
+                        Click="ButtonAdd_Click"
+                        Content="Thêm mới">
+                </Button>
+            </StackPanel>
+
+        </Grid>
+    </Border>
 </Window>
