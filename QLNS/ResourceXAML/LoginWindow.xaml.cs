@@ -58,7 +58,10 @@ namespace QLNS.ResourceXAML
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
     }
 }
