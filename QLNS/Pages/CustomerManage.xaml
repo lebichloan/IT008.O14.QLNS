@@ -195,14 +195,13 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Button Style="{DynamicResource gridViewButton}"
-                                                                    Margin="5,0">
+                                                    <Button Style="{DynamicResource gridViewButton}">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
                                                     <Button Style="{DynamicResource gridViewButton}"
-                                                                    Margin="5,0">
+                                                                    Margin="5,0,0,0">
                                                         <Icon:PackIconMaterial Kind="SquareEditOutline"
                                                                             Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
@@ -379,13 +378,13 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0">
+                                                                >
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
                                                     <Button Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0">
+                                                                Margin="5,0,0,0">
                                                         <Icon:PackIconMaterial Kind="SquareEditOutline"
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
