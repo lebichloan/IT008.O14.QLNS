@@ -118,6 +118,7 @@ namespace QLNS.ResourceXAML
                                   join ctsp in qLNSEntities.CTSPs
                                   on sanpham.idSP equals ctsp.idSP
                                   orderby ctsp.idCTSP
+                                  where ctsp.SLConLai > 0
                                   select new
                                   {
                                       MaSP = ctsp.MaCTSP,
@@ -132,20 +133,20 @@ namespace QLNS.ResourceXAML
             tabItem.Content = new {listProducts = queryAllProduct.ToList() };
             categoryTabControl.Items.Add(tabItem);
 
-            var queryItemListBox = from sanpham in qLNSEntities.SANPHAMs
-                                  join ctsp in qLNSEntities.CTSPs
-                                  on sanpham.idSP equals ctsp.idSP
-                                  orderby ctsp.idCTSP
-                                  select new
-                                  {
-                                      MaSP = ctsp.MaCTSP,
-                                      HDTenSP = sanpham.TenSP,
-                                      HDSoLuong = ctsp.SLConLai,
-                                      HDDonGia = ctsp.DonGiaXuat,
-                                      HDThanhTien = ctsp.GhiChu,
-                                  };
+            //var queryItemListBox = from sanpham in qLNSEntities.SANPHAMs
+            //                       join ctsp in qLNSEntities.CTSPs
+            //                       on sanpham.idSP equals ctsp.idSP
+            //                       orderby ctsp.idCTSP
+            //                       select new
+            //                       {
+            //                           MaSP = ctsp.MaCTSP,
+            //                           HDTenSP = sanpham.TenSP,
+            //                           HDSoLuong = ctsp.SLConLai,
+            //                           HDDonGia = ctsp.DonGiaXuat,
+            //                           HDThanhTien = ctsp.GhiChu,
+            //                       };
 
-            itemProduct.ItemsSource = queryItemListBox.ToList();
+            //itemProduct.ItemsSource = queryItemListBox.ToList();
         }
 
         private string searchterm = null;
@@ -172,12 +173,13 @@ namespace QLNS.ResourceXAML
         {
             var queryFilterProduct = from sanpham in qLNSEntities.SANPHAMs
                                      join ctsp in qLNSEntities.CTSPs
-                                     on sanpham.idSP equals ctsp.idSP                                    
+                                     on sanpham.idSP equals ctsp.idSP
                                      orderby ctsp.idCTSP
-                                     where 
-                                     ctsp.MaCTSP.ToLower().Contains(searchTerm)
+                                     where
+                                     ctsp.SLConLai > 0 &&
+                                     (ctsp.MaCTSP.ToLower().Contains(searchTerm)
                                      || sanpham.TenSP.ToLower().Contains(searchTerm)
-                                     || ctsp.GhiChu.ToLower().Contains(searchTerm)
+                                     || ctsp.GhiChu.ToLower().Contains(searchTerm))
                                      select new
                                      {
                                          MaSP = ctsp.MaCTSP,
@@ -215,7 +217,9 @@ namespace QLNS.ResourceXAML
             //    // get id hoa don duoc chon
             //    var selectedHoaDon = (dynamic)allProductDataGrid.SelectedItem;
             //    int selectedId = selectedHoaDon.idHD;
+
             //}
+
         }
 
         private void txtSoLuong_KeyDown(object sender, KeyEventArgs e)
@@ -242,6 +246,5 @@ namespace QLNS.ResourceXAML
         {
 
         }
-
     }
 }

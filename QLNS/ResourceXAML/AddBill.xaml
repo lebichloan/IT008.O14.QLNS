@@ -14,7 +14,8 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="{DynamicResource SecundaryBackgroundColor}"
-        Loaded="addBill_Loaded">
+        Loaded="addBill_Loaded"
+        >
 
     <Window.Resources>
 
@@ -141,7 +142,8 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical"
-                                                Margin="0 0">
+                                                Margin="0 0"
+                                                Width="380">
                                         <TextBlock
                                             Text="{Binding HDTenSP}"
                                             Foreground="{DynamicResource PrimaryTextColor}"
@@ -208,6 +210,7 @@
                             />
 
                         <TextBlock
+                            x:Name="lblSLSP"
                             Text="10"
                             Grid.Row="0"
                             Style="{StaticResource ContentText}" Grid.Column="3" VerticalAlignment="Top"
@@ -220,6 +223,7 @@
                             />
 
                         <TextBlock
+                            x:Name="lblTongThanhToan"
                             Text="100000"
                             Grid.Row="1"
                             Style="{StaticResource ContentText}"
@@ -287,17 +291,12 @@
                         x:Name="categoryTabControl"
                         Grid.Row="1"
                         >
-                        <TabControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding TypeName}"/>
-                            </DataTemplate>
-                        </TabControl.ItemTemplate>
-
                         <TabControl.ContentTemplate>
                             <DataTemplate>
                                 <DataGrid 
                                     ItemsSource="{Binding listProducts}"
-                                    x:Name="allProductDataGrid"
+                                    SelectedItem="{Binding selectedItem}"
+                                   x:Name="allProductDataGrid"
                                     AutoGenerateColumns="False"
                                     SelectionChanged="allProductDataGrid_SelectionChanged"
                                     >
