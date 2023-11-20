@@ -63,7 +63,7 @@ namespace QLNS.ResourceXAML
         private void addBill_Loaded(object sender, RoutedEventArgs e)
         {
             LoadAllProduct();
-            LoadDataIntoTab();
+            //LoadDataIntoTab();
         }
 
         // End: Button Close | Restore | Minimize
@@ -118,6 +118,7 @@ namespace QLNS.ResourceXAML
                                   join ctsp in qLNSEntities.CTSPs
                                   on sanpham.idSP equals ctsp.idSP
                                   orderby ctsp.idCTSP
+                                  where ctsp.SLConLai > 0
                                   select new
                                   {
                                       MaSP = ctsp.MaCTSP,
@@ -127,10 +128,12 @@ namespace QLNS.ResourceXAML
                                       GhiChu = ctsp.GhiChu,
                                   };
 
-            var tabItem = new TabItem();
-            tabItem.Header = "Tất cả sản phẩm";
-            tabItem.Content = new {listProducts = queryAllProduct.ToList() };
-            categoryTabControl.Items.Add(tabItem);
+            //var tabItem = new TabItem();
+            //tabItem.Header = "Tất cả sản phẩm";
+            //tabItem.Content = new {listProducts = queryAllProduct.ToList() };
+            //categoryTabControl.Items.Add(tabItem);
+
+            allProductDataGrid.ItemsSource = queryAllProduct.ToList();
         }
 
         private string searchterm = null;
@@ -157,12 +160,13 @@ namespace QLNS.ResourceXAML
         {
             var queryFilterProduct = from sanpham in qLNSEntities.SANPHAMs
                                      join ctsp in qLNSEntities.CTSPs
-                                     on sanpham.idSP equals ctsp.idSP                                    
+                                     on sanpham.idSP equals ctsp.idSP
                                      orderby ctsp.idCTSP
-                                     where 
-                                     ctsp.MaCTSP.ToLower().Contains(searchTerm)
+                                     where
+                                     ctsp.SLConLai > 0 &&
+                                     (ctsp.MaCTSP.ToLower().Contains(searchTerm)
                                      || sanpham.TenSP.ToLower().Contains(searchTerm)
-                                     || ctsp.GhiChu.ToLower().Contains(searchTerm)
+                                     || ctsp.GhiChu.ToLower().Contains(searchTerm))
                                      select new
                                      {
                                          MaSP = ctsp.MaCTSP,
@@ -172,26 +176,116 @@ namespace QLNS.ResourceXAML
                                          GhiChu = ctsp.GhiChu,
                                      };
 
-            var filterProduct = queryFilterProduct.ToList();
-            if (filterProduct.Count > 0 )
+            //var filterProduct = queryFilterProduct.ToList();
+            //if (filterProduct.Count > 0 )
+            //{
+            //    var firstTab = categoryTabControl.Items[0] as TabItem;
+            //    if (searchTerm == "")
+            //    {
+            //        firstTab.Header = "Tất cả sản phẩm";
+            //    }
+            //    else
+            //    {
+            //        firstTab.Header = "Kết quả tìm kiếm";
+            //    }
+            //    firstTab.Content = new { listProducts = queryFilterProduct.ToList() };
+            //}
+
+            //if (categoryTabControl.Items.Count > 0 )
+            //{
+            //    categoryTabControl.SelectedIndex = 0;
+            //}
+
+            //allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
+            if (queryFilterProduct.ToList().Count > 0 )
             {
-                var firstTab = categoryTabControl.Items[0] as TabItem;
                 if (searchTerm == "")
                 {
-                    firstTab.Header = "Tất cả sản phẩm";
+                    allProductTabItem.Header = "Tất cả sản phẩm";
                 }
                 else
                 {
-                    firstTab.Header = "Kết quả tìm kiếm";
+                    allProductTabItem.Header = "Kết quả tìm kiếm";
                 }
-                firstTab.Content = new { listProducts = queryFilterProduct.ToList() };
+
+                allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
+            }
+            else
+            {
+                allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
             }
 
-            if (categoryTabControl.Items.Count > 0 )
+        }
+
+        private void allProductDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (allProductDataGrid.SelectedItems.Count > 0)
             {
-                categoryTabControl.SelectedIndex = 0;
+                // get id hoa don duoc chon
+                //var selectedHoaDon = (dynamic)allProductDataGrid.SelectedItem;
+                //int selectedId = selectedHoaDon.id
+                var selectedSanPham = (dynamic)allProductDataGrid.SelectedItems[0];
+                string selectedId = selectedSanPham.MaSP;
+                GetDataSelected(selectedId);
             }
         }
 
+        private void GetDataSelected(string maSP)
+        {
+            if (maSP != "")
+            {
+                var queryProduct = from sanpham in qLNSEntities.SANPHAMs
+                                   join ctsp in qLNSEntities.CTSPs
+                                   on sanpham.idSP equals ctsp.idSP
+                                   orderby ctsp.idCTSP
+                                   where
+                                   ctsp.MaCTSP.ToLower().Contains(maSP)
+                                   select new
+                                   {
+                                       idSP = ctsp.idCTSP,
+                                       MaSP = ctsp.MaCTSP,
+                                       TenSP = sanpham.TenSP,
+                                       SLCL = ctsp.SLConLai,
+                                       SLDB = ctsp.DaBan,
+                                       DonGia = ctsp.DonGiaXuat,
+                                       GhiChu = ctsp.GhiChu,
+                                   };
+
+                var selectedProduct = queryProduct.FirstOrDefault();
+                if (selectedProduct != null)
+                {
+                    lblTenSP.Text = selectedProduct.TenSP;
+                    lblSLDaBan.Text = selectedProduct.SLDB.ToString();
+                    lblSLConLai.Text = selectedProduct.SLCL.ToString();
+                    lblDonGia.Text = selectedProduct.DonGia.ToString();
+                    lblMoTa.Text = selectedProduct.GhiChu;
+                }
+            }
+        }
+
+        private void txtSoLuong_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void btnSub_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCheckOut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

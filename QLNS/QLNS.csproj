@@ -263,6 +263,7 @@
     <Compile Include="ResourceXAML\VerifyEmailWindow.xaml.cs">
       <DependentUpon>VerifyEmailWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddBillViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BillManageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />

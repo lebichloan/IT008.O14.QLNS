@@ -14,10 +14,11 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="{DynamicResource SecundaryBackgroundColor}"
-        Loaded="addBill_Loaded">
+        Loaded="addBill_Loaded"
+        >
 
     <Window.Resources>
-        
+
         <Style x:Key="TitleText" TargetType="TextBlock">
             <Setter Property="Grid.Column" Value="0"/>
             <Setter Property="FontSize" Value="13"/>
@@ -34,18 +35,27 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0 5 0 0"/>
         </Style>
-        
+
+        <Style x:Key="quantityButton" TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
     </Window.Resources>
-    
+
     <Border CornerRadius="5"
             Background="{DynamicResource SecundaryBackgroundColor}"
             MouseDown="Border_MouseDown"
             MouseLeftButtonDown="Border_MouseLeftButtonDown">
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -54,7 +64,14 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!--App Title--><!--
+            <Rectangle Grid.Column="1"
+                       Grid.Row="2"
+                       Width="1" 
+                       Margin="10 0"
+                       Stroke="{DynamicResource SepratorBackgroundColor}" />
+
+            <!--App Title-->
+            <!--
             <TextBlock Text="Thêm hóa đơn" 
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
@@ -62,9 +79,9 @@
                            FontSize="15" 
                            FontWeight="SemiBold"
                            />-->
-            
+
             <!-- Start: Button Close | Restore | Minimize -->
-            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.ColumnSpan="2">
                 <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
                 <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
                     <Button.Style>
@@ -84,13 +101,13 @@
             <!-- End: Button Close | Restore | Minimize -->
 
             <!-- Seprator -->
-            <Separator Height="1" Grid.Row="1" Grid.ColumnSpan="2"
+            <Separator Height="1" Grid.Row="1" Grid.ColumnSpan="3"
                                Background="{DynamicResource SepratorBackgroundColor}"
                                Margin="0 0 0 5"/>
 
             <!--Start: Right Section-->
             <Border Grid.Row="2"
-                    Grid.Column="1"
+                    Grid.Column="3"
                     CornerRadius="7 0 0 7"
                     Background="{DynamicResource SecundaryBackgroundColor}">
 
@@ -116,52 +133,58 @@
                             Style="{StaticResource ContentText}"
                             />
                     </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ListBox 
+                            x:Name="itemProduct"
+                            ItemsSource="{Binding itemProduct}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                 >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical"
+                                                Margin="0 0"
+                                                Width="380">
+                                        <TextBlock
+                                            Text="{Binding HDTenSP}"
+                                            Foreground="{DynamicResource PrimaryTextColor}"
+                                            />
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock
+                                                Text="{Binding HDSoLuong}"
+                                                Grid.Column="0"
+                                                Foreground="{DynamicResource PrimaryTextColor}"
+                                                />
+
+                                            <TextBlock
+                                                Text="{Binding HDDonGia}"
+                                                Grid.Column="1"
+                                                Foreground="{DynamicResource PrimaryTextColor}"
+                                                />
+
+                                            <TextBlock
+                                                Text="{Binding HDThanhTien}"
+                                                Grid.Column="2"
+                                                Foreground="{DynamicResource PrimaryTextColor}"
+                                                />
+                                        </Grid>
+
+                                        <Separator Height="1" 
+                                                   Background="{DynamicResource SepratorBackgroundColor}"
+                                                   Margin="0 5 0 5"/>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
                     
-                    <DataGrid Grid.Row="1"
-                          x:Name="productOfBillDatagrid"
-                          AutoGenerateColumns="False"
-                          >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tên sản phẩm"
-                                            Binding="{Binding NgayHD}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                            <DataGridTextColumn Header="Số lượng"
-                                            Binding="{Binding TenKH}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                            <DataGridTextColumn Header="Đơn giá"
-                                            Binding="{Binding ThanhTien}"
-                                            IsReadOnly="True"
-                                            Width="auto"/>
-
-                            <DataGridTextColumn Header="Thành tiền"
-                                            Binding="{Binding PTThanhToan}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                            <DataGridTemplateColumn Header=""
-                                                    IsReadOnly="True"
-                                                    Width="auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Style="{DynamicResource gridViewButton}" 
-                                                Name="btnDetail"
-                                                >
-                                                <Icon:PackIconMaterial Kind="EyeCheckOutline"
-                                                                       Style="{DynamicResource gridButtonIcon}"/>
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                        </DataGrid.Columns>
-                    </DataGrid>
-
                     <!-- Seprator -->
                     <Separator Height="1" Grid.Row="2"
                                     Background="{DynamicResource SepratorBackgroundColor}"
@@ -169,8 +192,10 @@
 
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="19*"/>
+                            <ColumnDefinition Width="16*"/>
+                            <ColumnDefinition Width="165*"/>
+                            <ColumnDefinition Width="200*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -181,26 +206,28 @@
                         <TextBlock 
                             Text="Số lượng sản phẩm"
                             Grid.Row="0"
-                            Style="{StaticResource TitleText}"
+                            Style="{StaticResource TitleText}" Grid.ColumnSpan="3" VerticalAlignment="Top"
                             />
 
                         <TextBlock
+                            x:Name="lblSLSP"
                             Text="10"
                             Grid.Row="0"
-                            Style="{StaticResource ContentText}"
+                            Style="{StaticResource ContentText}" Grid.Column="3" VerticalAlignment="Top"
                             />
 
                         <TextBlock 
                             Text="Thành tiền"
                             Grid.Row="1"
-                            Style="{StaticResource TitleText}"
+                            Style="{StaticResource TitleText}" Grid.ColumnSpan="3" VerticalAlignment="Top"
                             />
 
                         <TextBlock
+                            x:Name="lblTongThanhToan"
                             Text="100000"
                             Grid.Row="1"
                             Style="{StaticResource ContentText}"
-                            FontWeight="Bold"
+                            FontWeight="Bold" Grid.Column="3" VerticalAlignment="Top"
                             />
 
                     </Grid>
@@ -209,6 +236,7 @@
                     <Button x:Name="btnCheckOut"
                             Grid.Row="4"
                             Style="{StaticResource checkOutButton}" 
+                            Click="btnCheckOut_Click"
                             >
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Plus"
@@ -224,11 +252,11 @@
                     </Button>
 
                 </Grid>
-                
+
             </Border>
             <!--End: Right Section-->
-            
-            
+
+
             <!--Start: Left Section-->
             <Border Grid.Row="2"
                     Background="{DynamicResource SecundaryBackgroundColor}"
@@ -240,16 +268,17 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0"
                           Margin="10 5">
-                        
+
                         <TextBox x:Name="txtSearch" 
                             Style="{DynamicResource searchTextBox}"
                             KeyDown="txtSearch_KeyDown"
                             />
-                                              
+
                         <Icon:PackIconMaterial Kind="Magnify"
                                         Width="14"
                                         Height="14"
@@ -262,25 +291,59 @@
                         x:Name="categoryTabControl"
                         Grid.Row="1"
                         >
-                        <TabControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding TypeName}"/>
-                            </DataTemplate>
-                        </TabControl.ItemTemplate>
-
-                        <TabControl.ContentTemplate>
-                            <DataTemplate>
-                                <DataGrid 
+                        <TabItem Header="Tất cả sản phẩm"
+                                 Name="allProductTabItem">
+                            <DataGrid 
                                     ItemsSource="{Binding listProducts}"
                                     x:Name="allProductDataGrid"
                                     AutoGenerateColumns="False"
+                                    SelectionChanged="allProductDataGrid_SelectionChanged"
+                                    >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Mã SP"
+                                                            Binding="{Binding MaSP}"
+                                                            IsReadOnly="True"
+                                                            Width="auto"/>
+
+                                    <DataGridTextColumn Header="Tên sản phẩm"
+                                                        Binding="{Binding TenSP}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
+
+                                    <DataGridTextColumn Header="SLCL"
+                                                        Binding="{Binding SLCL}"
+                                                        IsReadOnly="True"
+                                                        Width="auto"/>
+
+                                    <DataGridTextColumn Header="Đơn giá"
+                                                        Binding="{Binding DonGia}"
+                                                        IsReadOnly="True"
+                                                        Width="auto"/>
+
+                                    <DataGridTextColumn Header="Ghi chú"
+                                                        Binding="{Binding GhiChu}"
+                                                        IsReadOnly="True"
+                                                        Width="*"/>
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+
+                        <!--<TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <DataGrid 
+                                    ItemsSource="{Binding listProducts}"
+                                    SelectedItem="{Binding selectedItem}"
+                                   x:Name="allProductDataGrid"
+                                    AutoGenerateColumns="False"
+                                    SelectionChanged="allProductDataGrid_SelectionChanged"
                                     >
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Mã SP"
                                                             Binding="{Binding MaSP}"
                                                             IsReadOnly="True"
                                                             Width="auto"/>
-                                        
+
                                         <DataGridTextColumn Header="Tên sản phẩm"
                                                         Binding="{Binding TenSP}"
                                                         IsReadOnly="True"
@@ -304,45 +367,134 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
-                        </TabControl.ContentTemplate>
+                        </TabControl.ContentTemplate>-->
                     </TabControl>
-                    
-                    <!--<DataGrid Grid.Row="1"
-                          x:Name="allProductDataGrid"
-                          AutoGenerateColumns="False"
-                          >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Tên sản phẩm"
-                                            Binding="{Binding NgayHD}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
 
-                            <DataGridTextColumn Header="Số lượng còn lại"
-                                            Binding="{Binding TenKH}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
+                    <!-- Seprator -->
+                    <Separator Height="1" 
+                            Grid.Row="2"
+                            Background="{DynamicResource SepratorBackgroundColor}"
+                            Margin="0 5 0 5"/>
 
-                            <DataGridTextColumn Header="Đơn giá"
-                                            Binding="{Binding ThanhTien}"
-                                            IsReadOnly="True"
-                                            Width="auto"/>
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
 
-                            <DataGridTextColumn Header="Ghi chú"
-                                            Binding="{Binding PTThanhToan}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                        </DataGrid.Columns>
-                    </DataGrid>-->
+                        <TextBlock
+                            Name="lblTenSP"   
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Milk tea"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            
+                            />
 
-                    <Grid Grid.Row="2">
-                        <TextBlock>Thong tin don hang</TextBlock>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row="1"
+                                    Grid.Column="0">
+                            <TextBlock 
+                                Name="lblSLDaBan"
+                                Text="Đã bán: 10"
+                                />
+
+                            <Rectangle 
+                                Width="1" 
+                                Margin="5 0"
+                                Stroke="{DynamicResource SepratorBackgroundColor}" />
+
+                            <TextBlock 
+                                Name="lblSLConLai"
+                                Text="Còn lại: 5"
+                                />
+                        </StackPanel>
+
+                        <TextBlock
+                            Name="lblMoTa"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="ahihi"
+                            />
+
+                        <TextBlock
+                            Name="lblDonGia"
+                            Text="Don gia"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            HorizontalAlignment="Right"
+                            />
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    >
+                            <TextBlock
+                                Name="lblSoLuong"
+                                Text="So luong"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                />
+
+                            <Button
+                                x:Name="btnSub"
+                                Click="btnSub_Click"
+                                Style="{StaticResource quantityButton}"
+                                >
+                                <Icon:PackIconMaterial
+                                    Kind="Minus"
+                                    VerticalAlignment="Center"
+                                    Width="11"
+                                    Height="11"
+                                    Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </Button>
+
+                            <TextBox x:Name="txtSoLuong"
+                                     KeyDown="txtSoLuong_KeyDown"
+                                     Width="50"
+                                     Height="30"
+                                     Background="{DynamicResource SecundaryBackgroundColor}"
+                                     Foreground="{DynamicResource PrimaryTextColor}"
+                                />
+
+                            <Button
+                                x:Name="btnAdd"
+                                Click="btnAdd_Click"
+                                Style="{StaticResource quantityButton}"
+                                >
+                                <Icon:PackIconMaterial
+                                    Kind="Plus"
+                                    VerticalAlignment="Center"
+                                    Width="11"
+                                    Height="11"
+                                    Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </Button>
+
+                        </StackPanel>
+
+                        <TextBlock 
+                            Name="lblThanhTien"
+                            Text="Thanh tien"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            HorizontalAlignment="Right"
+                            />
+
                     </Grid>
 
                     <!-- Add Button -->
-                    <Button x:Name="btnAddBill"
+                    <Button x:Name="btnAddProduct"
                             Style="{StaticResource addButton}"
-                            Grid.Row="3"
+                            Grid.Row="4"
+                            Click="btnAddProduct_Click"
                             >
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Plus"
@@ -358,11 +510,11 @@
                     </Button>
 
                 </Grid>
-                
+
             </Border>
             <!--End: Left Section-->
         </Grid>
-        
+
     </Border>
-    
+
 </Window>

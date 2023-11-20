@@ -24,6 +24,7 @@ namespace QLNS.ViewModel
     {
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;
+        private Action<string> filterData;
 
         public RelayCommand(Predicate<T> canExecute, Action<T> execute)
         {
@@ -31,6 +32,11 @@ namespace QLNS.ViewModel
                 throw new ArgumentNullException("execute");
             _canExecute = canExecute;
             _execute = execute;
+        }
+
+        public RelayCommand(Action<string> filterData)
+        {
+            this.filterData = filterData;
         }
 
         public bool CanExecute(object parameter)
