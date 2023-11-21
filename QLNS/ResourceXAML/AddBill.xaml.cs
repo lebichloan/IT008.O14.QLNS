@@ -63,54 +63,11 @@ namespace QLNS.ResourceXAML
         private void addBill_Loaded(object sender, RoutedEventArgs e)
         {
             LoadAllProduct();
-            //LoadDataIntoTab();
         }
 
         // End: Button Close | Restore | Minimize
 
         QLNSEntities qLNSEntities = new QLNSEntities();
-
-        private void LoadDataIntoTab()
-        {
-            var query = from danhmuc in qLNSEntities.DANHMUCs
-                                orderby danhmuc.idDM
-                                //where
-                                select new
-                                {
-                                    idDM = danhmuc.idDM,
-                                    TenDM = danhmuc.TenDM,
-                                };
-
-            var category = query.ToList();
-
-            foreach (var item in category)
-            {
-                var tabItem = new TabItem();
-                tabItem.Header = item.TenDM.ToString();
-
-                //var product = qLNSEntities.SANPHAMs.Where(
-                //    p=> p.idDM == item.idDM).ToList();
-
-                var queryProduct = from sanpham in qLNSEntities.SANPHAMs
-                                   join ctsp in qLNSEntities.CTSPs
-                                   on sanpham.idSP equals ctsp.idSP
-                                   join danhmuc in qLNSEntities.DANHMUCs
-                                   on sanpham.idDM equals danhmuc.idDM
-                            orderby ctsp.idCTSP
-                            where sanpham.idDM == item.idDM
-                            select new
-                            {
-                                MaSP = ctsp.MaCTSP,
-                                TenSP = sanpham.TenSP,
-                                SLCL = ctsp.SLConLai,
-                                DonGia = ctsp.DonGiaXuat,
-                                GhiChu = ctsp.GhiChu,
-                            };
-
-                tabItem.Content = new { listProducts = queryProduct.ToList() };
-                categoryTabControl.Items.Add(tabItem);
-            }
-        }
 
         private void LoadAllProduct()
         {
@@ -127,11 +84,6 @@ namespace QLNS.ResourceXAML
                                       DonGia = ctsp.DonGiaXuat,
                                       GhiChu = ctsp.GhiChu,
                                   };
-
-            //var tabItem = new TabItem();
-            //tabItem.Header = "Tất cả sản phẩm";
-            //tabItem.Content = new {listProducts = queryAllProduct.ToList() };
-            //categoryTabControl.Items.Add(tabItem);
 
             allProductDataGrid.ItemsSource = queryAllProduct.ToList();
         }
@@ -176,27 +128,6 @@ namespace QLNS.ResourceXAML
                                          GhiChu = ctsp.GhiChu,
                                      };
 
-            //var filterProduct = queryFilterProduct.ToList();
-            //if (filterProduct.Count > 0 )
-            //{
-            //    var firstTab = categoryTabControl.Items[0] as TabItem;
-            //    if (searchTerm == "")
-            //    {
-            //        firstTab.Header = "Tất cả sản phẩm";
-            //    }
-            //    else
-            //    {
-            //        firstTab.Header = "Kết quả tìm kiếm";
-            //    }
-            //    firstTab.Content = new { listProducts = queryFilterProduct.ToList() };
-            //}
-
-            //if (categoryTabControl.Items.Count > 0 )
-            //{
-            //    categoryTabControl.SelectedIndex = 0;
-            //}
-
-            //allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
             if (queryFilterProduct.ToList().Count > 0 )
             {
                 if (searchTerm == "")
@@ -212,6 +143,7 @@ namespace QLNS.ResourceXAML
             }
             else
             {
+                // Khong tim thay san pham
                 allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
             }
 
@@ -221,14 +153,21 @@ namespace QLNS.ResourceXAML
         {
             if (allProductDataGrid.SelectedItems.Count > 0)
             {
-                // get id hoa don duoc chon
-                //var selectedHoaDon = (dynamic)allProductDataGrid.SelectedItem;
-                //int selectedId = selectedHoaDon.id
                 var selectedSanPham = (dynamic)allProductDataGrid.SelectedItems[0];
                 string selectedId = selectedSanPham.MaSP;
+
+                productExpander.Visibility = Visibility.Visible;
                 GetDataSelected(selectedId);
             }
+            else
+            {
+                productExpander.Visibility = Visibility.Collapsed;
+            }
         }
+
+        private int SLSPCL = 0;
+        private int SLSP = 0;
+        private decimal DonGia = 0;
 
         private void GetDataSelected(string maSP)
         {
@@ -254,31 +193,118 @@ namespace QLNS.ResourceXAML
                 var selectedProduct = queryProduct.FirstOrDefault();
                 if (selectedProduct != null)
                 {
-                    lblTenSP.Text = selectedProduct.TenSP;
-                    lblSLDaBan.Text = selectedProduct.SLDB.ToString();
-                    lblSLConLai.Text = selectedProduct.SLCL.ToString();
+                    headerExpander.Text = selectedProduct.TenSP;
+                    lblSLDaBan.Text = string.Format("{0} {1}", "Đã bán", selectedProduct.SLDB.ToString());
+                    lblSLConLai.Text = string.Format("{0} {1}", "Còn lại", selectedProduct.SLCL.ToString());
                     lblDonGia.Text = selectedProduct.DonGia.ToString();
+                    DonGia = selectedProduct.DonGia;
                     lblMoTa.Text = selectedProduct.GhiChu;
+                    SLSPCL = selectedProduct.SLCL;
+                    SLSP = 0;
+                    txtSoLuong.Text = SLSP.ToString();
+                    lblThanhTien.Text = "0";
+                    CheckInputSoLuong(SLSP);
                 }
             }
         }
 
         private void txtSoLuong_KeyDown(object sender, KeyEventArgs e)
         {
+            if (txtSoLuong.Text == "0")
+            {
+                txtSoLuong.Text = "";
+                btnSub.IsEnabled = false;
+            }
 
+            if (e.Key == Key.Enter)
+            {
+                GetValueSoLuong();
+            }
+        }
+
+        private void txtSoLuong_LostFocus(object sender, RoutedEventArgs e)
+        {
+            GetValueSoLuong();
+        }
+
+        private void CheckInputSoLuong (int sl)
+        {
+            if (sl <= 0)
+            {
+                btnSub.IsEnabled = false;
+            }
+            else if (sl >= SLSPCL)
+            {
+                btnAdd.IsEnabled = false;
+            }
+            else
+            {
+                btnAdd.IsEnabled = true;
+                btnSub.IsEnabled = true;
+            }
+        }
+
+        private void GetValueSoLuong()
+        {
+            if (txtSoLuong.Text == "")
+            {
+                MessageBox.Show("Vui long nhap so luong");
+            }
+            else
+            {
+                try
+                {
+                    int soLuongInput = int.Parse(txtSoLuong.Text);
+                    if (soLuongInput <= 0)
+                    {
+                        MessageBox.Show("Vui long nhap so luong lon hon 0");
+                        txtSoLuong.Focus();
+                        txtSoLuong.Text = SLSP.ToString();
+                    }
+                    else if (soLuongInput > SLSPCL)
+                    {
+                        MessageBox.Show("Kho khong the cung cap so luong nay");
+                        txtSoLuong.Focus();
+                        txtSoLuong.Text = SLSP.ToString();
+                    }
+                    else
+                    {
+                        SLSP = soLuongInput;
+                        txtSoLuong.Text = SLSP.ToString();
+                        lblThanhTien.Text = (SLSP * DonGia).ToString();
+                    }
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Invalid input. Please enter a valid integer.");
+                    txtSoLuong.Text = SLSP.ToString();
+                }
+                CheckInputSoLuong(SLSP);
+            }
         }
 
         private void btnSub_Click(object sender, RoutedEventArgs e)
         {
-
+            SLSP--;
+            txtSoLuong.Text = SLSP.ToString();
+            lblThanhTien.Text = (SLSP * DonGia).ToString();
+            CheckInputSoLuong(SLSP);
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            SLSP++;
+            txtSoLuong.Text = SLSP.ToString();
+            lblThanhTien.Text = (SLSP * DonGia).ToString();
+            CheckInputSoLuong(SLSP);
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            addProducttoBill();
+        }
+
+        private void addProducttoBill()
         {
 
         }
@@ -287,5 +313,6 @@ namespace QLNS.ResourceXAML
         {
 
         }
+
     }
 }
