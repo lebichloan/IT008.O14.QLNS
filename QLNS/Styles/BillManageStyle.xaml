@@ -98,7 +98,7 @@
     <Style x:Key="checkOutButton" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <!--<Setter Property="Width" Value="150"/>-->
+        <Setter Property="Width" Value="150"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>

@@ -65,6 +65,8 @@ namespace QLNS.ResourceXAML
         {
             LoadAllProduct();
             LoadAllCustomer();
+            LoadVoucher("Khách lẻ");
+            LoadAllPayment();
         }
 
         // End: Button Close | Restore | Minimize
@@ -106,6 +108,42 @@ namespace QLNS.ResourceXAML
                                   };
 
             customerComboBox.ItemsSource = queryAllCustomer.ToList();
+        }
+
+        private void LoadVoucher(string loaiKH)
+        {
+            var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
+                               join loaikh in qLNSEntities.LOAIKHACHHANGs
+                               on khuyenmai.idLKH equals loaikh.idLKH
+                               where loaikh.TenLKH == loaiKH
+                               //where ngay kt < ngay hien tai
+                               orderby khuyenmai.NgayKT
+                               select new
+                               {
+                                   idKM = khuyenmai.idKM,
+                                   MaKM = khuyenmai.MaKM,
+                                   TenKM = khuyenmai.TenKM,
+                                   NgayBD = khuyenmai.NgayBD,
+                                   NgayKT = khuyenmai.NgayKT,
+                                   GiamGia = khuyenmai.GiamGia,
+                               };
+
+            voucherComboBox.ItemsSource = queryVoucher.ToList();
+
+        }
+
+        private void LoadAllPayment()
+        {
+            var queryAllPayment = from ptthanhtoan in qLNSEntities.PTTHANHTOANs
+                                    orderby ptthanhtoan.idPT
+                                    select new
+                                    {
+                                        idPT = ptthanhtoan.idPT,
+                                        MaPT = ptthanhtoan.MaPT,
+                                        TenPT = ptthanhtoan.TenPT,
+                                    };
+
+            paymentComboBox.ItemsSource = queryAllPayment.ToList();
         }
 
         private string searchterm = null;
@@ -365,7 +403,8 @@ namespace QLNS.ResourceXAML
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
         {
-
+            CheckOutBill checkOutBill = new CheckOutBill();
+            checkOutBill.ShowDialog();
         }
 
         private void itemProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -390,28 +429,6 @@ namespace QLNS.ResourceXAML
             }
         }
 
-        private void LoadVoucher (string loaiKH)
-        {
-            var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
-                               join loaikh in qLNSEntities.LOAIKHACHHANGs
-                               on khuyenmai.idLKH equals loaikh.idLKH
-                               where loaikh.TenLKH == loaiKH
-                               //where ngay kt < ngay hien tai
-                                   orderby khuyenmai.NgayKT
-                                   select new
-                                   {
-                                       idKM = khuyenmai.idKM,
-                                       MaKM = khuyenmai.MaKM,
-                                       TenKM = khuyenmai.TenKM,
-                                       NgayBD = khuyenmai.NgayBD,
-                                       NgayKT = khuyenmai.NgayKT,
-                                       GiamGia = khuyenmai.GiamGia,
-                                   };
-
-            voucherComboBox.ItemsSource = queryVoucher.ToList();
-
-        }
-
         short voucherGiamGia = 0;
         private void voucherComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -428,6 +445,15 @@ namespace QLNS.ResourceXAML
 
                 TongThanhToan = ThanhTienHD - GiamGia;
                 lblTongThanhToan.Text = TongThanhToan.ToString();
+            }
+        }
+
+        private void paymentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (paymentComboBox.SelectedItem != null)
+            {
+                var selectedItem = (dynamic)paymentComboBox.SelectedItem;
+
             }
         }
     }

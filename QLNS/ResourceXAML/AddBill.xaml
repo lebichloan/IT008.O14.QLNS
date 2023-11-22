@@ -124,6 +124,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock 
@@ -300,14 +301,36 @@
                                 />
                         </Grid>
                     </Expander>
-                    
+
+                    <Expander 
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Header="Phuong thuc thanh toan"
+                        Visibility="Visible"
+                        Name="paymentExpander">
+                        
+                        <ComboBox x:Name="paymentComboBox" 
+                                      Grid.Row="0"
+                                      SelectedValuePath="idPT"
+                                      SelectionChanged="paymentComboBox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TenPT}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </Expander>
+                              
                     <!-- Seprator -->
-                    <Separator Height="1" Grid.Row="4"
+                    <Separator Height="1" Grid.Row="5"
                                Grid.ColumnSpan="2"
                                     Background="{DynamicResource SepratorBackgroundColor}"
                                     Margin="0 5 0 5"/>
 
-                    <Grid Grid.Row="5"
+                    <Grid Grid.Row="6"
                           Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -375,7 +398,7 @@
 
                     <!-- Add Button -->
                     <Button x:Name="btnCheckOut"
-                            Grid.Row="5"
+                            Grid.Row="6"
                             Grid.Column="1"
                             Style="{StaticResource checkOutButton}" 
                             Click="btnCheckOut_Click"
