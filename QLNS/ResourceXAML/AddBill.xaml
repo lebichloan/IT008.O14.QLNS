@@ -137,6 +137,7 @@
                     <Grid Grid.Row="1">
                         <ListBox 
                             x:Name="itemProduct"
+                            SelectionChanged="itemProduct_SelectionChanged"
                             ItemsSource="{Binding itemProduct}" d:ItemsSource="{d:SampleData ItemCount=5}"
                                  >
                             <ListBox.ItemTemplate>

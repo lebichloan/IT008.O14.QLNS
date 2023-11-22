@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -165,6 +166,7 @@ namespace QLNS.ResourceXAML
             }
         }
 
+        private int idSP;
         private int SLSPCL = 0;
         private int SLSP = 0;
         private decimal DonGia = 0;
@@ -193,6 +195,7 @@ namespace QLNS.ResourceXAML
                 var selectedProduct = queryProduct.FirstOrDefault();
                 if (selectedProduct != null)
                 {
+                    idSP = selectedProduct.idSP;
                     headerExpander.Text = selectedProduct.TenSP;
                     lblSLDaBan.Text = string.Format("{0} {1}", "Đã bán", selectedProduct.SLDB.ToString());
                     lblSLConLai.Text = string.Format("{0} {1}", "Còn lại", selectedProduct.SLCL.ToString());
@@ -306,7 +309,14 @@ namespace QLNS.ResourceXAML
 
         private void addProducttoBill()
         {
-
+            itemProduct.Items.Add(new BillItemListBox
+            (
+                idSP,
+                headerExpander.Text,
+                txtSoLuong.Text,
+                lblDonGia.Text,
+                lblThanhTien.Text
+            ));
         }
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
@@ -314,5 +324,13 @@ namespace QLNS.ResourceXAML
 
         }
 
+        private void itemProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (itemProduct.SelectedItems.Count > 0)
+            {
+                BillItemListBox billItemListBox = (BillItemListBox)itemProduct.SelectedItems[0];
+                MessageBox.Show(billItemListBox.HDidCTSP.ToString());
+            }
+        }
     }
 }
