@@ -58,10 +58,10 @@
                     <DatePicker x:Name="ngaySinh"  HorizontalAlignment="Left"
                                 SelectedDate="{Binding ContractDate}"
                                 Width="350" Height="50"
-                                materialDesign:HintAssist.Hint="Ngày sinh" 
+                                materialDesign:HintAssist.Hint="Ngày sinh (tháng/ngày/năm)" 
                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <ComboBox x:Name="gioiTinh" 
+                    <ComboBox x:Name="gioiTinh" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Giới tính" HorizontalAlignment="Left"
                               IsEditable="True" Width="350" Height="50">
                         <ComboBoxItem Content="Nam" />
@@ -80,7 +80,7 @@
                     <DatePicker x:Name="ngayVL" HorizontalAlignment="Left"
                                 SelectedDate="{Binding ContractDate}"
                                 Width="350" Height="50"
-                                materialDesign:HintAssist.Hint="Ngày vào làm" 
+                                materialDesign:HintAssist.Hint="Ngày vào làm (tháng/ngày/năm)" 
                                 materialDesign:TextFieldAssist.HasClearButton="True"
                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                     <TextBox x:Name="chucVu" VerticalAlignment="Center"
@@ -104,17 +104,19 @@
                                  Width="350" Height="50"
                                  materialDesign:HintAssist.Hint="Tài khoản"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <PasswordBox materialDesign:HintAssist.Hint="Mật khẩu" 
+                        <PasswordBox x:Name="matKhau" materialDesign:HintAssist.Hint="Mật khẩu" 
                                      Width="350" Height="50"
+                                     PasswordChanged="matKhau_PasswordChanged"
                                      materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
                                      IsEnabled="{Binding ElementName=RevealPasswordFloatingEnabled, Path=IsChecked}"
                                      Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" />
-                        <PasswordBox materialDesign:HintAssist.Hint="Nhập lại mật khẩu" 
+                        <PasswordBox x:Name="xacNhanMatKhau" materialDesign:HintAssist.Hint="Nhập lại mật khẩu" 
                                      Width="350" Height="50"
+                                     PasswordChanged="xacNhanMatKhau_PasswordChanged"
                                      materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
                                      IsEnabled="{Binding ElementName=RevealPasswordFloatingEnabled, Path=IsChecked}"
                                      Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" />
-                        <ComboBox x:Name="idLND" 
+                        <ComboBox x:Name="idLND" IsReadOnly="True"
                                   materialDesign:HintAssist.Hint="Loại người dùng" HorizontalAlignment="Left"
                                   IsEditable="True" Width="350" Height="50">
                             <ComboBoxItem Content="Quản lý" />
