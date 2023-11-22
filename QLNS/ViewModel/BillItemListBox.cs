@@ -22,6 +22,5 @@ namespace QLNS.ViewModel
             HDDonGia = donGia;
             HDThanhTien = thanhTien;
         }
-
     }
 }

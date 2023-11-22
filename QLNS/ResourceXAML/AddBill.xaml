@@ -112,6 +112,11 @@
                     Background="{DynamicResource SecundaryBackgroundColor}">
 
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
@@ -120,21 +125,22 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
-                        <TextBlock 
-                            Text="nhan vien"
-                            Grid.Row="0"
-                            Style="{StaticResource TitleText}"
-                            />
+                    <TextBlock 
+                        Text="nhan vien"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource TitleText}"
+                        />
 
-                        <TextBlock
-                            Text="thoi gian"
-                            Grid.Row="0"
-                            Style="{StaticResource ContentText}"
-                            />
-                    </Grid>
+                    <TextBlock
+                        Text="thoi gian"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource ContentText}"
+                        />
 
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1"
+                          Grid.ColumnSpan="2">
                         <ListBox 
                             x:Name="itemProduct"
                             SelectionChanged="itemProduct_SelectionChanged"
@@ -161,18 +167,21 @@
                                                 Text="{Binding HDSoLuong}"
                                                 Grid.Column="0"
                                                 Foreground="{DynamicResource PrimaryTextColor}"
+                                                HorizontalAlignment="Left"
                                                 />
 
                                             <TextBlock
                                                 Text="{Binding HDDonGia}"
                                                 Grid.Column="1"
                                                 Foreground="{DynamicResource PrimaryTextColor}"
+                                                HorizontalAlignment="Center"
                                                 />
 
                                             <TextBlock
                                                 Text="{Binding HDThanhTien}"
                                                 Grid.Column="2"
                                                 Foreground="{DynamicResource PrimaryTextColor}"
+                                                HorizontalAlignment="Right"
                                                 />
                                         </Grid>
 
@@ -188,15 +197,18 @@
                     
                     <!-- Seprator -->
                     <Separator Height="1" Grid.Row="2"
+                               Grid.ColumnSpan="2"
                                     Background="{DynamicResource SepratorBackgroundColor}"
                                     Margin="0 5 0 5"/>
 
                     <Grid Grid.Row="3">
+                        <TextBlock>Thong tin khach hang</TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="4"
+                          Grid.Column="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="19*"/>
-                            <ColumnDefinition Width="16*"/>
-                            <ColumnDefinition Width="165*"/>
-                            <ColumnDefinition Width="200*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -236,6 +248,7 @@
                     <!-- Add Button -->
                     <Button x:Name="btnCheckOut"
                             Grid.Row="4"
+                            Grid.Column="1"
                             Style="{StaticResource checkOutButton}" 
                             Click="btnCheckOut_Click"
                             >

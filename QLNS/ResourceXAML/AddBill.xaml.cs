@@ -307,6 +307,7 @@ namespace QLNS.ResourceXAML
             addProducttoBill();
         }
 
+        private decimal ThanhTienHD = 0;
         private void addProducttoBill()
         {
             itemProduct.Items.Add(new BillItemListBox
@@ -317,6 +318,19 @@ namespace QLNS.ResourceXAML
                 lblDonGia.Text,
                 lblThanhTien.Text
             ));
+            lblSLSP.Text = itemProduct.Items.Count.ToString();
+            try
+            {
+                decimal soLuongInput = decimal.Parse(lblThanhTien.Text);
+                ThanhTienHD += soLuongInput;
+                lblTongThanhToan.Text = ThanhTienHD.ToString();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid input. Please enter a valid integer.");
+                txtSoLuong.Text = SLSP.ToString();
+            }
+
         }
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
