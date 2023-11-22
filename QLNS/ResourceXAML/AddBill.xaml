@@ -69,17 +69,7 @@
                        Width="1" 
                        Margin="10 0"
                        Stroke="{DynamicResource SepratorBackgroundColor}" />
-
-            <!--App Title-->
-            <!--
-            <TextBlock Text="Thêm hóa đơn" 
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="20 0 0 0"
-                           FontSize="15" 
-                           FontWeight="SemiBold"
-                           />-->
-
+            
             <!-- Start: Button Close | Restore | Minimize -->
             <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.ColumnSpan="2">
                 <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
@@ -107,7 +97,7 @@
 
             <!--Start: Right Section-->
             <Border Grid.Row="2"
-                    Grid.Column="3"
+                    Grid.Column="2"
                     CornerRadius="7 0 0 7"
                     Background="{DynamicResource SecundaryBackgroundColor}">
 
@@ -116,13 +106,10 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
@@ -141,205 +128,68 @@
                         Style="{StaticResource ContentText}"
                         />
 
-                    <Grid Grid.Row="1"
-                          Grid.ColumnSpan="2">
-                        <ListBox 
-                            x:Name="itemProduct"
-                            SelectionChanged="itemProduct_SelectionChanged"
-                            ItemsSource="{Binding itemProduct}" d:ItemsSource="{d:SampleData ItemCount=5}"
-                                 >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical"
+                    <ListBox Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            x:Name="productListBox"
+                            SelectionChanged="productListBox_SelectionChanged"
+                            >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical"
                                                 Margin="0 0"
                                                 Width="380">
-                                        <TextBlock
-                                            Text="{Binding HDTenSP}"
+                                    <TextBlock
+                                            Text="{Binding itemTenSP}"
                                             Foreground="{DynamicResource PrimaryTextColor}"
                                             />
 
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                            <TextBlock
-                                                Text="{Binding HDSoLuong}"
+                                        <TextBlock
+                                                Text="{Binding itemSoLuongSP}"
                                                 Grid.Column="0"
                                                 Foreground="{DynamicResource PrimaryTextColor}"
                                                 HorizontalAlignment="Left"
                                                 />
 
-                                            <TextBlock
-                                                Text="{Binding HDDonGia}"
+                                        <TextBlock
+                                                Text="{Binding itemDonGiaSP}"
                                                 Grid.Column="1"
                                                 Foreground="{DynamicResource PrimaryTextColor}"
                                                 HorizontalAlignment="Center"
                                                 />
 
-                                            <TextBlock
-                                                Text="{Binding HDThanhTien}"
+                                        <TextBlock
+                                                Text="{Binding itemThanhTienSP}"
                                                 Grid.Column="2"
                                                 Foreground="{DynamicResource PrimaryTextColor}"
                                                 HorizontalAlignment="Right"
                                                 />
-                                        </Grid>
+                                    </Grid>
 
-                                        <Separator Height="1" 
+                                    <Separator Height="1" 
                                                    Background="{DynamicResource SepratorBackgroundColor}"
                                                    Margin="0 5 0 5"/>
 
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
-                    <Expander Grid.Row="2"
-                              Grid.ColumnSpan="2"
-                              Header="Thong tin khach hang"
-                              Visibility="Visible"
-                              Name="customerExpander">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-
-                            <ComboBox x:Name="customerComboBox" 
-                                      Grid.Row="0"
-                                      SelectedValuePath="idKH"
-                                      SelectionChanged="customerComboBox_SelectionChanged">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding MaKH}" />
-                                            <TextBlock Text="{Binding TenKH}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-
-                            <StackPanel Orientation="Horizontal"
-                                        Grid.Row="1">
-                                <TextBlock
-                                    Text="SDT"
-                                    Name="lblSDT"                                
-                                    />
-
-                                <TextBlock 
-                                    Text="DiaChi"
-                                    Name="lblDiaChi"
-                                    />
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal"
-                                        Grid.Row="2">
-                                <TextBlock
-                                    Text="DiemTichLuy"
-                                    Name="lblDiemTichLuy"                                
-                                    />
-
-                                <TextBlock
-                                    Text="LoaiKH"
-                                    Name="lblLoaiKH"
-                                    />
-                            </StackPanel>
-                            
-                        </Grid>
-                        
-                    </Expander>
-
-                    <Expander Grid.Row="3"
-                              Grid.ColumnSpan="2"
-                              Header="Chuong trinh khuyen mai"
-                              Visibility="Visible"
-                              Name="vocherExpander">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-
-                            <ComboBox x:Name="voucherComboBox" 
-                                      Grid.Row="0"
-                                      SelectedValuePath="idKM"
-                                      SelectionChanged="voucherComboBox_SelectionChanged">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding MaKM}" />
-                                            <TextBlock Text="{Binding TenKM}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-
-                            <StackPanel Orientation="Horizontal"
-                                        Grid.Row="1">
-                                <TextBlock
-                                    Text="NgayBD"
-                                    Name="lblNgayBD"                                
-                                    />
-
-                                <TextBlock
-                                    Text="NgayKT"
-                                    Name="lblNgayKT"
-                                    />
-                            </StackPanel>
-
-                            <TextBlock
-                                Text="GiamGia"
-                                Name="lblKhuyenMai"
-                                Grid.Row="2"
-                                />
-                        </Grid>
-                    </Expander>
-
-                    <Expander 
-                        Grid.Row="4"
-                        Grid.ColumnSpan="2"
-                        Header="Phuong thuc thanh toan"
-                        Visibility="Visible"
-                        Name="paymentExpander">
-                        
-                        <ComboBox x:Name="paymentComboBox" 
-                                      Grid.Row="0"
-                                      SelectedValuePath="idPT"
-                                      SelectionChanged="paymentComboBox_SelectionChanged">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding TenPT}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-
-                    </Expander>
-                              
                     <!-- Seprator -->
-                    <Separator Height="1" Grid.Row="5"
+                    <Separator Height="1" Grid.Row="2"
                                Grid.ColumnSpan="2"
                                     Background="{DynamicResource SepratorBackgroundColor}"
                                     Margin="0 5 0 5"/>
 
-                    <Grid Grid.Row="6"
+                    <Grid Grid.Row="3"
                           Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
@@ -351,7 +201,8 @@
                             />
 
                         <TextBlock
-                            x:Name="lblSLSP"
+                            x:Name="lblSoLuongHoaDon"
+                            Text="0"
                             Grid.Row="0"
                             Style="{StaticResource ContentText}"
                             />
@@ -363,61 +214,35 @@
                             />
 
                         <TextBlock
-                            x:Name="lblTongTien"
+                            x:Name="lblTongTienHoaDon"
+                            Text="0"
                             Grid.Row="1"
                             Style="{StaticResource ContentText}"
                             FontWeight="Bold"
                             />
 
-                        <TextBlock 
-                            Text="Giảm giá"
-                            Grid.Row="2"
-                            Style="{StaticResource TitleText}"
-                            />
-
-                        <TextBlock 
-                            Name="lblGiamGia"
-                            Grid.Row="2"
-                            Style="{StaticResource ContentText}"
-                            />
-
-                        <TextBlock
-                            Text="Tổng thanh toán"
-                            Grid.Row="3"
-                            Style="{StaticResource TitleText}"
-                            />
-
-                        <TextBlock
-                            Name="lblTongThanhToan"
-                            Grid.Row="3"
-                            Style="{StaticResource ContentText}"
-                            FontWeight="Bold"
-                            />
-                        
                     </Grid>
 
                     <!-- Add Button -->
-                    <Button x:Name="btnCheckOut"
-                            Grid.Row="6"
+                    <Button x:Name="btnNext"
+                            Grid.Row="3"
                             Grid.Column="1"
                             Style="{StaticResource checkOutButton}" 
-                            Click="btnCheckOut_Click"
+                            Click="btnNext_Click"
                             >
                         <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="Plus"
+                            <TextBlock Text="Tiếp tục"
+                                   Foreground="{DynamicResource TextButtonColor}"/>
+
+                            <Icon:PackIconMaterial Kind="ChevronRight"
                                                 VerticalAlignment="Center"
                                                 Width="11"
                                                 Height="11"
-                                               Margin="0 0 10 0"
+                                               Margin="10 0 0 0"
                                                Foreground="{DynamicResource IconButtonColor}"/>
-
-                            <TextBlock Text="Thanh toán"
-                                   Foreground="{DynamicResource TextButtonColor}"/>
                         </StackPanel>
                     </Button>
-
                 </Grid>
-
             </Border>
             <!--End: Right Section-->
 
@@ -433,16 +258,14 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0"
                           Margin="10 5">
-
-                        <TextBox x:Name="txtSearch" 
-                            Style="{DynamicResource searchTextBox}"
-                            KeyDown="txtSearch_KeyDown"
-                            />
+                        <TextBox x:Name="txtSearchProduct" 
+                                Style="{DynamicResource searchTextBox}"
+                                KeyDown="txtSearchProduct_KeyDown"
+                                />
 
                         <Icon:PackIconMaterial Kind="Magnify"
                                         Width="14"
@@ -453,17 +276,16 @@
                     </Grid>
 
                     <TabControl
-                        x:Name="categoryTabControl"
                         Grid.Row="1"
                         >
                         <TabItem Header="Tất cả sản phẩm"
-                                 Name="allProductTabItem"
+                                 Name="productTabItem"
                                  HorizontalAlignment="Left">
                             <DataGrid 
                                     ItemsSource="{Binding listProducts}"
-                                    x:Name="allProductDataGrid"
+                                    x:Name="productDataGrid"
                                     AutoGenerateColumns="False"
-                                    SelectionChanged="allProductDataGrid_SelectionChanged"
+                                    SelectionChanged="productDataGrid_SelectionChanged"
                                     >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Mã SP"
@@ -504,10 +326,10 @@
 
                     <Expander Grid.Row="3"
                               Visibility="Collapsed"
-                              Name="productExpander">
+                              Name="detailProductExpander">
                         
                         <Expander.Header>
-                            <TextBlock x:Name="headerExpander"
+                            <TextBlock x:Name="headerProductExpander"
                                        FontWeight="Bold"/>
                         </Expander.Header>
                         
@@ -528,26 +350,23 @@
                                     Grid.Row="0"
                                     Grid.Column="0">
                                 <TextBlock 
-                                Name="lblSLDaBan"
-                                Text="Đã bán: 10"
-                                />
+                                    Name="lblSoLuongDaBan"
+                                    />
 
                                 <Rectangle 
-                                Width="1" 
-                                Margin="5 0"
-                                Stroke="{DynamicResource SepratorBackgroundColor}" />
+                                    Width="1" 
+                                    Margin="5 0"
+                                    Stroke="{DynamicResource SepratorBackgroundColor}" />
 
                                 <TextBlock 
-                                Name="lblSLConLai"
-                                Text="Còn lại: 5"
-                                />
+                                    Name="lblSoLuongConLai"
+                                    />
                             </StackPanel>
 
                             <TextBlock
                                 Name="lblMoTa"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Text="ahihi"
                             />
 
                             <TextBlock
@@ -565,83 +384,76 @@
                                     HorizontalAlignment="Right"
                                     >
                                 <TextBlock
-                                    Name="lblSoLuong"
-                                    Text="So luong"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                />
+                                    Text="Số lượng"
+                                    />
 
                                 <Button
-                                    x:Name="btnSub"
-                                    Click="btnSub_Click"
-                                    Style="{StaticResource quantityButton}"
-                                    >
-                                    <Icon:PackIconMaterial
-                                        Kind="Minus"
-                                        VerticalAlignment="Center"
-                                        Width="11"
-                                        Height="11"
-                                        Foreground="{DynamicResource PrimaryTextColor}"/>
+                                        x:Name="btnSub"
+                                        Click="btnSub_Click"
+                                        Style="{StaticResource quantityButton}"
+                                        >
+                                        <Icon:PackIconMaterial
+                                            Kind="Minus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Foreground="{DynamicResource PrimaryTextColor}"/>
                                 </Button>
 
-                                <TextBox x:Name="txtSoLuong"
-                                     KeyDown="txtSoLuong_KeyDown"
-                                     LostFocus="txtSoLuong_LostFocus"
-                                     Width="50"
-                                     Height="30"
-                                     Background="{DynamicResource SecundaryBackgroundColor}"
-                                     Foreground="{DynamicResource PrimaryTextColor}"
-                                />
+                                <TextBox x:Name="txtSoLuongSanPham"
+                                         KeyDown="txtSoLuongSanPham_KeyDown"
+                                         LostFocus="txtSoLuongSanPham_LostFocus"
+                                         Width="50"
+                                         Height="30"
+                                         TextAlignment="Center"
+                                         Background="{DynamicResource SecundaryBackgroundColor}"
+                                         Foreground="{DynamicResource PrimaryTextColor}"
+                                        />
 
                                 <Button
-                                    x:Name="btnAdd"
-                                    Click="btnAdd_Click"
-                                    Style="{StaticResource quantityButton}"
-                                    >
-                                    <Icon:PackIconMaterial
-                                        Kind="Plus"
-                                        VerticalAlignment="Center"
-                                        Width="11"
-                                        Height="11"
-                                        Foreground="{DynamicResource PrimaryTextColor}"/>
+                                        x:Name="btnAdd"
+                                        Click="btnAdd_Click"
+                                        Style="{StaticResource quantityButton}"
+                                        >
+                                        <Icon:PackIconMaterial
+                                            Kind="Plus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Foreground="{DynamicResource PrimaryTextColor}"/>
                                 </Button>
 
                             </StackPanel>
 
                             <TextBlock 
-                                Name="lblThanhTien"
-                                Text="Thanh tien"
-                                Grid.Column="1"
-                                Grid.Row="2"
-                                HorizontalAlignment="Right"
-                            />
+                                    Name="lblThanhTienSanPham"
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Right"
+                                    />
 
                             <!-- Add Button -->
                             <Button x:Name="btnAddProduct"
-                            Style="{StaticResource addButton}"
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Click="btnAddProduct_Click"
-                            >
+                                    Style="{StaticResource addButton}"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Click="btnAddProduct_Click"
+                                    >
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Plus"
-                                                VerticalAlignment="Center"
-                                                Width="11"
-                                                Height="11"
-                                               Margin="0 0 10 0"
-                                               Foreground="{DynamicResource IconButtonColor}"/>
+                                                    VerticalAlignment="Center"
+                                                    Width="11"
+                                                    Height="11"
+                                                   Margin="0 0 10 0"
+                                                   Foreground="{DynamicResource IconButtonColor}"/>
 
                                     <TextBlock Text="Thêm mới"
-                                   Foreground="{DynamicResource TextButtonColor}"/>
+                                       Foreground="{DynamicResource TextButtonColor}"/>
                                 </StackPanel>
                             </Button>
-
-                        </Grid>
-                        
+                        </Grid>                       
                     </Expander>
-
                 </Grid>
-
             </Border>
             <!--End: Left Section-->
         </Grid>
