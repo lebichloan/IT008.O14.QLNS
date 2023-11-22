@@ -10,11 +10,11 @@ namespace QLNS.ViewModel
     {
         public int itemIdCTSP { get; set; }
         public string itemTenSP { get; set; }
-        public string itemSoLuongSP { get; set; }
-        public string itemDonGiaSP { get; set; }
-        public string itemThanhTienSP {  get; set; }
+        public int itemSoLuongSP { get; set; }
+        public decimal itemDonGiaSP { get; set; }
+        public decimal itemThanhTienSP {  get; set; }
 
-        public BillProductListBoxItem(int itemIdCTSP, string itemTenSP, string itemSoLuongSP, string itemDonGiaSP, string itemThanhTienSP)
+        public BillProductListBoxItem(int itemIdCTSP, string itemTenSP, int itemSoLuongSP, decimal itemDonGiaSP, decimal itemThanhTienSP)
         {
             this.itemIdCTSP = itemIdCTSP;
             this.itemTenSP = itemTenSP;
