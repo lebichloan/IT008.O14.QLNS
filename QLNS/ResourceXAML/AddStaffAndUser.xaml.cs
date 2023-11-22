@@ -21,6 +21,7 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddStaffAndUser : Window
     {
+        
         public AddStaffAndUser()
         {
             InitializeComponent();
@@ -88,22 +89,34 @@ namespace QLNS.ResourceXAML
             DataProvider.Ins.DB.NHANVIENs.Add(NHANVIEN);
             DataProvider.Ins.DB.SaveChanges();
             int lastEmployeeID = DataProvider.Ins.DB.NHANVIENs.Max(nv => nv.idNV);
-            var NGUOIDUNG = new NGUOIDUNG()
-            { 
-                TenDN = taiKhoan.Text,
-                MatKhau = matKhau.Text,
-                NgayTao = DateTime.Now,
-                TinhTrang = 1,
-                idNV = lastEmployeeID
-            };
-            if (idLND.Text == "Quản lý")
-                NGUOIDUNG.idLND = 1;
-            else if (idLND.Text == "Thu ngân")
-                NGUOIDUNG.idLND = 2;
+            //var NGUOIDUNG = new NGUOIDUNG()
+            //{ 
+            //    TenDN = taiKhoan.Text,
+            //    MatKhau = matKhau.Text,
+            //    NgayTao = DateTime.Now,
+            //    TinhTrang = 1,
+            //    idNV = lastEmployeeID
+            //};
+            //if (idLND.Text == "Quản lý")
+            //    NGUOIDUNG.idLND = 1;
+            //else if (idLND.Text == "Thu ngân")
+            //    NGUOIDUNG.idLND = 2;
+            //else
+            //    NGUOIDUNG.idLND = 3;
+            //DataProvider.Ins.DB.NGUOIDUNGs.Add(NGUOIDUNG);
+            //DataProvider.Ins.DB.SaveChanges();
+        }
+
+        private void addUser_CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if(addUser_CheckBox.IsChecked == true) 
+            {
+                AddInfoUser.Visibility = Visibility.Visible;
+            }
             else
-                NGUOIDUNG.idLND = 3;
-            DataProvider.Ins.DB.NGUOIDUNGs.Add(NGUOIDUNG);
-            DataProvider.Ins.DB.SaveChanges();
+            {
+                AddInfoUser.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
