@@ -123,6 +123,8 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock 
@@ -194,17 +196,141 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
-                    
+
+                    <Expander Grid.Row="2"
+                              Grid.ColumnSpan="2"
+                              Header="Thong tin khach hang"
+                              Visibility="Visible"
+                              Name="customerExpander">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ComboBox x:Name="customerComboBox" 
+                                      Grid.Row="0"
+                                      SelectedValuePath="idKH"
+                                      SelectionChanged="customerComboBox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding MaKH}" />
+                                            <TextBlock Text="{Binding TenKH}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Row="1">
+                                <TextBlock
+                                    Text="SDT"
+                                    Name="lblSDT"                                
+                                    />
+
+                                <TextBlock 
+                                    Text="DiaChi"
+                                    Name="lblDiaChi"
+                                    />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Row="2">
+                                <TextBlock
+                                    Text="DiemTichLuy"
+                                    Name="lblDiemTichLuy"                                
+                                    />
+
+                                <TextBlock
+                                    Text="LoaiKH"
+                                    Name="lblLoaiKH"
+                                    />
+                            </StackPanel>
+                            
+                        </Grid>
+                        
+                    </Expander>
+
+                    <Expander Grid.Row="3"
+                              Grid.ColumnSpan="2"
+                              Header="Chuong trinh khuyen mai"
+                              Visibility="Visible"
+                              Name="vocherExpander">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ComboBox x:Name="voucherComboBox" 
+                                      Grid.Row="0"
+                                      SelectedValuePath="idKM"
+                                      SelectionChanged="voucherComboBox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding MaKM}" />
+                                            <TextBlock Text="{Binding TenKM}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Row="1">
+                                <TextBlock
+                                    Text="NgayBD"
+                                    Name="lblNgayBD"                                
+                                    />
+
+                                <TextBlock
+                                    Text="NgayKT"
+                                    Name="lblNgayKT"
+                                    />
+                            </StackPanel>
+
+                            <TextBlock
+                                Text="GiamGia"
+                                Name="lblKhuyenMai"
+                                Grid.Row="2"
+                                />
+                        </Grid>
+                    </Expander>
+
+                    <Expander 
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Header="Phuong thuc thanh toan"
+                        Visibility="Visible"
+                        Name="paymentExpander">
+                        
+                        <ComboBox x:Name="paymentComboBox" 
+                                      Grid.Row="0"
+                                      SelectedValuePath="idPT"
+                                      SelectionChanged="paymentComboBox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TenPT}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </Expander>
+                              
                     <!-- Seprator -->
-                    <Separator Height="1" Grid.Row="2"
+                    <Separator Height="1" Grid.Row="5"
                                Grid.ColumnSpan="2"
                                     Background="{DynamicResource SepratorBackgroundColor}"
                                     Margin="0 5 0 5"/>
 
-                    <Grid Grid.Row="3">
-                        <TextBlock>Thong tin khach hang</TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="4"
+                    <Grid Grid.Row="6"
                           Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -214,40 +340,65 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock 
-                            Text="Số lượng sản phẩm"
+                            Text="Số lượng"
                             Grid.Row="0"
-                            Style="{StaticResource TitleText}" Grid.ColumnSpan="3" VerticalAlignment="Top"
+                            Style="{StaticResource TitleText}"
                             />
 
                         <TextBlock
                             x:Name="lblSLSP"
-                            Text="10"
                             Grid.Row="0"
-                            Style="{StaticResource ContentText}" Grid.Column="3" VerticalAlignment="Top"
+                            Style="{StaticResource ContentText}"
                             />
 
                         <TextBlock 
                             Text="Thành tiền"
                             Grid.Row="1"
-                            Style="{StaticResource TitleText}" Grid.ColumnSpan="3" VerticalAlignment="Top"
+                            Style="{StaticResource TitleText}"
                             />
 
                         <TextBlock
-                            x:Name="lblTongThanhToan"
-                            Text="100000"
+                            x:Name="lblTongTien"
                             Grid.Row="1"
                             Style="{StaticResource ContentText}"
-                            FontWeight="Bold" Grid.Column="3" VerticalAlignment="Top"
+                            FontWeight="Bold"
                             />
 
+                        <TextBlock 
+                            Text="Giảm giá"
+                            Grid.Row="2"
+                            Style="{StaticResource TitleText}"
+                            />
+
+                        <TextBlock 
+                            Name="lblGiamGia"
+                            Grid.Row="2"
+                            Style="{StaticResource ContentText}"
+                            />
+
+                        <TextBlock
+                            Text="Tổng thanh toán"
+                            Grid.Row="3"
+                            Style="{StaticResource TitleText}"
+                            />
+
+                        <TextBlock
+                            Name="lblTongThanhToan"
+                            Grid.Row="3"
+                            Style="{StaticResource ContentText}"
+                            FontWeight="Bold"
+                            />
+                        
                     </Grid>
 
                     <!-- Add Button -->
                     <Button x:Name="btnCheckOut"
-                            Grid.Row="4"
+                            Grid.Row="6"
                             Grid.Column="1"
                             Style="{StaticResource checkOutButton}" 
                             Click="btnCheckOut_Click"

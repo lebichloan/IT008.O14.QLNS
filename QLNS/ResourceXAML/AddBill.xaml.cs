@@ -64,6 +64,9 @@ namespace QLNS.ResourceXAML
         private void addBill_Loaded(object sender, RoutedEventArgs e)
         {
             LoadAllProduct();
+            LoadAllCustomer();
+            LoadVoucher("Khách lẻ");
+            LoadAllPayment();
         }
 
         // End: Button Close | Restore | Minimize
@@ -87,6 +90,60 @@ namespace QLNS.ResourceXAML
                                   };
 
             allProductDataGrid.ItemsSource = queryAllProduct.ToList();
+        }
+
+        private void LoadAllCustomer()
+        {
+            var queryAllCustomer = from khachhang in qLNSEntities.KHACHHANGs
+                                  orderby khachhang.idKH
+                                  select new
+                                  {
+                                      idKH = khachhang.idKH,
+                                      MaKH = khachhang.MaKH,
+                                      TenKH = khachhang.TenKH,
+                                      DiaChi = khachhang.DiaChi,
+                                      SDT = khachhang.SDT,
+                                      DiemTichLuy = khachhang.DiemTichLuy,
+                                      LoaiKH = khachhang.LOAIKHACHHANG.TenLKH,
+                                  };
+
+            customerComboBox.ItemsSource = queryAllCustomer.ToList();
+        }
+
+        private void LoadVoucher(string loaiKH)
+        {
+            var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
+                               join loaikh in qLNSEntities.LOAIKHACHHANGs
+                               on khuyenmai.idLKH equals loaikh.idLKH
+                               where loaikh.TenLKH == loaiKH
+                               //where ngay kt < ngay hien tai
+                               orderby khuyenmai.NgayKT
+                               select new
+                               {
+                                   idKM = khuyenmai.idKM,
+                                   MaKM = khuyenmai.MaKM,
+                                   TenKM = khuyenmai.TenKM,
+                                   NgayBD = khuyenmai.NgayBD,
+                                   NgayKT = khuyenmai.NgayKT,
+                                   GiamGia = khuyenmai.GiamGia,
+                               };
+
+            voucherComboBox.ItemsSource = queryVoucher.ToList();
+
+        }
+
+        private void LoadAllPayment()
+        {
+            var queryAllPayment = from ptthanhtoan in qLNSEntities.PTTHANHTOANs
+                                    orderby ptthanhtoan.idPT
+                                    select new
+                                    {
+                                        idPT = ptthanhtoan.idPT,
+                                        MaPT = ptthanhtoan.MaPT,
+                                        TenPT = ptthanhtoan.TenPT,
+                                    };
+
+            paymentComboBox.ItemsSource = queryAllPayment.ToList();
         }
 
         private string searchterm = null;
@@ -129,6 +186,8 @@ namespace QLNS.ResourceXAML
                                          GhiChu = ctsp.GhiChu,
                                      };
 
+            allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
+
             if (queryFilterProduct.ToList().Count > 0 )
             {
                 if (searchTerm == "")
@@ -140,12 +199,10 @@ namespace QLNS.ResourceXAML
                     allProductTabItem.Header = "Kết quả tìm kiếm";
                 }
 
-                allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
             }
             else
             {
                 // Khong tim thay san pham
-                allProductDataGrid.ItemsSource = queryFilterProduct.ToList();
             }
 
         }
@@ -307,7 +364,10 @@ namespace QLNS.ResourceXAML
             addProducttoBill();
         }
 
+        private int SLHD = 0;
         private decimal ThanhTienHD = 0;
+        private decimal TongThanhToan = 0;
+        private decimal GiamGia = 0;
         private void addProducttoBill()
         {
             itemProduct.Items.Add(new BillItemListBox
@@ -318,24 +378,33 @@ namespace QLNS.ResourceXAML
                 lblDonGia.Text,
                 lblThanhTien.Text
             ));
-            lblSLSP.Text = itemProduct.Items.Count.ToString();
             try
             {
-                decimal soLuongInput = decimal.Parse(lblThanhTien.Text);
-                ThanhTienHD += soLuongInput;
-                lblTongThanhToan.Text = ThanhTienHD.ToString();
+                int soLuongHD = int.Parse(txtSoLuong.Text);
+                SLHD += soLuongHD;
+                lblSLSP.Text = SLHD.ToString();
+
+                decimal thanhTienInput = decimal.Parse(lblThanhTien.Text);
+                ThanhTienHD += thanhTienInput;
+                lblTongTien.Text = ThanhTienHD.ToString();
+
+                GiamGia = ThanhTienHD * voucherGiamGia / 100;
+                lblGiamGia.Text = GiamGia.ToString();
+
+                TongThanhToan = ThanhTienHD - GiamGia;
+                lblTongThanhToan.Text = TongThanhToan.ToString();
             }
             catch (FormatException)
             {
                 MessageBox.Show("Invalid input. Please enter a valid integer.");
-                txtSoLuong.Text = SLSP.ToString();
             }
 
         }
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
         {
-
+            CheckOutBill checkOutBill = new CheckOutBill();
+            checkOutBill.ShowDialog();
         }
 
         private void itemProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -344,6 +413,47 @@ namespace QLNS.ResourceXAML
             {
                 BillItemListBox billItemListBox = (BillItemListBox)itemProduct.SelectedItems[0];
                 MessageBox.Show(billItemListBox.HDidCTSP.ToString());
+            }
+        }
+
+        private void customerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (customerComboBox.SelectedItem != null)
+            {
+                var selectedItem = (dynamic)customerComboBox.SelectedItem;
+                lblSDT.Text = selectedItem.SDT;
+                lblDiaChi.Text = selectedItem.DiaChi;
+                lblLoaiKH.Text = selectedItem.LoaiKH;
+                lblDiemTichLuy.Text = selectedItem.DiemTichLuy.ToString();
+                LoadVoucher(selectedItem.LoaiKH);
+            }
+        }
+
+        short voucherGiamGia = 0;
+        private void voucherComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (voucherComboBox.SelectedItem != null)
+            {
+                var selectedItem = (dynamic)voucherComboBox.SelectedItem;
+                lblNgayBD.Text = selectedItem.NgayBD.ToString();
+                lblNgayKT.Text = selectedItem.NgayKT.ToString();
+                lblKhuyenMai.Text = selectedItem.GiamGia.ToString();
+
+                voucherGiamGia = selectedItem.GiamGia;
+                GiamGia = ThanhTienHD * voucherGiamGia / 100;
+                lblGiamGia.Text = GiamGia.ToString();
+
+                TongThanhToan = ThanhTienHD - GiamGia;
+                lblTongThanhToan.Text = TongThanhToan.ToString();
+            }
+        }
+
+        private void paymentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (paymentComboBox.SelectedItem != null)
+            {
+                var selectedItem = (dynamic)paymentComboBox.SelectedItem;
+
             }
         }
     }

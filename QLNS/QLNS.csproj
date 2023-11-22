@@ -233,6 +233,9 @@
     <Compile Include="ResourceXAML\AddStaffAndUser.xaml.cs">
       <DependentUpon>AddStaffAndUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\CheckOutBill.xaml.cs">
+      <DependentUpon>CheckOutBill.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\DetailBill.xaml.cs">
       <DependentUpon>DetailBill.xaml</DependentUpon>
     </Compile>
@@ -265,8 +268,11 @@
     </Compile>
     <Compile Include="ViewModel\AddBillViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BillCustomerListBoxItem.cs" />
     <Compile Include="ViewModel\BillItemListBox.cs" />
     <Compile Include="ViewModel\BillManageViewModel.cs" />
+    <Compile Include="ViewModel\BillProductListBoxItem.cs" />
+    <Compile Include="ViewModel\BillVoucherListBoxItem.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Page Include="Assets\Icons.xaml">
       <SubType>Designer</SubType>
@@ -393,6 +399,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddStaffAndUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\CheckOutBill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
