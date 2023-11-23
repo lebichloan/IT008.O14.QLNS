@@ -122,11 +122,11 @@
                             </DataGridCheckBoxColumn.HeaderTemplate>
                         </DataGridCheckBoxColumn>
 
-                        <DataGridTextColumn Header="#"
+                        <!--<DataGridTextColumn Header="#"
                                             Binding="{Binding idKM}"
                                             IsReadOnly="True"
                                             CanUserResize="False"
-                                            Width="auto"/>
+                                            Width="auto"/>-->
 
                         <DataGridTextColumn Header="Mã khuyến mãi"
                                             Binding="{Binding MaKM}"

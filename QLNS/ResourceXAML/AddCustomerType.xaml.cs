@@ -74,14 +74,14 @@ namespace QLNS.ResourceXAML
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            malkh = maLKH.Text;
+            //malkh = maLKH.Text;
             tenlkh = tenLKH.Text;
             mota = moTa.Text;
             diemtltt = int.Parse(diemTLTT.Text);
 
             var LOAIKHACHHANG = new LOAIKHACHHANG()
             {
-                MaLKH = malkh,
+                //MaLKH = malkh,
                 TenLKH = tenlkh,
                 MoTa = mota,
                 DiemTichLuyToiThieu = diemtltt,

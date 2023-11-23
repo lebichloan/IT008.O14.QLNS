@@ -47,6 +47,16 @@ namespace QLNS.ResourceXAML
         public AddSale()
         {
             InitializeComponent();
+            Binding_LoaiKH();
+        }
+
+        public List<LOAIKHACHHANG> lkh { get; set; }
+        private void Binding_LoaiKH()
+        {
+            QLNSEntities qLNS = new QLNSEntities();
+            var item = qLNS.LOAIKHACHHANGs.ToList();
+            lkh = item;
+            DataContext = lkh;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -87,25 +97,25 @@ namespace QLNS.ResourceXAML
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            makm = maKM.Text;
+            //makm = maKM.Text;
             tenkm = tenKM.Text;
             mota = moTa.Text;
             loaikh = int.Parse(loaiKH.Text);
             ngaybd = ngayBatDau.SelectedDate;
             ngaykt = ngayKetThuc.SelectedDate;
             giamgia = short.Parse(giamGia.Text);
-            loaind = int.Parse(loaiND.Text);
+            //loaind = int.Parse(loaiND.Text);
 
             var KHUYENMAI = new KHUYENMAI()
             {
-                MaKM = makm,
+                //MaKM = makm,
                 TenKM = tenkm,
                 MoTa = mota,
                 idLKH = loaikh,
                 NgayBD = ngaybd.Value,
                 NgayKT = ngaykt.Value,
                 GiamGia = giamgia,
-                idND = loaind,
+                //idND = loaind,
             };
 
             DataProvider.Ins.DB.KHUYENMAIs.Add(KHUYENMAI);
