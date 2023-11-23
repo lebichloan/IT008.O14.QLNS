@@ -14,7 +14,7 @@
         Background="Transparent"
         Name="addCustomer"
         Title="AddCustomer" Height="500" Width="800">
-    
+
     <Border CornerRadius="5"
             Background="{DynamicResource SecundaryBackgroundColor}"
             MouseDown="Border_MouseDown"
@@ -33,7 +33,7 @@
                        FontWeight="Bold"   
                        Margin="5 5 0 0"
                        HorizontalAlignment="Left" />
-            
+
             <!-- Start: Button Close | Restore | Minimize -->
             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
 
@@ -60,12 +60,6 @@
                    Margin="0 0 0 5"/>
 
             <StackPanel Grid.Row="2" Orientation="Vertical" >
-                <TextBox x:Name="maKH" VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Width="300" Height="40"
-                         Margin="10 5 0 0"
-                         materialDesign:HintAssist.Hint="Mã khách hàng"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <TextBox x:Name="tenKH" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
@@ -108,13 +102,15 @@
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Điểm tích lũy"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox x:Name="loaiKH" VerticalAlignment="Center"
+                <ComboBox x:Name="loaiKH" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
                          Width="300" Height="40"
                          Margin="10 5 0 0"
                          materialDesign:HintAssist.Hint="Loại khách hàng"
-                         
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                         Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding}"
+                          DisplayMemberPath="TenLKH"
+                          SelectedValuePath="MaLKH"/>
                 <Button Height="35" Margin="5" Width="150"
                         Click="ButtonAdd_Click"
                         Content="Thêm mới">
