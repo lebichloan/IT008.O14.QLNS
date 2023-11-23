@@ -55,6 +55,7 @@ namespace QLNS.Pages
         {
             var query =
                 from khachhang in qlnsEntities.KHACHHANGs
+                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khachhang.idLKH equals loaikhachhang.idLKH
                 orderby khachhang.idKH
                 select new
                 {
@@ -65,9 +66,9 @@ namespace QLNS.Pages
                     NgaySinh = khachhang.NgaySinh,
                     DiaChi = khachhang.DiaChi,
                     SDT = khachhang.SDT,
-                    NgayTG = khachhang.NgayTG,
+                    NgayTG = khachhang.NgayTG.Day + "/" + khachhang.NgayTG.Month + "/" + khachhang.NgayTG.Year,
                     DiemTichLuy = khachhang.DiemTichLuy,
-                    idLKH = khachhang.idLKH,
+                    idLKH = loaikhachhang.TenLKH,
                 };
 
             CustomerDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
