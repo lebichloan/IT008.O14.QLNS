@@ -86,7 +86,7 @@ namespace QLNS.ResourceXAML
             }
         }
 
-        private int idKHSelected = 0;
+        private int idKHSelected = -1;
         private int idLKHSelected = 0;
         private void LoadAllCustomer()
         {
@@ -138,7 +138,6 @@ namespace QLNS.ResourceXAML
                                   select new
                                   {
                                       idPT = ptthanhtoan.idPT,
-                                      MaPT = ptthanhtoan.MaPT,
                                       TenPT = ptthanhtoan.TenPT,
                                   };
 
@@ -166,7 +165,8 @@ namespace QLNS.ResourceXAML
                 lblSDT.Text = selectedCustomer.itemSDT;
                 lblDiaChi.Text = selectedCustomer.itemDiaChi;
                 lblLoaiKH.Text = selectedCustomer.itemLoaiKH;
-                lblDiemTichLuy.Text = selectedCustomer.itemDiemTichLuy.ToString();            }
+                lblDiemTichLuy.Text = selectedCustomer.itemDiemTichLuy.ToString();            
+            }
         }
 
         private void voucherListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
