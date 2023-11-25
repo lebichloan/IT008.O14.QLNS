@@ -309,20 +309,25 @@ namespace QLNS.ResourceXAML
 
         }
 
-        //private void itemProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (itemProduct.SelectedItems.Count > 0)
-        //    {
-        //        BillItemListBox billItemListBox = (BillItemListBox)itemProduct.SelectedItems[0];
-        //        MessageBox.Show(billItemListBox.HDidCTSP.ToString());
-        //    }
-        //}
-
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            CheckOutBill checkOutBill = new CheckOutBill();
+            List<BillProductListBoxItem> listProduct = GetListBoxProduct();
+
+            CheckOutBill checkOutBill = new CheckOutBill(listProduct, TongSoLuongSP, TongTienHD);
             checkOutBill.ShowDialog();
         }
 
+        private List<BillProductListBoxItem> GetListBoxProduct()
+        {
+            List<BillProductListBoxItem> listProduct = new List<BillProductListBoxItem>();
+
+            foreach (BillProductListBoxItem item in productListBox.Items)
+            {
+                BillProductListBoxItem billProductListBoxItem = item as BillProductListBoxItem;
+                listProduct.Add(billProductListBoxItem);
+            }
+
+            return listProduct;
+        }
     }
 }

@@ -22,5 +22,14 @@ namespace QLNS.ViewModel
             this.itemDonGiaSP = itemDonGiaSP;
             this.itemThanhTienSP = itemThanhTienSP;
         }
+
+        public BillProductListBoxItem(BillProductListBoxItem item)
+        {
+            this.itemIdCTSP = item.itemIdCTSP;
+            this.itemTenSP = item.itemTenSP;
+            this.itemSoLuongSP = item.itemSoLuongSP;
+            this.itemDonGiaSP = item.itemDonGiaSP;
+            this.itemThanhTienSP = item.itemThanhTienSP;
+        }
     }
 }
