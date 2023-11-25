@@ -10,7 +10,8 @@
         WindowStartupLocation="CenterScreen"
         Name="checkOutBill"
         Title="CheckOutBill" 
-        Height="auto" Width="800">
+        Height="auto" Width="800"
+        Loaded="checkOutBill_Loaded">
 
     <Window.Resources>
 
@@ -159,10 +160,14 @@
 
                     <ListBox x:Name="customerListBox"
                          Grid.Row="1"
+                         SelectionChanged="customerListBox_SelectionChanged"
+                         Height="300"
                          >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
+                                <Grid
+                                    Width="500"
+                                    >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
@@ -271,6 +276,8 @@
 
                     <ListBox x:Name="voucherListBox"
                          Grid.Row="1"
+                         Height="300"
+                        SelectionChanged="voucherListBox_SelectionChanged"
                          >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -360,6 +367,7 @@
 
                 <ComboBox x:Name="paymentComboBox" 
                       SelectedValuePath="idPT"
+                          SelectionChanged="paymentComboBox_SelectionChanged"
                       >
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -386,7 +394,9 @@
                          >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid
+                            Width="500"
+                            >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>

@@ -34,10 +34,7 @@ namespace QLNS.ResourceXAML
             this.listProduct = listProduct;
             this.TongSLSP = tongSLSP;
             this.TongThanhTienHD = tongThanhTienHD;
-            LoadListProduct();
-            LoadAllCustomer();
-            LoadAllVoucher();
-            LoadAllPayment();
+            this.TongThanhToanHD = TongThanhTienHD - GiamGiaHD;
         }
 
         // Start: Button Close | Restore | Minimize 
@@ -58,6 +55,25 @@ namespace QLNS.ResourceXAML
         {
             WindowState = WindowState.Minimized;
         }
+        // End: Button Close | Restore | Minimize
+
+        private void checkOutBill_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadListProduct();
+            LoadAllCustomer();
+            LoadVoucher(idLKHSelected);
+            LoadAllPayment();
+            SetValues();
+        }
+
+        private void SetValues()
+        {
+            lblSoLuongHoaDon.Text = TongSLSP.ToString();
+            lblTongTienHoaDon.Text = TongThanhTienHD.ToString();
+            lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
+            lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
+            lblTongThanhToan.Text = TongThanhToanHD.ToString();
+        }
 
         private List<BillProductListBoxItem> listProduct;
         private int TongSLSP = 0;
@@ -70,22 +86,10 @@ namespace QLNS.ResourceXAML
             }
         }
 
+        private int idKHSelected = 0;
+        private int idLKHSelected = 0;
         private void LoadAllCustomer()
         {
-            //var queryAllCustomer = from khachhang in qLNSEntities.KHACHHANGs
-            //                       orderby khachhang.idKH
-            //                       select new
-            //                       {
-            //                           khachhang.idKH,
-            //                           khachhang.MaKH,
-            //                           khachhang.TenKH,
-            //                           khachhang.DiemTichLuy,
-            //                           khachhang.SDT,
-            //                           khachhang.DiaChi,
-            //                           khachhang.LOAIKHACHHANG.TenLKH,
-            //                           khachhang.NgayTG
-            //                       };
-
             var queryAllCustomer = from khachhang in qLNSEntities.KHACHHANGs
                                    orderby khachhang.idKH
                                    select new
@@ -96,36 +100,37 @@ namespace QLNS.ResourceXAML
                                        itemDiemTichLuy = khachhang.DiemTichLuy,
                                        itemSDT = khachhang.SDT,
                                        itemDiaChi = khachhang.DiaChi,
+                                       idLKH = khachhang.idLKH,
                                        itemLoaiKH = khachhang.LOAIKHACHHANG.TenLKH,
                                        itemNgayTG = khachhang.NgayTG
-                                   };
-
-            var listCustomer = queryAllCustomer.ToList().Select(item => 
-                new BillCustomerListBoxItem(
-                    item.idKH,
-                    item.itemMaKH,
-                    item.itemTenKH,
-                    item.itemDiemTichLuy,
-                    item.itemSDT,
-                    item.itemDiaChi,
-                    item.itemLoaiKH,
-                    item.itemNgayTG
-                    ));
-
-
-            customerListBox.ItemsSource = listCustomer;
-            //foreach(BillCustomerListBoxItem item in listCustomer)
-            //{
-            //    customerListBox.Items.Add(new BillCustomerListBoxItem(item));
-            //}
-
+                                   };       
+            
+            customerListBox.ItemsSource = queryAllCustomer.ToList();
         }
 
-        private void LoadAllVoucher()
+        private int idVoucherSelected = -1;
+        private decimal GiamGiaHD = 0;
+        private decimal TongThanhToanHD = 0;
+        private void LoadVoucher(int idLKH)
         {
+            var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
+                               where khuyenmai.idLKH == idLKH
+                               //where ngay kt < ngay hien tai
+                               orderby khuyenmai.GiamGia
+                               select new
+                               {
+                                   idKM = khuyenmai.idKM,
+                                   itemTenKM = khuyenmai.TenKM,
+                                   itemNgayBD = khuyenmai.NgayBD,
+                                   itemNgayKT = khuyenmai.NgayKT,
+                                   itemGiamGia = khuyenmai.GiamGia,
+                                   itemMoTa = khuyenmai.MoTa,
+                               };
 
+            voucherListBox.ItemsSource = queryVoucher.ToList();
         }
 
+        private int idPaymentSelected = 0;
         private void LoadAllPayment()
         {
             var queryAllPayment = from ptthanhtoan in qLNSEntities.PTTHANHTOANs
@@ -138,6 +143,55 @@ namespace QLNS.ResourceXAML
                                   };
 
             paymentComboBox.ItemsSource = queryAllPayment.ToList();
+        }
+
+        private void customerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (customerListBox.SelectedItems != null)
+            {
+                var selectedCustomer = (dynamic)customerListBox.SelectedItems[0];
+                idKHSelected = selectedCustomer.idKH;
+                idLKHSelected = selectedCustomer.idLKH;
+
+                idVoucherSelected = -1;
+                GiamGiaHD = 0;
+                TongThanhToanHD = TongThanhTienHD;
+                lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
+                lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
+                lblTongThanhToan.Text = TongThanhToanHD.ToString();
+
+                LoadVoucher(idLKHSelected);
+
+                lblTenKH.Text = selectedCustomer.itemTenKH;
+                lblSDT.Text = selectedCustomer.itemSDT;
+                lblDiaChi.Text = selectedCustomer.itemDiaChi;
+                lblLoaiKH.Text = selectedCustomer.itemLoaiKH;
+                lblDiemTichLuy.Text = selectedCustomer.itemDiemTichLuy.ToString();            }
+        }
+
+        private void voucherListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (voucherListBox.SelectedItems != null)
+            {
+                var selectedVoucher = (dynamic)voucherListBox.SelectedItems[0];
+                idVoucherSelected = selectedVoucher.idKM;
+
+                int giamgia = selectedVoucher.itemGiamGia;
+                GiamGiaHD = TongThanhTienHD * giamgia / 100;
+                TongThanhToanHD = TongThanhTienHD - GiamGiaHD;
+                lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
+                lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
+                lblTongThanhToan.Text = TongThanhToanHD.ToString();
+            }
+        }
+
+        private void paymentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (paymentComboBox.SelectedItem != null)
+            {
+                var selectedPayment = (dynamic)paymentComboBox.SelectedItem;
+                idPaymentSelected = selectedPayment.idPT;
+            }
         }
     }
 }
