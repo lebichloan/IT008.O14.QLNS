@@ -199,10 +199,38 @@ namespace QLNS.ResourceXAML
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
         {
+
             HOADON hoadon = CreateBill();
             DataProvider.Ins.DB.HOADONs.Add(hoadon);
             DataProvider.Ins.DB.SaveChanges();
+            int idHD = GetLastIdHD();
+
+            foreach(BillProductListBoxItem item in listProduct)
+            {
+                CTHD cthd = CreateDetailBill(item, idHD);
+                DataProvider.Ins.DB.CTHDs.Add(cthd);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+
             MessageBox.Show("Them hoa don thanh cong");
+        }
+
+        private int GetLastIdHD()
+        {
+            var query =
+                from hoadon in qLNSEntities.HOADONs
+                orderby hoadon.idHD descending
+                select new
+                {
+                    idHD = hoadon.idHD,
+                };
+
+            var lastHD = query.FirstOrDefault();
+            if (lastHD != null)
+            {
+                return lastHD.idHD;
+            }
+            return 0;
         }
 
         private HOADON CreateBill()
@@ -227,6 +255,17 @@ namespace QLNS.ResourceXAML
             hoadon.SLSP = TongSLSP;
             hoadon.ThanhToan = TongThanhToanHD;
             return hoadon;
+        }
+
+        private CTHD CreateDetailBill(BillProductListBoxItem billProductListBoxItem, int idHD)
+        {
+            CTHD cthd = new CTHD();
+            cthd.idHD = idHD;
+            cthd.idCTSP = billProductListBoxItem.itemIdCTSP;
+            cthd.SoLuong = billProductListBoxItem.itemSoLuongSP;
+            cthd.DonGia = billProductListBoxItem.itemDonGiaSP;
+            cthd.ThanhTien = billProductListBoxItem.itemThanhTienSP;
+            return cthd;
         }
     }
 }
