@@ -202,6 +202,7 @@ namespace QLNS.ResourceXAML
             HOADON hoadon = CreateBill();
             DataProvider.Ins.DB.HOADONs.Add(hoadon);
             DataProvider.Ins.DB.SaveChanges();
+            MessageBox.Show("Them hoa don thanh cong");
         }
 
         private HOADON CreateBill()

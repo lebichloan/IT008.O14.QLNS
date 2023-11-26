@@ -24,7 +24,6 @@ namespace QLNS.Model
         public string MaSP { get; set; }
         public string TenSP { get; set; }
         public string MoTa { get; set; }
-        public string GhiChu { get; set; }
         public int idDM { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

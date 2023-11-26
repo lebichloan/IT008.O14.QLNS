@@ -23,16 +23,16 @@ namespace QLNS.Model
         public int idHD { get; set; }
         public string SoHD { get; set; }
         public System.DateTime NgayHD { get; set; }
-        public decimal GiamGia { get; set; }
+        public int SLSP { get; set; }
         public decimal ThanhTien { get; set; }
+        public decimal GiamGia { get; set; }
+        public decimal ThanhToan { get; set; }
         public string GhiChu { get; set; }
         public Nullable<int> idLKH { get; set; }
         public Nullable<int> idKH { get; set; }
         public Nullable<int> idKM { get; set; }
         public int idND { get; set; }
         public int idPT { get; set; }
-        public Nullable<int> SLSP { get; set; }
-        public Nullable<decimal> ThanhToan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHD> CTHDs { get; set; }

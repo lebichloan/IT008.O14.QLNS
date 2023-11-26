@@ -102,7 +102,7 @@
                                     <!--  Mã sản phẩm  -->
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding idSP}"
+                                        Binding="{Binding MaSP}"
                                         CanUserResize="False"
                                         Header="Mã sản phẩm"
                                         IsReadOnly="True" />
@@ -117,12 +117,6 @@
                                         Width="*"
                                         Binding="{Binding MoTa}"
                                         Header="Mô tả"
-                                        IsReadOnly="True" />
-                                    <!--  Ghi chú  -->
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding GhiChu}"
-                                        Header="Ghi chú"
                                         IsReadOnly="True" />
                                     <!--  Ngày vào làm  -->
                                     <DataGridTextColumn
