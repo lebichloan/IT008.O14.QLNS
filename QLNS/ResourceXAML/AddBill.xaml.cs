@@ -288,19 +288,18 @@ namespace QLNS.ResourceXAML
             CheckInputSoLuong(SLSPHD);
         }
 
-        public short SLCL { get; set; }
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             addProducttoBill();
             detailProductExpander.Visibility = Visibility.Collapsed;
 
-            if (productDataGrid.SelectedItem != null)
-            {
-                var selectedProduct = (dynamic)productDataGrid.SelectedItem;
-                SLSPCL = SLSPCL - SLSPHD;
-                selectedProduct.SLCL = (short)SLSPCL;
-                productDataGrid.Items.Refresh();
-            }
+            //if (productDataGrid.SelectedItem != null)
+            //{
+            //    var selectedProduct = (dynamic)productDataGrid.SelectedItem;
+            //    SLSPCL = SLSPCL - SLSPHD;
+            //    selectedProduct.SLCL = (short)SLSPCL;
+            //    productDataGrid.Items.Refresh();
+            //}
         }
 
         private int TongSoLuongSP = 0;
