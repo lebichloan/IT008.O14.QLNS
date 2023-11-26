@@ -14,13 +14,12 @@ namespace QLNS.Model
     
     public partial class CTHD
     {
-        public int idHD { get; set; }
-        public int idCTSP { get; set; }
+        public int idCTHD { get; set; }
+        public Nullable<int> idHD { get; set; }
+        public Nullable<int> idCTSP { get; set; }
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }
-        public Nullable<decimal> GiamGia { get; set; }
         public decimal ThanhTien { get; set; }
-        public string GhiChu { get; set; }
     
         public virtual CTSP CTSP { get; set; }
         public virtual HOADON HOADON { get; set; }

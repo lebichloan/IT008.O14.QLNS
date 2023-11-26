@@ -37,6 +37,8 @@ namespace QLNS.ViewModel
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
         }
 
+        private int idND = -1;
+        private int isLogin = 0;
         void Login(Window p)
         {
             if (p == null)
@@ -45,23 +47,27 @@ namespace QLNS.ViewModel
             var existingUser = DataProvider.Ins.DB.NGUOIDUNGs.SingleOrDefault(nguoidung => nguoidung.TenDN == UserName && nguoidung.MatKhau == Password);
             if (existingUser != null && existingUser.TinhTrang == 1)
             {
-                
+                idND = existingUser.idND;
+
                 // Loại người dùng
                 if (existingUser.idLND == 1 )
                 {
-                    MainQuanLy mainQuanLy = new MainQuanLy();
+                    isLogin = 1;
+                    MainQuanLy mainQuanLy = new MainQuanLy(idND);
                     p.Close();
                     mainQuanLy.Show();
                 }
                 else if (existingUser.idLND == 2 )
                 {
-                    MainThuNgan mainThuNgan = new MainThuNgan();
+                    isLogin = 1;
+                    MainThuNgan mainThuNgan = new MainThuNgan(idND);
                     p.Close();
                     mainThuNgan.Show();
                 }
                 else if (existingUser.idLND == 3 )
                 {
-                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho();
+                    isLogin = 1;
+                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho(idND);
                     p.Close();
                     mainNhanVienKho.Show();
                 }  

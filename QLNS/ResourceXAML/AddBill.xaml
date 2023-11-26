@@ -114,7 +114,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock 
+                    <!--<TextBlock 
                         Text="nhan vien"
                         Grid.Row="0"
                         Grid.Column="0"
@@ -126,7 +126,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Style="{StaticResource ContentText}"
-                        />
+                        />-->
 
                     <ListBox Grid.Row="1"
                             Grid.ColumnSpan="2"

@@ -23,8 +23,10 @@ namespace QLNS.Model
         public int idHD { get; set; }
         public string SoHD { get; set; }
         public System.DateTime NgayHD { get; set; }
-        public decimal GiamGia { get; set; }
+        public int SLSP { get; set; }
         public decimal ThanhTien { get; set; }
+        public decimal GiamGia { get; set; }
+        public decimal ThanhToan { get; set; }
         public string GhiChu { get; set; }
         public Nullable<int> idLKH { get; set; }
         public Nullable<int> idKH { get; set; }

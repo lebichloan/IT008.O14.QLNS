@@ -58,9 +58,7 @@ namespace QLNS.Pages
                     MaSP = sanpham.MaSP,
                     TenSP = sanpham.TenSP,
                     MoTa = sanpham.MoTa,
-                    GhiChu = sanpham.GhiChu,
-                    idDM = sanpham.idDM,
-                    
+                    idDM = sanpham.DANHMUC.TenDM,
                 };
 
             productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();

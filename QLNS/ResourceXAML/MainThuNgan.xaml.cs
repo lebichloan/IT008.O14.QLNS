@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLNS.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -21,9 +22,16 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class MainThuNgan : Window
     {
+        private int idND = -1;
         public MainThuNgan()
         {
             InitializeComponent();
+        }
+
+        public MainThuNgan(int idND)
+        {
+            InitializeComponent();
+            this.idND = idND;
         }
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -203,7 +211,9 @@ namespace QLNS.ResourceXAML
 
         private void btnBill_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/BillManage.xaml", UriKind.RelativeOrAbsolute));
+            BillManage billManage = new BillManage(idND);
+            fContainer.Navigate(billManage);
+            //fContainer.Navigate(new System.Uri("Pages/BillManage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)

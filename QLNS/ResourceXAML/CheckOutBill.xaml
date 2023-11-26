@@ -81,7 +81,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0">Thong tin hoa don</TextBlock>
+            <!--<TextBlock Grid.Row="0">Thong tin hoa don</TextBlock>-->
 
             <Expander Grid.Row="1"
                     Visibility="Visible"
@@ -387,6 +387,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <ListBox x:Name="productListBox"
@@ -441,7 +442,20 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical" 
+                        Grid.Row="1">
+                <TextBlock Text="Ghi chú"
+                       FontWeight="Bold"
+                       Grid.Row="0"
+                       />
+
+                <TextBox x:Name="txtGhiChu"
+                         Grid.Row="1"
+                         MaxHeight="100"
+                         />
+            </StackPanel>
+            
+            <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -500,7 +514,7 @@
                            />
             </Grid>
 
-            <StackPanel Grid.Row="2"
+            <StackPanel Grid.Row="3"
               Orientation="Horizontal"
               HorizontalAlignment="Right">
 
@@ -517,6 +531,7 @@
 
                 <Button x:Name="btnCheckOut"
                     Style="{StaticResource checkOutButton}" 
+                        Click="btnCheckOut_Click"
                             >
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus"

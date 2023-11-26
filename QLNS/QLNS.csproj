@@ -516,7 +516,6 @@
   <ItemGroup>
     <Resource Include="Resources\BackGroundLogin.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\QLNS.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

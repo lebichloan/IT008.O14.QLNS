@@ -16,16 +16,14 @@
         </EntityType>
         <EntityType Name="CTHD">
           <Key>
-            <PropertyRef Name="idHD" />
-            <PropertyRef Name="idCTSP" />
+            <PropertyRef Name="idCTHD" />
           </Key>
-          <Property Name="idHD" Type="int" Nullable="false" />
-          <Property Name="idCTSP" Type="int" Nullable="false" />
+          <Property Name="idCTHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idHD" Type="int" />
+          <Property Name="idCTSP" Type="int" />
           <Property Name="SoLuong" Type="int" Nullable="false" />
           <Property Name="DonGia" Type="money" Nullable="false" />
-          <Property Name="GiamGia" Type="money" />
           <Property Name="ThanhTien" Type="money" Nullable="false" />
-          <Property Name="GhiChu" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CTSP">
           <Key>
@@ -60,8 +58,10 @@
           <Property Name="idHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SoHD" Type="char" MaxLength="12" StoreGeneratedPattern="Computed" />
           <Property Name="NgayHD" Type="datetime" Nullable="false" />
-          <Property Name="GiamGia" Type="money" Nullable="false" />
+          <Property Name="SLSP" Type="int" Nullable="false" />
           <Property Name="ThanhTien" Type="money" Nullable="false" />
+          <Property Name="GiamGia" Type="money" Nullable="false" />
+          <Property Name="ThanhToan" Type="money" Nullable="false" />
           <Property Name="GhiChu" Type="nvarchar(max)" />
           <Property Name="idLKH" Type="int" />
           <Property Name="idKH" Type="int" />
@@ -182,7 +182,6 @@
           <Property Name="MaSP" Type="char" MaxLength="8" StoreGeneratedPattern="Computed" />
           <Property Name="TenSP" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MoTa" Type="nvarchar(max)" />
-          <Property Name="GhiChu" Type="nvarchar(max)" />
           <Property Name="idDM" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SANPHAMLOI">
@@ -199,7 +198,7 @@
           <Property Name="idND" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__CTHD__idCTSP__5441852A">
-          <End Role="CTSP" Type="Self.CTSP" Multiplicity="1">
+          <End Role="CTSP" Type="Self.CTSP" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
@@ -213,7 +212,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CTHD__idHD__534D60F1">
-          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
@@ -567,16 +566,14 @@
         </EntityType>
         <EntityType Name="CTHD">
           <Key>
-            <PropertyRef Name="idHD" />
-            <PropertyRef Name="idCTSP" />
+            <PropertyRef Name="idCTHD" />
           </Key>
-          <Property Name="idHD" Type="Int32" Nullable="false" />
-          <Property Name="idCTSP" Type="Int32" Nullable="false" />
+          <Property Name="idCTHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idHD" Type="Int32" />
+          <Property Name="idCTSP" Type="Int32" />
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
           <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="GiamGia" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CTSP" Relationship="Self.FK__CTHD__idCTSP__5441852A" FromRole="CTHD" ToRole="CTSP" />
           <NavigationProperty Name="HOADON" Relationship="Self.FK__CTHD__idHD__534D60F1" FromRole="CTHD" ToRole="HOADON" />
         </EntityType>
@@ -618,8 +615,10 @@
           <Property Name="idHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SoHD" Type="String" MaxLength="12" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="NgayHD" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="GiamGia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SLSP" Type="Int32" Nullable="false" />
           <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="GiamGia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ThanhToan" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="idLKH" Type="Int32" />
           <Property Name="idKH" Type="Int32" />
@@ -758,7 +757,6 @@
           <Property Name="MaSP" Type="String" MaxLength="8" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="TenSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="idDM" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CTSPs" Relationship="Self.FK__CTSP__idSP__3F466844" FromRole="SANPHAM" ToRole="CTSP" />
           <NavigationProperty Name="DANHMUC" Relationship="Self.FK__SANPHAM__idDM__398D8EEE" FromRole="SANPHAM" ToRole="DANHMUC" />
@@ -779,7 +777,7 @@
           <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK__SANPHAMLOI__idND__440B1D61" FromRole="SANPHAMLOI" ToRole="NGUOIDUNG" />
         </EntityType>
         <Association Name="FK__CTHD__idCTSP__5441852A">
-          <End Role="CTSP" Type="Self.CTSP" Multiplicity="1">
+          <End Role="CTSP" Type="Self.CTSP" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
@@ -793,7 +791,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CTHD__idHD__534D60F1">
-          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
@@ -1120,13 +1118,12 @@
           <EntitySetMapping Name="CTHDs">
             <EntityTypeMapping TypeName="QLNSModel.CTHD">
               <MappingFragment StoreEntitySet="CTHD">
+                <ScalarProperty Name="idCTHD" ColumnName="idCTHD" />
                 <ScalarProperty Name="idHD" ColumnName="idHD" />
                 <ScalarProperty Name="idCTSP" ColumnName="idCTSP" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
                 <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1164,8 +1161,10 @@
                 <ScalarProperty Name="idHD" ColumnName="idHD" />
                 <ScalarProperty Name="SoHD" ColumnName="SoHD" />
                 <ScalarProperty Name="NgayHD" ColumnName="NgayHD" />
-                <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
+                <ScalarProperty Name="SLSP" ColumnName="SLSP" />
                 <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
+                <ScalarProperty Name="ThanhToan" ColumnName="ThanhToan" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="idLKH" ColumnName="idLKH" />
                 <ScalarProperty Name="idKH" ColumnName="idKH" />
@@ -1287,7 +1286,6 @@
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
                 <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="idDM" ColumnName="idDM" />
               </MappingFragment>
             </EntityTypeMapping>
