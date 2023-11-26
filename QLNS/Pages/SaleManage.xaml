@@ -80,25 +80,31 @@
                     Height="25"
                     Margin="20 0 10 0"
                     >
-
                     <TextBlock Margin="20 0 100 0"
-                            Foreground="{DynamicResource PrimaryTextColor}"
-                            VerticalAlignment="Center"
-                            IsHitTestVisible="False"
-                            Panel.ZIndex="1"
-                            Text="Search here"
-                            Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
+                               Foreground="{DynamicResource PrimaryTextColor}"
+                               VerticalAlignment="Center"
+                               IsHitTestVisible="False"
+                               Panel.ZIndex="1"
+                               Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
                             />
 
                     <TextBox x:Name="txtSaleSearch" 
                             Style="{DynamicResource searchTextBox}"
+                             IsReadOnly="True"
+                            />
+                    <TextBox x:Name="txtSaleSearch1"
+                             Margin="23,1,1,0"
+                            Style="{DynamicResource searchTextBox}"
+                             BorderThickness="0"
+                             Height="22"
                             />
 
                     <Icon:PackIconMaterial Kind="Magnify"
-                                        Width="14"
-                                        Height="14"
-                                        Foreground="{DynamicResource PrimaryTextColor}"
-                                        VerticalAlignment="Center"
+                                           Width="14"
+                                           Height="14"
+                                           Margin="5,0,0,0"
+                                           Foreground="{DynamicResource PrimaryTextColor}"
+                                           VerticalAlignment="Center"
                                         />
                 </Grid>
 
@@ -116,11 +122,11 @@
                             </DataGridCheckBoxColumn.HeaderTemplate>
                         </DataGridCheckBoxColumn>
 
-                        <DataGridTextColumn Header="#"
+                        <!--<DataGridTextColumn Header="#"
                                             Binding="{Binding idKM}"
                                             IsReadOnly="True"
                                             CanUserResize="False"
-                                            Width="auto"/>
+                                            Width="auto"/>-->
 
                         <DataGridTextColumn Header="Mã khuyến mãi"
                                             Binding="{Binding MaKM}"
@@ -129,11 +135,6 @@
 
                         <DataGridTextColumn Header="Tên khuyến mãi"
                                             Binding="{Binding TenKM}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
-                        <DataGridTextColumn Header="Mô tả"
-                                            Binding="{Binding MoTa}"
                                             IsReadOnly="True"
                                             Width="*"/>
 
@@ -157,10 +158,11 @@
                                             IsReadOnly="True"
                                             Width="*"/>
 
-                        <DataGridTextColumn Header="Loại người dùng"
-                                            Binding="{Binding idND}"
+                        <DataGridTextColumn Header="Mô tả"
+                                            Binding="{Binding MoTa}"
                                             IsReadOnly="True"
                                             Width="*"/>
+
                         <DataGridTemplateColumn Header="Operations"
                                                 IsReadOnly="True"
                                                 Width="auto">
@@ -178,7 +180,7 @@
                                             <Icon:PackIconMaterial Kind="SquareEditOutline"
                                                                    Style="{DynamicResource gridButtonIcon}"/>
                                         </Button>
-                                        
+
                                         <Button Style="{DynamicResource gridViewButton}"
                                                 Margin="5,0,0,0">
                                             <Icon:PackIconMaterial Kind="TrashCan"

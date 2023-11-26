@@ -50,8 +50,17 @@ namespace QLNS.ResourceXAML
         public AddCustomer()
         {
             InitializeComponent();
+            Binding_LoaiKH();
         }
 
+        public List<LOAIKHACHHANG> lkh { get; set; }
+        private void Binding_LoaiKH()
+        {
+            QLNSEntities qLNS = new QLNSEntities();
+            var item = qLNS.LOAIKHACHHANGs.ToList();
+            lkh = item;
+            DataContext = lkh;
+        }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -90,7 +99,7 @@ namespace QLNS.ResourceXAML
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            makh = maKH.Text;
+            //makh = maKH.Text;
             tenkh = tenKH.Text;
             gioitinh = gioiTinh.Text;
             diachi = diaChi.Text;
@@ -109,7 +118,7 @@ namespace QLNS.ResourceXAML
 
             var KHACHHANG = new KHACHHANG()
             {
-                MaKH = makh,
+                //MaKH = makh,
                 TenKH = tenkh,
                 GioiTinh = gioitinh,
                 DiemTichLuy = diemtl,

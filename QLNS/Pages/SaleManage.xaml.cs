@@ -53,6 +53,7 @@ namespace QLNS.Pages
         {
             var query =
                 from khuyenmai in qlnsEntities.KHUYENMAIs
+                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khuyenmai.idLKH equals loaikhachhang.idLKH
                 orderby khuyenmai.idKM
                 //where hoadon.idHD == 0
                 select new
@@ -61,9 +62,9 @@ namespace QLNS.Pages
                     MaKM = khuyenmai.MaKM,
                     TenKM = khuyenmai.TenKM,
                     MoTa = khuyenmai.MoTa,
-                    idLKH = khuyenmai.idLKH,
-                    NgayBD = khuyenmai.NgayBD,
-                    NgayKT = khuyenmai.NgayKT,
+                    idLKH = loaikhachhang.TenLKH,
+                    NgayBD = khuyenmai.NgayBD.Day + "/" + khuyenmai.NgayBD.Month + "/" + khuyenmai.NgayBD.Year,
+                    NgayKT = khuyenmai.NgayKT.Day + "/" + khuyenmai.NgayKT.Month + "/" + khuyenmai.NgayKT.Year,
                     GiamGia = khuyenmai.GiamGia,
                     idND = khuyenmai.idND,
                 };
