@@ -172,6 +172,7 @@ namespace QLNS.ResourceXAML
                 var selectedProduct = (dynamic)productDataGrid.SelectedItem;
 
                 detailProductExpander.Visibility = Visibility.Visible;
+                detailProductExpander.IsExpanded = true;
                 idCTSP = selectedProduct.idSP;
                 headerProductExpander.Text = selectedProduct.TenSP;
                 lblSoLuongDaBan.Text = string.Format("{0} {1}", "Đã bán", selectedProduct.SLDB.ToString());
@@ -287,9 +288,19 @@ namespace QLNS.ResourceXAML
             CheckInputSoLuong(SLSPHD);
         }
 
+        public short SLCL { get; set; }
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             addProducttoBill();
+            detailProductExpander.Visibility = Visibility.Collapsed;
+
+            if (productDataGrid.SelectedItem != null)
+            {
+                var selectedProduct = (dynamic)productDataGrid.SelectedItem;
+                SLSPCL = SLSPCL - SLSPHD;
+                selectedProduct.SLCL = (short)SLSPCL;
+                productDataGrid.Items.Refresh();
+            }
         }
 
         private int TongSoLuongSP = 0;
@@ -321,6 +332,7 @@ namespace QLNS.ResourceXAML
             List<BillProductListBoxItem> listProduct = GetListBoxProduct();
 
             CheckOutBill checkOutBill = new CheckOutBill(idND ,listProduct, TongSoLuongSP, TongTienHD);
+            this.Close();
             checkOutBill.ShowDialog();
         }
 
