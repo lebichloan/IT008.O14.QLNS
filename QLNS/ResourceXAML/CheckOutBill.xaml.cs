@@ -210,9 +210,11 @@ namespace QLNS.ResourceXAML
                 CTHD cthd = CreateDetailBill(item, idHD);
                 DataProvider.Ins.DB.CTHDs.Add(cthd);
                 DataProvider.Ins.DB.SaveChanges();
+                SetSLSP(item.itemIdCTSP, item.itemSoLuongSP);
             }
 
             MessageBox.Show("Them hoa don thanh cong");
+            this.Close();
         }
 
         private int GetLastIdHD()
@@ -231,6 +233,21 @@ namespace QLNS.ResourceXAML
                 return lastHD.idHD;
             }
             return 0;
+        }
+
+        private void SetSLSP(int idSP, int sl)
+        {
+            var product = qLNSEntities.CTSPs.FirstOrDefault(sp => sp.idCTSP == idSP);
+            if (product != null)
+            {
+                product.DaBan = (short)(product.DaBan + sl);
+                product.SLConLai = (short)(product.SLConLai - sl);
+                if (product.SLConLai == 0)
+                {
+                    product.TinhTrang = 0;
+                }
+                qLNSEntities.SaveChanges();
+            }
         }
 
         private HOADON CreateBill()
@@ -266,6 +283,24 @@ namespace QLNS.ResourceXAML
             cthd.DonGia = billProductListBoxItem.itemDonGiaSP;
             cthd.ThanhTien = billProductListBoxItem.itemThanhTienSP;
             return cthd;
+        }
+
+        private void customerExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            voucherExpander.IsExpanded = false;
+            paymentExpander.IsExpanded = false;
+        }
+
+        private void voucherExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            customerExpander.IsExpanded = false;
+            paymentExpander.IsExpanded=false;
+        }
+
+        private void paymentExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            customerExpander.IsExpanded = false;
+            voucherExpander.IsExpanded = false;
         }
     }
 }

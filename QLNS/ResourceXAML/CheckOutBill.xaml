@@ -85,6 +85,7 @@
 
             <Expander Grid.Row="1"
                     Visibility="Visible"
+                      Expanded="customerExpander_Expanded"
                     Name="customerExpander">
 
                 <Expander.Header>
@@ -238,6 +239,7 @@
 
             <Expander Grid.Row="2"
                     Visibility="Visible"
+                      Expanded="voucherExpander_Expanded"
                     Name="voucherExpander">
 
                 <Expander.Header>
@@ -340,6 +342,7 @@
 
             <Expander Grid.Row="3"
                     Visibility="Visible"
+                      Expanded="paymentExpander_Expanded"
                     Name="paymentExpander">
 
                 <Expander.Header>
