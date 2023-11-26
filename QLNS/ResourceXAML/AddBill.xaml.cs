@@ -21,11 +21,18 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddBill : Window
     {
+        private int idND = -1;
         QLNSEntities qLNSEntities = new QLNSEntities();
 
         public AddBill()
         {
             InitializeComponent();
+        }
+
+        public AddBill(int idND)
+        {
+            InitializeComponent();
+            this.idND = idND;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -313,7 +320,7 @@ namespace QLNS.ResourceXAML
         {
             List<BillProductListBoxItem> listProduct = GetListBoxProduct();
 
-            CheckOutBill checkOutBill = new CheckOutBill(listProduct, TongSoLuongSP, TongTienHD);
+            CheckOutBill checkOutBill = new CheckOutBill(idND ,listProduct, TongSoLuongSP, TongTienHD);
             checkOutBill.ShowDialog();
         }
 

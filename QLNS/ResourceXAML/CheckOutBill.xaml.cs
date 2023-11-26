@@ -21,6 +21,7 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class CheckOutBill : Window
     {
+        private int idND = -1;
         QLNSEntities qLNSEntities = new QLNSEntities();
 
         public CheckOutBill()
@@ -28,9 +29,10 @@ namespace QLNS.ResourceXAML
             InitializeComponent();
         }
 
-        public CheckOutBill(List<BillProductListBoxItem> listProduct, int tongSLSP, decimal tongThanhTienHD)
+        public CheckOutBill(int idND, List<BillProductListBoxItem> listProduct, int tongSLSP, decimal tongThanhTienHD)
         {
             InitializeComponent();
+            this.idND = idND;
             this.listProduct = listProduct;
             this.TongSLSP = tongSLSP;
             this.TongThanhTienHD = tongThanhTienHD;
@@ -64,6 +66,7 @@ namespace QLNS.ResourceXAML
             LoadVoucher(idLKHSelected);
             LoadAllPayment();
             SetValues();
+            MessageBox.Show("user id", idND.ToString());
         }
 
         private void SetValues()
@@ -115,7 +118,8 @@ namespace QLNS.ResourceXAML
         {
             var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
                                where khuyenmai.idLKH == idLKH
-                               //where ngay kt < ngay hien tai
+                               && khuyenmai.NgayKT >= DateTime.Now
+                               && khuyenmai.NgayBD <= DateTime.Now
                                orderby khuyenmai.GiamGia
                                select new
                                {
@@ -193,5 +197,24 @@ namespace QLNS.ResourceXAML
                 idPaymentSelected = selectedPayment.idPT;
             }
         }
+
+        private void btnCheckOut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private HOADON CreateBill()
+        {
+            HOADON hoadon = new HOADON();
+            //int idND = GetIdUser();
+            return hoadon;
+        }
+
+        //private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        //{
+        //    DataProvider.Ins.DB.NHANVIENs.Add(NHANVIEN);
+        //    DataProvider.Ins.DB.SaveChanges();
+        //}
+
     }
 }

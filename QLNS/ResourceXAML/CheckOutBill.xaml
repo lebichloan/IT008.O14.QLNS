@@ -81,7 +81,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0">Thong tin hoa don</TextBlock>
+            <!--<TextBlock Grid.Row="0">Thong tin hoa don</TextBlock>-->
 
             <Expander Grid.Row="1"
                     Visibility="Visible"
@@ -517,6 +517,7 @@
 
                 <Button x:Name="btnCheckOut"
                     Style="{StaticResource checkOutButton}" 
+                        Click="btnCheckOut_Click"
                             >
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus"

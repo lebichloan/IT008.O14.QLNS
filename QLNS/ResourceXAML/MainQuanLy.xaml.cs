@@ -20,9 +20,16 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class MainQuanLy : Window
     {
+        private int idND = -1;
         public MainQuanLy()
         {
             InitializeComponent();
+        }
+
+        public MainQuanLy(int idND)
+        {
+            InitializeComponent();
+            this.idND = idND;
         }
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

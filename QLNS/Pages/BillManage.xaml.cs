@@ -24,6 +24,7 @@ namespace QLNS.Pages
     /// </summary>
     public partial class BillManage : Page
     {
+        private int idND = -1;
         QLNSEntities qLNSEntities = new QLNSEntities();
 
         public BillManage()
@@ -31,9 +32,15 @@ namespace QLNS.Pages
             InitializeComponent();
         }
 
+        public BillManage(int idND)
+        {
+            InitializeComponent();
+            this.idND = idND;
+        }
+
         private void btnAddBill_Click(object sender, RoutedEventArgs e)
         {
-            AddBill addBill = new AddBill();
+            AddBill addBill = new AddBill(idND);
             addBill.ShowDialog();
         }
 
