@@ -37,18 +37,6 @@ namespace QLNS.ViewModel
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
         }
 
-        public int GetCurrentUid()
-        {
-            if (isLogin == 1)
-            {
-                return idND;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
         private int idND = -1;
         private int isLogin = 0;
         void Login(Window p)
@@ -65,21 +53,21 @@ namespace QLNS.ViewModel
                 if (existingUser.idLND == 1 )
                 {
                     isLogin = 1;
-                    MainQuanLy mainQuanLy = new MainQuanLy();
+                    MainQuanLy mainQuanLy = new MainQuanLy(idND);
                     p.Close();
                     mainQuanLy.Show();
                 }
                 else if (existingUser.idLND == 2 )
                 {
                     isLogin = 1;
-                    MainThuNgan mainThuNgan = new MainThuNgan();
+                    MainThuNgan mainThuNgan = new MainThuNgan(idND);
                     p.Close();
                     mainThuNgan.Show();
                 }
                 else if (existingUser.idLND == 3 )
                 {
                     isLogin = 1;
-                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho();
+                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho(idND);
                     p.Close();
                     mainNhanVienKho.Show();
                 }  

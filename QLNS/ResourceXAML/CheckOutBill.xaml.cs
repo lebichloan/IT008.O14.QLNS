@@ -66,7 +66,6 @@ namespace QLNS.ResourceXAML
             LoadVoucher(idLKHSelected);
             LoadAllPayment();
             SetValues();
-            MessageBox.Show("user id", idND.ToString());
         }
 
         private void SetValues()
@@ -200,21 +199,33 @@ namespace QLNS.ResourceXAML
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
         {
-
+            HOADON hoadon = CreateBill();
+            DataProvider.Ins.DB.HOADONs.Add(hoadon);
+            DataProvider.Ins.DB.SaveChanges();
         }
 
         private HOADON CreateBill()
         {
             HOADON hoadon = new HOADON();
-            //int idND = GetIdUser();
+            DateTime ngayHD = DateTime.Now;
+            hoadon.NgayHD = ngayHD;
+            hoadon.GiamGia = GiamGiaHD;
+            hoadon.ThanhTien = TongThanhTienHD;
+            hoadon.GhiChu = txtGhiChu.Text;
+            hoadon.idLKH = idLKHSelected;
+            if (idKHSelected != -1)
+            {
+                hoadon.idKH = idKHSelected;
+            }
+            if (idVoucherSelected != -1)
+            {
+                hoadon.idKM = idVoucherSelected;
+            }
+            hoadon.idND = idND;
+            hoadon.idPT = idPaymentSelected;
+            hoadon.SLSP = TongSLSP;
+            hoadon.ThanhToan = TongThanhToanHD;
             return hoadon;
         }
-
-        //private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        //{
-        //    DataProvider.Ins.DB.NHANVIENs.Add(NHANVIEN);
-        //    DataProvider.Ins.DB.SaveChanges();
-        //}
-
     }
 }

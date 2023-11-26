@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLNSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QLNSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CHUCNANG">
           <Key>
             <PropertyRef Name="idCN" />
@@ -68,6 +68,8 @@
           <Property Name="idKM" Type="int" />
           <Property Name="idND" Type="int" Nullable="false" />
           <Property Name="idPT" Type="int" Nullable="false" />
+          <Property Name="SLSP" Type="int" />
+          <Property Name="ThanhToan" Type="money" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -550,8 +552,7 @@
             <End Role="SANPHAMLOI" EntitySet="SANPHAMLOI" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QLNSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -632,6 +633,8 @@
           <NavigationProperty Name="LOAIKHACHHANG" Relationship="Self.FK__HOADON__idLKH__4CA06362" FromRole="HOADON" ToRole="LOAIKHACHHANG" />
           <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK__HOADON__idND__4F7CD00D" FromRole="HOADON" ToRole="NGUOIDUNG" />
           <NavigationProperty Name="PTTHANHTOAN" Relationship="Self.FK__HOADON__idPT__5070F446" FromRole="HOADON" ToRole="PTTHANHTOAN" />
+          <Property Name="SLSP" Type="Int32" />
+          <Property Name="ThanhToan" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -1161,6 +1164,8 @@
           <EntitySetMapping Name="HOADONs">
             <EntityTypeMapping TypeName="QLNSModel.HOADON">
               <MappingFragment StoreEntitySet="HOADON">
+                <ScalarProperty Name="ThanhToan" ColumnName="ThanhToan" />
+                <ScalarProperty Name="SLSP" ColumnName="SLSP" />
                 <ScalarProperty Name="idHD" ColumnName="idHD" />
                 <ScalarProperty Name="SoHD" ColumnName="SoHD" />
                 <ScalarProperty Name="NgayHD" ColumnName="NgayHD" />

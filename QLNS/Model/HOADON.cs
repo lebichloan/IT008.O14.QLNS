@@ -31,6 +31,8 @@ namespace QLNS.Model
         public Nullable<int> idKM { get; set; }
         public int idND { get; set; }
         public int idPT { get; set; }
+        public Nullable<int> SLSP { get; set; }
+        public Nullable<decimal> ThanhToan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHD> CTHDs { get; set; }
