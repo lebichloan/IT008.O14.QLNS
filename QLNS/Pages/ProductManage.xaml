@@ -38,7 +38,8 @@
 
                 <!--  Add staff  -->
                 <Button
-                    x:Name="btnAddBill"
+                    x:Name="btnAddProduct"
+                    Click="btnAddProduct_Click"
                     Grid.Row="0"
                     Style="{StaticResource addButton}">
                     <StackPanel Orientation="Horizontal">

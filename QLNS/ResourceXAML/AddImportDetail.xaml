@@ -1,0 +1,487 @@
+﻿<Window
+    x:Class="QLNS.ResourceXAML.AddImportDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QLNS.ResourceXAML"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:QLNS.Controls"
+    Title="AddImportDetail"
+    Width="1150"
+    Height="790"
+    MinHeight="790"
+    AllowsTransparency="True"
+    Background="{DynamicResource SecundaryBackgroundColor}"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+
+        <Style x:Key="TitleText" TargetType="TextBlock">
+            <Setter Property="Grid.Column" Value="0" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+
+        <Style x:Key="ContentText" TargetType="TextBlock">
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+
+        <Style x:Key="quantityButton" TargetType="Button">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+    </Window.Resources>
+
+    <Border
+        Background="{DynamicResource SecundaryBackgroundColor}"
+        CornerRadius="5"
+        MouseDown="Border_MouseDown"
+        MouseLeftButtonDown="Border_MouseLeftButtonDown">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Rectangle
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="1"
+                Margin="10,0"
+                Stroke="{DynamicResource SepratorBackgroundColor}" />
+
+            <!--  Start: Button Close | Restore | Minimize  -->
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Height="30"
+                Margin="0,5,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FlowDirection="RightToLeft"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="btnClose"
+                    Click="btnClose_Click"
+                    Content="{DynamicResource close}"
+                    Style="{StaticResource IconButtonsStyle}"
+                    Tag="IsCloseButton" />
+                <Button
+                    x:Name="btnRestore"
+                    Margin="5,0"
+                    Click="btnRestore_Click">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource IconButtonsStyle}" TargetType="{x:Type Button}">
+                            <Setter Property="Content" Value="{DynamicResource maximize}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                    <Setter Property="Content" Value="{DynamicResource restore}" />
+                                    <Setter Property="Content" Value="{DynamicResource restore}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button
+                    x:Name="btnMinimize"
+                    Click="btnMinimize_Click"
+                    Content="{DynamicResource minimize}"
+                    Style="{DynamicResource IconButtonsStyle}" />
+            </StackPanel>
+            <!--  End: Button Close | Restore | Minimize  -->
+
+            <!--  Seprator  -->
+            <Separator
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Height="1"
+                Margin="0,0,0,5"
+                Background="{DynamicResource SepratorBackgroundColor}" />
+
+            <!--  Start: Right Section  -->
+            <Border
+                Grid.Row="2"
+                Grid.Column="2"
+                Background="{DynamicResource SecundaryBackgroundColor}"
+                CornerRadius="7 0 0 7">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--<TextBlock
+                    Text="nhan vien"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource TitleText}"
+                    />
+
+                <TextBlock
+                    Text="thoi gian"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource ContentText}"
+                    />-->
+
+                    <ListBox
+                        x:Name="productListBox"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        SelectionChanged="productListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                    Width="380"
+                                    Margin="0,0"
+                                    Orientation="Vertical">
+                                    <TextBlock Foreground="{DynamicResource PrimaryTextColor}" Text="{Binding itemTenSP}" />
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            Foreground="{DynamicResource PrimaryTextColor}"
+                                            Text="{Binding itemSoLuongSP}" />
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            Foreground="{DynamicResource PrimaryTextColor}"
+                                            Text="{Binding itemDonGiaSP}" />
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Right"
+                                            Foreground="{DynamicResource PrimaryTextColor}"
+                                            Text="{Binding itemThanhTienSP}" />
+                                    </Grid>
+
+                                    <Separator
+                                        Height="1"
+                                        Margin="0,5,0,5"
+                                        Background="{DynamicResource SepratorBackgroundColor}" />
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!--  Seprator  -->
+                    <Separator
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Height="1"
+                        Margin="0,5,0,5"
+                        Background="{DynamicResource SepratorBackgroundColor}" />
+
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Style="{StaticResource TitleText}"
+                            Text="Số lượng" />
+
+                        <TextBlock
+                            x:Name="lblSoLuongHoaDon"
+                            Grid.Row="0"
+                            Style="{StaticResource ContentText}"
+                            Text="0" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Style="{StaticResource TitleText}"
+                            Text="Thành tiền" />
+
+                        <TextBlock
+                            x:Name="lblTongTienHoaDon"
+                            Grid.Row="1"
+                            FontWeight="Bold"
+                            Style="{StaticResource ContentText}"
+                            Text="0" />
+
+                    </Grid>
+
+                    <!--  Add Button  -->
+                    <Button
+                        x:Name="btnNext"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Click="btnNext_Click"
+                        Style="{StaticResource checkOutButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="{DynamicResource TextButtonColor}" Text="Tiếp tục" />
+
+                            <Icon:PackIconMaterial
+                                Width="11"
+                                Height="11"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource IconButtonColor}"
+                                Kind="ChevronRight" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+            <!--  End: Right Section  -->
+
+
+            <!--  Start: Left Section  -->
+            <Border
+                Grid.Row="2"
+                Background="{DynamicResource SecundaryBackgroundColor}"
+                CornerRadius="0 0 0 0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="10,5">
+                        <TextBox
+                            x:Name="txtSearchProduct"
+                            KeyDown="txtSearchProduct_KeyDown"
+                            Style="{DynamicResource searchTextBox}" />
+
+                        <Icon:PackIconMaterial
+                            Width="14"
+                            Height="14"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource PrimaryTextColor}"
+                            Kind="Magnify" />
+                    </Grid>
+
+                    <Button
+                        Name="btnAddNewProduct"
+                        Grid.Row="1"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource ButtonBackgroundColor}"
+                        Click="btnAddNewProduct_Click"
+                        Content="Thêm sản phẩm mới"
+                        Foreground="{DynamicResource SecundaryTextColor}"
+                        Style="{DynamicResource addButton}" />
+                    <TabControl Grid.Row="2">
+                        <TabItem
+                            Name="productTabItem"
+                            HorizontalAlignment="Left"
+                            Header="Tất cả sản phẩm">
+                            <DataGrid
+                                x:Name="productDataGrid"
+                                AutoGenerateColumns="False"
+                                ItemsSource="{Binding listProducts}"
+                                SelectionChanged="productDataGrid_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding MaSP}"
+                                        Header="Mã SP"
+                                        IsReadOnly="True" />
+
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding TenSP}"
+                                        Header="Tên sản phẩm"
+                                        IsReadOnly="True" />
+
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding SLCL}"
+                                        Header="SLCL"
+                                        IsReadOnly="True" />
+
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding DonGia}"
+                                        Header="Đơn giá"
+                                        IsReadOnly="True" />
+
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding GhiChu}"
+                                        Header="Ghi chú"
+                                        IsReadOnly="True" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+
+                    </TabControl>
+
+                    <!--  Seprator  -->
+                    <Separator
+                        Grid.Row="3"
+                        Height="1"
+                        Margin="0,5,0,5"
+                        Background="{DynamicResource SepratorBackgroundColor}" />
+
+                    <Expander
+                        Name="detailProductExpander"
+                        Grid.Row="4"
+                        Visibility="Collapsed">
+
+                        <Expander.Header>
+                            <TextBlock x:Name="headerProductExpander" FontWeight="Bold" />
+                        </Expander.Header>
+
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                                <TextBlock Name="lblSoLuongDaBan" />
+
+                                <Rectangle
+                                    Width="1"
+                                    Margin="5,0"
+                                    Stroke="{DynamicResource SepratorBackgroundColor}" />
+
+                                <TextBlock Name="lblSoLuongConLai" />
+                            </StackPanel>
+
+                            <TextBlock
+                                Name="lblMoTa"
+                                Grid.Row="1"
+                                Grid.Column="0" />
+
+                            <TextBlock
+                                Name="lblDonGia"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                FontSize="20"
+                                FontWeight="Bold" />
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <TextBlock Text="Số lượng" />
+
+                                <Button
+                                    x:Name="btnSub"
+                                    Click="btnSub_Click"
+                                    Style="{StaticResource quantityButton}">
+                                    <Icon:PackIconMaterial
+                                        Width="11"
+                                        Height="11"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource PrimaryTextColor}"
+                                        Kind="Minus" />
+                                </Button>
+
+                                <TextBox
+                                    x:Name="txtSoLuongSanPham"
+                                    Width="50"
+                                    Height="30"
+                                    Background="{DynamicResource SecundaryBackgroundColor}"
+                                    Foreground="{DynamicResource PrimaryTextColor}"
+                                    KeyDown="txtSoLuongSanPham_KeyDown"
+                                    LostFocus="txtSoLuongSanPham_LostFocus"
+                                    TextAlignment="Center" />
+
+                                <Button
+                                    x:Name="btnAdd"
+                                    Click="btnAdd_Click"
+                                    Style="{StaticResource quantityButton}">
+                                    <Icon:PackIconMaterial
+                                        Width="11"
+                                        Height="11"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource PrimaryTextColor}"
+                                        Kind="Plus" />
+                                </Button>
+
+                            </StackPanel>
+
+                            <TextBlock
+                                Name="lblThanhTienSanPham"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right" />
+
+                            <!--  Add Button  -->
+                            <Button
+                                x:Name="btnAddProduct"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Click="btnAddProduct_Click"
+                                Style="{StaticResource addButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial
+                                        Width="11"
+                                        Height="11"
+                                        Margin="0,0,10,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource IconButtonColor}"
+                                        Kind="Plus" />
+
+                                    <TextBlock Foreground="{DynamicResource TextButtonColor}" Text="Thêm mới" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Expander>
+                </Grid>
+            </Border>
+            <!--  End: Left Section  -->
+        </Grid>
+
+    </Border>
+</Window>

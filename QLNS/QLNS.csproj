@@ -224,6 +224,15 @@
     <Compile Include="ResourceXAML\AddCustomerType.xaml.cs">
       <DependentUpon>AddCustomerType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\AddImportDetail.xaml.cs">
+      <DependentUpon>AddImportDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\AddNewProduct.xaml.cs">
+      <DependentUpon>AddNewProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\AddNewProductWhenImport.xaml.cs">
+      <DependentUpon>AddNewProductWhenImport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\AddSale.xaml.cs">
       <DependentUpon>AddSale.xaml</DependentUpon>
     </Compile>
@@ -387,6 +396,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddCustomerType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddImportDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddNewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddNewProductWhenImport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

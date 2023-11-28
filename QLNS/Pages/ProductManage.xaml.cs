@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,12 @@ namespace QLNS.Pages
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewProduct addNewProduct = new AddNewProduct(); 
+            addNewProduct.ShowDialog();
         }
     }
 }
