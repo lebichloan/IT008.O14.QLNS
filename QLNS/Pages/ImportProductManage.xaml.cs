@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QLNS.Model;
+using QLNS.ResourceXAML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,56 @@ namespace QLNS.Pages
     /// </summary>
     public partial class ImportProductManage : Page
     {
+        QLNSEntities qLNSEntities = new QLNSEntities();
+        int pageNumber = 0;
+        int pageSize = 15;
         public ImportProductManage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadData(0);
+        }
+
+        private void btnAddImportDetail_Click(object sender, RoutedEventArgs e)
+        {
+            AddImportDetail addImportDetail = new AddImportDetail();
+            addImportDetail.ShowDialog();
+        }
+
+        private void btnPre_Click(object sender, RoutedEventArgs e)
+        {
+            // Load dữ liệu page trước đó
+            pageNumber--;
+            LoadData(pageNumber);
+        }
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            // Load dữ liệu page kế tiếp
+            pageNumber++;
+            LoadData(pageNumber);
+        }
+        private void LoadData(int page)
+        {
+            var query =
+                from nhaphang in qLNSEntities.NHAPHANGs
+                orderby nhaphang.idNH
+                //where hoadon.idHD == 0
+                select new
+                {
+                    idNH = nhaphang.idNH,
+                    MaNH = nhaphang.MaNH,
+                    NgayNhap = nhaphang.NgayNhap,
+                    ThanhTien = nhaphang.ThanhTien,
+                    GhiChu = nhaphang.GhiChu,
+                };
+
+            staffDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
     }
 }
