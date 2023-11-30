@@ -1,4 +1,5 @@
-﻿using QLNS.Model;
+﻿using QLNS.Controls;
+using QLNS.Model;
 using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -105,8 +106,8 @@ namespace QLNS.ResourceXAML
                                        idLKH = khachhang.idLKH,
                                        itemLoaiKH = khachhang.LOAIKHACHHANG.TenLKH,
                                        itemNgayTG = khachhang.NgayTG
-                                   };       
-            
+                                   };
+
             customerListBox.ItemsSource = queryAllCustomer.ToList();
         }
 
@@ -149,7 +150,7 @@ namespace QLNS.ResourceXAML
 
         private void customerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (customerListBox.SelectedItems != null)
+            if (customerListBox.SelectedItems != null && customerListBox.Items.Count > 0)
             {
                 var selectedCustomer = (dynamic)customerListBox.SelectedItems[0];
                 idKHSelected = selectedCustomer.idKH;
@@ -168,7 +169,7 @@ namespace QLNS.ResourceXAML
                 lblSDT.Text = selectedCustomer.itemSDT;
                 lblDiaChi.Text = selectedCustomer.itemDiaChi;
                 lblLoaiKH.Text = selectedCustomer.itemLoaiKH;
-                lblDiemTichLuy.Text = selectedCustomer.itemDiemTichLuy.ToString();            
+                lblDiemTichLuy.Text = selectedCustomer.itemDiemTichLuy.ToString();
             }
         }
 
@@ -205,7 +206,7 @@ namespace QLNS.ResourceXAML
             DataProvider.Ins.DB.SaveChanges();
             int idHD = GetLastIdHD();
 
-            foreach(BillProductListBoxItem item in listProduct)
+            foreach (BillProductListBoxItem item in listProduct)
             {
                 CTHD cthd = CreateDetailBill(item, idHD);
                 DataProvider.Ins.DB.CTHDs.Add(cthd);
@@ -294,7 +295,7 @@ namespace QLNS.ResourceXAML
         private void voucherExpander_Expanded(object sender, RoutedEventArgs e)
         {
             customerExpander.IsExpanded = false;
-            paymentExpander.IsExpanded=false;
+            paymentExpander.IsExpanded = false;
         }
 
         private void paymentExpander_Expanded(object sender, RoutedEventArgs e)
@@ -302,5 +303,91 @@ namespace QLNS.ResourceXAML
             customerExpander.IsExpanded = false;
             voucherExpander.IsExpanded = false;
         }
+
+        private string customerSearchTerm = "";
+        private void txtSearchCustomer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                customerSearchTerm = txtSearchCustomer.Text.ToLower();
+                if (customerSearchTerm == "")
+                {
+                    LoadAllCustomer();
+                }
+                else
+                {
+                    FilterCustomer(customerSearchTerm);
+                }
+            }
+        }
+        private void FilterCustomer(string searchTerm)
+        {
+            var queryAllCustomer = from khachhang in qLNSEntities.KHACHHANGs
+                                   orderby khachhang.idKH
+                                   where
+                                   khachhang.idKH.ToString().ToLower().Contains(searchTerm.ToLower())
+                                   || khachhang.MaKH.ToLower().Contains(searchTerm.ToLower())
+                                   || khachhang.TenKH.ToLower().Contains(searchTerm.ToLower())
+                                   || khachhang.SDT.ToLower().Contains(searchTerm.ToLower())
+                                   || khachhang.DiaChi.ToLower().Contains(searchTerm.ToLower())
+                                   || khachhang.idLKH.ToString().ToLower().Contains(searchTerm.ToLower())
+                                   || khachhang.NgayTG.ToString().ToLower().Contains(searchTerm.ToLower())
+                                   select new
+                                   {
+                                       idKH = khachhang.idKH,
+                                       itemMaKH = khachhang.MaKH,
+                                       itemTenKH = khachhang.TenKH,
+                                       itemDiemTichLuy = khachhang.DiemTichLuy,
+                                       itemSDT = khachhang.SDT,
+                                       itemDiaChi = khachhang.DiaChi,
+                                       idLKH = khachhang.idLKH,
+                                       itemLoaiKH = khachhang.LOAIKHACHHANG.TenLKH,
+                                       itemNgayTG = khachhang.NgayTG
+                                   };
+
+            customerListBox.ItemsSource = queryAllCustomer.ToList();
+        }
+
+
+        private string voucherSearchTerm = "";
+        private void txtSearchVoucher_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                voucherSearchTerm = txtSearchVoucher.Text.ToLower();
+                if (voucherSearchTerm == "")
+                {
+                    LoadVoucher(idLKHSelected);
+                }
+                else
+                {
+                    FilterVoucher(idLKHSelected, voucherSearchTerm);
+                }
+            }
+        }
+        private void FilterVoucher(int idLKH, string searchTerm)
+        {
+            var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
+                               where khuyenmai.idLKH == idLKH
+                               && khuyenmai.NgayKT >= DateTime.Now
+                               && khuyenmai.NgayBD <= DateTime.Now
+                               && (khuyenmai.TenKM.ToLower().Contains(searchTerm.ToLower())
+                               || khuyenmai.NgayBD.ToString().ToLower().Contains(searchTerm.ToLower())
+                               || khuyenmai.NgayKT.ToString().ToLower().Contains(searchTerm.ToLower())
+                               || khuyenmai.GiamGia.ToString().ToLower().Contains(searchTerm.ToLower()))
+                               orderby khuyenmai.GiamGia
+                               select new
+                               {
+                                   idKM = khuyenmai.idKM,
+                                   itemTenKM = khuyenmai.TenKM,
+                                   itemNgayBD = khuyenmai.NgayBD,
+                                   itemNgayKT = khuyenmai.NgayKT,
+                                   itemGiamGia = khuyenmai.GiamGia,
+                                   itemMoTa = khuyenmai.MoTa,
+                               };
+
+            voucherListBox.ItemsSource = queryVoucher.ToList();
+        }
+
     }
 }
