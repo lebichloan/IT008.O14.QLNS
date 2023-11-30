@@ -157,6 +157,7 @@
                     <TextBox x:Name="txtSearchCustomer"
                          Grid.Row="0"
                          Style="{DynamicResource searchTextBox}"
+                             KeyDown="txtSearchCustomer_KeyDown"
                          />
 
                     <ListBox x:Name="customerListBox"
@@ -274,6 +275,7 @@
                     <TextBox x:Name="txtSearchVoucher"
                          Grid.Row="0"
                          Style="{DynamicResource searchTextBox}"
+                             KeyDown="txtSearchVoucher_KeyDown"
                          />
 
                     <ListBox x:Name="voucherListBox"

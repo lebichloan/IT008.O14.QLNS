@@ -187,6 +187,7 @@ namespace QLNS.ResourceXAML
                 btnSub.IsEnabled = false;
                 SLSPHD = 0;
                 txtSoLuongSanPham.Text = SLSPHD.ToString();
+                txtSoLuongSanPham.Focus();
                 ThanhTienSP = 0;
                 lblThanhTienSanPham.Text = ThanhTienSP.ToString();
             }
@@ -229,12 +230,12 @@ namespace QLNS.ResourceXAML
                     if (soLuongSPInput <= 0)
                     {
                         MessageBox.Show("Vui long nhap so luong lon hon 0");
-                        txtSoLuongSanPham.Focus();
+                        //txtSoLuongSanPham.Focus();
                     }
                     else if (soLuongSPInput > SLSPCL)
                     {
                         MessageBox.Show("Kho khong the cung cap so luong nay");
-                        txtSoLuongSanPham.Focus();
+                        //txtSoLuongSanPham.Focus();
                     }
                     else
                     {
@@ -290,16 +291,20 @@ namespace QLNS.ResourceXAML
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            addProducttoBill();
-            detailProductExpander.Visibility = Visibility.Collapsed;
-
-            //if (productDataGrid.SelectedItem != null)
-            //{
-            //    var selectedProduct = (dynamic)productDataGrid.SelectedItem;
-            //    SLSPCL = SLSPCL - SLSPHD;
-            //    selectedProduct.SLCL = (short)SLSPCL;
-            //    productDataGrid.Items.Refresh();
-            //}
+            if (SLSPHD <= 0)
+            {
+                MessageBox.Show("Vui long nhap so luong lon hon 0");
+                //txtSoLuongSanPham.Focus();
+            }
+            else if (SLSPHD > SLSPCL)
+            {
+                MessageBox.Show("Kho khong the cung cap so luong nay");
+            }
+            else
+            {
+                addProducttoBill();
+                detailProductExpander.Visibility = Visibility.Collapsed;
+            }
         }
 
         private int TongSoLuongSP = 0;

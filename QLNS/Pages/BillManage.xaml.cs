@@ -38,6 +38,7 @@ namespace QLNS.Pages
             this.idND = idND;
         }
 
+        private AddBill addBill;
         private void btnAddBill_Click(object sender, RoutedEventArgs e)
         {
             AddBill addBill = new AddBill(idND);
@@ -106,17 +107,18 @@ namespace QLNS.Pages
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
-            DetailBill detailBill = new DetailBill();
+            DetailBill detailBill = new DetailBill(selectedIdHD);
             detailBill.ShowDialog();
         }
 
+        private int selectedIdHD = -1;
         private void memberDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (memberDataGrid.SelectedItems.Count > 0)
             {
                 // get id hoa don duoc chon
                 var selectedHoaDon = (dynamic)memberDataGrid.SelectedItem;
-                int selectedId = selectedHoaDon.idHD;
+                selectedIdHD = selectedHoaDon.idHD;
             }
         }
 
