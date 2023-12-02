@@ -275,6 +275,12 @@
     <Compile Include="ResourceXAML\VerifyEmailWindow.xaml.cs">
       <DependentUpon>VerifyEmailWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validations\DiscountValid.cs" />
+    <Compile Include="Validations\EmptyComboBoxValid.cs" />
+    <Compile Include="Validations\EmptyStringValid.cs" />
+    <Compile Include="Validations\NumberValid.cs" />
+    <Compile Include="Validations\Sale_EndDateValid.cs" />
+    <Compile Include="Validations\Sale_StartDateValid.cs" />
     <Compile Include="ViewModel\AddBillViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BillCustomerListBoxItem.cs" />
