@@ -32,11 +32,11 @@ namespace QLNS.ResourceXAML
         private int _LoaiKH;
         public int loaikh { get => _LoaiKH; set { _LoaiKH = value; } }
 
-        private DateTime? _NgayBatDau;
-        public DateTime? ngaybd { get => _NgayBatDau; set => _NgayBatDau = value; }
+        private DateTime _NgayBatDau;
+        public DateTime ngaybd { get => _NgayBatDau; set => _NgayBatDau = value; }
 
-        private DateTime? _NgayKetThuc;
-        public DateTime? ngaykt { get => _NgayKetThuc; set => _NgayKetThuc = value; }
+        private DateTime _NgayKetThuc;
+        public DateTime ngaykt { get => _NgayKetThuc; set => _NgayKetThuc = value; }
 
         private short _GiamGia;
         public short giamgia { get => _GiamGia; set { _GiamGia = value; } }
@@ -101,8 +101,8 @@ namespace QLNS.ResourceXAML
             tenkm = tenKM.Text;
             mota = moTa.Text;
             loaikh = int.Parse(loaiKH.Text);
-            ngaybd = ngayBatDau.SelectedDate;
-            ngaykt = ngayKetThuc.SelectedDate;
+            ngaybd = (DateTime)ngayBatDau.SelectedDate;
+            ngaykt = (DateTime)ngayKetThuc.SelectedDate;
             giamgia = short.Parse(giamGia.Text);
             //loaind = int.Parse(loaiND.Text);
 
@@ -112,8 +112,8 @@ namespace QLNS.ResourceXAML
                 TenKM = tenkm,
                 MoTa = mota,
                 idLKH = loaikh,
-                NgayBD = ngaybd.Value,
-                NgayKT = ngaykt.Value,
+                NgayBD = ngaybd,
+                NgayKT = ngaykt,
                 GiamGia = giamgia,
                 //idND = loaind,
             };
