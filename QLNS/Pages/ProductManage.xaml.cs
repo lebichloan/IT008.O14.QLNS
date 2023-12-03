@@ -2,6 +2,7 @@
 using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +75,13 @@ namespace QLNS.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (productDataGrid.SelectedItems.Count > 0)
+            {
+                // get id hoa don duoc chon
+                var selectedSanPham = (dynamic)productDataGrid.SelectedItem;
+                var selectedIdHD = selectedSanPham.MaSP;
+                MessageBox.Show(selectedIdHD);
+            }
 
         }
 
