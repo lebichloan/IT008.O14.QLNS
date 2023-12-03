@@ -53,13 +53,18 @@ namespace QLNS.Pages
         {
             var query =
                 from sanpham in qLNSEntities.SANPHAMs
-                orderby sanpham.MaSP
-                //where hoadon.idHD == 0
+                join ctsp in qLNSEntities.CTSPs
+                on sanpham.idSP equals ctsp.idSP
+                orderby ctsp.idCTSP
+                where ctsp.SLConLai > 0
                 select new
                 {
-                    MaSP = sanpham.MaSP,
+                    idSP = ctsp.idCTSP,
+                    MaSP = ctsp.MaCTSP,
                     TenSP = sanpham.TenSP,
                     MoTa = sanpham.MoTa,
+                    SLDB = ctsp.DaBan,
+                    SLCL = ctsp.SLConLai,
                     idDM = sanpham.DANHMUC.TenDM,
                 };
 
