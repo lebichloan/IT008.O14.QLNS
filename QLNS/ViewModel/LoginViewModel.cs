@@ -48,6 +48,7 @@ namespace QLNS.ViewModel
             if (existingUser != null && existingUser.TinhTrang == 1)
             {
                 idND = existingUser.idND;
+                App.Current.Properties["idND_Sale"] = existingUser.idND;
 
                 // Loại người dùng
                 if (existingUser.idLND == 1 )

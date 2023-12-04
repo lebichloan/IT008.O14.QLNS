@@ -277,8 +277,10 @@
     </Compile>
     <Compile Include="Validations\DiscountValid.cs" />
     <Compile Include="Validations\EmptyComboBoxValid.cs" />
+    <Compile Include="Validations\EmptyDateValid.cs" />
     <Compile Include="Validations\EmptyStringValid.cs" />
     <Compile Include="Validations\NumberValid.cs" />
+    <Compile Include="Validations\PhoneNumberValid.cs" />
     <Compile Include="Validations\Sale_EndDateValid.cs" />
     <Compile Include="Validations\Sale_StartDateValid.cs" />
     <Compile Include="ViewModel\AddBillViewModel.cs" />
