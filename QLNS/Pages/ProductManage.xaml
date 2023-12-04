@@ -39,8 +39,8 @@
                 <!--  Add staff  -->
                 <Button
                     x:Name="btnAddProduct"
-                    Click="btnAddProduct_Click"
                     Grid.Row="0"
+                    Click="btnAddProduct_Click"
                     Style="{StaticResource addButton}">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial
@@ -119,7 +119,7 @@
                                         Binding="{Binding MoTa}"
                                         Header="Mô tả"
                                         IsReadOnly="True" />
-                                    
+
                                     <DataGridTextColumn
                                         Width="auto"
                                         Binding="{Binding SLDB}"

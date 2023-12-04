@@ -3,6 +3,7 @@ using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,13 +81,42 @@ namespace QLNS.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+
+            
+
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
+            if (connectionString.ToLower().StartsWith("metadata="))
+            {
+                System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder efBuilder = new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(connectionString);
+                connectionString = efBuilder.ProviderConnectionString;
+            }
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            
+
             if (productDataGrid.SelectedItems.Count > 0)
             {
                 // get id hoa don duoc chon
                 var selectedSanPham = (dynamic)productDataGrid.SelectedItem;
-                var selectedIdHD = selectedSanPham.MaSP;
-                MessageBox.Show(selectedIdHD);
+                string selectedIdSP = selectedSanPham.MaSP;
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Xác nhận xóa sản phẩm có mã " + selectedIdSP + "?" , "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    sqlCommand.CommandText = "DELETE FROM CTSP WHERE MaCTSP = '" + selectedIdSP + "'";
+                    try
+                    {
+                        sqlConnection.Open();
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+                    finally { sqlConnection.Close(); }
+                }
+                LoadData(pageNumber);
             }
+                
 
         }
 
