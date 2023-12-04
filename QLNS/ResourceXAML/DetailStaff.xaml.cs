@@ -23,5 +23,15 @@ namespace QLNS.ResourceXAML
         {
             InitializeComponent();
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

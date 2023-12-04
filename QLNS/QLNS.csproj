@@ -236,9 +236,6 @@
     <Compile Include="ResourceXAML\AddSale.xaml.cs">
       <DependentUpon>AddSale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceXAML\AddStaff.xaml.cs">
-      <DependentUpon>AddStaff.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ResourceXAML\AddStaffAndUser.xaml.cs">
       <DependentUpon>AddStaffAndUser.xaml</DependentUpon>
     </Compile>
@@ -266,9 +263,6 @@
     <Compile Include="ResourceXAML\MainThuNgan.xaml.cs">
       <DependentUpon>MainThuNgan.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceXAML\OptionAddStaff.xaml.cs">
-      <DependentUpon>OptionAddStaff.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ResourceXAML\ResetPasswordWindow.xaml.cs">
       <DependentUpon>ResetPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -291,6 +285,7 @@
     <Compile Include="ViewModel\BillProductListBoxItem.cs" />
     <Compile Include="ViewModel\BillVoucherListBoxItem.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\NhanVien.cs" />
     <Page Include="Assets\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,10 +418,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceXAML\AddStaff.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceXAML\AddStaffAndUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -464,10 +455,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\MainThuNgan.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceXAML\OptionAddStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
