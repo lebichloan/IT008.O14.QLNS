@@ -22,6 +22,16 @@ namespace QLNS.Pages
     /// </summary>
     public partial class ProductManage : Page
     {
+        public class Product
+        {
+            public int idSP {  get; set; }
+            public string MaSP { get; set; }
+            public string TenSP { get; set; }
+            public string MoTa { get; set; }
+            public int idDM { get; set; }
+            public string TenDM { get; set; }
+        }
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         public ProductManage()
         {
@@ -41,6 +51,10 @@ namespace QLNS.Pages
             pageNumber--;
             LoadData(pageNumber);
         }
+        public void LoadDataCurrent()
+        {
+            LoadData(pageNumber);
+        }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
@@ -54,15 +68,17 @@ namespace QLNS.Pages
                 from sanpham in qLNSEntities.SANPHAMs
                 orderby sanpham.MaSP
                 //where hoadon.idHD == 0
-                select new
+                select new Product
                 {
+                    idSP = sanpham.idSP,
                     MaSP = sanpham.MaSP,
                     TenSP = sanpham.TenSP,
                     MoTa = sanpham.MoTa,
-                    idDM = sanpham.DANHMUC.TenDM,
+                    idDM = sanpham.idDM,
+                    TenDM = sanpham.DANHMUC.TenDM,
                 };
 
-            productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
@@ -81,6 +97,41 @@ namespace QLNS.Pages
         {
             AddNewProduct addNewProduct = new AddNewProduct(); 
             addNewProduct.ShowDialog();
+        }
+
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            try 
+            {
+                Product product = (Product)productDataGrid.SelectedItem;
+                DetailProduct detail = new DetailProduct();
+                detail.productManage = this;
+                detail.idSP = product.idSP;
+
+                List<TextBlock> danhmucItems = new List<TextBlock>();
+                foreach (var danhmuc in DataProvider.Ins.DB.DANHMUCs)
+                {
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.Text = danhmuc.TenDM;
+                    danhmucItems.Add(textBlock);
+                }
+                detail.LoaiSP.ItemsSource = danhmucItems;
+
+                detail.TenSP.Text = product.TenSP.ToString();
+                detail.LoaiSP.Text = product.TenDM.ToString();
+
+                if (product.MoTa == null)
+                {
+                    detail.MoTa.Text = "";
+                }
+                else
+                {
+                    detail.MoTa.Text = product.MoTa.ToString();
+                }
+
+                detail.ShowDialog();
+            }
+            catch { }
         }
     }
 }

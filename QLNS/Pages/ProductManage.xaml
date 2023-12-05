@@ -122,8 +122,8 @@
                                     <!--  Ngày vào làm  -->
                                     <DataGridTextColumn
                                         Width="*"
-                                        Binding="{Binding idDM}"
-                                        Header="Id DM"
+                                        Binding="{Binding TenDM}"
+                                        Header="Danh mục"
                                         IsReadOnly="True" />
 
 
@@ -131,12 +131,10 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                                    <Button Margin="0,0,5,0" Style="{DynamicResource gridViewButton}">
+                                                    <Button x:Name="btnDetail" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetail_Click">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
-                                                    <Button Style="{DynamicResource gridViewButton}">
-                                                        <Icon:PackIconMaterial Kind="SquareEditOutline" Style="{DynamicResource gridButtonIcon}" />
-                                                    </Button>
+                                                   
                                                     <Button
                                                         Name="btnDelete"
                                                         Margin="5,0,0,0"
