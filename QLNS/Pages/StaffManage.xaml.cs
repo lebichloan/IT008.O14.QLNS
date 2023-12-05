@@ -69,7 +69,6 @@ namespace QLNS.Pages
 
                 DetailStaff detail = new DetailStaff();
                 detail.staffManage = this;
-                detail.Height = 500;
                 detail.idNV = nhanvien.idNV;
                 detail.TenNV.Text = nhanvien.TenNV;
                 detail.NgaySinh.Text = nhanvien.NgaySinh.ToString("dd/MM/yyyy");
