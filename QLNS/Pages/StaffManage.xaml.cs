@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Xml;
 
 namespace QLNS.Pages
 {
@@ -35,6 +36,10 @@ namespace QLNS.Pages
             pageNumber--;
             LoadData(pageNumber);
         }
+        public void LoadDataCurrent()
+        {
+            LoadData(pageNumber);
+        }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
@@ -58,12 +63,41 @@ namespace QLNS.Pages
 
         private void btnShowDetail_Click(object sender, RoutedEventArgs e)
         {
-            NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
-            
-            DetailStaff detail = new DetailStaff();
-            detail.Height = 430;
-            detail.TenNV.Text = nhanvien.TenNV;
-            detail.ShowDialog();
+            try
+            {
+                NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
+
+                DetailStaff detail = new DetailStaff();
+                detail.staffManage = this;
+                detail.Height = 500;
+                detail.idNV = nhanvien.idNV;
+                detail.TenNV.Text = nhanvien.TenNV;
+                detail.NgaySinh.Text = nhanvien.NgaySinh.ToString("dd/MM/yyyy");
+                detail.GioiTinh.Text = nhanvien.GioiTinh.ToString();
+
+                if (nhanvien.DiaChi == null)
+                    detail.DiaChi.Text = "";
+                else
+                    detail.DiaChi.Text = nhanvien.DiaChi.ToString();
+
+                if (nhanvien.SDT == null)
+                    detail.SDT.Text = "";
+                else
+                    detail.SDT.Text = nhanvien.SDT.ToString();
+
+                detail.NgayVL.Text = nhanvien.NgayVL.Date.ToString("dd/MM/yyyy");
+                detail.ChucVu.Text = nhanvien.ChucVu.ToString();
+                detail.TinhTrang.Text = nhanvien.TinhTrang.ToString();
+
+                if (nhanvien.GhiChu == null)
+                    detail.GhiChu.Text = "";
+                else
+                    detail.GhiChu.Text = nhanvien.GhiChu.ToString();
+                detail.Show();
+            }
+            catch
+            {
+            }
         }
     }
 }
