@@ -145,9 +145,9 @@ namespace QLNS.Pages
                 }
                 else
                 {
-                    detail.SDT.Text = khachhang.SDT.ToString();
+                    detail.DiaChi.Text = khachhang.DiaChi.ToString();
                 }
-
+                detail.SDT.Text = khachhang.SDT.ToString();
                 detail.NgayTG.Text = khachhang.NgayTG.ToString("dd/MM/yyyy");
                 detail.DTL.Text = khachhang.DiemTichLuy.ToString();
                 detail.LoaiKH.Text = khachhang.idLKH.ToString();
