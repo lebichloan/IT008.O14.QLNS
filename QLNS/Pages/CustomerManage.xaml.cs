@@ -156,5 +156,10 @@ namespace QLNS.Pages
             catch { }
             
         }
+
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

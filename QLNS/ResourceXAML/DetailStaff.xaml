@@ -35,15 +35,15 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Border Background="{TemplateBinding Background}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Icon:PackIconMaterial Kind="Close" Height="15" Width="15"></Icon:PackIconMaterial>
+                                        <Border Background="{TemplateBinding Background}" Height="25" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Icon:PackIconMaterial Kind="Close" Height="15" Width="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Icon:PackIconMaterial>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
-                                <Trigger Property="IsMouseDirectlyOver" Value="True">
-                                    <Setter Property="Background" Value="White"/>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>

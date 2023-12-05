@@ -248,6 +248,9 @@
     <Compile Include="ResourceXAML\DetailCustomer.xaml.cs">
       <DependentUpon>DetailCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\DetailSale.xaml.cs">
+      <DependentUpon>DetailSale.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\DetailStaff.xaml.cs">
       <DependentUpon>DetailStaff.xaml</DependentUpon>
     </Compile>
@@ -440,6 +443,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\DetailCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailSale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
