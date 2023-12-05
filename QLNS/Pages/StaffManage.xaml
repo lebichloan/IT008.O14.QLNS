@@ -124,10 +124,10 @@
                                         </Button>
                                       
                                         
-                                        <Button x:Name="btnUpdateDetail" Style="{DynamicResource gridViewButton}">
+                                        <!--<Button x:Name="btnUpdateDetail" Style="{DynamicResource gridViewButton}">
                                             <Icon:PackIconMaterial Kind="SquareEditOutline"
                                               Style="{DynamicResource gridButtonIcon}"/>
-                                        </Button>
+                                        </Button>-->
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

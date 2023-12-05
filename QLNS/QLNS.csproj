@@ -263,6 +263,12 @@
     <Compile Include="ResourceXAML\MainThuNgan.xaml.cs">
       <DependentUpon>MainThuNgan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\Message.xaml.cs">
+      <DependentUpon>Message.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\MessageOption.xaml.cs">
+      <DependentUpon>MessageOption.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\ResetPasswordWindow.xaml.cs">
       <DependentUpon>ResetPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -455,6 +461,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\MainThuNgan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\Message.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\MessageOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
