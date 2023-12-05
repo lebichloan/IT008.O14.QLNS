@@ -43,6 +43,10 @@ namespace QLNS.Pages
             pageNumber--;
             LoadData(pageNumber);
         }
+        public void LoadDataCurrent()
+        {
+            LoadData(pageNumber);
+        }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
@@ -51,24 +55,8 @@ namespace QLNS.Pages
         }
         private void LoadData(int page)
         {
-            var query =
-                from khuyenmai in qlnsEntities.KHUYENMAIs
-                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khuyenmai.idLKH equals loaikhachhang.idLKH
-                orderby khuyenmai.idKM
-                //where hoadon.idHD == 0
-                select new
-                {
-                    idKM = khuyenmai.idKM,
-                    MaKM = khuyenmai.MaKM,
-                    TenKM = khuyenmai.TenKM,
-                    MoTa = khuyenmai.MoTa,
-                    idLKH = loaikhachhang.TenLKH,
-                    NgayBD = khuyenmai.NgayBD.Day + "/" + khuyenmai.NgayBD.Month + "/" + khuyenmai.NgayBD.Year,
-                    NgayKT = khuyenmai.NgayKT.Day + "/" + khuyenmai.NgayKT.Month + "/" + khuyenmai.NgayKT.Year,
-                    GiamGia = khuyenmai.GiamGia,
-                    idND = khuyenmai.idND,
-                };
-
+            
+            var query = DataProvider.Ins.DB.KHUYENMAIs.OrderBy(khuyenmai => khuyenmai.idKM);
             memberDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
             btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
@@ -79,6 +67,44 @@ namespace QLNS.Pages
         {
             AddSale addSale = new AddSale();
             addSale.ShowDialog();
+        }
+
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            try 
+            {
+                KHUYENMAI khuyenmai = (KHUYENMAI)memberDataGrid.SelectedItem;
+                DetailSale detailSale = new DetailSale();
+                detailSale.saleManage = this;
+                detailSale.idKM = khuyenmai.idKM;
+
+                detailSale.TenKM.Text = khuyenmai.TenKM.ToString();
+                detailSale.NgayBD.Text = khuyenmai.NgayBD.ToString("dd/MM/yyyy");
+                detailSale.NgayKT.Text = khuyenmai.NgayKT.ToString("dd/MM/yyyy");
+                detailSale.GiamGia.Text = khuyenmai.GiamGia.ToString();
+
+                if (khuyenmai.idLKH == null)
+                {
+                    detailSale.idLKH.Text = "";
+                }
+                else
+                {
+                    detailSale.idLKH.Text = khuyenmai.idLKH.ToString();
+                }
+
+                if (khuyenmai.MoTa == null)
+                {
+                    detailSale.MoTa.Text = "";
+                }
+                else
+                {
+                    detailSale.MoTa.Text = khuyenmai.MoTa.ToString();
+                }
+
+                detailSale.ShowDialog();
+
+            }
+            catch { }
         }
     }
 }

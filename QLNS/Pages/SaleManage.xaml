@@ -169,17 +169,12 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{DynamicResource gridViewButton}"
-                                                >
+                                        <Button x:Name="btnDetail" Style="{DynamicResource gridViewButton}"
+                                                Click="btnDetail_Click" >
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                    Style="{DynamicResource gridButtonIcon}"/>
                                         </Button>
 
-                                        <Button Style="{DynamicResource gridViewButton}"
-                                                Margin="5,0,0,0">
-                                            <Icon:PackIconMaterial Kind="SquareEditOutline"
-                                                                   Style="{DynamicResource gridButtonIcon}"/>
-                                        </Button>
 
                                         <Button Style="{DynamicResource gridViewButton}"
                                                 Margin="5,0,0,0">
