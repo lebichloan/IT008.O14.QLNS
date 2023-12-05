@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QLNS.ViewModel;
 
 namespace QLNS.Pages
 {
@@ -44,6 +45,10 @@ namespace QLNS.Pages
             pageNumber--;
             LoadCustomerData(pageNumber);
         }
+        public void LoadDataCustomerCurrent()
+        {
+            LoadCustomerData(pageNumber);
+        }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
@@ -53,25 +58,8 @@ namespace QLNS.Pages
 
         private void LoadCustomerData(int page)
         {
-            var query =
-                from khachhang in qlnsEntities.KHACHHANGs
-                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khachhang.idLKH equals loaikhachhang.idLKH
-                orderby khachhang.idKH
-                select new
-                {
-                    idKH = khachhang.idKH,
-                    MaKH = khachhang.MaKH,
-                    TenKH = khachhang.TenKH,
-                    GioiTinh = khachhang.GioiTinh,
-                    NgaySinh = khachhang.NgaySinh,
-                    DiaChi = khachhang.DiaChi,
-                    SDT = khachhang.SDT,
-                    NgayTG = khachhang.NgayTG.Day + "/" + khachhang.NgayTG.Month + "/" + khachhang.NgayTG.Year,
-                    DiemTichLuy = khachhang.DiemTichLuy,
-                    idLKH = loaikhachhang.TenLKH,
-                };
-
-            CustomerDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            var query = DataProvider.Ins.DB.KHACHHANGs.OrderBy(khachhang => khachhang.idKH);
+            CustomerDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
             btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
@@ -93,6 +81,7 @@ namespace QLNS.Pages
             pageNumber1--;
             LoadCustomerTypesData(pageNumber1);
         }
+        
         private void btnCTNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
@@ -113,7 +102,6 @@ namespace QLNS.Pages
                     MoTa = loaikhachhang.MoTa,
                     DiemTichLuyToiThieu = loaikhachhang.DiemTichLuyToiThieu,
                 };
-
             CustomerTypesDataGrid.ItemsSource = query.Skip(pageSize1 * page).Take(pageSize1).ToList();
             btnCTPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
             btnCTNext.IsEnabled = query.Skip(pageSize1 * (page + 1)).Take(pageSize1).Any(); // Kiểm tra page kế tiếp có dữ liệu không
@@ -131,6 +119,42 @@ namespace QLNS.Pages
         {
             AddCustomerType addCustomerType = new AddCustomerType();
             addCustomerType.ShowDialog();
+        }
+
+        private void btnDetailCustommer_Click(object sender, RoutedEventArgs e)
+        {
+            try {
+                KHACHHANG khachhang = (KHACHHANG)CustomerDataGrid.SelectedItem;
+                DetailCustomer detail = new DetailCustomer();
+                detail.customerManage = this;
+                detail.idKH = khachhang.idKH;
+                detail.TenKH.Text = khachhang.TenKH.ToString();
+                detail.GioiTinh.Text = khachhang.GioiTinh.ToString();
+
+                if (khachhang.NgaySinh.HasValue)// can null
+                {
+                    DateTime temp = khachhang.NgaySinh.Value;
+                    detail.NgaySinh.Text = temp.ToString("dd/MM/yyyy");
+                }
+                else
+                    detail.NgaySinh.Text = "";
+
+                if(khachhang.DiaChi == null)// can null
+                {
+                    detail.DiaChi.Text = "";
+                }
+                else
+                {
+                    detail.SDT.Text = khachhang.SDT.ToString();
+                }
+
+                detail.NgayTG.Text = khachhang.NgayTG.ToString("dd/MM/yyyy");
+                detail.DTL.Text = khachhang.DiemTichLuy.ToString();
+                detail.LoaiKH.Text = khachhang.idLKH.ToString();
+                detail.ShowDialog();
+            } 
+            catch { }
+            
         }
     }
 }
