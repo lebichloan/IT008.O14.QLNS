@@ -133,5 +133,71 @@ namespace QLNS.Pages
             }
             catch { }
         }
+
+        
+
+        private void btnDetailCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPreErrorTab_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnNextErrorTab_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPreCategory_Click(object sender, RoutedEventArgs e)
+        {
+            categoryPageNumber++;
+            LoadCategory(categoryPageNumber);
+        }
+
+        private void btnNextCategory_Click(object sender, RoutedEventArgs e)
+        {
+            categoryPageNumber--;
+            LoadCategory(categoryPageNumber);
+        }
+
+        int categoryPageNumber = 0;
+        private void LoadCategory(int page)
+        {
+            var query =
+                from danhmuc in qLNSEntities.DANHMUCs
+                orderby danhmuc.MaDM
+                //where hoadon.idHD == 0
+                select new
+                {
+                    maDM = danhmuc.MaDM,
+                    tenDM = danhmuc.TenDM,
+                    mota = danhmuc.MoTa,
+                };
+
+            categoryDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+        }
+
+        
+
+        private void categoryTabItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadCategory(0);
+        }
+
+        private void errorProductTabItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
