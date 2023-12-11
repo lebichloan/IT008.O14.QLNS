@@ -22,13 +22,14 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddImportDetail : Window
     {
-        private int idND = -1;
+        private int idND = 1;
+        
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddImportDetail()
         {
             InitializeComponent();
         }
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadAllProduct();
@@ -79,7 +80,7 @@ namespace QLNS.ResourceXAML
 
                 detailProductExpander.Visibility = Visibility.Visible;
                 detailProductExpander.IsExpanded = true;
-                idCTSP = selectedProduct.idSP;
+                idSP = selectedProduct.idSP;
                 headerProductExpander.Text = selectedProduct.TenSP;
                 lblSoLuongDaBan.Text = string.Format("{0} {1}", "Đã bán", selectedProduct.SLDB.ToString());
                 SLSPCL = selectedProduct.SLCL;
@@ -88,11 +89,11 @@ namespace QLNS.ResourceXAML
                 {
                     lblMoTa.Text = selectedProduct.MoTa;
                 }
-                DonGiaSP = selectedProduct.DonGia;
-                lblDonGia.Text = DonGiaSP.ToString();
+                
                 btnSub.IsEnabled = false;
-                SLSPHD = 0;
-                txtSoLuongSanPham.Text = SLSPHD.ToString();
+                SLSPNH = 0;
+                txtSoLuongSanPham.Text = SLSPNH.ToString();
+                textBoxDonGia.Text = "0";
                 ThanhTienSP = 0;
                 lblThanhTienSanPham.Text = ThanhTienSP.ToString();
             }
@@ -125,41 +126,42 @@ namespace QLNS.ResourceXAML
             }
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void btnSub_Click(object sender, RoutedEventArgs e)
         {
-            SLSPHD--;
-            txtSoLuongSanPham.Text = SLSPHD.ToString();
-            ThanhTienSP = ThanhTienSP - DonGiaSP;
+            SLSPNH--;
+            txtSoLuongSanPham.Text = SLSPNH.ToString();
+            ThanhTienSP = SLSPNH * Convert.ToDecimal(textBoxDonGia.Text);
             lblThanhTienSanPham.Text = ThanhTienSP.ToString();
-            CheckInputSoLuong(SLSPHD);
+            CheckInputSoLuong(SLSPNH);
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            SLSPHD++;
-            txtSoLuongSanPham.Text = SLSPHD.ToString();
-            ThanhTienSP = ThanhTienSP + DonGiaSP;
+            SLSPNH++;
+            txtSoLuongSanPham.Text = SLSPNH.ToString();
+            ThanhTienSP = SLSPNH * Convert.ToDecimal(textBoxDonGia.Text);
             lblThanhTienSanPham.Text = ThanhTienSP.ToString();
-            CheckInputSoLuong(SLSPHD);
+            CheckInputSoLuong(SLSPNH);
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            addProducttoBill();
-            detailProductExpander.Visibility = Visibility.Collapsed;
-
-            //if (productDataGrid.SelectedItem != null)
-            //{
-            //    var selectedProduct = (dynamic)productDataGrid.SelectedItem;
-            //    SLSPCL = SLSPCL - SLSPHD;
-            //    selectedProduct.SLCL = (short)SLSPCL;
-            //    productDataGrid.Items.Refresh();
-            //}
+            if (SLSPNH <= 0)
+            {
+                MessageBox.Show("Vui long nhap so luong lon hon 0");
+                //txtSoLuongSanPham.Focus();
+            }
+            else if (SLSPNH > SLSPCL)
+            {
+                MessageBox.Show("Kho khong the cung cap so luong nay");
+            }
+            else
+            {
+                addProducttoBill();
+                detailProductExpander.Visibility = Visibility.Collapsed;
+            }
         }
         private void LoadAllProduct()
         {
@@ -185,8 +187,8 @@ namespace QLNS.ResourceXAML
 
         private void SetValues()
         {
-            lblSoLuongHoaDon.Text = "0";
-            lblTongTienHoaDon.Text = "0";
+            lblSoLuongNhapHang.Text = "0";
+            lblTongTienNhapHang.Text = "0";
             btnNext.IsEnabled = false;
             productListBox.Items.Clear();
 
@@ -220,10 +222,10 @@ namespace QLNS.ResourceXAML
             productDataGrid.ItemsSource = queryFilterProduct.ToList();
         }
 
-        private int idCTSP = 0;
+        private int idSP = 0;
         private int SLSPCL = 0;
         private decimal DonGiaSP = 0;
-        private int SLSPHD = 0;
+        private short SLSPNH = 0;
         private decimal ThanhTienSP = 0;
         private void GetValueSoLuongSP()
         {
@@ -235,7 +237,7 @@ namespace QLNS.ResourceXAML
             {
                 try
                 {
-                    int soLuongSPInput = int.Parse(txtSoLuongSanPham.Text);
+                    short soLuongSPInput = short.Parse(txtSoLuongSanPham.Text);
                     if (soLuongSPInput <= 0)
                     {
                         MessageBox.Show("Vui long nhap so luong lon hon 0");
@@ -248,18 +250,18 @@ namespace QLNS.ResourceXAML
                     }
                     else
                     {
-                        SLSPHD = soLuongSPInput;
-                        ThanhTienSP = DonGiaSP * SLSPHD;
+                        SLSPNH = soLuongSPInput;
+                        ThanhTienSP = DonGiaSP * SLSPNH;
                         lblThanhTienSanPham.Text = ThanhTienSP.ToString();
                     }
-                    txtSoLuongSanPham.Text = SLSPHD.ToString();
+                    txtSoLuongSanPham.Text = SLSPNH.ToString();
                 }
                 catch (FormatException)
                 {
                     MessageBox.Show("Khong the doi thanh so");
-                    txtSoLuongSanPham.Text = SLSPHD.ToString();
+                    txtSoLuongSanPham.Text = SLSPNH.ToString();
                 }
-                CheckInputSoLuong(SLSPHD);
+                CheckInputSoLuong(SLSPNH);
             }
         }
 
@@ -281,35 +283,24 @@ namespace QLNS.ResourceXAML
         }
 
         private int TongSoLuongSP = 0;
-        private decimal TongTienHD = 0;
+        private decimal TongTienNH = 0;
         private void addProducttoBill()
         {
-            productListBox.Items.Add(new BillProductListBoxItem(
-                idCTSP,
+            productListBox.Items.Add(new ImportItemListBox(
+                idSP,
                 headerProductExpander.Text,
-                SLSPHD,
-                DonGiaSP,
+                SLSPNH,
+                Convert.ToDecimal(textBoxDonGia.Text),
                 ThanhTienSP));
 
-            TongSoLuongSP = TongSoLuongSP + SLSPHD;
-            lblSoLuongHoaDon.Text = TongSoLuongSP.ToString();
-            TongTienHD = TongTienHD + ThanhTienSP;
-            lblTongTienHoaDon.Text = TongTienHD.ToString();
+            TongSoLuongSP = TongSoLuongSP + SLSPNH;
+            lblSoLuongNhapHang.Text = TongSoLuongSP.ToString();
+            TongTienNH = TongTienNH + ThanhTienSP;
+            lblTongTienNhapHang.Text = TongTienNH.ToString();
 
             btnNext.IsEnabled = true;
         }
-        private List<BillProductListBoxItem> GetListBoxProduct()
-        {
-            List<BillProductListBoxItem> listProduct = new List<BillProductListBoxItem>();
-
-            foreach (BillProductListBoxItem item in productListBox.Items)
-            {
-                BillProductListBoxItem billProductListBoxItem = item as BillProductListBoxItem;
-                listProduct.Add(billProductListBoxItem);
-            }
-
-            return listProduct;
-        }
+        
 
         private void txtSoLuongSanPham_KeyDown(object sender, KeyEventArgs e)
         {
@@ -330,6 +321,127 @@ namespace QLNS.ResourceXAML
         {
             AddNewProductWhenImport addNewProductWhenImport = new AddNewProductWhenImport();
             addNewProductWhenImport.ShowDialog();
+        }
+        private List<ImportItemListBox> listProduct;
+        private List<ImportItemListBox> GetListBoxProduct()
+        {
+            List<ImportItemListBox> tempListProduct = new List<ImportItemListBox>();
+
+            foreach (ImportItemListBox item in productListBox.Items)
+            {
+                ImportItemListBox importProductListBoxItem = item as ImportItemListBox;
+                tempListProduct.Add(importProductListBoxItem);
+            }
+            listProduct = tempListProduct;
+            return listProduct;
+        }
+
+        
+        private int TongSLSP = 0;
+        private decimal TongThanhTienNH = 0;
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            NHAPHANG nhaphang = CreateImport();
+            DataProvider.Ins.DB.NHAPHANGs.Add(nhaphang);
+            DataProvider.Ins.DB.SaveChanges();
+            int idNH = GetLastIdImport();
+
+            listProduct = GetListBoxProduct();
+
+            foreach (ImportItemListBox item in listProduct)
+            {
+                CTSP ctsp = CreateImportDetail(item, idNH);
+                DataProvider.Ins.DB.CTSPs.Add(ctsp);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+
+            MessageBox.Show("Them don nhap hang thanh cong");
+            
+            this.Close();
+        }
+
+
+        private NHAPHANG CreateImport()
+        {
+            NHAPHANG nhaphang = new NHAPHANG();
+            DateTime ngayNhap = DateTime.Now;
+            nhaphang.NgayNhap = ngayNhap;
+            
+            nhaphang.GhiChu = "";
+            TongThanhTienNH = Convert.ToDecimal(lblTongTienNhapHang.Text);
+            nhaphang.ThanhTien = TongThanhTienNH;
+            nhaphang.idND = idND;
+            
+            return nhaphang;
+        }
+        private CTSP CreateImportDetail(ImportItemListBox importItem, int idNH)
+        {
+            CTSP ctsp = new CTSP();
+            ctsp.idSP = importItem.itemMaSP;
+            ctsp.SoLuongNhap = importItem.itemSoLuongNhapSP;
+            ctsp.DonGiaNhap = importItem.itemDonGiaNhapSP;
+            ctsp.SLConLai = ctsp.SoLuongNhap;
+            ctsp.DaBan = 0;
+            ctsp.DonGiaXuat =0;
+            ctsp.SoLuongLoi = 0;
+            ctsp.GhiChu = "";
+            ctsp.TinhTrang = 1;
+            ctsp.idNH = idNH;
+            ctsp.idCTSP = GetLastIdProductDetail();
+            
+            return ctsp;
+        }
+        private void SetSLSP(int idSP, int sl)
+        {
+            var product = qLNSEntities.CTSPs.FirstOrDefault(sp => sp.idCTSP == idSP);
+            if (product != null)
+            {
+                product.SLConLai = (short)(product.SLConLai + sl);
+                if (product.SLConLai == 0)
+                {
+                    product.TinhTrang = 0;
+                }
+                qLNSEntities.SaveChanges();
+            }
+        }
+        private void UpdateExistingProductDetail()
+        {
+
+        }
+        private int GetLastIdProductDetail()
+        {
+            var query =
+                from ctsp in qLNSEntities.CTSPs
+                orderby ctsp.idCTSP descending
+                select new
+                {
+                    IdCTSP = ctsp.idCTSP,
+                };
+
+            var lastIDCTSP = query.FirstOrDefault();
+            if (lastIDCTSP != null)
+            {
+                return lastIDCTSP.IdCTSP;
+            }
+            return 0;
+        }
+        private int GetLastIdImport()
+        {
+            var query =
+                from nhaphang in qLNSEntities.NHAPHANGs
+                orderby nhaphang.idNH descending
+                select new
+                {
+                    idNH = nhaphang.idNH,
+                };
+
+            var lastNH = query.FirstOrDefault();
+            if (lastNH != null)
+            {
+                return lastNH.idNH;
+            }
+            return 0;
         }
     }
 }
