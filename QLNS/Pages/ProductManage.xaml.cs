@@ -185,9 +185,9 @@ namespace QLNS.Pages
                 };
 
             errorProductDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
-            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
-            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
-            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+            btnPreErrorTab.IsEnabled = page > 0; // Được ấn nếu page > 0
+            btnNextErrorTab.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            lblPageErrorTab.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
         //Category tab
@@ -208,9 +208,9 @@ namespace QLNS.Pages
                 };
 
             categoryDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
-            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
-            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
-            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+            btnPreCategory.IsEnabled = page > 0; // Được ấn nếu page > 0
+            btnNextCategory.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            lblCategoryPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
         private void btnPreCategory_Click(object sender, RoutedEventArgs e)
