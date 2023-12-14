@@ -251,25 +251,25 @@ namespace QLNS.Pages
 
         private void productTabItem_Selected(object sender, RoutedEventArgs e)
         {
-            //btnAddErrorProduct.Visibility = Visibility.Collapsed;
-            //btnAddCategory.Visibility = Visibility.Collapsed;
-            //btnAddProduct.Visibility = Visibility.Visible;
-           
+            btnAddErrorProduct.Visibility = Visibility.Collapsed;
+            btnAddCategory.Visibility = Visibility.Collapsed;
+            btnAddProduct.Visibility = Visibility.Visible;
+
         }
 
         private void errorProductTabItem_Selected(object sender, RoutedEventArgs e)
         {
-            //btnAddProduct.Visibility = Visibility.Collapsed;
-            //btnAddCategory.Visibility = Visibility.Collapsed;
-            //btnAddErrorProduct.Visibility = Visibility.Visible;
-            
+            btnAddProduct.Visibility = Visibility.Collapsed;
+            btnAddCategory.Visibility = Visibility.Collapsed;
+            btnAddErrorProduct.Visibility = Visibility.Visible;
+
         }
 
         private void categoryTabItem_Selected(object sender, RoutedEventArgs e)
         {
-            //btnAddCategory.Visibility = Visibility.Visible;
-            //btnAddProduct.Visibility = Visibility.Collapsed;
-            //btnAddErrorProduct.Visibility = Visibility.Collapsed;
+            btnAddCategory.Visibility = Visibility.Visible;
+            btnAddProduct.Visibility = Visibility.Collapsed;
+            btnAddErrorProduct.Visibility = Visibility.Collapsed;
         }
     }
 }

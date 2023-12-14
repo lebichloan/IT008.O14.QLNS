@@ -243,6 +243,10 @@
                         Loaded="errorProductTabItem_Loaded"
                         Selector.Selected="errorProductTabItem_Selected">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="53*" />
+                                <ColumnDefinition Width="207*" />
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height=".85*" />
                                 <RowDefinition Height="auto" />
@@ -250,6 +254,7 @@
                             <DataGrid
                                 x:Name="errorProductDataGrid"
                                 Grid.Row="0"
+                                Grid.ColumnSpan="2"
                                 Height="auto"
                                 AutoGenerateColumns="False">
 
@@ -335,6 +340,7 @@
                             </DataGrid>
                             <Border
                                 Grid.Row="1"
+                                Grid.Column="1"
                                 Height="auto"
                                 Margin="0,10,10,0"
                                 Padding="5"
