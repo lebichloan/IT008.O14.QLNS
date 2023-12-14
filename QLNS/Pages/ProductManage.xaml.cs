@@ -43,8 +43,10 @@ namespace QLNS.Pages
         private void productManage_Loaded(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu ban đầu khi vừa vào
+            
             LoadData(0);
         }
+        
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page trước đó
@@ -135,38 +137,61 @@ namespace QLNS.Pages
         }
 
         
-
-        private void btnDetailCategory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //Product Error Tab
+        
 
         private void btnPreErrorTab_Click(object sender, RoutedEventArgs e)
         {
-
+            errorProductPage--;
+            LoadErrorProduct(errorProductPage);
         }
 
         private void btnNextErrorTab_Click(object sender, RoutedEventArgs e)
         {
-
+            errorProductPage++;
+            LoadErrorProduct(errorProductPage);
         }
 
-        private void btnPreCategory_Click(object sender, RoutedEventArgs e)
+        
+
+        private void errorProductTabItem_Loaded(object sender, RoutedEventArgs e)
         {
-            categoryPageNumber++;
-            LoadCategory(categoryPageNumber);
+            LoadErrorProduct(0);
+            
+        }
+        private int errorProductPage = 0;
+        private void LoadErrorProduct(int page)
+        {
+            var query =
+                from spl in qLNSEntities.SANPHAMLOIs
+                
+
+
+                
+                join ctsp in qLNSEntities.CTSPs
+                on spl.idCTSP equals ctsp.idCTSP
+                join sanpham in qLNSEntities.SANPHAMs
+                on ctsp.idSP equals sanpham.idSP
+                orderby spl.MaSPL
+                //where hoadon.idHD == 0
+                select new
+                {
+                    maSPL = spl.MaSPL,
+                    tenSPL = sanpham.TenSP,
+                    chitietloi = spl.ChiTietLoi,
+                    soluongloi = spl.SoLuongLoi,
+                    ngayloi = spl.NgayLoi,
+                    idctsp = spl.idCTSP,
+                };
+
+            errorProductDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
-        private void btnNextCategory_Click(object sender, RoutedEventArgs e)
-        {
-            categoryPageNumber--;
-            LoadCategory(categoryPageNumber);
-        }
+        //Category tab
+
 
         int categoryPageNumber = 0;
         private void LoadCategory(int page)
@@ -188,16 +213,63 @@ namespace QLNS.Pages
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
-        
+        private void btnPreCategory_Click(object sender, RoutedEventArgs e)
+        {
+            categoryPageNumber++;
+            LoadCategory(categoryPageNumber);
+        }
+
+        private void btnNextCategory_Click(object sender, RoutedEventArgs e)
+        {
+            categoryPageNumber--;
+            LoadCategory(categoryPageNumber);
+        }
+        private void btnDetailCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void categoryTabItem_Loaded(object sender, RoutedEventArgs e)
         {
             LoadCategory(0);
         }
 
-        private void errorProductTabItem_Loaded(object sender, RoutedEventArgs e)
+        private void btnAddErrorProduct_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void productTabItem_Selected(object sender, RoutedEventArgs e)
+        {
+            //btnAddErrorProduct.Visibility = Visibility.Collapsed;
+            //btnAddCategory.Visibility = Visibility.Collapsed;
+            //btnAddProduct.Visibility = Visibility.Visible;
+           
+        }
+
+        private void errorProductTabItem_Selected(object sender, RoutedEventArgs e)
+        {
+            //btnAddProduct.Visibility = Visibility.Collapsed;
+            //btnAddCategory.Visibility = Visibility.Collapsed;
+            //btnAddErrorProduct.Visibility = Visibility.Visible;
             
+        }
+
+        private void categoryTabItem_Selected(object sender, RoutedEventArgs e)
+        {
+            //btnAddCategory.Visibility = Visibility.Visible;
+            //btnAddProduct.Visibility = Visibility.Collapsed;
+            //btnAddErrorProduct.Visibility = Visibility.Collapsed;
         }
     }
 }

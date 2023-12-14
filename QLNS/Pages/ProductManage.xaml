@@ -38,6 +38,38 @@
 
                 <!--  Add staff  -->
                 <Button
+                    x:Name="btnAddCategory"
+                    Grid.Row="0"
+                    Click="btnAddCategory_Click"
+                    Style="{StaticResource addButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial
+                            Width="11"
+                            Height="11"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource IconButtonColor}"
+                            Kind="Plus" />
+                        <TextBlock Foreground="{DynamicResource TextButtonColor}" Text="Thêm danh mục" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    x:Name="btnAddErrorProduct"
+                    Grid.Row="0"
+                    Click="btnAddErrorProduct_Click"
+                    Style="{StaticResource addButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial
+                            Width="11"
+                            Height="11"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource IconButtonColor}"
+                            Kind="Plus" />
+                        <TextBlock Foreground="{DynamicResource TextButtonColor}" Text="Thêm sản phẩm lỗi" />
+                    </StackPanel>
+                </Button>
+                <Button
                     x:Name="btnAddProduct"
                     Grid.Row="0"
                     Click="btnAddProduct_Click"
@@ -53,6 +85,7 @@
                         <TextBlock Foreground="{DynamicResource TextButtonColor}" Text="Thêm sản phẩm" />
                     </StackPanel>
                 </Button>
+
 
                 <!--  Seprator  -->
                 <Separator
@@ -76,7 +109,10 @@
                     Grid.Row="2"
                     Height="auto"
                     HorizontalContentAlignment="Left">
-                    <TabItem Header="Sản phẩm">
+                    <TabItem
+                        Name="productTabItem"
+                        Header="Sản phẩm"
+                        Selector.Selected="productTabItem_Selected">
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -204,7 +240,8 @@
                     <TabItem
                         Name="errorProductTabItem"
                         Header="Sản phẩm lỗi"
-                        Loaded="errorProductTabItem_Loaded">
+                        Loaded="errorProductTabItem_Loaded"
+                        Selector.Selected="errorProductTabItem_Selected">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height=".85*" />
@@ -343,7 +380,8 @@
                     <TabItem
                         Name="categoryTabItem"
                         Header="Danh mục"
-                        Loaded="categoryTabItem_Loaded">
+                        Loaded="categoryTabItem_Loaded"
+                        Selector.Selected="categoryTabItem_Selected">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height=".85*" />
