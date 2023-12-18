@@ -58,6 +58,7 @@ namespace QLNS.Pages
         private void btnAddStaff_Click(object sender, RoutedEventArgs e)
         {
             AddStaffAndUser addStaffAndUser = new AddStaffAndUser();
+            addStaffAndUser.staffManage = this;
             addStaffAndUser.ShowDialog();
         }
 
@@ -71,7 +72,7 @@ namespace QLNS.Pages
                 detail.staffManage = this;
                 detail.idNV = nhanvien.idNV;
                 detail.TenNV.Text = nhanvien.TenNV;
-                detail.NgaySinh.Text = nhanvien.NgaySinh.ToString("dd/MM/yyyy");
+                detail.NgaySinh.Text = nhanvien.NgaySinh.ToString();
                 detail.GioiTinh.Text = nhanvien.GioiTinh.ToString();
 
                 if (nhanvien.DiaChi == null)
@@ -84,7 +85,7 @@ namespace QLNS.Pages
                 else
                     detail.SDT.Text = nhanvien.SDT.ToString();
 
-                detail.NgayVL.Text = nhanvien.NgayVL.Date.ToString("dd/MM/yyyy");
+                detail.NgayVL.Text = nhanvien.NgayVL.Date.ToString();
                 detail.ChucVu.Text = nhanvien.ChucVu.ToString();
                 detail.TinhTrang.Text = nhanvien.TinhTrang.ToString();
 

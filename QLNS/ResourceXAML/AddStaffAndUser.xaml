@@ -5,132 +5,176 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
         mc:Ignorable="d"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        Title="AddStaffAndUser" Height="500" Width="400">
-    <Border CornerRadius="5" Padding="0 0 0 20" 
-        Background="{DynamicResource SecundaryBackgroundColor}"
-        MouseDown="Border_MouseDown"
-        MouseLeftButtonDown="Border_MouseLeftButtonDown">
-
+        Title="AddStaffAndUser" Height="500" Width="460">
+    <Border Background="White" CornerRadius="5" Margin="10" BorderThickness="1" BorderBrush="#BFBFBF">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="45"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-
-            <TextBlock Text="Thêm nhân viên"
-                   Grid.Row="0"
-                   FontSize="25"
-                   FontWeight="Bold"   
-                   Margin="15 5 0 0"
-                   HorizontalAlignment="Left" />
-            <!-- Start: Button Close | Restore | Minimize -->
-            <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
-
-                <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
+            <DockPanel Grid.Row="0">
+                <TextBlock DockPanel.Dock="Left" FontSize="20" FontWeight="Bold" Margin="20 10 10 5">
+                    Thêm nhân viên  
+                </TextBlock>
+                <Button x:Name="btnClose" DockPanel.Dock="Right" Margin="5"  HorizontalAlignment="Right" Click="btnClose_Click">
                     <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
-                            <Setter Property="Content" Value="{DynamicResource maximize}"/>
+                        <Style TargetType="Button">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Width" Value="50"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border Background="{TemplateBinding Background}" Height="25" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Icon:PackIconMaterial Kind="Close" Height="15" Width="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Icon:PackIconMaterial>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
-                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                </DataTrigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                </Trigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
-            </StackPanel>
-
-            <ScrollViewer Grid.Row="1" HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden">
-                <StackPanel Grid.Column="0">
-                    <TextBox x:Name="tenNV" VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="350" Height="50"
-                             materialDesign:HintAssist.Hint="Tên nhân viên"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <DatePicker x:Name="ngaySinh"  HorizontalAlignment="Left"
-                                SelectedDate="{Binding ContractDate}"
-                                Width="350" Height="50"
-                                materialDesign:HintAssist.Hint="Ngày sinh (tháng/ngày/năm)" 
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <ComboBox x:Name="gioiTinh" IsReadOnly="True"
-                              materialDesign:HintAssist.Hint="Giới tính" HorizontalAlignment="Left"
-                              IsEditable="True" Width="350" Height="50">
-                        <ComboBoxItem Content="Nam" />
-                        <ComboBoxItem Content="Nữ" />
-                    </ComboBox>
-                    <TextBox x:Name="diaChi"  VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="350" Height="50"
-                             materialDesign:HintAssist.Hint="Địa chỉ"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox x:Name="sDT" VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="350" Height="50"
-                             materialDesign:HintAssist.Hint="Số điện thoại"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <DatePicker x:Name="ngayVL" HorizontalAlignment="Left"
-                                SelectedDate="{Binding ContractDate}"
-                                Width="350" Height="50"
-                                materialDesign:HintAssist.Hint="Ngày vào làm (tháng/ngày/năm)" 
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <TextBox x:Name="chucVu" VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="350" Height="50"
-                             materialDesign:HintAssist.Hint="Chức vụ"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox x:Name="ghiChu" VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="350" Height="50"
-                             materialDesign:HintAssist.Hint="Ghi chú"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <CheckBox x:Name="addUser_CheckBox" Content="Thêm tài khoản cho nhân viên"
-                              IsChecked="False" 
-                              Click="addUser_CheckBox_Click"
-                              Margin="-1 10 0 10">
-                    </CheckBox>
-                    <StackPanel x:Name="AddInfoUser" Visibility="Collapsed">
-                        <TextBox x:Name="taiKhoan" VerticalAlignment="Center"
-                                 HorizontalAlignment="Left"
-                                 Width="350" Height="50"
-                                 materialDesign:HintAssist.Hint="Tài khoản"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                        <PasswordBox x:Name="matKhau" materialDesign:HintAssist.Hint="Mật khẩu" 
-                                     Width="350" Height="50"
-                                     PasswordChanged="matKhau_PasswordChanged"
-                                     materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
-                                     IsEnabled="{Binding ElementName=RevealPasswordFloatingEnabled, Path=IsChecked}"
-                                     Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" />
-                        <PasswordBox x:Name="xacNhanMatKhau" materialDesign:HintAssist.Hint="Nhập lại mật khẩu" 
-                                     Width="350" Height="50"
-                                     PasswordChanged="xacNhanMatKhau_PasswordChanged"
-                                     materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
-                                     IsEnabled="{Binding ElementName=RevealPasswordFloatingEnabled, Path=IsChecked}"
-                                     Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" />
-                        <ComboBox x:Name="idLND" IsReadOnly="True"
-                                  materialDesign:HintAssist.Hint="Loại người dùng" HorizontalAlignment="Left"
-                                  IsEditable="True" Width="350" Height="50">
-                            <ComboBoxItem Content="Quản lý" />
-                            <ComboBoxItem Content="Thu ngân" />
-                            <ComboBoxItem Content="Nhân viên kho" />
-                        </ComboBox>
-                    </StackPanel>
-                    <Button Height="35" Width="170"
-                            Content="Thêm mới" 
-                            Margin="0 20 0 10"
-                            Click="ButtonAdd_Click" >
-                    </Button>
+            </DockPanel>
+            <Separator Grid.Row="1" Height="5" Margin="20 0 20 0"/>
+            <ScrollViewer Grid.Row="2" Height="350">
+                
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 10 0 0">
+                    <TextBlock Text="Tên nhân viên" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
+                    <TextBlock Text="Ngày sinh" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    <TextBlock Text="Giới tính" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    <TextBlock Text="Địa chỉ" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    <TextBlock Text="Số điện thoại" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    <TextBlock Text="Ngày vào làm" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    <TextBlock Text="Chức vụ" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    <TextBlock Text="Ghi chú" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
                 </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0 10 0 0">
+                    <TextBox x:Name="TenNV" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1"></TextBox>
+                    <DatePicker x:Name="NgaySinh" Margin="0 0 20 10" FontSize="14"
+                                Width="250" Height="26" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="1"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <TextBox x:Name="GioiTinh" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                    <TextBox x:Name="DiaChi" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                    <TextBox x:Name="SDT" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                    <DatePicker x:Name="NgayVL" Margin="0 0 20 10" FontSize="14"
+                                Width="250" Height="26" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="1"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <TextBox x:Name="ChucVu" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                    <TextBox x:Name="GhiChu" FontSize="14" Height="50" Margin="0 0 20 10" BorderBrush="Black" TextWrapping="Wrap" AcceptsReturn="True" ></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                    <CheckBox x:Name="IsAddUser" IsChecked="False" Margin="20 0 0 0" Background="#879FFF" FontSize="15" FontWeight="SemiBold" Content="Thêm tài khoản người dùng?"></CheckBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="20 30 0 0">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=IsAddUser, Path=IsChecked}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBlock Text="Tên đăng nhập" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
+                    <TextBlock Text="Mật khẩu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
+                    <TextBlock Text="Nhập lại mật khẩu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
+                    <TextBlock Text="Loại người dùng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="0 30 0 0">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=IsAddUser, Path=IsChecked}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBox x:Name="TenDN" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1"></TextBox>
+                    <PasswordBox x:Name="MatKhau" Padding="4" Height="28" Margin="0 0 20 10" FontSize="14"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                        BorderThickness="1"
+                        IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+                        Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+                    <PasswordBox x:Name="MatKhauNhapLai" Padding="4" Height="28" Margin="0 0 20 10" FontSize="14"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                        BorderThickness="1"
+                        IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+                        Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+                        <Border CornerRadius="4" Height="26" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1">
+                            <ComboBox x:Name="LoaiND" FontSize="14" Padding="0 0 5 0" BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent">
+                                <TextBlock Text="Quản lý"></TextBlock>
+                                <TextBlock Text="Thu ngân"></TextBlock>
+                                <TextBlock Text="Nhân viên kho"></TextBlock>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+            </Grid>
             </ScrollViewer>
+
+            <Separator Grid.Row="3" Height="5" Margin="20 5 20 10"></Separator>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" Margin="0 0 20 0" VerticalAlignment="Center">
+                <Button x:Name="btnCancel" Style="{StaticResource btnCancel}" Content="Hủy" Margin="0 0 10 0" Foreground="#879FFF"
+                    Click="btnCancel_Click" >
+                </Button>
+                <Button x:Name="btnAdd" Style="{StaticResource btnUpdate}" Content="Thêm" Click="btnAdd_Click">
+                </Button>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>
