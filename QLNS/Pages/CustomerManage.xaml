@@ -144,7 +144,8 @@
                                     <DataGridTextColumn Header="Mã khách hàng"
                                                         Binding="{Binding MaKH}"
                                                         IsReadOnly="True"
-                                                        Width="auto"/>
+                                                        Width="auto"
+                                                        x:Name="IDKH"/>
 
                                     <DataGridTextColumn Header="Tên khách hàng"
                                                         Binding="{Binding TenKH}"
@@ -197,10 +198,7 @@
                                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
-                                                    <Button x:Name="btnDeleteCustomer" Margin="5,0,0,0" Style="{DynamicResource gridViewButton}" Click="btnDeleteCustomer_Clicked">
-                                                        <Icon:PackIconMaterial Kind="TrashCan"
-                                                                               Style="{DynamicResource gridButtonIcon}"/>
-                                                    </Button>
+
                                                 </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
@@ -387,11 +385,9 @@
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
-                                                    <Button x:Name="buttonDeleteLKH"
-                                                            Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0,0,0"
-                                                            Click="buttonDeleteLKH_Clicked">
-                                                        <Icon:PackIconMaterial Kind="TrashCan"
+                                                    <Button Style="{DynamicResource gridViewButton}"
+                                                                Margin="5,0,0,0">
+                                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
                                                 </StackPanel>
