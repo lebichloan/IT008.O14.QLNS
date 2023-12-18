@@ -130,7 +130,12 @@ namespace QLNS.ResourceXAML
             }
             else
             {
-                if (MessageBox.Show("Bạn có chắc chắn không?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm loại khách hàng này?";
+                messageOption.ShowDialog();
+                bool isAdd = MessageOption.isAgree;
+                messageOption.Close();
+                if (isAdd)
                 {
                     QLNSEntities qlns = new QLNSEntities();
                     var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{loaiKH.Text}'").ToList();
@@ -167,14 +172,11 @@ namespace QLNS.ResourceXAML
                     DataProvider.Ins.DB.KHACHHANGs.Add(KHACHHANG);
                     DataProvider.Ins.DB.SaveChanges();
 
-                    tenKH.Text = "";
-                    gioiTinh.Text = "";
-                    diaChi.Text = "";
-                    sDT.Text = "";
-                    loaiKH.Text = "";
-                    diemTL.Text = "";
-                    ngaySinh.SelectedDate = null;
-                    ngayTG.SelectedDate = null;
+                    Message message = new Message();
+                    message.message.Text = "Thêm khách hàng thành công!";
+                    message.ShowDialog();
+
+                    this.Close();
                 }
                 else
                 {

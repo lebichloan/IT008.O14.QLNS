@@ -119,6 +119,10 @@ namespace QLNS.ResourceXAML
                     DataProvider.Ins.DB.LOAIKHACHHANGs.Add(LOAIKHACHHANG);
                     DataProvider.Ins.DB.SaveChanges();
 
+                    Message message = new Message();
+                    message.message.Text = "Thêm loại khách hàng thành công!";
+                    message.ShowDialog();
+
                     this.Close();
                 }
             }

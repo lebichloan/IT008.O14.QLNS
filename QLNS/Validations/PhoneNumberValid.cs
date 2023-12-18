@@ -15,7 +15,7 @@ namespace QLNS.Validations
         {
             //throw new NotImplementedException();
             string number = value as string;
-            var isNumeric = int.TryParse(number, out _);
+            var isNumeric = Int64.TryParse(number, out _);
             if (value != null)
             {
                 if (!isNumeric)
@@ -24,7 +24,7 @@ namespace QLNS.Validations
                 }
                 if (number.Length != 10)
                 {
-                    return new ValidationResult(false, "Vui lòng nhập số điện thoại hợp lệ (số điện thoại có 10 hoặc 11 chữ số)!");
+                    return new ValidationResult(false, "Vui lòng nhập số điện thoại hợp lệ (số điện thoại có 10 chữ số)!");
                 }
                 return new ValidationResult(true, null);
             }
