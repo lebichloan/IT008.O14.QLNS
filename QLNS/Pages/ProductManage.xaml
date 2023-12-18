@@ -141,11 +141,11 @@
                                         Width="auto"
                                         Binding="{Binding MaSP}"
                                         CanUserResize="False"
-                                        Header="Mã sản phẩm"
+                                        Header="Mã SP"
                                         IsReadOnly="True" />
                                     <!--  Tên sản phẩm  -->
                                     <DataGridTextColumn
-                                        Width="*"
+                                        Width="2*"
                                         Binding="{Binding TenSP}"
                                         Header="Tên sản phẩm"
                                         IsReadOnly="True" />
@@ -155,6 +155,19 @@
                                         Binding="{Binding MoTa}"
                                         Header="Mô tả"
                                         IsReadOnly="True" />
+
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding SLDB}"
+                                        Header="Đã bán"
+                                        IsReadOnly="True" />
+
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding SLCL}"
+                                        Header="Còn lại"
+                                        IsReadOnly="True" />
+
                                     <!--  Ngày vào làm  -->
                                     <DataGridTextColumn
                                         Width="*"

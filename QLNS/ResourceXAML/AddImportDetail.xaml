@@ -224,7 +224,7 @@
                             Text="Số lượng" />
 
                         <TextBlock
-                            x:Name="lblSoLuongHoaDon"
+                            x:Name="lblSoLuongNhapHang"
                             Grid.Row="0"
                             Style="{StaticResource ContentText}"
                             Text="0" />
@@ -235,7 +235,7 @@
                             Text="Thành tiền" />
 
                         <TextBlock
-                            x:Name="lblTongTienHoaDon"
+                            x:Name="lblTongTienNhapHang"
                             Grid.Row="1"
                             FontWeight="Bold"
                             Style="{StaticResource ContentText}"
@@ -400,13 +400,20 @@
                                 Grid.Row="1"
                                 Grid.Column="0" />
 
-                            <TextBlock
-                                Name="lblDonGia"
+                            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
-                                FontSize="20"
-                                FontWeight="Bold" />
+                                Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="Đơn giá" />
+                                <TextBox
+                                    x:Name="textBoxDonGia"
+                                    Width="200"
+                                    Height="30"
+                                    Background="{DynamicResource SecundaryBackgroundColor}"
+                                    Foreground="{DynamicResource PrimaryTextColor}" />
+                            </StackPanel>
+
 
                             <StackPanel
                                 Grid.Row="1"

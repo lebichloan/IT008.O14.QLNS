@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -302,6 +303,7 @@
     <Compile Include="ViewModel\BillManageViewModel.cs" />
     <Compile Include="ViewModel\BillProductListBoxItem.cs" />
     <Compile Include="ViewModel\BillVoucherListBoxItem.cs" />
+    <Compile Include="ViewModel\ImportItemListBox.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NhanVien.cs" />
     <Page Include="Assets\Icons.xaml">
