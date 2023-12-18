@@ -94,20 +94,18 @@ namespace QLNS.ResourceXAML
             ForceValidation();
             if ((Validation.GetHasError(tenLKH)) || (Validation.GetHasError(moTa)) || (Validation.GetHasError(diemTLTT)))
             {
-                MessageBox.Show("Error(s) has occured!");
+                MessageBox.Show("Đã có lỗi xảy ra!");
             }
             else
             {
-                if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Bạn có chắc chắn không?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    //malkh = maLKH.Text;
                     tenlkh = tenLKH.Text;
                     mota = moTa.Text;
                     diemtltt = diemTLTT.Text;
 
                     var LOAIKHACHHANG = new LOAIKHACHHANG()
                     {
-                        //MaLKH = malkh,
                         TenLKH = tenlkh,
                         MoTa = mota,
                         DiemTichLuyToiThieu = int.Parse(diemtltt),

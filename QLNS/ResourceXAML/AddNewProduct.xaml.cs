@@ -78,10 +78,9 @@ namespace QLNS.ResourceXAML
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //makm = maKM.Text;
             tensp = tenSP.Text;
             mota = moTa.Text;
-            danhmuc = int.Parse(danhMucComboBox.Text);
+            danhmuc = danhMucComboBox.SelectedIndex+1;
             ghichu = ghiChu.Text;
             mota = moTa.Text;
 
@@ -89,16 +88,15 @@ namespace QLNS.ResourceXAML
 
             var SANPHAM = new SANPHAM()
             {
-                //MaKM = makm,
                 TenSP = tensp,
                 MoTa = mota,
                 idDM = danhmuc,
-
-
+                
             };
 
             DataProvider.Ins.DB.SANPHAMs.Add(SANPHAM);
             DataProvider.Ins.DB.SaveChanges();
+            this.Close();
         }
         QLNSEntities qLNSEntities = new QLNSEntities();
         private void LoadComboBox()
@@ -106,7 +104,7 @@ namespace QLNS.ResourceXAML
             var query =
                 from danhmuc in qLNSEntities.DANHMUCs
                 orderby danhmuc.idDM
-                //where hoadon.idHD == 0
+                //where sanpham.idHD == 0
                 select new
                 {
                     iDDM = danhmuc.idDM,
@@ -114,6 +112,23 @@ namespace QLNS.ResourceXAML
                 };
             danhMucComboBox.ItemsSource = query.ToList();
 
+        }
+        private int GetLastIdProduct()
+        {
+            var query =
+                from sanpham in qLNSEntities.SANPHAMs
+                orderby sanpham.idSP descending
+                select new
+                {
+                    idHD = sanpham.idSP,
+                };
+
+            var lastSP = query.FirstOrDefault();
+            if (lastSP != null)
+            {
+                return lastSP.idHD;
+            }
+            return 0;
         }
     }
 }

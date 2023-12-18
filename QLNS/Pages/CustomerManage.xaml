@@ -191,17 +191,13 @@
                                                                 Width="auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Button Style="{DynamicResource gridViewButton}">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Button x:Name="btnDetailCustommer" Style="{DynamicResource gridViewButton}" Click="btnDetailCustommer_Click">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
-                                                    <Button Style="{DynamicResource gridViewButton}"
-                                                                    Margin="5,0,0,0">
-                                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
-                                                                            Style="{DynamicResource gridButtonIcon}"/>
-                                                    </Button>
+                                                    
                                                 </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>

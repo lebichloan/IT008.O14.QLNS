@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace QLNS.ResourceXAML
 {
     /// <summary>
-    /// Interaction logic for OptionAddStaff.xaml
+    /// Interaction logic for Message.xaml
     /// </summary>
-    public partial class OptionAddStaff : Window
+    public partial class Message : Window
     {
-        public OptionAddStaff()
+        public Message()
         {
             InitializeComponent();
         }
@@ -27,20 +27,6 @@ namespace QLNS.ResourceXAML
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        private void ButtonAddUser_Click(object sender, RoutedEventArgs e)
-        {
-            AddStaffAndUser addStaffAndUser = new AddStaffAndUser();
-            this.Close();
-            addStaffAndUser.ShowDialog();
-        }
-
-        private void ButtonNo_Click(object sender, RoutedEventArgs e)
-        {
-            AddStaff addStaff = new AddStaff();
-            this.Close();
-            addStaff.ShowDialog();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using QLNS.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,28 +20,35 @@ namespace QLNS.ResourceXAML
     /// <summary>
     /// Interaction logic for AddSale.xaml
     /// </summary>
-    public partial class AddSale : Window
+    public partial class AddSale : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private string _MaKM;
         public string makm { get => _MaKM; set { _MaKM = value; } }
 
         private string _TenKM;
-        public string tenkm { get => _TenKM; set { _TenKM = value; } }
+        public string tenkm { get => _TenKM; set { _TenKM = value; OnPropertyChanged(); } }
 
         private string _MoTa;
-        public string mota { get => _MoTa; set { _MoTa = value; } }
+        public string mota { get => _MoTa; set { _MoTa = value; OnPropertyChanged(); } }
 
         private int _LoaiKH;
-        public int loaikh { get => _LoaiKH; set { _LoaiKH = value; } }
+        public int loaikh { get => _LoaiKH; set { _LoaiKH = value; OnPropertyChanged(); } }
 
         private DateTime _NgayBatDau;
-        public DateTime ngaybd { get => _NgayBatDau; set => _NgayBatDau = value; }
+        public DateTime ngaybd { get => _NgayBatDau; set { _NgayBatDau = value; OnPropertyChanged(); } }
 
         private DateTime _NgayKetThuc;
-        public DateTime ngaykt { get => _NgayKetThuc; set => _NgayKetThuc = value; }
+        public DateTime ngaykt { get => _NgayKetThuc; set { _NgayKetThuc = value; OnPropertyChanged(); } }
 
-        private short _GiamGia;
-        public short giamgia { get => _GiamGia; set { _GiamGia = value; } }
+        private string _GiamGia;
+        public string giamgia { get => _GiamGia; set { _GiamGia = value; OnPropertyChanged(); } }
 
         private int _LoaiND;
         public int loaind { get => _LoaiND; set { _LoaiND = value; } }
@@ -47,16 +56,17 @@ namespace QLNS.ResourceXAML
         public AddSale()
         {
             InitializeComponent();
+            DataContext = this;
             Binding_LoaiKH();
         }
 
-        public List<LOAIKHACHHANG> lkh { get; set; }
         private void Binding_LoaiKH()
         {
-            QLNSEntities qLNS = new QLNSEntities();
-            var item = qLNS.LOAIKHACHHANGs.ToList();
-            lkh = item;
-            DataContext = lkh;
+            QLNSEntities qlns = new QLNSEntities();
+            List<LOAIKHACHHANG> lkh = qlns.LOAIKHACHHANGs.ToList();
+            loaiKH.ItemsSource = lkh;
+            loaiKH.DisplayMemberPath = "TenLKH";
+            loaiKH.SelectedValuePath = "idLKH";
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -95,32 +105,78 @@ namespace QLNS.ResourceXAML
         }
         // End: Button Close | Restore | Minimize
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void ForceValidation()
         {
-            //makm = maKM.Text;
-            tenkm = tenKM.Text;
-            mota = moTa.Text;
-            loaikh = int.Parse(loaiKH.Text);
-            ngaybd = (DateTime)ngayBatDau.SelectedDate;
-            ngaykt = (DateTime)ngayKetThuc.SelectedDate;
-            giamgia = short.Parse(giamGia.Text);
-            //loaind = int.Parse(loaiND.Text);
+            tenKM.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            moTa.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            var bd = loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty);
 
-            var KHUYENMAI = new KHUYENMAI()
+            if (bd != null)
             {
-                //MaKM = makm,
-                TenKM = tenkm,
-                MoTa = mota,
-                idLKH = loaikh,
-                NgayBD = ngaybd,
-                NgayKT = ngaykt,
-                GiamGia = giamgia,
-                //idND = loaind,
-            };
+                bd.UpdateSource();
+            }
 
-            DataProvider.Ins.DB.KHUYENMAIs.Add(KHUYENMAI);
-            DataProvider.Ins.DB.SaveChanges();
+            ngayBatDau.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
+            ngayKetThuc.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
+            giamGia.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+            ForceValidation();
+            if (Validation.GetHasError(tenKM) || Validation.GetHasError(moTa) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
+            {
+                MessageBox.Show("Đã có lỗi xảy ra!");
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn có chắc chắn không?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    var qlns = new QLNSEntities();
+                    var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{loaiKH.Text}'").ToList();
+
+                    tenkm = tenKM.Text;
+                    mota = moTa.Text;
+                    loaikh = id[0].idLKH;
+                    ngaybd = (DateTime)ngayBatDau.SelectedDate;
+                    ngaykt = (DateTime)ngayKetThuc.SelectedDate;
+                    giamgia = giamGia.Text;
+                    if (App.Current.Properties["idND_Sale"] != null)
+                    {
+                        loaind = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+                    }
+                    else
+                    {
+                        loaind = 0;
+                    }
+                    
+                    var KHUYENMAI = new KHUYENMAI()
+                    {
+                        TenKM = tenkm,
+                        MoTa = mota,
+                        idLKH = loaikh,
+                        NgayBD = ngaybd,
+                        NgayKT = ngaykt,
+                        GiamGia = short.Parse(giamgia),
+                        idND = loaind,
+                    };
+
+                    DataProvider.Ins.DB.KHUYENMAIs.Add(KHUYENMAI);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    tenKM.Text = "";
+                    moTa.Text = "";
+                    loaiKH.Text = "";
+                    ngayBatDau.SelectedDate = null;
+                    ngayKetThuc.SelectedDate = null;
+                    giamGia.Text = "";
+                }
+                else
+                {
+                    // Do not close the window  
+                }
+            }
+        }
     }
 }

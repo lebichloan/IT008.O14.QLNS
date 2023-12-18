@@ -225,6 +225,9 @@
     <Compile Include="ResourceXAML\AddCustomerType.xaml.cs">
       <DependentUpon>AddCustomerType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\AddErrorProduct.xaml.cs">
+      <DependentUpon>AddErrorProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\AddImportDetail.xaml.cs">
       <DependentUpon>AddImportDetail.xaml</DependentUpon>
     </Compile>
@@ -237,9 +240,6 @@
     <Compile Include="ResourceXAML\AddSale.xaml.cs">
       <DependentUpon>AddSale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceXAML\AddStaff.xaml.cs">
-      <DependentUpon>AddStaff.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ResourceXAML\AddStaffAndUser.xaml.cs">
       <DependentUpon>AddStaffAndUser.xaml</DependentUpon>
     </Compile>
@@ -248,6 +248,15 @@
     </Compile>
     <Compile Include="ResourceXAML\DetailBill.xaml.cs">
       <DependentUpon>DetailBill.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\DetailCustomer.xaml.cs">
+      <DependentUpon>DetailCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\DetailProduct.xaml.cs">
+      <DependentUpon>DetailProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\DetailSale.xaml.cs">
+      <DependentUpon>DetailSale.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResourceXAML\DetailStaff.xaml.cs">
       <DependentUpon>DetailStaff.xaml</DependentUpon>
@@ -267,8 +276,11 @@
     <Compile Include="ResourceXAML\MainThuNgan.xaml.cs">
       <DependentUpon>MainThuNgan.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceXAML\OptionAddStaff.xaml.cs">
-      <DependentUpon>OptionAddStaff.xaml</DependentUpon>
+    <Compile Include="ResourceXAML\Message.xaml.cs">
+      <DependentUpon>Message.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceXAML\MessageOption.xaml.cs">
+      <DependentUpon>MessageOption.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResourceXAML\ResetPasswordWindow.xaml.cs">
       <DependentUpon>ResetPasswordWindow.xaml</DependentUpon>
@@ -278,8 +290,10 @@
     </Compile>
     <Compile Include="Validations\DiscountValid.cs" />
     <Compile Include="Validations\EmptyComboBoxValid.cs" />
+    <Compile Include="Validations\EmptyDateValid.cs" />
     <Compile Include="Validations\EmptyStringValid.cs" />
     <Compile Include="Validations\NumberValid.cs" />
+    <Compile Include="Validations\PhoneNumberValid.cs" />
     <Compile Include="Validations\Sale_EndDateValid.cs" />
     <Compile Include="Validations\Sale_StartDateValid.cs" />
     <Compile Include="ViewModel\AddBillViewModel.cs" />
@@ -291,6 +305,7 @@
     <Compile Include="ViewModel\BillVoucherListBoxItem.cs" />
     <Compile Include="ViewModel\ImportItemListBox.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\NhanVien.cs" />
     <Page Include="Assets\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -407,6 +422,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ResourceXAML\AddErrorProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceXAML\AddImportDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,10 +442,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceXAML\AddStaff.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceXAML\AddStaffAndUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -436,6 +451,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\DetailBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailSale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -467,7 +494,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceXAML\OptionAddStaff.xaml">
+    <Page Include="ResourceXAML\Message.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\MessageOption.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
