@@ -224,6 +224,9 @@
     <Compile Include="ResourceXAML\AddCustomerType.xaml.cs">
       <DependentUpon>AddCustomerType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\AddErrorProduct.xaml.cs">
+      <DependentUpon>AddErrorProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\AddImportDetail.xaml.cs">
       <DependentUpon>AddImportDetail.xaml</DependentUpon>
     </Compile>
@@ -414,6 +417,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddCustomerType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddErrorProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

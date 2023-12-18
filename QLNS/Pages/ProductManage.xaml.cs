@@ -241,7 +241,8 @@ namespace QLNS.Pages
 
         private void btnAddErrorProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            AddErrorProduct addErrorProduct = new AddErrorProduct();
+            addErrorProduct.ShowDialog();
         }
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
