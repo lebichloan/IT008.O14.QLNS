@@ -98,5 +98,35 @@ namespace QLNS.Pages
             {
             }
         }
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
+                NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
+                if (nguoidung != null)
+                {
+                    Message message = new Message();
+                    message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
+                    message.ShowDialog();
+                }
+                else
+                {
+                    NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                    DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                    DataProvider.Ins.DB.SaveChanges();
+                    LoadDataCurrent();
+                    Message message = new Message();
+                    message.message.Text = "Xóa thành công nhân viên!";
+                    message.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
+        }
     }
 }
