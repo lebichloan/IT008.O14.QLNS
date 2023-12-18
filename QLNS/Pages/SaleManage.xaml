@@ -110,7 +110,7 @@
 
                 <!-- Member datagrid -->
                 <DataGrid Grid.Row="3"
-                          x:Name="memberDataGrid"
+                          x:Name="saleDataGrid"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn CanUserResize="False"
@@ -169,15 +169,17 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="btnDetail" Style="{DynamicResource gridViewButton}"
+                                        <Button x:Name="btnDetailSale" Style="{DynamicResource gridViewButton}"
                                                 Click="btnDetail_Click" >
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                    Style="{DynamicResource gridButtonIcon}"/>
                                         </Button>
 
 
-                                        <Button Style="{DynamicResource gridViewButton}"
-                                                Margin="5,0,0,0">
+                                        <Button x:Name="btnDeleteSale"
+                                                Style="{DynamicResource gridViewButton}"
+                                                Margin="5,0,0,0"
+                                                Click="btnDeleteSale_Clicked">
                                             <Icon:PackIconMaterial Kind="TrashCan"
                                                                    Style="{DynamicResource gridButtonIcon}"/>
                                         </Button>
