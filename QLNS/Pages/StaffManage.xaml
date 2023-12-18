@@ -122,12 +122,15 @@
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                        Style="{DynamicResource gridButtonIcon}"/>
                                         </Button>
-                                      
-                                        
-                                        <!--<Button x:Name="btnUpdateDetail" Style="{DynamicResource gridViewButton}">
-                                            <Icon:PackIconMaterial Kind="SquareEditOutline"
-                                              Style="{DynamicResource gridButtonIcon}"/>
-                                        </Button>-->
+
+
+                                        <Button
+                                                        Name="btnDelete"
+                                                        Margin="5,0,0,0"
+                                                        Click="btnDelete_Click"
+                                                        Style="{DynamicResource gridViewButton}">
+                                            <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
+                                        </Button>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
