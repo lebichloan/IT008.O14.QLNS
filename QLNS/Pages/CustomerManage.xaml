@@ -384,9 +384,11 @@
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
-                                                    <Button Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0,0,0">
-                                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
+                                                    <Button x:Name="buttonDeleteLKH"
+                                                            Style="{DynamicResource gridViewButton}"
+                                                                Margin="5,0,0,0"
+                                                            Click="buttonDeleteLKH_Clicked">
+                                                        <Icon:PackIconMaterial Kind="TrashCan"
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
                                                 </StackPanel>

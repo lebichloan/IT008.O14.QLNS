@@ -98,7 +98,12 @@ namespace QLNS.ResourceXAML
             }
             else
             {
-                if (MessageBox.Show("Bạn có chắc chắn không?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm loại khách hàng này?";
+                messageOption.ShowDialog();
+                bool isAdd = MessageOption.isAgree;
+                messageOption.Close();
+                if (isAdd)
                 {
                     tenlkh = tenLKH.Text;
                     mota = moTa.Text;
@@ -114,9 +119,7 @@ namespace QLNS.ResourceXAML
                     DataProvider.Ins.DB.LOAIKHACHHANGs.Add(LOAIKHACHHANG);
                     DataProvider.Ins.DB.SaveChanges();
 
-                    tenLKH.Text = "";
-                    moTa.Text = "";
-                    diemTLTT.Text = "";
+                    this.Close();
                 }
             }
             //if (!(tenLKH.Text == string.Empty && moTa.Text == string.Empty && diemTLTT.Text == string.Empty))

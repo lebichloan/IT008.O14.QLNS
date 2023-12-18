@@ -75,6 +75,10 @@ namespace QLNS.Pages
         int pageNumber1 = 0;
         int pageSize1 = 10;
 
+        public void LoadDataCustomerTypesCurrent()
+        {
+            LoadCustomerTypesData(pageNumber1);
+        }
         private void btnCTPre_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page trước đó
@@ -119,6 +123,7 @@ namespace QLNS.Pages
         {
             AddCustomerType addCustomerType = new AddCustomerType();
             addCustomerType.ShowDialog();
+            LoadDataCustomerTypesCurrent();
         }
 
         private void btnDetailCustommer_Click(object sender, RoutedEventArgs e)
@@ -159,6 +164,49 @@ namespace QLNS.Pages
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+        private void buttonDeleteLKH_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string idLKH = ((TextBlock)CustomerTypesDataGrid.SelectedCells[1].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[1].Item)).Text;
+
+                KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.FirstOrDefault(k => k.idLKH.ToString() == idLKH);
+                KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.idLKH.ToString() == idLKH);
+                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idLKH.ToString() == idLKH);
+                //NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
+                if (khachhang != null || khuyenmai != null || hoadon != null) 
+                {
+                    Message message = new Message();
+                    message.message.Text = "Không thể xóa loại khách hàng này, vì tồn tại nhiều dữ liệu liên quan!";
+                    message.ShowDialog();
+                }
+                else
+                {
+                    MessageOption messageOption = new MessageOption();
+                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa loại khách hàng này?";
+                    messageOption.ShowDialog();
+                    bool isDelete = MessageOption.isAgree;
+                    messageOption.Close();
+                    if (isDelete)
+                    {
+                        LOAIKHACHHANG lkh = DataProvider.Ins.DB.LOAIKHACHHANGs.Find(int.Parse(idLKH));
+                        DataProvider.Ins.DB.LOAIKHACHHANGs.Remove(lkh);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadDataCustomerTypesCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa thành công loại khách hàng!";
+                        message.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
 
         }
     }
