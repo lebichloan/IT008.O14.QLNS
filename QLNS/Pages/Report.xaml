@@ -4,11 +4,117 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QLNS.Pages"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="Transparent"
       Title="Report">
+    <Border CornerRadius="10" Background="White">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" CornerRadius="10 0 0 0" Background="White" Margin="10">
+                <Grid>
+                    <!--Title-->
+                    <TextBlock Text="TỔNG DOANH THU" FontSize="10" FontWeight="Bold"/>
+                    <TextBlock Text="560.304.347 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2176F4" FontSize="17"/>
+                    
+                    <!--Chart-->
+                    <lvc:CartesianChart LegendLocation="None" Margin="0 40 0 0">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="#101a28" Foreground="#d5e2ff"/>
+                        </lvc:CartesianChart.DataTooltip>
 
-    <Grid>
-        <TextBlock>Bao cao thong ke</TextBlock>
-    </Grid>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis ShowLabels="True" Foreground="#bcc0c6" Labels="Jan,.,.,.,Feb,.,.,.,Mar,.,.,.,Apr,May,Jun,July,Aug">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" Step="4"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis ShowLabels="True" Foreground="#bcc0c6" MinValue="0" MaxValue="100">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="1" Stroke="#999999" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                        <lvc:CartesianChart.Series>
+                            <lvc:LineSeries StrokeThickness="2" Stroke="#2178F4" PointGeometrySize="0"
+                                            Values="40,50,70,30,45,80,90,100,70,80,40,50,60,55">
+                                <lvc:LineSeries.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
+                                        <GradientStop Color="#2196F4" Offset="0.4"/>
+                                        <GradientStop Color="#21D3F4" Offset="1.1"/>
+                                    </LinearGradientBrush>
+                                </lvc:LineSeries.Fill>
+                            </lvc:LineSeries>
+                            
+                            <lvc:LineSeries StrokeThickness="2" Stroke="#2178F4" PointGeometrySize="0" StrokeDashArray="4,2"
+                                            Values="80,50,60,30,20,40,70,80,40,86,79,60,50,60" Fill="Transparent">
+                            </lvc:LineSeries>
+
+                        </lvc:CartesianChart.Series>
+                        
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" CornerRadius="10 0 0 0" Background="White" Margin="10">
+                <Grid>
+                    <!--Title-->
+                    <TextBlock Text="TỔNG DOANH THU" FontSize="10" FontWeight="Bold"/>
+                    <TextBlock Text="560.304.347 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#EF6F09" FontSize="17"/>
+
+                    <!--Chart-->
+                    <lvc:CartesianChart LegendLocation="None" Margin="0 40 0 0">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="#101a28" Foreground="#d5e2ff"/>
+                        </lvc:CartesianChart.DataTooltip>
+
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis ShowLabels="True" Foreground="#bcc0c6" Labels="Jan,.,.,.,Feb,.,.,.,Mar,.,.,.,Apr,May,Jun,July,Aug">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" Step="4"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis ShowLabels="True" Foreground="#bcc0c6" MinValue="0" MaxValue="100">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="1" Stroke="#999999" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                        <lvc:CartesianChart.Series>
+                            <lvc:LineSeries StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0"
+                                            Values="40,50,70,30,45,80,40,50,60,50,45,60,70,30">
+                                <lvc:LineSeries.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
+                                        <GradientStop Color="#F0A100" Offset="0.4"/>
+                                        <GradientStop Color="#F0C611" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </lvc:LineSeries.Fill>
+                            </lvc:LineSeries>
+                            
+                            <lvc:LineSeries StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0" StrokeDashArray="4,2"
+                                            Values="80,50,60,30,80,40,70,80,40,86,79,60,50,60" Fill="Transparent">
+                            </lvc:LineSeries>
+
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
 </Page>
