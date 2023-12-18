@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -69,11 +70,41 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0 10 0 0">
                     <TextBox x:Name="TenNV" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1"></TextBox>
-                    <TextBox x:Name="NgaySinh" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                    <DatePicker x:Name="NgaySinh" Margin="0 0 20 10" FontSize="14"
+                                Width="258" Height="26" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="1"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
                     <TextBox x:Name="GioiTinh" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
                     <TextBox x:Name="DiaChi" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
                     <TextBox x:Name="SDT" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
-                    <TextBox x:Name="NgayVL" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                    <DatePicker x:Name="NgayVL" Margin="0 0 20 10" FontSize="14"
+                                Width="258" Height="26" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="1"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="Black"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
                     <TextBox x:Name="ChucVu" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
                     <TextBox x:Name="TinhTrang" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
                     <TextBox x:Name="GhiChu" FontSize="14" Height="50" Margin="0 0 20 10" BorderBrush="Black" TextWrapping="Wrap" AcceptsReturn="True" ></TextBox>

@@ -81,14 +81,6 @@ namespace QLNS.ResourceXAML
                         throw new Exception("Tình trạng không được để trống");
                     }
                     // Xử lý sai định dạng
-                    if (!IsValidDateFormat(NgaySinh.Text))
-                    {
-                        throw new Exception("Ngày sinh không hợp lệ, vui lòng nhập theo định dạng (ngày/tháng/năm)");
-                    }
-                    if (!IsValidDateFormat(NgayVL.Text))
-                    {
-                        throw new Exception("Ngày vào làm không hợp lệ, vui lòng nhập theo định dạng (ngày/tháng/năm)");
-                    }
                     if(!int.TryParse(TinhTrang.Text, out int temp))
                     {
                         throw new Exception("Tình trạng không hợp lệ, vui lòng nhập( 1: Đang làm việc, 0: Nghỉ việc)");
@@ -101,11 +93,11 @@ namespace QLNS.ResourceXAML
 
 
                     nhanvien.TenNV = TenNV.Text.ToString();
-                    nhanvien.NgaySinh = DateTime.ParseExact(NgaySinh.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    nhanvien.NgaySinh = NgaySinh.SelectedDate.Value;
                     nhanvien.GioiTinh = GioiTinh.Text.ToString();
                     nhanvien.DiaChi = DiaChi.Text.ToString();
                     nhanvien.SDT = SDT.Text.ToString();
-                    nhanvien.NgayVL = DateTime.ParseExact(NgayVL.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    nhanvien.NgayVL = NgayVL.SelectedDate.Value;
                     nhanvien.ChucVu = ChucVu.Text.ToString();
                     nhanvien.TinhTrang = int.Parse(TinhTrang.Text);
                     nhanvien.GhiChu = GhiChu.Text.ToString();
@@ -132,5 +124,6 @@ namespace QLNS.ResourceXAML
                 }
             }
         }
+
     }
 }
