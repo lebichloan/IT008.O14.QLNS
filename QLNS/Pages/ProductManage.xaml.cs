@@ -285,11 +285,14 @@ namespace QLNS.Pages
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
-
+            AddCategory addCategory = new AddCategory(); 
+            addCategory.ShowDialog();
         }
 
         private void productTabItem_Selected(object sender, RoutedEventArgs e)
         {
+            LoadData(0);
+            pageNumber = 0;
             btnAddErrorProduct.Visibility = Visibility.Collapsed;
             btnAddCategory.Visibility = Visibility.Collapsed;
             btnAddProduct.Visibility = Visibility.Visible;
@@ -298,6 +301,8 @@ namespace QLNS.Pages
 
         private void errorProductTabItem_Selected(object sender, RoutedEventArgs e)
         {
+            LoadErrorProduct(0);
+            errorProductPage = 0;
             btnAddProduct.Visibility = Visibility.Collapsed;
             btnAddCategory.Visibility = Visibility.Collapsed;
             btnAddErrorProduct.Visibility = Visibility.Visible;
@@ -306,6 +311,8 @@ namespace QLNS.Pages
 
         private void categoryTabItem_Selected(object sender, RoutedEventArgs e)
         {
+            LoadCategory(0);
+            categoryPageNumber = 0;
             btnAddCategory.Visibility = Visibility.Visible;
             btnAddProduct.Visibility = Visibility.Collapsed;
             btnAddErrorProduct.Visibility = Visibility.Collapsed;

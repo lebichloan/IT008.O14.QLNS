@@ -219,6 +219,9 @@
     <Compile Include="ResourceXAML\AddBill.xaml.cs">
       <DependentUpon>AddBill.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\AddCategory.xaml.cs">
+      <DependentUpon>AddCategory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\AddCustomer.xaml.cs">
       <DependentUpon>AddCustomer.xaml</DependentUpon>
     </Compile>
@@ -303,6 +306,7 @@
     <Compile Include="ViewModel\BillManageViewModel.cs" />
     <Compile Include="ViewModel\BillProductListBoxItem.cs" />
     <Compile Include="ViewModel\BillVoucherListBoxItem.cs" />
+    <Compile Include="ViewModel\ErrorItemListBox.cs" />
     <Compile Include="ViewModel\ImportItemListBox.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NhanVien.cs" />
@@ -411,6 +415,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddCategory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
