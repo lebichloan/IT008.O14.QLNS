@@ -625,3 +625,5 @@ insert into CTHD (idHD, idCTSP, SoLuong, DonGia, ThanhTien) values (45, 10, 3, 1
 insert into CTHD (idHD, idCTSP, SoLuong, DonGia, ThanhTien) values (100, 15, 4, 28694, 92600);
 insert into CTHD (idHD, idCTSP, SoLuong, DonGia, ThanhTien) values (83, 32, 5, 29589, 12832);
 insert into CTHD (idHD, idCTSP, SoLuong, DonGia, ThanhTien) values (85, 40, 8, 26840, 88780);
+
+

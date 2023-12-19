@@ -163,29 +163,24 @@ namespace QLNS.ResourceXAML
                 detailProductExpander.Visibility = Visibility.Collapsed;
             }
         }
-        private void LoadAllProduct()
+        public void LoadAllProduct()
         {
             var queryAllProduct = from sanpham in qLNSEntities.SANPHAMs
-                                  join ctsp in qLNSEntities.CTSPs
-                                  on sanpham.idSP equals ctsp.idSP
-                                  orderby ctsp.idCTSP
-                                  where ctsp.SLConLai > 0
+                                  join danhmuc in qLNSEntities.DANHMUCs
+                                  on sanpham.idDM equals danhmuc.idDM
+                                  orderby sanpham.MaSP
                                   select new
                                   {
-                                      idSP = ctsp.idCTSP,
-                                      MaSP = ctsp.MaCTSP,
+                                      MaSP = sanpham.MaSP,
                                       TenSP = sanpham.TenSP,
-                                      SLDB = ctsp.DaBan,
-                                      SLCL = ctsp.SLConLai,
+                                      TenDM = danhmuc.TenDM,
                                       MoTa = sanpham.MoTa,
-                                      DonGia = ctsp.DonGiaXuat,
-                                      GhiChu = ctsp.GhiChu,
                                   };
 
             productDataGrid.ItemsSource = queryAllProduct.ToList();
         }
 
-        private void SetValues()
+        public void SetValues()
         {
             lblSoLuongNhapHang.Text = "0";
             lblTongTienNhapHang.Text = "0";
@@ -319,8 +314,9 @@ namespace QLNS.ResourceXAML
 
         private void btnAddNewProduct_Click(object sender, RoutedEventArgs e)
         {
-            AddNewProductWhenImport addNewProductWhenImport = new AddNewProductWhenImport();
-            addNewProductWhenImport.ShowDialog();
+            AddNewProduct addNewProduct = new AddNewProduct();
+            addNewProduct.addImportDetail = this;
+            addNewProduct.Show();
         }
         private List<ImportItemListBox> listProduct;
         private List<ImportItemListBox> GetListBoxProduct()

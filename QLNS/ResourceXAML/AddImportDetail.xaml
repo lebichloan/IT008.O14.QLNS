@@ -323,28 +323,22 @@
                                         IsReadOnly="True" />
 
                                     <DataGridTextColumn
-                                        Width="*"
+                                        Width="auto"
                                         Binding="{Binding TenSP}"
                                         Header="Tên sản phẩm"
                                         IsReadOnly="True" />
-
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding SLCL}"
-                                        Header="SLCL"
+                                        Binding="{Binding TenDM}"
+                                        Header="Danh mục"
                                         IsReadOnly="True" />
-
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding DonGia}"
-                                        Header="Đơn giá"
+                                        Binding="{Binding MoTa}"
+                                        Header="Mô tả"
                                         IsReadOnly="True" />
 
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding GhiChu}"
-                                        Header="Ghi chú"
-                                        IsReadOnly="True" />
+
 
                                 </DataGrid.Columns>
                             </DataGrid>
