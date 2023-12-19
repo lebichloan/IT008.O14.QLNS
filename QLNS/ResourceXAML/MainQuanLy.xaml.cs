@@ -88,6 +88,7 @@ namespace QLNS.ResourceXAML
                     window.Close();
                 }
             }
+            App.Current.Properties["isLogin"] = 0;
             LoginWindow Login = new LoginWindow();
             this.Close();
             Login.Show();

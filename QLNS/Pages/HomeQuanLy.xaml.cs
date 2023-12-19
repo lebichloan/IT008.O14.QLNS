@@ -1,6 +1,10 @@
-﻿using System;
+﻿using QLNS.Model;
+using QLNS.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,11 +22,45 @@ namespace QLNS.Pages
     /// <summary>
     /// Interaction logic for HomeQuanLy.xaml
     /// </summary>
-    public partial class HomeQuanLy : Page
+    public partial class HomeQuanLy : Page, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public HomeQuanLy()
         {
             InitializeComponent();
+            DataContext = this;
+            SetValue();
+        }
+
+        private string tenNV;
+        public string tennv { get { return tenNV; } set { tenNV = value; OnPropertyChanged(); } }
+
+        private void SetValue()
+        {
+            LoginViewModel loginViewModel = new LoginViewModel();
+            if (App.Current.Properties["isLogin"] != null && int.Parse(App.Current.Properties["isLogin"].ToString()) == 1)
+            {
+                int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+                QLNSEntities qlnsEntities = new QLNSEntities();
+                var query = from nd in qlnsEntities.NGUOIDUNGs
+                            join nv in qlnsEntities.NHANVIENs on nd.idNV equals nv.idNV
+                            where nd.idND == id
+                            select nd;
+                var lst = query.ToList();
+                tennv = lst[0].NHANVIEN.TenNV;
+            }
+            else
+            {
+                tennv = "< Chưa đăng nhập >";
+                //MessageBox.Show("Bạn chưa đăng nhập!");
+            }
         }
     }
 }

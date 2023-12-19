@@ -38,8 +38,8 @@ namespace QLNS.ResourceXAML
         private string _MoTa;
         public string mota { get => _MoTa; set { _MoTa = value; OnPropertyChanged(); } }
 
-        private int _LoaiKH;
-        public int loaikh { get => _LoaiKH; set { _LoaiKH = value; OnPropertyChanged(); } }
+        private Nullable<int> _LoaiKH;
+        public Nullable<int> loaikh { get => _LoaiKH; set { _LoaiKH = value; OnPropertyChanged(); } }
 
         private DateTime _NgayBatDau;
         public DateTime ngaybd { get => _NgayBatDau; set { _NgayBatDau = value; OnPropertyChanged(); } }
@@ -108,14 +108,6 @@ namespace QLNS.ResourceXAML
         private void ForceValidation()
         {
             tenKM.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            moTa.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            var bd = loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty);
-
-            if (bd != null)
-            {
-                bd.UpdateSource();
-            }
-
             ngayBatDau.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             ngayKetThuc.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             giamGia.GetBindingExpression(TextBox.TextProperty).UpdateSource();
@@ -125,7 +117,7 @@ namespace QLNS.ResourceXAML
         {
 
             ForceValidation();
-            if (Validation.GetHasError(tenKM) || Validation.GetHasError(moTa) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
+            if (Validation.GetHasError(tenKM) || Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
             {
                 MessageBox.Show("Đã có lỗi xảy ra!");
             }
@@ -143,7 +135,14 @@ namespace QLNS.ResourceXAML
 
                     tenkm = tenKM.Text;
                     mota = moTa.Text;
-                    loaikh = id[0].idLKH;
+                    if(loaiKH.SelectedIndex == -1)
+                    {
+                        loaikh = null;
+                    }
+                    else
+                    {
+                        loaikh = id[0].idLKH;
+                    }
                     ngaybd = (DateTime)ngayBatDau.SelectedDate;
                     ngaykt = (DateTime)ngayKetThuc.SelectedDate;
                     giamgia = giamGia.Text;
@@ -155,7 +154,7 @@ namespace QLNS.ResourceXAML
                     {
                         loaind = 0;
                     }
-                    
+
                     var KHUYENMAI = new KHUYENMAI()
                     {
                         TenKM = tenkm,

@@ -98,17 +98,6 @@
                          Margin="10 5 0 15"
                          materialDesign:HintAssist.Hint="Mô tả"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="mota"
-                                 ElementName="addSale"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 ValidatesOnDataErrors="True"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vld:EmptyStringValid></vld:EmptyStringValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
                 </TextBox>
                 <ComboBox x:Name="loaiKH" VerticalAlignment="Center"
                          HorizontalAlignment="Left"
@@ -116,18 +105,6 @@
                          Margin="10 5 0 15"
                          materialDesign:HintAssist.Hint="Loại khách hàng"
                          Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <ComboBox.SelectedValue>
-                        <Binding Path="SelectedValue"
-                                 ElementName="binding_ComboBox"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 ValidatesOnDataErrors="True"
-                                 NotifyOnValidationError="True"
-                                 Mode="TwoWay">
-                            <Binding.ValidationRules>
-                                <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </ComboBox.SelectedValue>
                 </ComboBox>
                 <DatePicker x:Name="ngayBatDau" Margin="10 5 0 15" HorizontalAlignment="Left"
                             Width="300"  
