@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace QLNS.ViewModel
 {
-    public class LoginViewModel: BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
         //UserName
         private string _UserName;
@@ -37,8 +37,8 @@ namespace QLNS.ViewModel
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
         }
 
-        private int idND = -1;
-        private int isLogin = 0;
+        public int idND = -1;
+        public int isLogin = 0;
         void Login(Window p)
         {
             if (p == null)
@@ -51,27 +51,28 @@ namespace QLNS.ViewModel
                 App.Current.Properties["idND_Sale"] = existingUser.idND;
 
                 // Loại người dùng
-                if (existingUser.idLND == 1 )
+                if (existingUser.idLND == 1)
                 {
                     isLogin = 1;
+                    App.Current.Properties["isLogin"] = 1;
                     MainQuanLy mainQuanLy = new MainQuanLy(idND);
                     p.Close();
                     mainQuanLy.Show();
                 }
-                else if (existingUser.idLND == 2 )
+                else if (existingUser.idLND == 2)
                 {
                     isLogin = 1;
                     MainThuNgan mainThuNgan = new MainThuNgan(idND);
                     p.Close();
                     mainThuNgan.Show();
                 }
-                else if (existingUser.idLND == 3 )
+                else if (existingUser.idLND == 3)
                 {
                     isLogin = 1;
                     MainNhanVienKho mainNhanVienKho = new MainNhanVienKho(idND);
                     p.Close();
                     mainNhanVienKho.Show();
-                }  
+                }
             }
             else
             {
