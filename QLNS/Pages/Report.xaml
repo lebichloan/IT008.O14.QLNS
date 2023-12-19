@@ -17,35 +17,58 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Grid.Column="0" CornerRadius="10 0 0 0" Background="White" Margin="10">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <!--Title-->
                     <TextBlock Text="TỔNG DOANH THU" FontSize="10" FontWeight="Bold"/>
-                    <TextBlock Text="560.304.347 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2176F4" FontSize="17"/>
+                    <TextBlock x:Name="Text_TotalRevenue" Text="560.304.347 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2176F4" FontSize="17"/>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 10 10 0">
-                        <Icon:PackIconMaterial Kind="ArrowUp" Foreground="#11D13B" Height="15" Width="15"></Icon:PackIconMaterial>
-                        <TextBlock Text=" 32.34%" FontWeight="Bold" Foreground="#11D13B" FontSize="15"></TextBlock>
-                        <TextBlock Text="/kỳ trước" FontSize="15"/>
+                        <Icon:PackIconMaterial Height="15" Width="13" Margin="0 0 5 0">
+                            <Icon:PackIconMaterial.Style>
+                                <Style TargetType="Icon:PackIconMaterial">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=Text_PercentRevenue, Path=Foreground.Color}" Value="Red">
+                                            <Setter Property="Kind" Value="ArrowDown"/>
+                                            <Setter Property="Foreground" Value="#FF0000"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=Text_PercentRevenue, Path=Foreground.Color}" Value="#11D13B">
+                                            <Setter Property="Kind" Value="ArrowUp"/>
+                                            <Setter Property="Foreground" Value="#11D13B"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Icon:PackIconMaterial.Style>
+                        </Icon:PackIconMaterial>
+
+                        <TextBlock x:Name="Text_PercentRevenue" Text="32.34%" FontWeight="Bold" Foreground="#11D13B" FontSize="13"></TextBlock>
+                        <TextBlock Text="/cùng kỳ năm ngoái" FontSize="13"/>
+                        
                     </StackPanel>
                     <!--Chart-->
-                    <lvc:CartesianChart LegendLocation="None" Margin="0 40 0 0">
+                    <lvc:CartesianChart Grid.Row="2" LegendLocation="None" Margin="0 0 0 0">
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip Background="#101a28" Foreground="#d5e2ff"/>
                         </lvc:CartesianChart.DataTooltip>
-
+                        
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis ShowLabels="True" Foreground="Black" Labels="Jan,.,.,.,Feb,.,.,.,Mar,.,.,.,Apr,May,Jun,July,Aug">
+                            <lvc:Axis x:Name="RevenueChart_AxisX" ShowLabels="True" Foreground="Black">
                                 <lvc:Axis.Separator>
-                                    <lvc:Separator StrokeThickness="0" Step="4"/>
+                                    <lvc:Separator StrokeThickness="0" Stroke="Gray" Step="6">
+                                    </lvc:Separator>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis ShowLabels="True" Foreground="Black" MinValue="0" MaxValue="100">
+                            <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0">
                                 <lvc:Axis.Separator>
                                     <lvc:Separator StrokeThickness="1" Stroke="#999999" />
                                 </lvc:Axis.Separator>
@@ -53,26 +76,42 @@
                         </lvc:CartesianChart.AxisY>
 
                         <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Title="Kỳ này" StrokeThickness="2" Stroke="#2178F4" PointGeometrySize="0"
-                                            Values="40,50,70,30,45,80,90,100,70,80,40,50,60,55">
+                            <lvc:LineSeries x:Name="RevenueChart_Values" Title="Hiện tại" StrokeThickness="2" Stroke="#2A64F7" PointGeometrySize="0"
+                                            >
                                 <lvc:LineSeries.Fill>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
-                                        <GradientStop Color="#2196F4" Offset="0.4"/>
-                                        <GradientStop Color="#21D3F4" Offset="1.1"/>
+                                        <GradientStop Color="#21D3F4" Offset="0.4"/>
+                                        <GradientStop Color="White" Offset="1.1"/>
                                     </LinearGradientBrush>
                                 </lvc:LineSeries.Fill>
                             </lvc:LineSeries>
-                            
-                            <lvc:LineSeries Title="Kỳ trước" StrokeThickness="2" Stroke="#2178F4" PointGeometrySize="0" StrokeDashArray="4,2"
-                                            Values="80,50,60,30,20,40,70,80,40,86,79,60,50,60" Fill="Transparent">
-                            </lvc:LineSeries>
 
+                            <lvc:LineSeries x:Name="RevenueChart_ValuesPre" Title="Cùng kỳ năm ngoái" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0" StrokeDashArray="4,1"
+                                            Fill="Transparent">
+                            </lvc:LineSeries>
                         </lvc:CartesianChart.Series>
-                        
                     </lvc:CartesianChart>
+                    <Grid Grid.Row="1" Margin="20 0 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Separator Background="#2A64F7" Width="30"/>
+                            <TextBlock Margin="10 0 0 0" Text="Hiện tại" FontSize="10" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="- - - -" Foreground="#EF6F09"/>
+                            <TextBlock Margin="10 0 0 0" Text="Cùng kỳ năm ngoái" FontSize="10" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Border>
-            <Border Grid.Row="0" Grid.Column="1" CornerRadius="10 0 0 0" Background="White" Margin="10">
+            <Border Visibility="Hidden" Grid.Row="0" Grid.Column="1" CornerRadius="10 0 0 0" Background="White" Margin="10">
                 <Grid>
                     <!--Title-->
                     <TextBlock Text="TỔNG DOANH THU" FontSize="10" FontWeight="Bold"/>
@@ -106,7 +145,7 @@
 
                         <lvc:CartesianChart.Series>
                             <lvc:LineSeries Title="Kỳ này" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0"
-                                            Values="40,50,70,30,45,80,40,50,60,50,45,60,70,30">
+                                            Values="40,50,70,30,45,80,0,100,60,50,45,60,70,30">
                                 <lvc:LineSeries.Fill>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
                                         <GradientStop Color="#F0A100" Offset="0.4"/>
