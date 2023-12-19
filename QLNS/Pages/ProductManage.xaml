@@ -124,9 +124,11 @@
                                 x:Name="productDataGrid"
                                 Grid.Row="0"
                                 Height="auto"
-                                AutoGenerateColumns="False">
+                                AutoGenerateColumns="False"
+                                HorizontalScrollBarVisibility="Visible">
 
                                 <DataGrid.Columns>
+
                                     <!--  Checkbox  -->
                                     <DataGridCheckBoxColumn Width="auto" CanUserResize="False">
                                         <DataGridCheckBoxColumn.HeaderTemplate>
@@ -150,21 +152,33 @@
                                         Header="Tên sản phẩm"
                                         IsReadOnly="True" />
                                     <!--  Mô tả  -->
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding MoTa}"
-                                        Header="Mô tả"
-                                        IsReadOnly="True" />
 
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding SLDB}"
+                                        Binding="{Binding DaBan}"
                                         Header="Đã bán"
                                         IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding DonGiaNhap}"
+                                        Header="Đơn giá nhập"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding DonGiaXuat}"
+                                        Header="Đơn giá bán"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding TinhTrang}"
+                                        Header="Tình trạng"
+                                        IsReadOnly="True" />
+
+
 
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding SLCL}"
+                                        Binding="{Binding SoLuongConLai}"
                                         Header="Còn lại"
                                         IsReadOnly="True" />
 
@@ -177,6 +191,7 @@
 
 
                                     <DataGridTemplateColumn Width="auto" IsReadOnly="True">
+
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">

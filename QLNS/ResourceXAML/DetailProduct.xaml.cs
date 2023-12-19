@@ -27,6 +27,19 @@ namespace QLNS.ResourceXAML
         public DetailProduct()
         {
             InitializeComponent();
+            ComboBoxItem newitem = new ComboBoxItem();
+            newitem.Content = "Đã bán hết";
+            TinhTrang.Items.Add(newitem);
+            newitem = new ComboBoxItem();
+            newitem.Content = "Còn hàng";
+            TinhTrang.Items.Add(newitem);
+            newitem = new ComboBoxItem();
+            newitem.Content = "Đã ẩn";
+            TinhTrang.Items.Add(newitem);
+            newitem = new ComboBoxItem();
+            newitem.Content = "Ngừng bán";
+            TinhTrang.Items.Add(newitem);
+
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {

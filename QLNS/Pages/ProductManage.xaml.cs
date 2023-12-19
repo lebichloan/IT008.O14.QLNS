@@ -30,7 +30,13 @@ namespace QLNS.Pages
             public string MaSP { get; set; }
             public string TenSP { get; set; }
             public string MoTa { get; set; }
-            public int idDM { get; set; }
+            public int TinhTrang {  get; set; }
+            public int DaBan {  get; set; }
+            public int SoLuongLoi {  get; set; }
+            public decimal DonGiaNhap {  get; set; }
+            public decimal DonGiaXuat {  get; set; }
+            public int SoLuongConLai {  get; set; }
+            
             public string TenDM { get; set; }
         }
 
@@ -69,16 +75,25 @@ namespace QLNS.Pages
         private void LoadData(int page)
         {
             var query =
-                from sanpham in qLNSEntities.SANPHAMs
-                orderby sanpham.MaSP
-                //where hoadon.idHD == 0
+                from ctsp in qLNSEntities.CTSPs
+                join sanpham in qLNSEntities.SANPHAMs
+                on ctsp.idSP equals sanpham.idSP
+                join danhmuc in qLNSEntities.DANHMUCs
+                on sanpham.idDM equals danhmuc.idDM
+                
+                orderby ctsp.MaCTSP
                 select new Product
                 {
-                    idSP = sanpham.idSP,
-                    MaSP = sanpham.MaSP,
+
+                    MaSP = ctsp.MaCTSP,
                     TenSP = sanpham.TenSP,
                     MoTa = sanpham.MoTa,
-                    idDM = sanpham.idDM,
+                    TinhTrang = ctsp.TinhTrang,
+                    DaBan = ctsp.DaBan,
+                    DonGiaNhap = ctsp.DonGiaNhap,
+                    SoLuongLoi = ctsp.SoLuongLoi,
+                    DonGiaXuat = ctsp.DonGiaXuat,
+                    SoLuongConLai = ctsp.SLConLai,
                     TenDM = sanpham.DANHMUC.TenDM,
                 };
 
@@ -94,9 +109,6 @@ namespace QLNS.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
-            
-
                 string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
             if (connectionString.ToLower().StartsWith("metadata="))
             {
@@ -158,6 +170,9 @@ namespace QLNS.Pages
                 detail.LoaiSP.ItemsSource = danhmucItems;
 
                 detail.TenSP.Text = product.TenSP.ToString();
+                detail.GiaBan.Text = product.DonGiaXuat.ToString();
+                detail.GiaNhap.Text = product.DonGiaNhap.ToString();
+                detail.TinhTrang.SelectedIndex = product.TinhTrang;
                 detail.LoaiSP.Text = product.TenDM.ToString();
 
                 if (product.MoTa == null)
