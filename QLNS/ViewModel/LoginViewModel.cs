@@ -54,21 +54,21 @@ namespace QLNS.ViewModel
                 if (existingUser.idLND == 1 )
                 {
                     isLogin = 1;
-                    MainQuanLy mainQuanLy = new MainQuanLy(idND);
+                    MainQuanLy mainQuanLy = new MainQuanLy(idND, existingUser.idLND);
                     p.Close();
                     mainQuanLy.Show();
                 }
                 else if (existingUser.idLND == 2 )
                 {
                     isLogin = 1;
-                    MainThuNgan mainThuNgan = new MainThuNgan(idND);
+                    MainThuNgan mainThuNgan = new MainThuNgan(idND, existingUser.idLND);
                     p.Close();
                     mainThuNgan.Show();
                 }
                 else if (existingUser.idLND == 3 )
                 {
                     isLogin = 1;
-                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho(idND);
+                    MainNhanVienKho mainNhanVienKho = new MainNhanVienKho(idND, existingUser.idLND);
                     p.Close();
                     mainNhanVienKho.Show();
                 }  

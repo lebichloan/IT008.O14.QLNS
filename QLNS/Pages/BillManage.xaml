@@ -110,47 +110,9 @@
                           x:Name="memberDataGrid"
                           AutoGenerateColumns="False"
                           SelectionChanged="memberDataGrid_SelectionChanged"
+                          MouseDoubleClick="memberDataGrid_MouseDoubleClick"
                           >
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn CanUserResize="False"
-                                                    Width="auto">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
-
-                        <DataGridTextColumn Header="#"
-                                            Binding="{Binding idHD}"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="auto"/>
-
-                        <!--<DataGridTemplateColumn Header="Số hóa đơn"
-                                                IsReadOnly="True"
-                                                Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="25"
-                                                    Height="25"
-                                                    CornerRadius="50"
-                                                    Margin="0 0 10 0"
-                                                    Background="Red">
-                                            <TextBlock Text="..."
-                                                           VerticalAlignment="Center"
-                                                           HorizontalAlignment="Center"
-                                                           Foreground="White"
-                                                           Margin="0 0 0 1"/>
-                                        </Border>
-                                        <TextBlock Text="..."
-                                                      VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
-                        
                         <DataGridTextColumn Header="Số hóa đơn"
                                             Binding="{Binding SoHD}"
                                             IsReadOnly="True"
@@ -159,7 +121,7 @@
                         <DataGridTextColumn Header="Ngày tạo"
                                             Binding="{Binding NgayHD}"
                                             IsReadOnly="True"
-                                            Width="*"/>
+                                            Width="auto"/>
 
                         <DataGridTextColumn Header="Khách hàng"
                                             Binding="{Binding TenKH}"
@@ -225,6 +187,7 @@
                         
                         <Button Style="{DynamicResource pagingButton}"
                                 Name="btnPageNumber"
+                                IsEnabled="False"
                                 >
                             <TextBlock Name="lblPage"
                                    Text="1/2"

@@ -25,6 +25,7 @@ namespace QLNS.Pages
     public partial class BillManage : Page
     {
         private int idND = -1;
+        private int idLND = -1;
         QLNSEntities qLNSEntities = new QLNSEntities();
 
         public BillManage()
@@ -32,10 +33,11 @@ namespace QLNS.Pages
             InitializeComponent();
         }
 
-        public BillManage(int idND)
+        public BillManage(int idND, int idLND)
         {
             InitializeComponent();
             this.idND = idND;
+            this.idLND = idLND;
         }
 
         private AddBill addBill;
@@ -43,6 +45,8 @@ namespace QLNS.Pages
         {
             AddBill addBill = new AddBill(idND);
             addBill.ShowDialog();
+
+            LoadData(0);
         }
 
         int pageNumber = 0;
@@ -52,6 +56,16 @@ namespace QLNS.Pages
             // Load dữ liệu ban đầu khi vừa vào
             LoadData(0);
             btnPageNumber.IsEnabled = false;
+
+            if (idLND == 2)
+            {
+                btnAddBill.Visibility = Visibility.Visible;
+                btnAddBill.IsEnabled = true;
+            }
+            else
+            {
+                btnAddBill.Visibility=Visibility.Collapsed;
+            }
         }
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
@@ -85,7 +99,7 @@ namespace QLNS.Pages
         {
             var query =
                 from hoadon in qLNSEntities.HOADONs
-                orderby hoadon.idHD
+                orderby hoadon.idHD descending
                 //where hoadon.idHD == 0
                 select new
                 {
@@ -168,6 +182,18 @@ namespace QLNS.Pages
                     FilterData(searchTerm, 0);
                     isSearch = 1;
                 }
+            }
+        }
+
+        private void memberDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (memberDataGrid.SelectedItems.Count > 0)
+            {
+                var selectedHoaDon = (dynamic)memberDataGrid.SelectedItem;
+                selectedIdHD = selectedHoaDon.idHD;
+
+                DetailBill detailBill = new DetailBill(selectedIdHD);
+                detailBill.ShowDialog();
             }
         }
     }

@@ -21,15 +21,17 @@ namespace QLNS.ResourceXAML
     public partial class MainNhanVienKho : Window
     {
         private int idND = -1;
+        private int idLND = -1;
         public MainNhanVienKho()
         {
             InitializeComponent();
         }
 
-        public MainNhanVienKho(int idND)
+        public MainNhanVienKho(int idND, int idLND)
         {
             InitializeComponent();
             this.idND = idND;
+            this.idLND = idLND;
         }
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

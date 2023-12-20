@@ -23,15 +23,18 @@ namespace QLNS.ResourceXAML
     public partial class MainThuNgan : Window
     {
         private int idND = -1;
+        private int idLND = -1;
+
         public MainThuNgan()
         {
             InitializeComponent();
         }
 
-        public MainThuNgan(int idND)
+        public MainThuNgan(int idND, int idLND)
         {
             InitializeComponent();
             this.idND = idND;
+            this.idLND = idLND;
         }
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -211,7 +214,7 @@ namespace QLNS.ResourceXAML
 
         private void btnBill_Click(object sender, RoutedEventArgs e)
         {
-            BillManage billManage = new BillManage(idND);
+            BillManage billManage = new BillManage(idND, idLND);
             fContainer.Navigate(billManage);
             //fContainer.Navigate(new System.Uri("Pages/BillManage.xaml", UriKind.RelativeOrAbsolute));
         }
