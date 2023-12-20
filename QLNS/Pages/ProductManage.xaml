@@ -119,11 +119,12 @@
                                 <RowDefinition Height=".85*" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-
+                            
                             <DataGrid
                                 x:Name="productDataGrid"
                                 Grid.Row="0"
                                 Height="auto"
+                                HorizontalAlignment="Stretch"
                                 AutoGenerateColumns="False"
                                 HorizontalScrollBarVisibility="Visible">
 
@@ -141,7 +142,7 @@
                                     <!--  Mã sản phẩm  -->
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding MaSP}"
+                                        Binding="{Binding MaCTSP}"
                                         CanUserResize="False"
                                         Header="Mã SP"
                                         IsReadOnly="True" />
@@ -344,17 +345,17 @@
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                                     <Button
-                                                        x:Name="btnDetail"
+                                                        x:Name="btnErrorDetail"
                                                         Margin="0,0,5,0"
-                                                        Click="btnDetail_Click"
+                                                        Click="btnErrorDetail_Click"
                                                         Style="{DynamicResource gridViewButton}">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
 
                                                     <Button
-                                                        Name="btnDelete"
+                                                        Name="btnErrorDelete"
                                                         Margin="5,0,0,0"
-                                                        Click="btnDelete_Click"
+                                                        Click="btnErrorDelete_Click"
                                                         Style="{DynamicResource gridViewButton}">
                                                         <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
@@ -465,13 +466,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                                    <Button
-                                                        x:Name="btnDetailCategory"
-                                                        Margin="0,0,5,0"
-                                                        Click="btnDetailCategory_Click"
-                                                        Style="{DynamicResource gridViewButton}">
-                                                        <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
-                                                    </Button>
+                                                    
 
                                                     <Button
                                                         Name="btnDelete"
