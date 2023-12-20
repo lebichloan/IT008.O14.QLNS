@@ -64,6 +64,9 @@
                 <DataGrid Grid.Row="3"
                           x:Name="staffDataGrid"
                           AutoGenerateColumns="False">
+                    <DataGrid.Resources>
+                        <local:StatusConvert x:Key="statusConvert"></local:StatusConvert>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
                         <!--Checkbox-->
                         <DataGridCheckBoxColumn CanUserResize="False"
@@ -107,8 +110,8 @@
                                             IsReadOnly="True"
                                             Width="*"/>
                         <!-- Đang làm việc -->
-                        <DataGridTextColumn Header="Đang làm việc"
-                                            Binding="{Binding TinhTrang}"
+                        <DataGridTextColumn Header="Tình trạng"
+                                            Binding="{Binding TinhTrang, Converter={StaticResource ResourceKey=statusConvert}}"
                                             IsReadOnly="True"
                                             Width="*"/>
 

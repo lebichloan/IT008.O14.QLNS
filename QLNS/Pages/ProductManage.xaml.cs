@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,39 @@ namespace QLNS.Pages
     /// <summary>
     /// Interaction logic for ProductManage.xaml
     /// </summary>
+    public class StatusProductConvert : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int status = (int)value;
+            if (status == 0)
+            {
+                return "Đã bán hết";
+            }
+            else if (status == 1)
+            {
+                return "Còn hàng";
+            }
+            else if (status == 2)
+            {
+                return "Đã ẩn";
+            }
+            else if (status == 3)
+            {
+                return "Ngừng bán";
+            } 
+            else
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string status = value.ToString();
+            return status;
+        }
+    }
     public partial class ProductManage : Page
     {
         public class Product
@@ -33,7 +67,7 @@ namespace QLNS.Pages
 
             public string TenSP { get; set; }
             public string MoTa { get; set; }
-            public string TinhTrang {  get; set; }
+            public int TinhTrang {  get; set; }
             public int DaBan {  get; set; }
             public int SoLuongLoi {  get; set; }
             public decimal DonGiaNhap {  get; set; }
@@ -77,40 +111,40 @@ namespace QLNS.Pages
 
         private void LoadData(int page)
         {
-            //var query =
-            //    from ctsp in qLNSEntities.CTSPs
-            //    join sanpham in qLNSEntities.SANPHAMs
-            //    on ctsp.idSP equals sanpham.idSP
-            //    join danhmuc in qLNSEntities.DANHMUCs
-            //    on sanpham.idDM equals danhmuc.idDM
+            var query =
+                from ctsp in qLNSEntities.CTSPs
+                join sanpham in qLNSEntities.SANPHAMs
+                on ctsp.idSP equals sanpham.idSP
+                join danhmuc in qLNSEntities.DANHMUCs
+                on sanpham.idDM equals danhmuc.idDM
 
-            //    orderby ctsp.MaCTSP
-            //    select new Product
-            //    {
-            //        idSP = sanpham.idSP,
-            //        idCTSP = ctsp.idCTSP,
-            //        MaSP = sanpham.MaSP,
-            //        MaCTSP = ctsp.MaCTSP,
-            //        TenSP = sanpham.TenSP,
-            //        MoTa = sanpham.MoTa,
-            //        TinhTrang = ctsp.TinhTrang,
-            //        DaBan = ctsp.DaBan,
-            //        DonGiaNhap = ctsp.DonGiaNhap,
-            //        SoLuongLoi = ctsp.SoLuongLoi,
-            //        DonGiaXuat = ctsp.DonGiaXuat,
-            //        SoLuongConLai = ctsp.SLConLai,
-            //        TenDM = sanpham.DANHMUC.TenDM,
-            //    };
-            
-            //productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
-            //btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
-            //btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
-            //lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+                orderby ctsp.MaCTSP
+                select new Product
+                {
+                    idSP = sanpham.idSP,
+                    idCTSP = ctsp.idCTSP,
+                    MaSP = sanpham.MaSP,
+                    MaCTSP = ctsp.MaCTSP,
+                    TenSP = sanpham.TenSP,
+                    MoTa = sanpham.MoTa,
+                    TinhTrang = ctsp.TinhTrang,
+                    DaBan = ctsp.DaBan,
+                    DonGiaNhap = ctsp.DonGiaNhap,
+                    SoLuongLoi = ctsp.SoLuongLoi,
+                    DonGiaXuat = ctsp.DonGiaXuat,
+                    SoLuongConLai = ctsp.SLConLai,
+                    TenDM = sanpham.DANHMUC.TenDM,
+                };
+
+            productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
 
-        
-        
+
+
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {

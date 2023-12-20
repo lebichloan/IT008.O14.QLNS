@@ -81,16 +81,6 @@ namespace QLNS.ResourceXAML
                         throw new Exception("Tình trạng không được để trống");
                     }
                     // Xử lý sai định dạng
-                    if(!int.TryParse(TinhTrang.Text, out int temp))
-                    {
-                        throw new Exception("Tình trạng không hợp lệ, vui lòng nhập( 1: Đang làm việc, 0: Nghỉ việc)");
-                    }
-                    else
-                    {
-                        if(temp != 1 && temp != 0)
-                            throw new Exception("Tình trạng không hợp lệ, vui lòng nhập( 1: Đang làm việc, 0: Nghỉ việc)");
-                    }
-
 
                     nhanvien.TenNV = TenNV.Text.ToString();
                     nhanvien.NgaySinh = NgaySinh.SelectedDate.Value;
@@ -99,7 +89,14 @@ namespace QLNS.ResourceXAML
                     nhanvien.SDT = SDT.Text.ToString();
                     nhanvien.NgayVL = NgayVL.SelectedDate.Value;
                     nhanvien.ChucVu = ChucVu.Text.ToString();
-                    nhanvien.TinhTrang = int.Parse(TinhTrang.Text);
+                    if(TinhTrang.Text == "Nghỉ việc")
+                    {
+                        nhanvien.TinhTrang = 0;
+                    }
+                    else
+                    {
+                        nhanvien.TinhTrang = 1;
+                    }
                     nhanvien.GhiChu = GhiChu.Text.ToString();
 
                     MessageOption messageOption = new MessageOption();

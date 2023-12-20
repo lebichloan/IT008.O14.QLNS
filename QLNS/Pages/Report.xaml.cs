@@ -26,22 +26,13 @@ namespace QLNS.Pages
     {
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
-        //private List<string> dateLabels = new List<string>();
-        //private List<int> RevenueValues = new List<int>();
-        //private List<int> RevenueValuesPre = new List<int>();
-        //private List<int> CustomerValues = new List<int>();
-        //private List<int> CustomerValuesPre = new List<int>();
         private int maxRevenueValues;
         private int maxCustomerValues;
-        //private int totalRevenue;
-        //private int totalRevenuePre;
-        //private int totalCustomer;
-        //private int totalCustomerPre;
         public Report()
         {
             InitializeComponent();
             maxCustomerValues = maxRevenueValues = 0;
-            endDate = new DateTime(2023, 11, 30);
+            endDate = new DateTime(2023, 12, 30);
             startDate = endDate.AddDays(-30);
             Load();
         }
@@ -219,7 +210,6 @@ namespace QLNS.Pages
                 message.message.Text = ex.Message;
                 message.ShowDialog();
             }
-
         }
     }
 }

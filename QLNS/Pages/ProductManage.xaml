@@ -127,6 +127,9 @@
                                 HorizontalAlignment="Stretch"
                                 AutoGenerateColumns="False"
                                 HorizontalScrollBarVisibility="Visible">
+                                <DataGrid.Resources>
+                                    <local:StatusProductConvert x:Key="statusProductConvert"></local:StatusProductConvert>
+                                </DataGrid.Resources>
 
                                 <DataGrid.Columns>
 
@@ -171,7 +174,7 @@
                                         IsReadOnly="True" />
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding TinhTrang}"
+                                        Binding="{Binding TinhTrang, Converter={StaticResource ResourceKey=statusProductConvert}}"
                                         Header="Tình trạng"
                                         IsReadOnly="True" />
 

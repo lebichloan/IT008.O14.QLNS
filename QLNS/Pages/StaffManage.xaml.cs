@@ -4,10 +4,12 @@ using QLNS.ResourceXAML;
 using QLNS.ViewModel;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Xml;
 
@@ -16,6 +18,32 @@ namespace QLNS.Pages
     /// <summary>
     /// Interaction logic for StaffManage.xaml
     /// </summary>
+    public class StatusConvert : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int status = (int)value;
+            if(status == 0)
+            {
+                return "Nghỉ việc";
+            }
+            else if(status == 1)
+            {
+                return "Đang làm việc";
+            }
+            else 
+            { 
+                return null; 
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string status = value.ToString();
+            return value;
+        }
+    }
+
     public partial class StaffManage : Page
     {
         QLNSEntities qLNSEntities = new QLNSEntities();
@@ -87,7 +115,14 @@ namespace QLNS.Pages
 
                 detail.NgayVL.Text = nhanvien.NgayVL.Date.ToString();
                 detail.ChucVu.Text = nhanvien.ChucVu.ToString();
-                detail.TinhTrang.Text = nhanvien.TinhTrang.ToString();
+                if(nhanvien.TinhTrang == 0)
+                {
+                    detail.TinhTrang.SelectedIndex = 0;
+                }
+                else
+                {
+                    detail.TinhTrang.SelectedIndex = 1;
+                }
 
                 if (nhanvien.GhiChu == null)
                     detail.GhiChu.Text = "";
