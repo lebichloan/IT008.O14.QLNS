@@ -3,11 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:QLNS.Pages"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Background="Transparent"
       Title="Report">
     <Border CornerRadius="10" Background="White">
@@ -17,10 +18,55 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" CornerRadius="10 0 0 0" Background="White" Margin="10">
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnStatistical" Margin="10 9 0 0" Click="btnStatistical_Click" HorizontalAlignment="Left" FontSize="12" Height="21" Content="Thống kê" Style="{StaticResource btnUpdate}">
+                    </Button>
+                    <TextBlock Margin="15 12 -5 0" Text="Từ ngày:" FontSize="12"/>
+                    <DatePicker x:Name="DatePicker_StartDate" Margin="10 10 0 0" FontSize="12"
+                                Width="100" Height="20" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="2"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#879FFF"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <TextBlock  Margin="15 12 -5 0" Text="Đến ngày:" FontSize="12"/>
+                    <DatePicker x:Name="DatePicker_EndDate" Margin="10 10 0 0" FontSize="12"
+                                Width="100" Height="20" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="2"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#879FFF"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <CheckBox x:Name="CheckBox_VisibilityChart" Click="CheckBox_VisibilityChart_Click" Background="#879FFF" Margin="15 10 0 0" IsChecked="True"/>
+                    <TextBlock Margin="5 12 -5 0" Text="Cùng kỳ năm ngoái" FontSize="12"/>
+                </StackPanel>
+            </Grid>
+            <Separator Grid.Row="1" Grid.ColumnSpan="2" Margin="20 9 20 0" Background="Gray"/>
+            <Border Grid.Row="2" Grid.Column="0" CornerRadius="10 0 0 0" Background="White" Margin="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -49,7 +95,7 @@
                         </Icon:PackIconMaterial>
 
                         <TextBlock x:Name="Text_PercentRevenue" Text="32.34%" FontWeight="Bold" Foreground="#11D13B" FontSize="13"></TextBlock>
-                        <TextBlock Text="/cùng kỳ năm ngoái" FontSize="13"/>
+                        <TextBlock Text="/Cùng kỳ năm ngoái" FontSize="13"/>
                         
                     </StackPanel>
                     <!--Chart-->
@@ -61,7 +107,7 @@
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis x:Name="RevenueChart_AxisX" ShowLabels="True" Foreground="Black">
                                 <lvc:Axis.Separator>
-                                    <lvc:Separator StrokeThickness="0" Stroke="Gray" Step="6">
+                                    <lvc:Separator x:Name="RevenueChart_AxisX_Separator" StrokeThickness="0" Stroke="Gray" Step="6">
                                     </lvc:Separator>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
@@ -86,7 +132,7 @@
                                 </lvc:LineSeries.Fill>
                             </lvc:LineSeries>
 
-                            <lvc:LineSeries x:Name="RevenueChart_ValuesPre" Title="Cùng kỳ năm ngoái" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0" StrokeDashArray="4,1"
+                            <lvc:LineSeries x:Name="RevenueChart_ValuesPre" Title="Cùng kỳ năm ngoái" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0" StrokeDashArray="4,0"
                                             Fill="Transparent">
                             </lvc:LineSeries>
                         </lvc:CartesianChart.Series>
@@ -105,38 +151,78 @@
                             <TextBlock Margin="10 0 0 0" Text="Hiện tại" FontSize="10" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="- - - -" Foreground="#EF6F09"/>
+                            <Separator Background="#EF6F09" Width="30"/>
                             <TextBlock Margin="10 0 0 0" Text="Cùng kỳ năm ngoái" FontSize="10" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
             </Border>
-            <Border Visibility="Hidden" Grid.Row="0" Grid.Column="1" CornerRadius="10 0 0 0" Background="White" Margin="10">
+            <Border Visibility="Visible" Grid.Row="2" Grid.Column="1" CornerRadius="10 0 0 0" Background="White" Margin="10">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <!--Title-->
-                    <TextBlock Text="TỔNG DOANH THU" FontSize="10" FontWeight="Bold"/>
-                    <TextBlock Text="560.304.347 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#EF6F09" FontSize="17"/>
+                    <TextBlock Text="TỔNG LƯỢNG KHÁCH HÀNG" FontSize="10" FontWeight="Bold"/>
+                    <TextBlock x:Name="Text_TotalCustomer" Text="560.304.347" FontWeight="Bold" Margin="0 15 0 0" Foreground="#EF6F09" FontSize="17"/>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 10 10 0">
-                        <Icon:PackIconMaterial Kind="ArrowUp" Foreground="#11D13B" Height="15" Width="15"></Icon:PackIconMaterial>
-                        <TextBlock Text=" 32.34%" FontWeight="Bold" Foreground="#11D13B" FontSize="15"></TextBlock>
-                        <TextBlock Text="/kỳ trước" FontSize="15"/>
+                        <Icon:PackIconMaterial Height="15" Width="13" Margin="0 0 5 0">
+                            <Icon:PackIconMaterial.Style>
+                                <Style TargetType="Icon:PackIconMaterial">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=Text_PercentCustomer, Path=Foreground.Color}" Value="Red">
+                                            <Setter Property="Kind" Value="ArrowDown"/>
+                                            <Setter Property="Foreground" Value="#FF0000"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=Text_PercentCustomer, Path=Foreground.Color}" Value="#11D13B">
+                                            <Setter Property="Kind" Value="ArrowUp"/>
+                                            <Setter Property="Foreground" Value="#11D13B"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Icon:PackIconMaterial.Style>
+                        </Icon:PackIconMaterial>
+
+                        <TextBlock x:Name="Text_PercentCustomer" Text="32.34%" FontWeight="Bold" Foreground="#11D13B" FontSize="13"></TextBlock>
+                        <TextBlock Text="/Cùng kỳ năm ngoái" FontSize="13"/>
+
                     </StackPanel>
+                    <Grid Grid.Row="1" Margin="20 0 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Separator Background="#2A64F7" Width="30"/>
+                            <TextBlock Margin="10 0 0 0" Text="Hiện tại" FontSize="10" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Separator Background="#EF6F09" Width="30"/>
+                            <TextBlock Margin="10 0 0 0" Text="Cùng kỳ năm ngoái" FontSize="10" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
                     <!--Chart-->
-                    <lvc:CartesianChart LegendLocation="None" Margin="0 40 0 0">
+                    <lvc:CartesianChart Grid.Row="2" LegendLocation="None" Margin="0 0 0 0">
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip Background="#101a28" Foreground="#d5e2ff"/>
                         </lvc:CartesianChart.DataTooltip>
 
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis ShowLabels="True" Foreground="Black" Labels="Jan,.,.,.,Feb,.,.,.,Mar,.,.,.,Apr,May,Jun,July,Aug">
+                            <lvc:Axis x:Name="CustomerChart_AxisX" ShowLabels="True" Foreground="Black" Labels="Jan,.,.,.,Feb,.,.,.,Mar,.,.,.,Apr,May,Jun,July,Aug">
                                 <lvc:Axis.Separator>
-                                    <lvc:Separator StrokeThickness="0" Step="4"/>
+                                    <lvc:Separator x:Name="CustomerChart_AxisX_Separator" StrokeThickness="0" Step="4"/>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis ShowLabels="True" Foreground="Black" MinValue="0" MaxValue="100">
+                            <lvc:Axis x:Name="CustomerChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0" MaxValue="100">
                                 <lvc:Axis.Separator>
                                     <lvc:Separator StrokeThickness="1" Stroke="#999999" />
                                 </lvc:Axis.Separator>
@@ -144,25 +230,22 @@
                         </lvc:CartesianChart.AxisY>
 
                         <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Title="Kỳ này" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0"
-                                            Values="40,50,70,30,45,80,0,100,60,50,45,60,70,30">
+                            <lvc:LineSeries x:Name="CustomerChart_Values" Title="Hiện tại" StrokeThickness="2" Stroke="#2A64F7" PointGeometrySize="0">
                                 <lvc:LineSeries.Fill>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
-                                        <GradientStop Color="#F0A100" Offset="0.4"/>
-                                        <GradientStop Color="#F0C611" Offset="1"/>
+                                        <GradientStop Color="#21D3F4" Offset="0.4"/>
+                                        <GradientStop Color="White" Offset="1.1"/>
                                     </LinearGradientBrush>
                                 </lvc:LineSeries.Fill>
                             </lvc:LineSeries>
-                            
-                            <lvc:LineSeries Title="Kỳ trước" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0" StrokeDashArray="4,2"
-                                            Values="80,50,60,30,80,40,70,80,40,86,79,60,50,60" Fill="Transparent">
-                            </lvc:LineSeries>
 
+                            <lvc:LineSeries x:Name="CustomerChart_ValuesPre" Title="Cùng kỳ năm ngoái" StrokeThickness="2" Stroke="#EF6F09" PointGeometrySize="0" StrokeDashArray="4,0"
+                                            Fill="Transparent">
+                            </lvc:LineSeries>
                         </lvc:CartesianChart.Series>
                     </lvc:CartesianChart>
                 </Grid>
             </Border>
-
         </Grid>
     </Border>
 </Page>
