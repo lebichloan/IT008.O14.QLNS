@@ -590,7 +590,7 @@
           <Property Name="DaBan" Type="Int16" Nullable="false" />
           <Property Name="SLConLai" Type="Int16" Nullable="false" />
           <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TinhTrang" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="Int32" Nullable="false" />
           <Property Name="idSP" Type="Int32" Nullable="false" />
           <Property Name="idNH" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CTHDs" Relationship="Self.FK__CTHD__idCTSP__5441852A" FromRole="CTSP" ToRole="CTHD" />

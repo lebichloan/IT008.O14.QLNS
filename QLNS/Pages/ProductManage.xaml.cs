@@ -77,35 +77,35 @@ namespace QLNS.Pages
 
         private void LoadData(int page)
         {
-            var query =
-                from ctsp in qLNSEntities.CTSPs
-                join sanpham in qLNSEntities.SANPHAMs
-                on ctsp.idSP equals sanpham.idSP
-                join danhmuc in qLNSEntities.DANHMUCs
-                on sanpham.idDM equals danhmuc.idDM
+            //var query =
+            //    from ctsp in qLNSEntities.CTSPs
+            //    join sanpham in qLNSEntities.SANPHAMs
+            //    on ctsp.idSP equals sanpham.idSP
+            //    join danhmuc in qLNSEntities.DANHMUCs
+            //    on sanpham.idDM equals danhmuc.idDM
 
-                orderby ctsp.MaCTSP
-                select new Product
-                {
-                    idSP = sanpham.idSP,
-                    idCTSP = ctsp.idCTSP,
-                    MaSP = sanpham.MaSP,
-                    MaCTSP = ctsp.MaCTSP,
-                    TenSP = sanpham.TenSP,
-                    MoTa = sanpham.MoTa,
-                    TinhTrang = ctsp.TinhTrang,
-                    DaBan = ctsp.DaBan,
-                    DonGiaNhap = ctsp.DonGiaNhap,
-                    SoLuongLoi = ctsp.SoLuongLoi,
-                    DonGiaXuat = ctsp.DonGiaXuat,
-                    SoLuongConLai = ctsp.SLConLai,
-                    TenDM = sanpham.DANHMUC.TenDM,
-                };
+            //    orderby ctsp.MaCTSP
+            //    select new Product
+            //    {
+            //        idSP = sanpham.idSP,
+            //        idCTSP = ctsp.idCTSP,
+            //        MaSP = sanpham.MaSP,
+            //        MaCTSP = ctsp.MaCTSP,
+            //        TenSP = sanpham.TenSP,
+            //        MoTa = sanpham.MoTa,
+            //        TinhTrang = ctsp.TinhTrang,
+            //        DaBan = ctsp.DaBan,
+            //        DonGiaNhap = ctsp.DonGiaNhap,
+            //        SoLuongLoi = ctsp.SoLuongLoi,
+            //        DonGiaXuat = ctsp.DonGiaXuat,
+            //        SoLuongConLai = ctsp.SLConLai,
+            //        TenDM = sanpham.DANHMUC.TenDM,
+            //    };
             
-            productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
-            btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
-            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
-            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+            //productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            //btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
+            //btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
+            //lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
 

@@ -11,7 +11,7 @@ namespace QLNS.Model
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class CTSP
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,7 +30,7 @@ namespace QLNS.Model
         public short DaBan { get; set; }
         public short SLConLai { get; set; }
         public string GhiChu { get; set; }
-        public string TinhTrang { get; set; }
+        public int TinhTrang { get; set; }
         public int idSP { get; set; }
         public int idNH { get; set; }
     
