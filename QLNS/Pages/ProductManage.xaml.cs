@@ -27,7 +27,10 @@ namespace QLNS.Pages
         public class Product
         {
             public int idSP {  get; set; }
+            public int idCTSP { get; set; }
             public string MaSP { get; set; }
+            public string MaCTSP {  get; set; }
+
             public string TenSP { get; set; }
             public string MoTa { get; set; }
             public string TinhTrang {  get; set; }
@@ -80,12 +83,14 @@ namespace QLNS.Pages
                 on ctsp.idSP equals sanpham.idSP
                 join danhmuc in qLNSEntities.DANHMUCs
                 on sanpham.idDM equals danhmuc.idDM
-                
+
                 orderby ctsp.MaCTSP
                 select new Product
                 {
-
-                    MaSP = ctsp.MaCTSP,
+                    idSP = sanpham.idSP,
+                    idCTSP = ctsp.idCTSP,
+                    MaSP = sanpham.MaSP,
+                    MaCTSP = ctsp.MaCTSP,
                     TenSP = sanpham.TenSP,
                     MoTa = sanpham.MoTa,
                     TinhTrang = ctsp.TinhTrang,
@@ -96,7 +101,7 @@ namespace QLNS.Pages
                     SoLuongConLai = ctsp.SLConLai,
                     TenDM = sanpham.DANHMUC.TenDM,
                 };
-
+            
             productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
@@ -123,23 +128,28 @@ namespace QLNS.Pages
             {
                 // get id hoa don duoc chon
                 var selectedSanPham = (dynamic)productDataGrid.SelectedItem;
-                string selectedIdSP = selectedSanPham.MaSP;
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Xác nhận xóa sản phẩm có mã " + selectedIdSP + "?" , "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                string selectedMaCTSP = selectedSanPham.MaCTSP;
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Xác nhận xóa sản phẩm có mã " + selectedMaCTSP + "?";
+                messageOption.ShowDialog();
+                bool isUpdate = MessageOption.isAgree;
+                messageOption.Close();
+                if (isUpdate)
                 {
-                    sqlCommand.CommandText = "DELETE FROM CTSP WHERE MaCTSP = '" + selectedIdSP + "'";
+                    sqlCommand.CommandText = "DELETE FROM CTSP WHERE MaCTSP = '" + selectedMaCTSP + "'";
                     try
                     {
                         sqlConnection.Open();
                         sqlCommand.ExecuteNonQuery();
                     }
-                    catch (SqlException ex)
+                    catch
                     {
-                        throw ex;
+                        
                     }
                     finally { sqlConnection.Close(); }
                 }
                 LoadData(pageNumber);
+                
             }
                 
 
@@ -159,6 +169,7 @@ namespace QLNS.Pages
                 DetailProduct detail = new DetailProduct();
                 detail.productManage = this;
                 detail.idSP = product.idSP;
+                detail.idCTSP = product.idCTSP;
 
                 List<TextBlock> danhmucItems = new List<TextBlock>();
                 foreach (var danhmuc in DataProvider.Ins.DB.DANHMUCs)
@@ -172,6 +183,7 @@ namespace QLNS.Pages
                 detail.TenSP.Text = product.TenSP.ToString();
                 detail.GiaBan.Text = product.DonGiaXuat.ToString();
                 detail.GiaNhap.Text = product.DonGiaNhap.ToString();
+
                 detail.TinhTrang.Text = product.TinhTrang.ToString();
                 detail.LoaiSP.Text = product.TenDM.ToString();
 
@@ -277,10 +289,7 @@ namespace QLNS.Pages
             categoryPageNumber--;
             LoadCategory(categoryPageNumber);
         }
-        private void btnDetailCategory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
@@ -331,6 +340,16 @@ namespace QLNS.Pages
             btnAddCategory.Visibility = Visibility.Visible;
             btnAddProduct.Visibility = Visibility.Collapsed;
             btnAddErrorProduct.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnErrorDetail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnErrorDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

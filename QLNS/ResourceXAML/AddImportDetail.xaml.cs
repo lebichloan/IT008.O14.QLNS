@@ -396,7 +396,7 @@ namespace QLNS.ResourceXAML
                 product.SLConLai = (short)(product.SLConLai + sl);
                 if (product.SLConLai == 0)
                 {
-                    product.TinhTrang = "Đã hết";
+                    product.TinhTrang = "Đã bán hết";
                 }
                 qLNSEntities.SaveChanges();
             }
