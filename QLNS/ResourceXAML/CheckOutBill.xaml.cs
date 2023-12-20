@@ -245,7 +245,7 @@ namespace QLNS.ResourceXAML
                 product.SLConLai = (short)(product.SLConLai - sl);
                 if (product.SLConLai == 0)
                 {
-                    product.TinhTrang = 0.ToString();
+                    product.TinhTrang = 0;
                 }
                 qLNSEntities.SaveChanges();
             }
