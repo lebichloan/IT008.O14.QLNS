@@ -9,15 +9,15 @@
         <EntityTypeShape EntityType="QLNSModel.CTHD" Width="1.5" PointX="12" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.CTSP" Width="1.5" PointX="9.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.DANHMUC" Width="1.5" PointX="5.25" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNSModel.HOADON" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNSModel.KHACHHANG" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNSModel.KHUYENMAI" Width="1.5" PointX="10.5" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNSModel.LOAIKHACHHANG" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNSModel.HOADON" Width="1.5" PointX="9.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNSModel.KHACHHANG" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNSModel.KHUYENMAI" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNSModel.LOAIKHACHHANG" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.LOAINGUOIDUNG" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.NGUOIDUNG" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.NHANVIEN" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.NHAPHANG" Width="1.5" PointX="7.5" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNSModel.PTTHANHTOAN" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNSModel.PTTHANHTOAN" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.SANPHAM" Width="1.5" PointX="7.5" PointY="20.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNSModel.SANPHAMLOI" Width="1.5" PointX="15" PointY="11.625" IsExpanded="true" />
         <AssociationConnector Association="QLNSModel.FK__CTHD__idCTSP__5441852A" ManuallyRouted="false" />

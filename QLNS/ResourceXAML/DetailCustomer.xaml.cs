@@ -45,8 +45,14 @@ namespace QLNS.ResourceXAML
         private void Binding_Combobox()
         {
             QLNSEntities qlns = new QLNSEntities();
-            List<LOAIKHACHHANG> lkh = qlns.LOAIKHACHHANGs.ToList();
-            LoaiKH.ItemsSource = lkh;
+            var query = from lkh in qlns.LOAIKHACHHANGs
+                        orderby lkh.idLKH
+                        where lkh.idLKH != 0
+                        select lkh;
+
+            var loaikh = query.ToList();
+
+            LoaiKH.ItemsSource = loaikh;
             LoaiKH.DisplayMemberPath = "TenLKH";
             LoaiKH.SelectedValuePath = "idLKH";
             List<String> gender = new List<String>();

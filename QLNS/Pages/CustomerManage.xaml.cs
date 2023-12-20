@@ -121,6 +121,7 @@ namespace QLNS.Pages
             var query =
                 from loaikhachhang in qlnsEntities.LOAIKHACHHANGs
                 orderby loaikhachhang.idLKH
+                where loaikhachhang.idLKH != 0
                 select new
                 {
                     idLKH = loaikhachhang.idLKH,

@@ -30,7 +30,7 @@ namespace QLNS.Pages
             public string MaSP { get; set; }
             public string TenSP { get; set; }
             public string MoTa { get; set; }
-            public int TinhTrang {  get; set; }
+            public string TinhTrang {  get; set; }
             public int DaBan {  get; set; }
             public int SoLuongLoi {  get; set; }
             public decimal DonGiaNhap {  get; set; }
@@ -172,7 +172,7 @@ namespace QLNS.Pages
                 detail.TenSP.Text = product.TenSP.ToString();
                 detail.GiaBan.Text = product.DonGiaXuat.ToString();
                 detail.GiaNhap.Text = product.DonGiaNhap.ToString();
-                detail.TinhTrang.SelectedIndex = product.TinhTrang;
+                detail.TinhTrang.Text = product.TinhTrang.ToString();
                 detail.LoaiSP.Text = product.TenDM.ToString();
 
                 if (product.MoTa == null)

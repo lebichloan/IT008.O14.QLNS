@@ -105,6 +105,17 @@
                          Margin="10 5 0 15"
                          materialDesign:HintAssist.Hint="Loại khách hàng"
                          Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox.SelectedValue>
+                        <Binding Path="SelectedValue"
+                                 ElementName="binding_ComboBox"
+                                 UpdateSourceTrigger="PropertyChanged"
+                                 ValidatesOnDataErrors="True"
+                                 NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedValue>
                 </ComboBox>
                 <DatePicker x:Name="ngayBatDau" Margin="10 5 0 15" HorizontalAlignment="Left"
                             Width="300"  

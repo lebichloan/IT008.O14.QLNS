@@ -61,7 +61,6 @@ namespace QLNS.Pages
                 from khuyenmai in qlnsEntities.KHUYENMAIs
                 join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khuyenmai.idLKH equals loaikhachhang.idLKH
                 orderby khuyenmai.idKM
-                //where hoadon.idHD == 0
                 select new
                 {
                     idKM = khuyenmai.idKM,

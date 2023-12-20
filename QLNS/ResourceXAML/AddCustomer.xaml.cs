@@ -68,8 +68,14 @@ namespace QLNS.ResourceXAML
         private void Binding_LoaiKH()
         {
             QLNSEntities qlns = new QLNSEntities();
-            List<LOAIKHACHHANG> lkh = qlns.LOAIKHACHHANGs.ToList();
-            loaiKH.ItemsSource = lkh;
+            var query = from lkh in qlns.LOAIKHACHHANGs
+                        orderby lkh.idLKH
+                        where lkh.idLKH != 0
+                        select lkh;
+
+            var loaikh = query.ToList();
+
+            loaiKH.ItemsSource = loaikh;
             loaiKH.DisplayMemberPath = "TenLKH";
             loaiKH.SelectedValuePath = "idLKH";
         }

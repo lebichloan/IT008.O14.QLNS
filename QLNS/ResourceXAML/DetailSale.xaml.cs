@@ -93,15 +93,10 @@ namespace QLNS.ResourceXAML
                         khuyenmai.NgayBD = DateTime.Parse(NgayBD.Text);
                         khuyenmai.NgayKT = DateTime.Parse(NgayKT.Text);
 
-                        if (idLKH.Text == "")
-                        {
-                            khuyenmai.idLKH = null;
-                        }
-                        else
-                        {
-                            var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{idLKH.Text}'").ToList();
-                            khuyenmai.idLKH = int.Parse(id[0].idLKH.ToString());
-                        }
+                        
+                        var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{idLKH.Text}'").ToList();
+                        khuyenmai.idLKH = int.Parse(id[0].idLKH.ToString());
+                        
 
                         khuyenmai.GiamGia = short.Parse(GiamGia.Text);
                         khuyenmai.MoTa = MoTa.Text.ToString();

@@ -106,7 +106,6 @@
                              Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem Content="Nam"/>
                         <ComboBoxItem Content="Nữ"/>
-                        <ComboBoxItem Content="Khác"/>
                         <ComboBox.SelectedValue>
                             <Binding Path="SelectedValue"
                                  ElementName="binding_ComboBox"
