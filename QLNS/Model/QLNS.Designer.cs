@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\phamh\OneDrive\Máy tính\Test IT008\QLNS\Model\QLNS.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Laptop MSI\Desktop\IT008.O14.QLNS\QLNS\Model\QLNS.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

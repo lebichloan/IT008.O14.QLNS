@@ -88,7 +88,7 @@ namespace QLNS.ResourceXAML
 
                     ctsp.DonGiaNhap = Convert.ToDecimal(GiaNhap.Text.ToString());
                     ctsp.DonGiaXuat = Convert.ToDecimal(GiaBan.Text.ToString());
-                    ctsp.TinhTrang = TinhTrang.SelectedValue.ToString();
+                    ///ctsp.TinhTrang = TinhTrang.SelectedValue.ToString();
 
 
                     MessageOption messageOption = new MessageOption();

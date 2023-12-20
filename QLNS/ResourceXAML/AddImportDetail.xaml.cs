@@ -382,7 +382,7 @@ namespace QLNS.ResourceXAML
             ctsp.DonGiaXuat =0;
             ctsp.SoLuongLoi = 0;
             ctsp.GhiChu = "";
-            ctsp.TinhTrang = "Còn hàng";
+            //ctsp.TinhTrang = "Còn hàng";
             ctsp.idNH = idNH;
             ctsp.idCTSP = GetLastIdProductDetail();
             
@@ -396,7 +396,7 @@ namespace QLNS.ResourceXAML
                 product.SLConLai = (short)(product.SLConLai + sl);
                 if (product.SLConLai == 0)
                 {
-                    product.TinhTrang = "Đã bán hết";
+                    ///product.TinhTrang = "Đã bán hết";
                 }
                 qLNSEntities.SaveChanges();
             }
