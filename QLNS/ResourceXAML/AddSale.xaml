@@ -25,7 +25,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <!--Start: Binding control for validation-->
@@ -67,118 +68,136 @@
                    Background="{DynamicResource SepratorBackgroundColor}"
                    Margin="0 0 0 5"/>
 
-            <StackPanel Grid.Row="2" Orientation="Vertical" >
-                <!--<TextBox x:Name="maKM" VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Width="300" Height="40"
-                         Margin="10 5 0 0"
-                         materialDesign:HintAssist.Hint="Mã khuyến mãi"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />-->
-                <TextBox x:Name="tenKM" VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Width="300" Height="40"
-                         Margin="10 5 0 15"
-                         materialDesign:HintAssist.Hint="Tên khuyến mãi"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
-                    <TextBox.Text>
-                        <Binding Path="tenkm"
-                                 ElementName="addSale"
-                                 ValidatesOnDataErrors="True"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vld:EmptyStringValid></vld:EmptyStringValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox x:Name="moTa" VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Width="300" Height="40"
-                         Margin="10 5 0 15"
-                         materialDesign:HintAssist.Hint="Mô tả"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                </TextBox>
-                <ComboBox x:Name="loaiKH" VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Width="300" Height="40"
-                         Margin="10 5 0 15"
-                         materialDesign:HintAssist.Hint="Loại khách hàng"
-                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <ComboBox.SelectedValue>
-                        <Binding Path="SelectedValue"
-                                 ElementName="binding_ComboBox"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 ValidatesOnDataErrors="True"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </ComboBox.SelectedValue>
-                </ComboBox>
-                <DatePicker x:Name="ngayBatDau" Margin="10 5 0 15" HorizontalAlignment="Left"
-                            Width="300"  
-                            materialDesign:HintAssist.Hint="Ngày bắt đầu" 
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
-                    <DatePicker.SelectedDate>
-                        <Binding Path="SelectedDate" 
-                                 ElementName="dateProvider_Start" 
-                                 ValidatesOnDataErrors="True"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vld:Sale_StartDateValid></vld:Sale_StartDateValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </DatePicker.SelectedDate>
-                </DatePicker>
+            <ScrollViewer Grid.Row="2" Height="380">
 
+                <StackPanel Orientation="Vertical" >
+                    <TextBox x:Name="tenKM" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Width="300" Height="40"
+                             Margin="10 5 0 15"
+                             materialDesign:HintAssist.Hint="Tên khuyến mãi"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox.Text>
+                            <Binding Path="tenkm"
+                                     ElementName="addSale"
+                                     ValidatesOnDataErrors="True"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <vld:EmptyStringValid></vld:EmptyStringValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
+                    <TextBox x:Name="moTa" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Width="300" 
+                             Margin="10 5 0 15"
+                             materialDesign:HintAssist.Hint="Mô tả"
+                             TextWrapping="Wrap"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    </TextBox>
 
-                <DatePicker x:Name="ngayKetThuc" Margin="10 5 0 15" HorizontalAlignment="Left"
+                    <ComboBox x:Name="loaiKH" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Width="300" Height="40"
+                             Margin="10 5 0 15"
+                             materialDesign:HintAssist.Hint="Loại khách hàng"
+                             Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBox.SelectedValue>
+                            <Binding Path="SelectedValue"
+                                     ElementName="binding_ComboBox"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     ValidatesOnDataErrors="True"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedValue>
+                    </ComboBox>
+
+                    <DatePicker x:Name="ngayBatDau" Margin="10 5 0 15" HorizontalAlignment="Left"
+                                Width="300"  
+                                materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="SelectedDate" 
+                                     ElementName="dateProvider_Start" 
+                                     ValidatesOnDataErrors="True"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <vld:Sale_StartDateValid></vld:Sale_StartDateValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+
+                    <DatePicker x:Name="ngayKetThuc" Margin="10 5 0 15" HorizontalAlignment="Left"
                             
-                            Width="300"  
-                            materialDesign:HintAssist.Hint="Ngày kết thúc" 
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
-                    <DatePicker.SelectedDate>
-                        <Binding Path="SelectedDate" 
-                                 ElementName="dateProvider_End" 
-                                 ValidatesOnDataErrors="True"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vld:Sale_EndDateValid></vld:Sale_EndDateValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </DatePicker.SelectedDate>
-                </DatePicker>
+                                Width="300"  
+                                materialDesign:HintAssist.Hint="Ngày kết thúc" 
+                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="SelectedDate" 
+                                     ElementName="dateProvider_End" 
+                                     ValidatesOnDataErrors="True"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <vld:Sale_EndDateValid></vld:Sale_EndDateValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
 
-                <TextBox x:Name="giamGia" VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Width="300" Height="40"
-                         Margin="10 5 0 0"
-                         materialDesign:HintAssist.Hint="Giảm giá"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="giamgia"
-                                 ElementName="addSale"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 ValidatesOnDataErrors="True"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vld:DiscountValid></vld:DiscountValid>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+
+                    <TextBox x:Name="giamGia" VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Width="300" Height="40"
+                             Margin="10 5 0 0"
+                             materialDesign:HintAssist.Hint="Giảm giá"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="giamgia"
+                                     ElementName="addSale"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     ValidatesOnDataErrors="True"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <vld:DiscountValid></vld:DiscountValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="3">
                 <Button Height="35" Margin="5" Width="150"
                         Click="ButtonAdd_Click"
                         Content="Thêm mới">
                 </Button>
-            </StackPanel>
+            </Grid>
 
         </Grid>
     </Border>

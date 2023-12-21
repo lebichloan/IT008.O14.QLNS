@@ -45,7 +45,7 @@
                                                 Margin="0 0 10 0"
                                                 Foreground="{DynamicResource IconButtonColor}"/>
 
-                        <TextBlock Text="Thêm mới"
+                        <TextBlock Text="Thêm khuyến mãi"
                                     Foreground="{DynamicResource TextButtonColor}"/>
                     </StackPanel>
                 </Button>
@@ -169,7 +169,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="btnDetailSale" Style="{DynamicResource gridViewButton}"
+                                        <Button x:Name="btnDetailSale" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}"
                                                 Click="btnDetail_Click" >
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                    Style="{DynamicResource gridButtonIcon}"/>

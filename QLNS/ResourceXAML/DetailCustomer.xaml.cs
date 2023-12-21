@@ -33,10 +33,6 @@ namespace QLNS.ResourceXAML
 
         public CustomerManage customerManage { get; set; }
         public int idKH { get; set; }
-
-        private string _TenKH;
-        public string tenkh { get => _TenKH; set { _TenKH = value; OnPropertyChanged(); } }
-
         public DetailCustomer()
         {
             InitializeComponent();
