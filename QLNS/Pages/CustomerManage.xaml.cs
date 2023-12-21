@@ -191,6 +191,8 @@ namespace QLNS.Pages
                 detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[8].Column.GetCellContent(CustomerDataGrid.SelectedCells[8].Item)).Text;
                 detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[9].Column.GetCellContent(CustomerDataGrid.SelectedCells[9].Item)).Text;
                 detail.ShowDialog();
+
+                LoadDataCustomerCurrent();
             }
             catch { }
 
@@ -285,6 +287,40 @@ namespace QLNS.Pages
                 message.message.Text = ex.Message;
                 message.ShowDialog();
             }
+        }
+
+        private void buttonDetailCustomerType_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var cellInfo = CustomerTypesDataGrid.SelectedCells[1];
+                var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
+                var query = from lkh in qlnsEntities.LOAIKHACHHANGs
+                            where content == lkh.MaLKH
+                            select lkh;
+
+                var lst = query.ToList();
+
+                DetailCustomerType detail = new DetailCustomerType();
+                detail.customerManage = this;
+                detail.idLKH = lst[0].idLKH;
+                detail.TenLKH.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text;
+
+                if (((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text == "")// can null
+                {
+                    detail.MoTa.Text = "";
+                }
+                else
+                {
+                    detail.MoTa.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text;
+                }
+                detail.DTLTT.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[4].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[4].Item)).Text;
+                detail.ShowDialog();
+
+                LoadDataCustomerTypesCurrent();
+            }
+            catch { }
+
         }
     }
 }
