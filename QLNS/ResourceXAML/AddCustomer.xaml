@@ -26,6 +26,7 @@
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <!--Start: Binding control for validation-->
@@ -66,7 +67,7 @@
                    Background="{DynamicResource SepratorBackgroundColor}"
                    Margin="0 0 0 5"/>
 
-            <ScrollViewer Grid.Row="2">
+            <ScrollViewer Grid.Row="2" Height="390">
                 <StackPanel Orientation="Vertical" >
                     <TextBox x:Name="tenKH" VerticalAlignment="Center"
                              HorizontalAlignment="Left"
@@ -228,13 +229,14 @@
                             </Binding>
                         </ComboBox.SelectedValue>
                     </ComboBox>
-                    <Button Height="35" Margin="5" Width="150"
-                            Click="ButtonAdd_Click"
-                            Content="Thêm mới">
-                    </Button>
                 </StackPanel>
             </ScrollViewer>
-
+            <Grid Grid.Row="3">
+                <Button Height="35" Margin="5" Width="150"
+                            Click="ButtonAdd_Click"
+                            Content="Thêm khách hàng">
+                </Button>
+            </Grid>
         </Grid>
     </Border>
 </Window>
