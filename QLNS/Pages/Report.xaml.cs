@@ -24,6 +24,12 @@ namespace QLNS.Pages
     /// </summary>
     public partial class Report : Page
     {
+        public class Product
+        {
+            public string TenSP { get; set; }
+            public int SoLuong { get; set; }
+            public int TongDoanhThu { get; set; }
+        }
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
         private int maxRevenueValues;
@@ -32,10 +38,12 @@ namespace QLNS.Pages
         {
             InitializeComponent();
             maxCustomerValues = maxRevenueValues = 0;
-            endDate = new DateTime(2023, 12, 30);
+            endDate = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day);
             startDate = endDate.AddDays(-30);
             Load();
+            LoadProduct();
         }
+
         public void Load()
         {
             List<string> dateLabels = new List<string>();
@@ -203,6 +211,7 @@ namespace QLNS.Pages
                 startDate = DatePicker_StartDate.SelectedDate.Value;
                 endDate = DatePicker_EndDate.SelectedDate.Value;
                 Load();
+                LoadProduct();
             }
             catch (Exception ex)
             {
@@ -210,6 +219,31 @@ namespace QLNS.Pages
                 message.message.Text = ex.Message;
                 message.ShowDialog();
             }
+        }
+
+        public void LoadProduct()
+        {
+            int Totalproduct = 0;
+            var query = from sp in DataProvider.Ins.DB.SANPHAMs
+                        join ctsp in DataProvider.Ins.DB.CTSPs on sp.idSP equals ctsp.idSP
+                        join cthd in DataProvider.Ins.DB.CTHDs on ctsp.idCTSP equals cthd.idCTSP
+                        join hd in DataProvider.Ins.DB.HOADONs on cthd.idHD equals hd.idHD
+                        where hd.NgayHD > startDate && hd.NgayHD <= endDate
+                        group new { sp, cthd } by new { sp.TenSP, sp.idSP } into grouped
+                        orderby grouped.Key.TenSP
+                        select new
+                        {
+                            TenSP = grouped.Key.TenSP,
+                            SoLuong = grouped.Sum(x => x.cthd.SoLuong),
+                            TongDoanhThu = grouped.Sum(x => x.cthd.ThanhTien)
+                        };
+
+            DataGrid_Product.ItemsSource = query.ToList();
+            foreach(var product in query) 
+            {
+                Totalproduct += product.SoLuong;
+            }
+            Text_ToTalProduct.Text = Totalproduct.ToString();
         }
     }
 }

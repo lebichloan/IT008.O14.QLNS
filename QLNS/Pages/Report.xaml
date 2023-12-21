@@ -246,6 +246,32 @@
                     </lvc:CartesianChart>
                 </Grid>
             </Border>
+            <Border Grid.Row="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="TỐNG SỐ LƯỢNG SẢN PHẨM BÁN RA" FontSize="10" FontWeight="Bold" Margin="10 10 0 0"/>
+                    <TextBlock x:Name="Text_ToTalProduct" Text="1,593" FontWeight="Bold" Margin="10 25 0 -10" Foreground="#2176F4" FontSize="17"/>
+                    <DataGrid x:Name="DataGrid_Product" ScrollViewer.VerticalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Grid.Row="1" Background="White" Margin="10 7 10 10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tên sản phẩm" Width="*"
+                                                Binding="{Binding TenSP}"
+                                                Foreground="Black"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn MinWidth="110" Header="Số lượng"
+                                                Binding="{Binding SoLuong}"
+                                                Foreground="Black"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn MinWidth="130" Header="Tổng doanh thu"
+                                                Binding="{Binding TongDoanhThu}" 
+                                                Foreground="Black"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </Page>
