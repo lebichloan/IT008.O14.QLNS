@@ -92,7 +92,9 @@ namespace QLNS.ResourceXAML
                 ForceValidation(); //Kiem tra rang buoc khi click button
                 if (Validation.GetHasError(TenKH) || Validation.GetHasError(SDT) || Validation.GetHasError(NgayTG) || Validation.GetHasError(DTL))
                 {
-                    MessageBox.Show("Đã có lỗi xảy ra!");
+                    Message message = new Message();
+                    message.message.Text = "Đã có lỗi xảy ra";
+                    message.ShowDialog();
                 }
                 else
                 {

@@ -120,7 +120,9 @@ namespace QLNS.ResourceXAML
             ForceValidation();
             if (Validation.GetHasError(tenKM) || Validation.GetHasError(loaiKH) ||Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
             {
-                MessageBox.Show("Đã có lỗi xảy ra!");
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra";
+                message.ShowDialog();
             }
             else
             {

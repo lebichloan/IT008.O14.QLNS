@@ -94,7 +94,9 @@ namespace QLNS.ResourceXAML
             ForceValidation();
             if ((Validation.GetHasError(tenLKH)) || (Validation.GetHasError(moTa)) || (Validation.GetHasError(diemTLTT)))
             {
-                MessageBox.Show("Đã có lỗi xảy ra!");
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra";
+                message.ShowDialog();
             }
             else
             {

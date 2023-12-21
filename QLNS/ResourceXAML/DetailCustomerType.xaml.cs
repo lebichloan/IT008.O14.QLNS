@@ -71,7 +71,9 @@ namespace QLNS.ResourceXAML
                 ForceValidation(); //Kiem tra rang buoc khi click button
                 if (Validation.GetHasError(TenLKH) || Validation.GetHasError(DTLTT))
                 {
-                    MessageBox.Show("Đã có lỗi xảy ra!");
+                    Message message = new Message();
+                    message.message.Text = "Đã có lỗi xảy ra";
+                    message.ShowDialog();
                 }
                 else
                 {
