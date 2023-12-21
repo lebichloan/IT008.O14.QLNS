@@ -314,6 +314,13 @@ namespace QLNS.Pages
             lblPageErrorTab.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
+        private void btnAddErrorProduct_Click(object sender, RoutedEventArgs e)
+        {
+            AddErrorProduct addErrorProduct = new AddErrorProduct();
+            addErrorProduct.productManage = this;
+            addErrorProduct.ShowDialog();
+        }
+
         private void btnErrorDetail_Click(object sender, RoutedEventArgs e)
         {
             {
@@ -346,45 +353,38 @@ namespace QLNS.Pages
 
         private void btnErrorDelete_Click(object sender, RoutedEventArgs e)
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
-            if (connectionString.ToLower().StartsWith("metadata="))
+            try
             {
-                System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder efBuilder = new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(connectionString);
-                connectionString = efBuilder.ProviderConnectionString;
-            }
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            SqlCommand sqlCommand1 = sqlConnection.CreateCommand();
-            SqlCommand sqlCommand2 = sqlConnection.CreateCommand();
+                var errorProduct = (dynamic)errorProductDataGrid.SelectedItem;
+                string MaSPL = errorProduct.maSPL;
 
+                SANPHAMLOI spl = DataProvider.Ins.DB.SANPHAMLOIs.FirstOrDefault(k => k.MaSPL == MaSPL);
+                CTSP ctsp = DataProvider.Ins.DB.CTSPs.FirstOrDefault(h => h.idCTSP == spl.idCTSP);
 
-            if (errorProductDataGrid.SelectedItems.Count > 0)
-            {
-                // get id hoa don duoc chon
-                var selectedSanPhamLoi = (dynamic)errorProductDataGrid.SelectedItem;
-                string selectedMaSPL = selectedSanPhamLoi.MaSPL;
-                MessageOption messageOption = new MessageOption();
-                messageOption.message.Text = "Xác nhận xóa sản phẩm lỗi có mã " + selectedMaSPL + "?";
-                messageOption.ShowDialog();
-                bool isUpdate = MessageOption.isAgree;
-                messageOption.Close();
-                if (isUpdate)
                 {
-                    sqlCommand1.CommandText = "DELETE FROM SANPHAMLOI WHERE MaSPL = '" + selectedMaSPL + "'";
-                    sqlCommand2.CommandText = "UPDATE CTSP SET SoLuongLoi = SoLuongLoi - " + selectedSanPhamLoi.soluongloi + ", SLConLai = SLConLai + " + selectedSanPhamLoi.soluongloi + ", WHERE idCTSP = " + selectedSanPhamLoi.idCTSP;
-                    try
+                    MessageOption messageOption = new MessageOption();
+                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa sản phẩm lỗi này?";
+                    messageOption.ShowDialog();
+                    bool isDelete = MessageOption.isAgree;
+                    messageOption.Close();
+                    if (isDelete)
                     {
-                        sqlConnection.Open();
-                        sqlCommand1.ExecuteNonQuery();
-                        sqlCommand2.ExecuteNonQuery();
+                        SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.Find(spl.idSPL);
+                        ctsp.SLConLai = (short)(ctsp.SLConLai + sanphamloi.SoLuongLoi);
+                        DataProvider.Ins.DB.SANPHAMLOIs.Remove(sanphamloi);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadDataCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa sản phẩm lỗi thành công!";
+                        message.ShowDialog();
                     }
-                    catch
-                    {
-
-                    }
-                    finally { sqlConnection.Close(); }
                 }
-                LoadErrorProduct(errorProductPage);
-
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
             }
         }
 
@@ -400,6 +400,7 @@ namespace QLNS.Pages
                 //where hoadon.idHD == 0
                 select new
                 {
+                    idDM = danhmuc.idDM,
                     maDM = danhmuc.MaDM,
                     tenDM = danhmuc.TenDM,
                     mota = danhmuc.MoTa,
@@ -426,7 +427,44 @@ namespace QLNS.Pages
 
         private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string MaDM = ((TextBlock)categoryDataGrid.SelectedCells[1].Column.GetCellContent(categoryDataGrid.SelectedCells[1].Item)).Text;
 
+                DANHMUC danhmuc = DataProvider.Ins.DB.DANHMUCs.FirstOrDefault(k => k.MaDM == MaDM);
+                SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.FirstOrDefault(h => h.idDM == danhmuc.idDM);
+
+                if (sanpham != null)
+                {
+                    Message message = new Message();
+                    message.message.Text = "Không thể xóa danh mục này, vì tồn tại nhiều dữ liệu liên quan!";
+                    message.ShowDialog();
+                }
+                else
+                {
+                    MessageOption messageOption = new MessageOption();
+                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa danh mục này?";
+                    messageOption.ShowDialog();
+                    bool isDelete = MessageOption.isAgree;
+                    messageOption.Close();
+                    if (isDelete)
+                    {
+                        DANHMUC dm = DataProvider.Ins.DB.DANHMUCs.Find(danhmuc.idDM);
+                        DataProvider.Ins.DB.DANHMUCs.Remove(dm);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadDataCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa khuyến mãi thành công!";
+                        message.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
         }
 
         private void categoryTabItem_Loaded(object sender, RoutedEventArgs e)
@@ -434,11 +472,7 @@ namespace QLNS.Pages
             LoadCategory(0);
         }
 
-        private void btnAddErrorProduct_Click(object sender, RoutedEventArgs e)
-        {
-            AddErrorProduct addErrorProduct = new AddErrorProduct();
-            addErrorProduct.ShowDialog();
-        }
+        
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
