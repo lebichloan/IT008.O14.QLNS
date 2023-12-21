@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.Pages;
 using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace QLNS.ResourceXAML
     
     public partial class AddErrorProduct : Window
     {
+        public ProductManage productManage {  get; set; }
         private int idND = 1;
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddErrorProduct()
@@ -92,11 +94,14 @@ namespace QLNS.ResourceXAML
             {
                 SANPHAMLOI spl = CreateErrorProduct(item);
                 DataProvider.Ins.DB.SANPHAMLOIs.Add(spl);
+                CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(spl.idCTSP);
+                ctsp.SLConLai = (short)(ctsp.SLConLai - spl.SoLuongLoi);
                 DataProvider.Ins.DB.SaveChanges();
             }
-
-            MessageBox.Show("Them san pham loi thanh cong");
-            
+            Message message = new Message();
+            message.message.Text = "Thêm sản phẩm lỗi thành công";
+            message.Show();
+            productManage.LoadDataCurrent();
             this.Close();
         }
         private SANPHAMLOI CreateErrorProduct(ErrorItemListBox errorItem)
