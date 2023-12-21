@@ -2,7 +2,6 @@
 using QLNS.Pages;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,53 +17,29 @@ using System.Windows.Shapes;
 namespace QLNS.ResourceXAML
 {
     /// <summary>
-    /// Interaction logic for DetailProduct.xaml
+    /// Interaction logic for DetailErrorProduct.xaml
     /// </summary>
-    public partial class DetailProduct : Window
+    public partial class DetailErrorProduct : Window
     {
         public ProductManage productManage { get; set; }
+        public int idSPL { get; set; }
         public int idCTSP { get; set; }
-
-        public int idSP { get; set; }
-        public DetailProduct()
+        public DetailErrorProduct()
         {
             InitializeComponent();
-            ComboBoxItem newitem = new ComboBoxItem();
-            newitem.Content = "Đã bán hết";
-            TinhTrang.Items.Add(newitem);
-            newitem = new ComboBoxItem();
-            newitem.Content = "Còn hàng";
-            TinhTrang.Items.Add(newitem);
-            newitem = new ComboBoxItem();
-            newitem.Content = "Đã ẩn";
-            TinhTrang.Items.Add(newitem);
-            newitem = new ComboBoxItem();
-            newitem.Content = "Ngừng bán";
-            TinhTrang.Items.Add(newitem);
-
-        }
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
+            
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-        public bool IsValidDateFormat(string dateString)
-        {
-            bool isValid = false;
-            DateTime temp;
-            isValid = DateTime.TryParseExact(dateString, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out temp);
-            return isValid;
-        }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.Find(idSP);
+            SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.Find(idSPL);
             CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(idCTSP);
-            if (sanpham != null)
+            if (sanphamloi != null)
             {
                 try
                 {
@@ -73,22 +48,23 @@ namespace QLNS.ResourceXAML
                     {
                         throw new Exception("Tên sản phẩm không được để trống");
                     }
-                    if (LoaiSP.Text == "")
+                    if(Convert.ToInt16(SL.Text) > (ctsp.SoLuongLoi + ctsp.SLConLai))
                     {
-                        throw new Exception("Danh mục không được để trống");
+                        throw new Exception("Số lượng sản phẩm lỗi không thể lớn hơn " + (ctsp.SoLuongLoi + ctsp.SLConLai));
                     }
-                    
+
+
                     // Xử lý sai định dạng
+
+                    short slldiff = (short)(sanphamloi.SoLuongLoi - Convert.ToInt16(SL.Text));
+                    sanphamloi.ChiTietLoi = ChiTietLoi.Text.ToString();
+                    sanphamloi.SoLuongLoi = Convert.ToInt16(SL.Text);
+
+
+                    ctsp.SoLuongLoi = Convert.ToInt16(SL.Text);
+                    ctsp.SLConLai = (short)(ctsp.SLConLai + slldiff);
                     
 
-                    sanpham.TenSP = TenSP.Text.ToString();
-                    var danhMuc = DataProvider.Ins.DB.DANHMUCs.FirstOrDefault(dm => dm.TenDM == LoaiSP.Text.ToString());
-                    sanpham.idDM = danhMuc.idDM;
-                    sanpham.MoTa = MoTa.Text.ToString();
-
-                    ctsp.DonGiaNhap = Convert.ToDecimal(GiaNhap.Text.ToString());
-                    ctsp.DonGiaXuat = Convert.ToDecimal(GiaBan.Text.ToString());
-                    ctsp.TinhTrang = TinhTrang.SelectedIndex;
 
 
                     MessageOption messageOption = new MessageOption();
@@ -105,7 +81,6 @@ namespace QLNS.ResourceXAML
                         message.ShowDialog();
                         productManage.LoadDataCurrent();
                         this.Close();
-
                     }
                 }
                 catch (Exception ex)
@@ -115,6 +90,12 @@ namespace QLNS.ResourceXAML
                     message.ShowDialog();
                 }
             }
+        }
+    
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

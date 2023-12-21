@@ -338,7 +338,7 @@
                                         IsReadOnly="True" />
                                     <DataGridTextColumn
                                         Width="*"
-                                        Binding="{Binding TenDM}"
+                                        Binding="{Binding danhmuc}"
                                         Header="Danh mục"
                                         IsReadOnly="True" />
 

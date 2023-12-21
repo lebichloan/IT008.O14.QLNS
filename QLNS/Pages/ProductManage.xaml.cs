@@ -58,6 +58,21 @@ namespace QLNS.Pages
     }
     public partial class ProductManage : Page
     {
+        public class ErrorProduct
+        {
+            public int idSPL { get; set; }
+            
+
+            public string maSPL { get; set; }
+            public string tenSPL { get; set; }
+            public string chitietloi { get; set; }
+            public short soluongloi { get; set; }
+            public DateTime ngayloi { get; set; }
+            public string danhmuc { get; set; }
+
+            public int idctsp { get; set; }
+
+        }
         public class Product
         {
             public int idSP {  get; set; }
@@ -77,11 +92,14 @@ namespace QLNS.Pages
             public string TenDM { get; set; }
         }
 
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         public ProductManage()
         {
             InitializeComponent();
         }
+
+        
         int pageNumber = 0;
         int pageSize = 15;
 
@@ -101,6 +119,8 @@ namespace QLNS.Pages
         public void LoadDataCurrent()
         {
             LoadData(pageNumber);
+            LoadCategory(categoryPageNumber);
+            LoadErrorProduct(errorProductPage);
         }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
@@ -217,8 +237,9 @@ namespace QLNS.Pages
                 detail.TenSP.Text = product.TenSP.ToString();
                 detail.GiaBan.Text = product.DonGiaXuat.ToString();
                 detail.GiaNhap.Text = product.DonGiaNhap.ToString();
-
-                detail.TinhTrang.Text = product.TinhTrang.ToString();
+                detail.SLCL.Text = product.SoLuongConLai.ToString();
+                detail.SLDB.Text = product.DaBan.ToString();
+                detail.TinhTrang.SelectedIndex = product.TinhTrang;
                 detail.LoaiSP.Text = product.TenDM.ToString();
 
                 if (product.MoTa == null)
@@ -271,15 +292,19 @@ namespace QLNS.Pages
                 on spl.idCTSP equals ctsp.idCTSP
                 join sanpham in qLNSEntities.SANPHAMs
                 on ctsp.idSP equals sanpham.idSP
+                join danhmuc in qLNSEntities.DANHMUCs
+                on sanpham.idDM equals danhmuc.idDM
                 orderby spl.MaSPL
                 //where hoadon.idHD == 0
                 select new
                 {
+                    idSPL = spl.idSPL,
                     maSPL = spl.MaSPL,
                     tenSPL = sanpham.TenSP,
                     chitietloi = spl.ChiTietLoi,
                     soluongloi = spl.SoLuongLoi,
                     ngayloi = spl.NgayLoi,
+                    danhmuc = danhmuc.TenDM,
                     idctsp = spl.idCTSP,
                 };
 
@@ -287,6 +312,80 @@ namespace QLNS.Pages
             btnPreErrorTab.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNextErrorTab.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPageErrorTab.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+        }
+
+        private void btnErrorDetail_Click(object sender, RoutedEventArgs e)
+        {
+            {
+                var errorProduct = (dynamic)errorProductDataGrid.SelectedItem;
+                DetailErrorProduct detailErrorProduct = new DetailErrorProduct();
+
+                detailErrorProduct.productManage = this;
+                detailErrorProduct.idSPL = errorProduct.idSPL;
+                detailErrorProduct.idCTSP = errorProduct.idctsp;
+
+
+
+                detailErrorProduct.TenSP.Text = errorProduct.tenSPL;
+                detailErrorProduct.SL.Text = errorProduct.soluongloi.ToString();
+                detailErrorProduct.NgayLoi.SelectedDate = errorProduct.ngayloi;
+
+
+                if (errorProduct.chitietloi == null)
+                {
+                    detailErrorProduct.ChiTietLoi.Text = "";
+                }
+                else
+                {
+                    detailErrorProduct.ChiTietLoi.Text = errorProduct.chitietloi.ToString();
+                }
+
+                detailErrorProduct.ShowDialog();
+            }
+        }
+
+        private void btnErrorDelete_Click(object sender, RoutedEventArgs e)
+        {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
+            if (connectionString.ToLower().StartsWith("metadata="))
+            {
+                System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder efBuilder = new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(connectionString);
+                connectionString = efBuilder.ProviderConnectionString;
+            }
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand1 = sqlConnection.CreateCommand();
+            SqlCommand sqlCommand2 = sqlConnection.CreateCommand();
+
+
+            if (errorProductDataGrid.SelectedItems.Count > 0)
+            {
+                // get id hoa don duoc chon
+                var selectedSanPhamLoi = (dynamic)errorProductDataGrid.SelectedItem;
+                string selectedMaSPL = selectedSanPhamLoi.MaSPL;
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Xác nhận xóa sản phẩm lỗi có mã " + selectedMaSPL + "?";
+                messageOption.ShowDialog();
+                bool isUpdate = MessageOption.isAgree;
+                messageOption.Close();
+                if (isUpdate)
+                {
+                    sqlCommand1.CommandText = "DELETE FROM SANPHAMLOI WHERE MaSPL = '" + selectedMaSPL + "'";
+                    sqlCommand2.CommandText = "UPDATE CTSP SET SoLuongLoi = SoLuongLoi - " + selectedSanPhamLoi.soluongloi + ", SLConLai = SLConLai + " + selectedSanPhamLoi.soluongloi + ", WHERE idCTSP = " + selectedSanPhamLoi.idCTSP;
+                    try
+                    {
+                        sqlConnection.Open();
+                        sqlCommand1.ExecuteNonQuery();
+                        sqlCommand2.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+
+                    }
+                    finally { sqlConnection.Close(); }
+                }
+                LoadErrorProduct(errorProductPage);
+
+            }
         }
 
         //Category tab
@@ -376,14 +475,6 @@ namespace QLNS.Pages
             btnAddErrorProduct.Visibility = Visibility.Collapsed;
         }
 
-        private void btnErrorDetail_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnErrorDelete_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }
