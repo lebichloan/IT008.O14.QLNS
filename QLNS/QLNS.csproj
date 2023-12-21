@@ -261,6 +261,9 @@
     <Compile Include="ResourceXAML\DetailCustomer.xaml.cs">
       <DependentUpon>DetailCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\DetailErrorProduct.xaml.cs">
+      <DependentUpon>DetailErrorProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\DetailProduct.xaml.cs">
       <DependentUpon>DetailProduct.xaml</DependentUpon>
     </Compile>
@@ -469,6 +472,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\DetailCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailErrorProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

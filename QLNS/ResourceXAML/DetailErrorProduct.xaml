@@ -1,14 +1,14 @@
 ﻿<Window
-    x:Class="QLNS.ResourceXAML.DetailProduct"
+    x:Class="QLNS.ResourceXAML.DetailErrorProduct"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:QLNS.ResourceXAML"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="DetailStaff"
+    Title="DetailErrorProduct"
     Width="450"
-    Height="450"
+    Height="350"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
@@ -94,43 +94,23 @@
                         Margin="0,0,0,15"
                         FontSize="15"
                         FontWeight="SemiBold"
-                        Text="Tên sản phẩm" />
+                        Text="Tên sản phẩm lỗi" />
                     <TextBlock
                         Margin="0,0,0,15"
                         FontSize="15"
                         FontWeight="SemiBold"
-                        Text="Danh mục" />
+                        Text="Số lượng lỗi" />
                     <TextBlock
                         Margin="0,0,0,15"
                         FontSize="15"
                         FontWeight="SemiBold"
-                        Text="Số lượng còn lại" />
+                        Text="Ngày lỗi" />
                     <TextBlock
                         Margin="0,0,0,15"
                         FontSize="15"
                         FontWeight="SemiBold"
-                        Text="Số lượng đã bán" />
-                    <TextBlock
-                        Margin="0,0,0,15"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Text="Giá nhập" />
-                    <TextBlock
-                        Margin="0,0,0,15"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Text="Giá bán" />
+                        Text="Chi tiết lỗi" />
 
-                    <TextBlock
-                        Margin="0,0,0,15"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Text="Tình trạng" />
-                    <TextBlock
-                        Margin="0,0,0,40"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Text="Mô tả" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0,10,0,0">
                     <TextBox
@@ -140,6 +120,13 @@
                         BorderBrush="Black"
                         BorderThickness="1"
                         FontSize="14" />
+                    <TextBox
+                        x:Name="SL"
+                        Height="25"
+                        Margin="0,0,20,10"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        FontSize="14" />
                     <Border
                         Width="258"
                         Height="25"
@@ -148,65 +135,20 @@
                         BorderBrush="Black"
                         BorderThickness="0.8"
                         CornerRadius="5">
-                        <ComboBox
-                            x:Name="LoaiSP"
-                            Width="250"
+                        <DatePicker
+                            x:Name="NgayLoi"
                             Height="25"
-                            Margin="2,0,0.5,5"
-                            HorizontalAlignment="Left"
-                            FlowDirection="LeftToRight"
-                            FontSize="14" />
-                    </Border>
-                    <TextBox
-                        x:Name="SLCL"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                        FontSize="14"
-                        IsReadOnly="True"/>
-                    <TextBox
-                        x:Name="SLDB"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                        FontSize="14"
-                        IsReadOnly="True"/>
-                    <TextBox
-                        x:Name="GiaNhap"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                        FontSize="14" />
-                    <TextBox
-                        x:Name="GiaBan"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                        FontSize="14" />
+                            FontSize="14"
+                            Text=" " />
 
-                    <Border
-                        Width="258"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        HorizontalAlignment="Left"
-                        BorderBrush="Black"
-                        BorderThickness="0.8"
-                        CornerRadius="5">
-                        <ComboBox
-                            x:Name="TinhTrang"
-                            Width="250"
-                            Height="25"
-                            Margin="2,0,0.5,5"
-                            HorizontalAlignment="Left"
-                            FlowDirection="LeftToRight"
-                            FontSize="14" />
                     </Border>
+
+
+
+
+
                     <TextBox
-                        x:Name="MoTa"
+                        x:Name="ChiTietLoi"
                         Height="50"
                         Margin="0,0,20,10"
                         AcceptsReturn="True"
