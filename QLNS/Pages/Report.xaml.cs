@@ -26,19 +26,29 @@ namespace QLNS.Pages
     {
         public class Product
         {
+            
+            public Product(string tenSP, int soLuong, float tongDoanhThu)
+            {
+                TenSP = tenSP;
+                SoLuong = soLuong;
+                TongDoanhThu = tongDoanhThu;
+            }
+
             public string TenSP { get; set; }
             public int SoLuong { get; set; }
-            public int TongDoanhThu { get; set; }
+            public float TongDoanhThu { get; set; }
         }
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
         private int maxRevenueValues;
         private int maxCustomerValues;
+        private float RevenueAVG { get; set; }
         public Report()
         {
             InitializeComponent();
             maxCustomerValues = maxRevenueValues = 0;
-            endDate = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day);
+            //endDate = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day);
+            endDate = DateTime.Now;
             startDate = endDate.AddDays(-30);
             Load();
             LoadProduct();
@@ -116,7 +126,7 @@ namespace QLNS.Pages
             }
 
             //Xet Title Chart khach hang
-            Text_TotalCustomer.Text = totalCustomer.ToString() + " Lượt";
+            Text_TotalCustomer.Text = totalCustomer.ToString("N0").Replace(",", " ") + " Lượt";
             if (totalCustomer >= totalCustomerPre)
             {
                 float percent = (float)(totalCustomer - totalCustomerPre) / (float)totalCustomerPre;
@@ -154,11 +164,15 @@ namespace QLNS.Pages
             CustomerChart_AxisX_Separator.Step = RevenueChart_AxisX_Separator.Step;
             int temp1 = maxCustomerValues / 10;
             CustomerChart_AxisY.MaxValue = (temp1 + 1) * 10;
+
+            //Bình quân doanh thu
+            TimeSpan khoangcach = endDate.Subtract(startDate);
+            RevenueAVG = (float)totalRevenue / khoangcach.Days;
         }
 
         public int GetRevenue(DateTime date)
         {
-            var query = DataProvider.Ins.DB.HOADONs.Where(hd => hd.NgayHD == date);
+            var query = DataProvider.Ins.DB.HOADONs.Where(hd => hd.NgayHD.Year == date.Year && hd.NgayHD.Month == date.Month && hd.NgayHD.Day == date.Day);
             int totalValues = 0;
             if (query.Count() > 0)
             {
@@ -174,7 +188,7 @@ namespace QLNS.Pages
 
         public int GetCustomer(DateTime date)
         {
-            int slCustomer = DataProvider.Ins.DB.HOADONs.Where(hd => hd.NgayHD == date).Count();
+            int slCustomer = DataProvider.Ins.DB.HOADONs.Where(hd => hd.NgayHD.Year == date.Year && hd.NgayHD.Month == date.Month && hd.NgayHD.Day == date.Day).Count();
             if (slCustomer > 0)
             {
                 return slCustomer;
@@ -208,6 +222,10 @@ namespace QLNS.Pages
                 {
                     throw new Exception("Vui lòng chọn ngày để thống kê phân tích");
                 }
+                if(DatePicker_StartDate.SelectedDate >= DatePicker_EndDate.SelectedDate)
+                {
+                    throw new Exception("Ngày bắt đầu thống kê phải nhỏ hơn ngày kết thúc thống kê!");
+                }
                 startDate = DatePicker_StartDate.SelectedDate.Value;
                 endDate = DatePicker_EndDate.SelectedDate.Value;
                 Load();
@@ -223,6 +241,12 @@ namespace QLNS.Pages
 
         public void LoadProduct()
         {
+            int MaxSoLuong = 0;
+            float MaxTongDoanhThu = 0;
+            float MinTongDoanhThu = 0;
+            Product SanPhamBanChayNhat = new Product("",0,0);
+            Product SanPhamCoDoanhThuCaoNhat = new Product("", 0, 0);
+            Product SanPhamCoDoanhThuThapNhat = new Product("", 0, 0);
             int Totalproduct = 0;
             var query = from sp in DataProvider.Ins.DB.SANPHAMs
                         join ctsp in DataProvider.Ins.DB.CTSPs on sp.idSP equals ctsp.idSP
@@ -231,19 +255,61 @@ namespace QLNS.Pages
                         where hd.NgayHD > startDate && hd.NgayHD <= endDate
                         group new { sp, cthd } by new { sp.TenSP, sp.idSP } into grouped
                         orderby grouped.Key.TenSP
-                        select new
+                        select new 
                         {
                             TenSP = grouped.Key.TenSP,
                             SoLuong = grouped.Sum(x => x.cthd.SoLuong),
-                            TongDoanhThu = grouped.Sum(x => x.cthd.ThanhTien)
+                            TongDoanhThu = (float)grouped.Sum(x => x.cthd.ThanhTien)
                         };
 
             DataGrid_Product.ItemsSource = query.ToList();
             foreach(var product in query) 
             {
+                if(MaxTongDoanhThu == 0)
+                {
+                    MaxTongDoanhThu = product.TongDoanhThu;
+                    MinTongDoanhThu = product.TongDoanhThu;
+                    MaxSoLuong = product.SoLuong;
+                    SanPhamBanChayNhat = new Product(product.TenSP,product.SoLuong ,product.TongDoanhThu);
+                    SanPhamCoDoanhThuCaoNhat = new Product(product.TenSP,product.SoLuong ,product.TongDoanhThu);
+                    SanPhamCoDoanhThuThapNhat = new Product(product.TenSP,product.SoLuong ,product.TongDoanhThu);
+                }
+
                 Totalproduct += product.SoLuong;
+
+                if(product.SoLuong >= MaxSoLuong)
+                {
+                    if(product.TongDoanhThu > SanPhamBanChayNhat.TongDoanhThu && product.SoLuong == MaxSoLuong) 
+                    {
+                        MaxSoLuong = product.SoLuong;
+                        SanPhamBanChayNhat = new Product(product.TenSP, product.SoLuong, product.TongDoanhThu);
+                    }
+                    else if(product.SoLuong > MaxSoLuong)
+                    {
+                        MaxSoLuong = product.SoLuong;
+                        SanPhamBanChayNhat = new Product(product.TenSP, product.SoLuong, product.TongDoanhThu);
+                    }
+                }
+                if(product.TongDoanhThu > MaxTongDoanhThu)
+                {
+                    MaxTongDoanhThu = product.TongDoanhThu;
+                    SanPhamCoDoanhThuCaoNhat = new Product(product.TenSP, product.SoLuong, product.TongDoanhThu);
+                }
+                if(product.TongDoanhThu < MinTongDoanhThu)
+                {
+                    MinTongDoanhThu = product.TongDoanhThu;
+                    SanPhamCoDoanhThuThapNhat = new Product(product.TenSP, product.SoLuong, product.TongDoanhThu);
+                }
             }
-            Text_ToTalProduct.Text = Totalproduct.ToString();
+            Text_ToTalProduct.Text = Totalproduct.ToString("N0").Replace(",", " ") + " Sản phẩm";
+            Text_Time.Text = startDate.Date.ToShortDateString() + " - " + endDate.Date.ToShortDateString();
+            Text_AVG.Text = $"{RevenueAVG:F2}" + " VND";
+            if(SanPhamBanChayNhat.TenSP != string.Empty)
+                Text_SPBCN.Text = SanPhamBanChayNhat.TenSP.ToString() + " - " + SanPhamBanChayNhat.SoLuong.ToString() + " sản phẩm";
+            if (SanPhamBanChayNhat.TenSP != string.Empty)
+                Text_SPCDTCN.Text = SanPhamCoDoanhThuCaoNhat.TenSP.ToString() + " - " + SanPhamCoDoanhThuCaoNhat.TongDoanhThu.ToString() + " VND";
+            if (SanPhamBanChayNhat.TenSP != string.Empty)
+                Text_SPCDTTN.Text = SanPhamCoDoanhThuThapNhat.TenSP.ToString() + " - " + SanPhamCoDoanhThuThapNhat.TongDoanhThu.ToString() + " VND";
         }
     }
 }
