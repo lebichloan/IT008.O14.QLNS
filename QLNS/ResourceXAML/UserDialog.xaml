@@ -56,12 +56,14 @@
             </Grid>
 
 
-            <Button Grid.Row ="2"
+            <Button x:Name="UserInfo"
+                    Grid.Row ="2"
                     Height="39"
                     Width="270"
                     Style="{DynamicResource squareButton}"
                     HorizontalContentAlignment="Left"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    Click="UserInfo_Clicked">
 
                 <StackPanel Orientation="Horizontal">
 
@@ -77,7 +79,8 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Row ="3"
+            <Button x:Name="AccountInfo"
+                    Grid.Row ="3"
                     Height="39"
                     Width="270"
                     Style="{DynamicResource squareButton}"
@@ -98,7 +101,8 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Row ="4"
+            <Button x:Name="ChangePassword"
+                    Grid.Row ="4"
                     Height="39"
                     Width="275"
                     Style="{DynamicResource squareButton}" 

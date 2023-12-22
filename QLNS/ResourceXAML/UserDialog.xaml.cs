@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLNS.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,59 @@ namespace QLNS.ResourceXAML
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void UserInfo_Clicked(object sender, RoutedEventArgs e)
+        {
+            DetailUser detailUser = new DetailUser();
+
+            int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+
+            QLNSEntities qlns = new QLNSEntities();
+            var query = from nd in qlns.NGUOIDUNGs
+                        join nv in qlns.NHANVIENs on nd.idNV equals nv.idNV
+                        where nd.idND == id
+                        select nd;
+            var lst = query.ToList();
+
+            detailUser.TenNV.Text = lst[0].NHANVIEN.TenNV;
+            detailUser.GioiTinh.Text = lst[0].NHANVIEN.GioiTinh;
+            detailUser.NgaySinh.Text = lst[0].NHANVIEN.NgaySinh.ToString("MM/dd/yyyy");
+            if (lst[0].NHANVIEN.DiaChi is null)
+            {
+                detailUser.DiaChi.Text = "";
+            }
+            else
+            {
+                detailUser.DiaChi.Text = lst[0].NHANVIEN.DiaChi;
+            }
+            if (lst[0].NHANVIEN.SDT is null)
+            {
+                detailUser.SDT.Text = "";
+            }
+            else
+            {
+                detailUser.SDT.Text = lst[0].NHANVIEN.SDT;
+            }
+            detailUser.NgayVL.Text = lst[0].NHANVIEN.NgayVL.ToString("MM/dd/yyyy");
+            detailUser.ChucVu.Text = lst[0].NHANVIEN.ChucVu;
+            if (lst[0].NHANVIEN.TinhTrang == 0)
+            {
+                detailUser.TinhTrang.Text = "Đã nghỉ việc";
+            }
+            else
+            {
+                detailUser.TinhTrang.Text = "Đang làm việc";
+            }
+            if (lst[0].NHANVIEN.GhiChu is null)
+            {
+                detailUser.GhiChu.Text = "";
+            }
+            else
+            {
+                detailUser.GhiChu.Text = lst[0].NHANVIEN.GhiChu;
+            }
+            detailUser.ShowDialog();
         }
     }
 }

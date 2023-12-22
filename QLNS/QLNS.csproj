@@ -279,6 +279,9 @@
     <Compile Include="ResourceXAML\DetailStaff.xaml.cs">
       <DependentUpon>DetailStaff.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\DetailUser.xaml.cs">
+      <DependentUpon>DetailUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -505,6 +508,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\DetailStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
