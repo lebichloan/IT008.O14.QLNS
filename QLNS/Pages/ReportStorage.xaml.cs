@@ -31,6 +31,7 @@ namespace QLNS.Pages
             startDate = endDate.AddDays(-30);
             ComboBox_Date.SelectedIndex = 1;
             LoadProductStorage();
+            LoadImport();
             //LoadProduct();
         }
         public void LoadProduct()
@@ -112,6 +113,23 @@ namespace QLNS.Pages
                 return "Sắp hết";
             else
                 return "Còn hàng";
+        }
+
+        public void LoadImport()
+        {
+            int idNH = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.idNH);
+            var query = from sp in DataProvider.Ins.DB.SANPHAMs
+                        join ctsp in DataProvider.Ins.DB.CTSPs on sp.idSP equals ctsp.idSP
+                        where ctsp.idNH == idNH
+                        select new
+                        {
+                            TenSP = sp.TenSP,
+                            SLNhap = ctsp.SoLuongNhap,
+                            DonGiaNhap = ctsp.DonGiaNhap,
+                            TongNhap = ctsp.DonGiaNhap * ctsp.SoLuongNhap
+                        };
+            DataGrid_CTSP.ItemsSource = query.ToList();
+            Text_TotalProductImport.Text = query.Count().ToString("N0").Replace(",", " ") + " Mặt hàng";
         }
     }
 }
