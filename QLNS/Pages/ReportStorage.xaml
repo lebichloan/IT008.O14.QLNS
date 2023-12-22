@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:QLNS.Pages"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -29,25 +29,25 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="TỔNG SỐ SẢN PHẨM ĐANG BÁN" FontSize="11" FontWeight="Bold" Margin="12 10 0 0"/>
-                    <TextBlock  Text="1,593" FontWeight="Bold" Margin="12 25 0 -10" Foreground="#2176F4" FontSize="17"/>
-                    <DataGrid  ScrollViewer.VerticalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Grid.Row="1" Background="White" Margin="10 7 10 10">
+                    <TextBlock Text="CHI TIẾT NHẬP HÀNG" FontSize="11" FontWeight="Bold" Margin="12 10 0 0"/>
+                    <TextBlock x:Name="Text_TotalProductImport" Text="1,593" FontWeight="Bold" Margin="12 25 0 -10" Foreground="#2176F4" FontSize="17"/>
+                    <DataGrid x:Name="DataGrid_CTSP" ScrollViewer.VerticalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Grid.Row="1" Background="White" Margin="10 7 10 10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tên sản phẩm" 
                                                 Width="*" 
                                                 Binding="{Binding TenSP}"
                                                 Foreground="Black"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Width="*" Header="Số lượng còn lại" MaxWidth="130"
-                                                Binding="{Binding SLConLai}"
+                            <DataGridTextColumn Width="*" Header="Số lượng nhập" MaxWidth="130"
+                                                Binding="{Binding SLNhap}"
                                                 Foreground="Black"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Width="*" Header="Số lượng lỗi" MaxWidth="110"
-                                                Binding="{Binding SLLoi}"
+                            <DataGridTextColumn Width="*" Header="Đơn giá nhập" MaxWidth="120"
+                                                Binding="{Binding DonGiaNhap, StringFormat={}{0:F2}}"
                                                 Foreground="Black"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Width="*" Header="Tình trạng" MaxWidth="120"
-                                                Binding="{Binding TinhTrang}" 
+                            <DataGridTextColumn Width="*" Header="Thành tiền" MaxWidth="120"
+                                                Binding="{Binding TongNhap, StringFormat={}{0:F2}}" 
                                                 Foreground="Black"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>
