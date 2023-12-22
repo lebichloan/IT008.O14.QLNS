@@ -56,6 +56,8 @@ namespace QLNS.Pages
 
         public void Load()
         {
+            maxRevenueValues = 0;
+            maxCustomerValues = 0;
             List<string> dateLabels = new List<string>();
             List<int> RevenueValues = new List<int>();
             List<int> RevenueValuesPre = new List<int>();
