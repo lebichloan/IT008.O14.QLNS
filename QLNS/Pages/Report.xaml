@@ -74,7 +74,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--Title-->
-                    <TextBlock Text="TỔNG DOANH THU" FontSize="10" FontWeight="Bold"/>
+                    <TextBlock Text="TỔNG DOANH THU" FontSize="11" FontWeight="Bold"/>
                     <TextBlock x:Name="Text_TotalRevenue" Text="560.304.347 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2176F4" FontSize="17"/>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 10 10 0">
                         <Icon:PackIconMaterial Height="15" Width="13" Margin="0 0 5 0">
@@ -165,8 +165,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!--Title-->
-                    <TextBlock Text="TỔNG LƯỢNG KHÁCH HÀNG" FontSize="10" FontWeight="Bold"/>
-                    <TextBlock x:Name="Text_TotalCustomer" Text="560.304.347" FontWeight="Bold" Margin="0 15 0 0" Foreground="#EF6F09" FontSize="17"/>
+                    <TextBlock Text="TỔNG LƯỢNG KHÁCH HÀNG" FontSize="11" FontWeight="Bold"/>
+                    <TextBlock x:Name="Text_TotalCustomer" Text="560.304.347" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2A64F7" FontSize="17"/>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 10 10 0">
                         <Icon:PackIconMaterial Height="15" Width="13" Margin="0 0 5 0">
                             <Icon:PackIconMaterial.Style>
@@ -252,7 +252,7 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="TỐNG SỐ LƯỢNG SẢN PHẨM BÁN RA" FontSize="10" FontWeight="Bold" Margin="10 10 0 0"/>
+                    <TextBlock Text="TỐNG SỐ LƯỢNG SẢN PHẨM BÁN RA" FontSize="11" FontWeight="Bold" Margin="10 10 0 0"/>
                     <TextBlock x:Name="Text_ToTalProduct" Text="1,593" FontWeight="Bold" Margin="10 25 0 -10" Foreground="#2176F4" FontSize="17"/>
                     <DataGrid x:Name="DataGrid_Product" ScrollViewer.VerticalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Grid.Row="1" Background="White" Margin="10 7 10 10">
                         <DataGrid.Columns>
@@ -265,11 +265,45 @@
                                                 Foreground="Black"
                                                 IsReadOnly="True"/>
                             <DataGridTextColumn MinWidth="130" Header="Tổng doanh thu"
-                                                Binding="{Binding TongDoanhThu}" 
+                                                Binding="{Binding TongDoanhThu, StringFormat={}{0:F2}}" 
                                                 Foreground="Black"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3" Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="BÁO CÁO THỐNG KÊ" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#EF6F09" Margin="0 15 0 0"/>
+                    <TextBlock x:Name="Text_Time" Text="21/10/2023 - 31/112023" Margin="0 37 0 0" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="30 15 0 0">
+                            <TextBlock Height="25" Text="Tổng doanh thu" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                            <TextBlock Height="25" Text="Bình quân doanh thu/ngày" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                            <TextBlock Height="25" Text="Tổng lượng khách hàng" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                            <TextBlock Height="25" Text="Tổng sản phẩm bán ra" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                            <TextBlock Height="25" Text="Sản phẩm bán chạy nhất" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                            <TextBlock Height="25" Text="Sản phẩm có doanh thu cao nhất" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                            <TextBlock Height="25" Text="Sản phẩm có doanh thu thấp nhất" Foreground="Gray" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="0 15 30 0" >
+                            <TextBlock HorizontalAlignment="Right" Height="25" Text="{Binding ElementName=Text_TotalRevenue, Path=Text}" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="#2A64F7"/>
+                            <TextBlock x:Name="Text_AVG" HorizontalAlignment="Right" Height="25" Text="293 000 VND" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="#2A64F7"/>
+                            <TextBlock HorizontalAlignment="Right" Height="25" Text="{Binding ElementName=Text_TotalCustomer, Path=Text}" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="#2A64F7"/>
+                            <TextBlock HorizontalAlignment="Right" Height="25" Text="{Binding ElementName=Text_ToTalProduct, Path=Text}" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="#2A64F7"/>
+                            <TextBlock x:Name="Text_SPBCN" HorizontalAlignment="Right" Height="25" FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="#11D13B"/>
+                            <TextBlock x:Name="Text_SPCDTCN" HorizontalAlignment="Right" Height="25"  FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="#11D13B"/>
+                            <TextBlock x:Name="Text_SPCDTTN" HorizontalAlignment="Right" Height="25"  FontWeight="SemiBold" FontSize="17" Margin="10 0 10 15" Foreground="Red"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>
