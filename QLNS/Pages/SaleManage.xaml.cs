@@ -73,19 +73,37 @@ namespace QLNS.Pages
                     GiamGia = khuyenmai.GiamGia,
                     idND = khuyenmai.idND,
                 };
-            
+
             saleDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
             btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
-            
+
         }
 
         private void btnAddSale_Click(object sender, RoutedEventArgs e)
         {
-            AddSale addSale = new AddSale();
-            addSale.ShowDialog();
-            LoadDataCurrent();
+            if (App.Current.Properties["isLogin"] != null)
+            {
+                if (int.Parse(App.Current.Properties["isLogin"].ToString()) == 1)
+                {
+                    AddSale addSale = new AddSale();
+                    addSale.ShowDialog();
+                    LoadDataCurrent();
+                }
+                else
+                {
+                    Message message = new Message();
+                    message.message.Text = "Vui lòng đăng nhập để thực hiện thao tác này!";
+                    message.ShowDialog();
+                }
+            }
+            else
+            {
+                Message message = new Message();
+                message.message.Text = "Vui lòng đăng nhập để thực hiện thao tác này!";
+                message.ShowDialog();
+            }
         }
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)

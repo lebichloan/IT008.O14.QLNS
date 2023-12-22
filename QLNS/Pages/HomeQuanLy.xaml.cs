@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.ResourceXAML;
 using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,21 @@ namespace QLNS.Pages
             {
                 tennv = "< Chưa đăng nhập >";
                 //MessageBox.Show("Bạn chưa đăng nhập!");
+            }
+        }
+
+        private void ViewProfile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (App.Current.Properties["isLogin"] != null && int.Parse(App.Current.Properties["isLogin"].ToString()) == 1)
+            {
+                UserDialog detailUser = new UserDialog();
+                detailUser.ShowDialog();
+            }
+            else
+            {
+                Message message = new Message();
+                message.message.Text = "Vui lòng đăng nhập để xem thông tin!";
+                message.ShowDialog();
             }
         }
     }

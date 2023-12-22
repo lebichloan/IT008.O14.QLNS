@@ -192,10 +192,21 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="3" HorizontalAlignment="Center">
                 <Button Height="35" Margin="5" Width="150"
                         Click="ButtonAdd_Click"
-                        Content="Thêm mới">
+                        Style="{StaticResource addButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Plus"
+                                                VerticalAlignment="Center"
+                                                Width="11"
+                                                Height="11"
+                                                Margin="0 0 10 0"
+                                                Foreground="{DynamicResource IconButtonColor}"/>
+
+                        <TextBlock Text="Thêm khuyến mãi"
+                                    Foreground="{DynamicResource TextButtonColor}"/>
+                    </StackPanel>
                 </Button>
             </Grid>
 
