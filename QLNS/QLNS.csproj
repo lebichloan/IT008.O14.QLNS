@@ -303,6 +303,9 @@
     <Compile Include="ResourceXAML\ResetPasswordWindow.xaml.cs">
       <DependentUpon>ResetPasswordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\UserDialog.xaml.cs">
+      <DependentUpon>UserDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\VerifyEmailWindow.xaml.cs">
       <DependentUpon>VerifyEmailWindow.xaml</DependentUpon>
     </Compile>
@@ -538,6 +541,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\ResetPasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\UserDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

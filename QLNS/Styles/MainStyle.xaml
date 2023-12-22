@@ -301,4 +301,23 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!--Start: Square button style-->
+    <Style x:Key="squareButton" TargetType="Button">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#D3D3D3" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--End: Square button style-->
+
 </ResourceDictionary>
