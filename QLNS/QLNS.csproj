@@ -213,6 +213,9 @@
     <Compile Include="Pages\Report.xaml.cs">
       <DependentUpon>Report.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ReportStorage.xaml.cs">
+      <DependentUpon>ReportStorage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SaleManage.xaml.cs">
       <DependentUpon>SaleManage.xaml</DependentUpon>
     </Compile>
@@ -411,6 +414,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Report.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReportStorage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

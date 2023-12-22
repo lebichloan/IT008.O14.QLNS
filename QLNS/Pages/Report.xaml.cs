@@ -49,7 +49,7 @@ namespace QLNS.Pages
             maxCustomerValues = maxRevenueValues = 0;
             //endDate = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day);
             endDate = DateTime.Now;
-            startDate = endDate.AddDays(-30);
+            startDate = endDate.AddDays(-60);
             Load();
             LoadProduct();
         }
