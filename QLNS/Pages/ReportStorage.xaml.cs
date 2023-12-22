@@ -1,4 +1,5 @@
-﻿using QLNS.Model;
+﻿using LiveCharts;
+using QLNS.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,10 +118,19 @@ namespace QLNS.Pages
 
         public void LoadImport()
         {
+            float totalcost = 0f;
+            int maxQuantityValues = 0;
+            float maxTotalCostValues = 0;
+            int count = 0;
+            List<string> nameLablesAxisX = new List<string>();
+            List<float> ValuesAxisY_Left = new List<float>();
+            List<int> ValuesAxisY_Right = new List<int>();
+
             int idNH = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.idNH);
             var query = from sp in DataProvider.Ins.DB.SANPHAMs
                         join ctsp in DataProvider.Ins.DB.CTSPs on sp.idSP equals ctsp.idSP
                         where ctsp.idNH == idNH
+                        orderby ctsp.DonGiaNhap * ctsp.SoLuongNhap descending
                         select new
                         {
                             TenSP = sp.TenSP,
@@ -130,6 +140,47 @@ namespace QLNS.Pages
                         };
             DataGrid_CTSP.ItemsSource = query.ToList();
             Text_TotalProductImport.Text = query.Count().ToString("N0").Replace(",", " ") + " Mặt hàng";
+
+            foreach(var item in query)
+            {
+                if (count == 0)
+                {
+                    maxQuantityValues = item.SLNhap;
+                    maxTotalCostValues = (float)item.TongNhap;
+                }
+                count++;
+                
+                if(count <= 7)
+                {
+                    nameLablesAxisX.Add(item.TenSP.ToString());
+
+                    ValuesAxisY_Left.Add((float)item.TongNhap);
+
+                    ValuesAxisY_Right.Add(item.SLNhap);
+
+                    if (item.SLNhap > maxQuantityValues)
+                    {
+                        maxQuantityValues = item.SLNhap;
+                    }
+                }
+                //Tong chi phi
+                totalcost += (float)item.TongNhap;
+            }
+
+            //Ui binding
+            TotalCost_Text.Text = totalcost.ToString("N0").Replace(",", " ") + " VND";
+
+            //Chart visibilitty
+            ChartValues<float> ChartAxisY_Left_Values = new ChartValues<float>(ValuesAxisY_Left);
+            ChartValues<int> ChartAxisY_Right_Values = new ChartValues<int>(ValuesAxisY_Right);
+            TotalCostValues_ColumnSeries.Values = ChartAxisY_Left_Values;
+            QuantityValues_ColumnSeries.Values = ChartAxisY_Right_Values;
+
+            //Truc X, Y
+            AxisX_Bottom.Labels = nameLablesAxisX;
+            AxisY_Left.MaxValue = (int)maxTotalCostValues;
+            AxisY_Right.MaxValue = (int)maxQuantityValues;
+            
         }
     }
 }
