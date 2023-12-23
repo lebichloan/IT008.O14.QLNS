@@ -23,6 +23,48 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnStatistical" Margin="10 9 0 0" Click="btnStatistical_Click" HorizontalAlignment="Left" FontSize="12" Height="21" Content="Thống kê" Style="{StaticResource btnUpdate}">
+                    </Button>
+                    <TextBlock Margin="15 12 -5 0" Text="Từ ngày:" FontSize="12"/>
+                    <DatePicker x:Name="DatePicker_StartDate" Margin="10 10 0 0" FontSize="12"
+                                Width="100" Height="20" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="2"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#879FFF"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <TextBlock  Margin="15 12 -5 0" Text="Đến ngày:" FontSize="12"/>
+                    <DatePicker x:Name="DatePicker_EndDate" Margin="10 10 0 0" FontSize="12"
+                                Width="100" Height="20" Padding="1 0 5 0" HorizontalAlignment="Left"
+                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="2"
+                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                                materialDesign:TextFieldAssist.UnderlineBrush="#879FFF"
+                                Foreground="Black"
+                                BorderThickness="0.5"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" >
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    
+                </StackPanel>
+            </Grid>
+            <Separator Grid.Row="1" Grid.ColumnSpan="2" Margin="20 9 20 0" Background="Gray"/>
             <Grid Grid.Row="2" Margin="10 10 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -31,7 +73,7 @@
                 </Grid.RowDefinitions>
                 <!--Title-->
                 <TextBlock Text="TỔNG CHI PHÍ NHẬP" FontSize="11" FontWeight="Bold"/>
-                <TextBlock x:Name="TotalCost_Text" Text="560.304.347" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2A64F7" FontSize="17"/>
+                <TextBlock x:Name="TotalCost_Text" Text="0 VND" FontWeight="Bold" Margin="0 15 0 0" Foreground="#2A64F7" FontSize="17"/>
                 <Grid Grid.Row="0" Margin="20 5 0 5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -57,7 +99,7 @@
                     </lvc:CartesianChart.DataTooltip>
 
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis x:Name="AxisX_Bottom" ShowLabels="True" Foreground="Black" Labels="Milo,Book,Cap,Cat,knife,Pen,Phone">
+                        <lvc:Axis x:Name="AxisX_Bottom" ShowLabels="True" Foreground="Black" Labels=" , , , , , , ">
                             <lvc:Axis.Separator>
                                 <lvc:Separator Step="1" StrokeThickness="0"/>
                             </lvc:Axis.Separator>
@@ -79,7 +121,7 @@
                     </lvc:CartesianChart.AxisY>
 
                     <lvc:CartesianChart.Series>
-                        <lvc:ColumnSeries x:Name="TotalCostValues_ColumnSeries" Title="Tổng giá trị nhập" Values="100,80,90,50,70,80,40" MaxColumnWidth="15" ScalesYAt="0">
+                        <lvc:ColumnSeries x:Name="TotalCostValues_ColumnSeries" Title="Tổng giá trị nhập" Values="0,0,0,0,0,0,0" MaxColumnWidth="15" ScalesYAt="0">
                             <lvc:ColumnSeries.Fill>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
                                     <GradientStop Color="#2A64F7" Offset="0.4"/>
@@ -88,7 +130,7 @@
                             </lvc:ColumnSeries.Fill>
                         </lvc:ColumnSeries>
 
-                        <lvc:ColumnSeries x:Name="QuantityValues_ColumnSeries" Title="Số lượng" Values="6,7,9,4,9,6,3" MaxColumnWidth="15" ScalesYAt="1">
+                        <lvc:ColumnSeries x:Name="QuantityValues_ColumnSeries" Title="Số lượng" Values="0,0,0,0,0,0,0" MaxColumnWidth="15" ScalesYAt="1">
                             <lvc:ColumnSeries.Fill>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
                                     <GradientStop Color="#EF6F09" Offset="0.4"/>
@@ -110,6 +152,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="CHI TIẾT NHẬP HÀNG" FontSize="11" FontWeight="Bold" Margin="12 10 0 0"/>
+                    <TextBlock x:Name="StartDate_EndDate_Text" Text="(22/11/2023 - 30/12/2023)" HorizontalAlignment="Left" FontSize="10" FontWeight="SemiBold" Margin="132 11 0 0"/>
                     <TextBlock x:Name="Text_TotalProductImport" Text="1,593" FontWeight="Bold" Margin="12 25 0 -10" Foreground="#2176F4" FontSize="17"/>
                     <DataGrid x:Name="DataGrid_CTSP" ScrollViewer.VerticalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Grid.Row="1" Background="White" Margin="10 7 10 10">
                         <DataGrid.Columns>
@@ -140,7 +183,7 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="SÓ LƯỢNG SẢN PHẨM BÁN RA GÀN ĐÂY" FontSize="11" FontWeight="Bold" Margin="10 10 0 0"/>
+                    <TextBlock Text="SÓ LƯỢNG SẢN PHẨM BÁN RA GẦN ĐÂY" FontSize="11" FontWeight="Bold" Margin="10 10 0 0"/>
                     <TextBlock x:Name="Text_ToTalProduct" Text="1,593" FontWeight="Bold" Margin="10 25 0 -10" Foreground="#2176F4" FontSize="17"/>
                     <Border CornerRadius="4" Margin="0 10 20 0" HorizontalAlignment="Right" Height="20" Width="125" BorderBrush="Black" BorderThickness="1" >
                         <ComboBox x:Name="ComboBox_Date" FontSize="12" Height="20" Padding="0 0 5 0" SelectionChanged="ComboBox_Date_SelectionChanged"

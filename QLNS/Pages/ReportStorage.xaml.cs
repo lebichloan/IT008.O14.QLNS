@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using QLNS.Model;
+using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,19 @@ namespace QLNS.Pages
     {
         private DateTime startDate { get; set; }
         private DateTime endDate { get; set; }
+        private DateTime startDateChart { get; set; }
+        private DateTime endDateChart { get; set; }
         public ReportStorage()
         {
             InitializeComponent();
             endDate = DateTime.Now;
             startDate = endDate.AddDays(-30);
+
+            endDateChart = DateTime.Now;
+            startDateChart = endDateChart.AddDays(-30);
             ComboBox_Date.SelectedIndex = 1;
+            DatePicker_EndDate.Text = endDateChart.ToShortDateString();
+            DatePicker_StartDate.Text = startDateChart.ToShortDateString();
             LoadProductStorage();
             LoadImport();
             //LoadProduct();
@@ -126,10 +134,10 @@ namespace QLNS.Pages
             List<float> ValuesAxisY_Left = new List<float>();
             List<int> ValuesAxisY_Right = new List<int>();
 
-            int idNH = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.idNH);
             var query = from sp in DataProvider.Ins.DB.SANPHAMs
                         join ctsp in DataProvider.Ins.DB.CTSPs on sp.idSP equals ctsp.idSP
-                        where ctsp.idNH == idNH
+                        join nh in DataProvider.Ins.DB.NHAPHANGs on ctsp.idNH equals nh.idNH
+                        where nh.NgayNhap >= startDateChart && nh.NgayNhap <= endDateChart
                         orderby ctsp.DonGiaNhap * ctsp.SoLuongNhap descending
                         select new
                         {
@@ -140,47 +148,78 @@ namespace QLNS.Pages
                         };
             DataGrid_CTSP.ItemsSource = query.ToList();
             Text_TotalProductImport.Text = query.Count().ToString("N0").Replace(",", " ") + " Mặt hàng";
-
-            foreach(var item in query)
+            if(query.Count() > 0)
             {
-                if (count == 0)
+
+                foreach(var item in query)
                 {
-                    maxQuantityValues = item.SLNhap;
-                    maxTotalCostValues = (float)item.TongNhap;
-                }
-                count++;
-                
-                if(count <= 7)
-                {
-                    nameLablesAxisX.Add(item.TenSP.ToString());
-
-                    ValuesAxisY_Left.Add((float)item.TongNhap);
-
-                    ValuesAxisY_Right.Add(item.SLNhap);
-
-                    if (item.SLNhap > maxQuantityValues)
+                    if (count == 0)
                     {
                         maxQuantityValues = item.SLNhap;
+                        maxTotalCostValues = (float)item.TongNhap;
                     }
+                    count++;
+                
+                    if(count <= 6)
+                    {
+                        nameLablesAxisX.Add(item.TenSP.ToString());
+
+                        ValuesAxisY_Left.Add((float)item.TongNhap);
+
+                        ValuesAxisY_Right.Add(item.SLNhap);
+
+                        if (item.SLNhap > maxQuantityValues)
+                        {
+                            maxQuantityValues = item.SLNhap;
+                        }
+                    }
+                    //Tong chi phi
+                    totalcost += (float)item.TongNhap;
                 }
-                //Tong chi phi
-                totalcost += (float)item.TongNhap;
+
+                //Ui binding
+                TotalCost_Text.Text = totalcost.ToString("N0").Replace(",", " ") + " VND";
+
+                //Chart visibilitty
+                ChartValues<float> ChartAxisY_Left_Values = new ChartValues<float>(ValuesAxisY_Left);
+                ChartValues<int> ChartAxisY_Right_Values = new ChartValues<int>(ValuesAxisY_Right);
+                TotalCostValues_ColumnSeries.Values = ChartAxisY_Left_Values;
+                QuantityValues_ColumnSeries.Values = ChartAxisY_Right_Values;
+
+                //Truc X, Y
+                AxisX_Bottom.Labels = nameLablesAxisX;
+                AxisY_Left.MaxValue = (int)maxTotalCostValues;
+                AxisY_Right.MaxValue = (int)maxQuantityValues;
             }
-
-            //Ui binding
-            TotalCost_Text.Text = totalcost.ToString("N0").Replace(",", " ") + " VND";
-
-            //Chart visibilitty
-            ChartValues<float> ChartAxisY_Left_Values = new ChartValues<float>(ValuesAxisY_Left);
-            ChartValues<int> ChartAxisY_Right_Values = new ChartValues<int>(ValuesAxisY_Right);
-            TotalCostValues_ColumnSeries.Values = ChartAxisY_Left_Values;
-            QuantityValues_ColumnSeries.Values = ChartAxisY_Right_Values;
-
-            //Truc X, Y
-            AxisX_Bottom.Labels = nameLablesAxisX;
-            AxisY_Left.MaxValue = (int)maxTotalCostValues;
-            AxisY_Right.MaxValue = (int)maxQuantityValues;
-            
+            // UI 
+            StartDate_EndDate_Text.Text = "(" + startDateChart.ToShortDateString() + " - " + endDateChart.ToShortDateString() + ")";
+        }
+        private void btnStatistical_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (DatePicker_StartDate.SelectedDate == null)
+                {
+                    throw new Exception("Vui lòng chọn ngày để thống kê phân tích");
+                }
+                if (DatePicker_EndDate.SelectedDate == null)
+                {
+                    throw new Exception("Vui lòng chọn ngày để thống kê phân tích");
+                }
+                if (DatePicker_StartDate.SelectedDate >= DatePicker_EndDate.SelectedDate)
+                {
+                    throw new Exception("Ngày bắt đầu thống kê phải nhỏ hơn ngày kết thúc thống kê!");
+                }
+                startDateChart = DatePicker_StartDate.SelectedDate.Value;
+                endDateChart = DatePicker_EndDate.SelectedDate.Value;
+                LoadImport();
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
         }
     }
 }
