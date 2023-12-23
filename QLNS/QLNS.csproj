@@ -258,6 +258,9 @@
     <Compile Include="ResourceXAML\CheckOutBill.xaml.cs">
       <DependentUpon>CheckOutBill.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\DetailAccount.xaml.cs">
+      <DependentUpon>DetailAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\DetailBill.xaml.cs">
       <DependentUpon>DetailBill.xaml</DependentUpon>
     </Compile>
@@ -480,6 +483,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\CheckOutBill.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

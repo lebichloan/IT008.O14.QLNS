@@ -85,7 +85,8 @@
                     Width="270"
                     Style="{DynamicResource squareButton}"
                     HorizontalContentAlignment="Left"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    Click="AccountInfo_Clicked">
 
                 <StackPanel Orientation="Horizontal">
 
