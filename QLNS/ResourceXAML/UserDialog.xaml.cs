@@ -117,5 +117,11 @@ namespace QLNS.ResourceXAML
 
             detailAccount.ShowDialog();
         }
+
+        private void ChangePassword_Clicked(object sender, RoutedEventArgs e)
+        {
+            ChangePassword changePassword = new ChangePassword();
+            changePassword.ShowDialog();
+        }
     }
 }

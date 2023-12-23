@@ -121,7 +121,6 @@ namespace QLNS.ResourceXAML
         {
             tenKH.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             gioiTinh.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
-            diaChi.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             sDT.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
             ngayTG.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
@@ -130,7 +129,7 @@ namespace QLNS.ResourceXAML
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             ForceValidation();
-            if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(diaChi) || Validation.GetHasError(sDT) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayTG) || Validation.GetHasError(diemTL))
+            if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(sDT) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayTG) || Validation.GetHasError(diemTL))
             {
                 Message message = new Message();
                 message.message.Text = "Đã có lỗi xảy ra";
