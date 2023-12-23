@@ -82,5 +82,40 @@ namespace QLNS.ResourceXAML
             }
             detailUser.ShowDialog();
         }
+
+        private void AccountInfo_Clicked(object sender, RoutedEventArgs e)
+        {
+            DetailAccount detailAccount = new DetailAccount();
+            QLNSEntities qlns = new QLNSEntities();
+            int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+
+            var query = from nd in qlns.NGUOIDUNGs
+                        join lnd in qlns.LOAINGUOIDUNGs on nd.idLND equals lnd.idLND
+                        where nd.idND == id
+                        select nd;
+            var lst = query.ToList();
+
+            detailAccount.TenTK.Text = lst[0].TenDN;
+            detailAccount.NgayTao.Text = lst[0].NgayTao.ToString("MM/dd/yyyy");
+            if (lst[0].TinhTrang == 0)
+            {
+                detailAccount.TinhTrang.Text = "Đã bị khóa";
+            }
+            else
+            {
+                detailAccount.TinhTrang.Text = "Đang hoạt động";
+            }
+            detailAccount.LoaiND.Text = lst[0].LOAINGUOIDUNG.TenLND;
+            if (lst[0].LOAINGUOIDUNG.MoTa is null)
+            {
+                detailAccount.MoTa.Text = "";
+            }
+            else
+            {
+                detailAccount.MoTa.Text = lst[0].LOAINGUOIDUNG.MoTa;
+            }
+
+            detailAccount.ShowDialog();
+        }
     }
 }
