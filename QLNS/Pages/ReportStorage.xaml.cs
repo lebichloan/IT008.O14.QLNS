@@ -150,7 +150,8 @@ namespace QLNS.Pages
             Text_TotalProductImport.Text = query.Count().ToString("N0").Replace(",", " ") + " Mặt hàng";
             if(query.Count() > 0)
             {
-
+                ChartImport.Visibility = Visibility.Visible;
+                Text_Error.Visibility = Visibility.Hidden;
                 foreach(var item in query)
                 {
                     if (count == 0)
@@ -176,20 +177,22 @@ namespace QLNS.Pages
                     //Tong chi phi
                     totalcost += (float)item.TongNhap;
                 }
-
                 //Ui binding
                 TotalCost_Text.Text = totalcost.ToString("N0").Replace(",", " ") + " VND";
 
                 //Chart visibilitty
                 ChartValues<float> ChartAxisY_Left_Values = new ChartValues<float>(ValuesAxisY_Left);
                 ChartValues<int> ChartAxisY_Right_Values = new ChartValues<int>(ValuesAxisY_Right);
-                TotalCostValues_ColumnSeries.Values = ChartAxisY_Left_Values;
                 QuantityValues_ColumnSeries.Values = ChartAxisY_Right_Values;
 
                 //Truc X, Y
                 AxisX_Bottom.Labels = nameLablesAxisX;
-                AxisY_Left.MaxValue = (int)maxTotalCostValues;
                 AxisY_Right.MaxValue = (int)maxQuantityValues;
+            }
+            else
+            {
+                ChartImport.Visibility = Visibility.Hidden;
+                Text_Error.Visibility = Visibility.Visible;
             }
             // UI 
             StartDate_EndDate_Text.Text = "(" + startDateChart.ToShortDateString() + " - " + endDateChart.ToShortDateString() + ")";
