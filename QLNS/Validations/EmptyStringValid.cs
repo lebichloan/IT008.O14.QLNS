@@ -16,7 +16,7 @@ namespace QLNS.Validations
         {
             //throw new NotImplementedException();
             var str = value as string;
-            if (str == null || str == string.Empty)
+            if (value is null || str == string.Empty)
             {
                 return new ValidationResult(false, "Vui lòng điền đầy đủ thông tin!");
             }

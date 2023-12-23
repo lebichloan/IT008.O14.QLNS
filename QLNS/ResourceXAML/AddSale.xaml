@@ -14,7 +14,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         Name="addSale"
-        Title="AddSale" Height="500" Width="800">
+        Title="AddSale" Height="500" Width="330">
 
     <Border CornerRadius="5"
             Background="{DynamicResource SecundaryBackgroundColor}"
