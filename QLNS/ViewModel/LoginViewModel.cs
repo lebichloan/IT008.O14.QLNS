@@ -62,6 +62,7 @@ namespace QLNS.ViewModel
                 else if (existingUser.idLND == 2)
                 {
                     isLogin = 1;
+                    App.Current.Properties["isLogin"] = 1;
                     MainThuNgan mainThuNgan = new MainThuNgan(idND);
                     p.Close();
                     mainThuNgan.Show();
@@ -69,6 +70,7 @@ namespace QLNS.ViewModel
                 else if (existingUser.idLND == 3)
                 {
                     isLogin = 1;
+                    App.Current.Properties["isLogin"] = 1;
                     MainNhanVienKho mainNhanVienKho = new MainNhanVienKho(idND);
                     p.Close();
                     mainNhanVienKho.Show();
