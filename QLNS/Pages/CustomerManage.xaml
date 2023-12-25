@@ -32,8 +32,9 @@
                        Margin="0 10 0 10"/>
 
             <TabControl HorizontalContentAlignment="Left" 
+                        
                         Grid.Row="1">
-                <TabItem Header="Quản lý khách hàng" 
+                <TabItem Header="Quản lý khách hàng"
                          Width="200" 
                          Loaded="customer_Loaded" 
                          HorizontalAlignment="Left">

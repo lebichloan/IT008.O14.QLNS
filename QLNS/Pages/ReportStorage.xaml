@@ -113,7 +113,7 @@
 
                     <lvc:CartesianChart.Series>
 
-                        <lvc:ColumnSeries x:Name="QuantityValues_ColumnSeries" Title="Số lượng" Values="0,0,0,0,0,0,0" MaxColumnWidth="15" ScalesYAt="0">
+                        <lvc:ColumnSeries x:Name="QuantityValues_ColumnSeries" Title="Số lượng" Values="0,0,0,0,0,0,0" MaxColumnWidth="25" ScalesYAt="0">
                             <lvc:ColumnSeries.Fill>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="1">
                                     <GradientStop Color="#2A64F7" Offset="0.4"/>
