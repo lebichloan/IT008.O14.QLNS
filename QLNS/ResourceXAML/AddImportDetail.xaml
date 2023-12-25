@@ -375,19 +375,11 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel
+                            <TextBlock
+                                Name="lblDanhMuc"
                                 Grid.Row="0"
-                                Grid.Column="0"
-                                Orientation="Horizontal">
-                                <TextBlock Name="lblSoLuongDaBan" />
+                                Grid.Column="0" />
 
-                                <Rectangle
-                                    Width="1"
-                                    Margin="5,0"
-                                    Stroke="{DynamicResource SepratorBackgroundColor}" />
-
-                                <TextBlock Name="lblSoLuongConLai" />
-                            </StackPanel>
 
                             <TextBlock
                                 Name="lblMoTa"

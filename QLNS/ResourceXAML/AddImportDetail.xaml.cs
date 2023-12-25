@@ -22,7 +22,7 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddImportDetail : Window
     {
-        private int idND = 1;
+        public int idND {  get; set; }
         
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddImportDetail()
@@ -80,15 +80,14 @@ namespace QLNS.ResourceXAML
 
                 detailProductExpander.Visibility = Visibility.Visible;
                 detailProductExpander.IsExpanded = true;
-                idSP = selectedProduct.idSP;
+                //idSP = selectedProduct.idSP;
                 headerProductExpander.Text = selectedProduct.TenSP;
-                lblSoLuongDaBan.Text = string.Format("{0} {1}", "Đã bán", selectedProduct.SLDB.ToString());
-                SLSPCL = selectedProduct.SLCL;
-                lblSoLuongConLai.Text = string.Format("{0} {1}", "Còn lại", SLSPCL.ToString());
+                
                 if (selectedProduct.MoTa != "")
                 {
                     lblMoTa.Text = selectedProduct.MoTa;
                 }
+                lblDanhMuc.Text = selectedProduct.TenDM;
                 
                 btnSub.IsEnabled = false;
                 SLSPNH = 0;
@@ -153,10 +152,7 @@ namespace QLNS.ResourceXAML
                 MessageBox.Show("Vui long nhap so luong lon hon 0");
                 //txtSoLuongSanPham.Focus();
             }
-            else if (SLSPNH > SLSPCL)
-            {
-                MessageBox.Show("Kho khong the cung cap so luong nay");
-            }
+            
             else
             {
                 addProducttoBill();
@@ -218,7 +214,6 @@ namespace QLNS.ResourceXAML
         }
 
         private int idSP = 0;
-        private int SLSPCL = 0;
         private decimal DonGiaSP = 0;
         private short SLSPNH = 0;
         private decimal ThanhTienSP = 0;
@@ -236,11 +231,6 @@ namespace QLNS.ResourceXAML
                     if (soLuongSPInput <= 0)
                     {
                         MessageBox.Show("Vui long nhap so luong lon hon 0");
-                        txtSoLuongSanPham.Focus();
-                    }
-                    else if (soLuongSPInput > SLSPCL)
-                    {
-                        MessageBox.Show("Kho khong the cung cap so luong nay");
                         txtSoLuongSanPham.Focus();
                     }
                     else
@@ -266,15 +256,7 @@ namespace QLNS.ResourceXAML
             {
                 btnSub.IsEnabled = false;
             }
-            if (sl >= SLSPCL)
-            {
-                btnAdd.IsEnabled = false;
-            }
-            if (sl > 0 && sl < SLSPCL)
-            {
-                btnAdd.IsEnabled = true;
-                btnSub.IsEnabled = true;
-            }
+            
         }
 
         private int TongSoLuongSP = 0;

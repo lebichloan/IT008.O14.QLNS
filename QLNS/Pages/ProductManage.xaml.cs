@@ -92,11 +92,17 @@ namespace QLNS.Pages
             public string TenDM { get; set; }
         }
 
+        public int idND {  get; set; }
 
         QLNSEntities qLNSEntities = new QLNSEntities();
         public ProductManage()
         {
             InitializeComponent();
+        }
+        public ProductManage(int userID)
+        {
+            InitializeComponent();
+            idND = userID;
         }
 
         
@@ -318,6 +324,7 @@ namespace QLNS.Pages
         {
             AddErrorProduct addErrorProduct = new AddErrorProduct();
             addErrorProduct.productManage = this;
+            addErrorProduct.idND = idND;
             addErrorProduct.ShowDialog();
         }
 
