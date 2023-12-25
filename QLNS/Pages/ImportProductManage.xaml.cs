@@ -25,9 +25,16 @@ namespace QLNS.Pages
         QLNSEntities qLNSEntities = new QLNSEntities();
         int pageNumber = 0;
         int pageSize = 15;
+
+        public int idND {  get; set; }
         public ImportProductManage()
         {
             InitializeComponent();
+        }
+        public ImportProductManage(int userID)
+        {
+            InitializeComponent();
+            idND = userID;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -38,6 +45,7 @@ namespace QLNS.Pages
         private void btnAddImportDetail_Click(object sender, RoutedEventArgs e)
         {
             AddImportDetail addImportDetail = new AddImportDetail();
+            addImportDetail.idND = idND;
             addImportDetail.ShowDialog();
         }
 
