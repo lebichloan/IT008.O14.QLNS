@@ -22,11 +22,17 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddImportDetail : Window
     {
-        public int idND {  get; set; }
+        private int idND = -1;
         
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddImportDetail()
         {
+            idND = 1;
+            InitializeComponent();
+        }
+        public AddImportDetail(int idImport)
+        {
+            idND = idImport;
             InitializeComponent();
         }
         
@@ -80,7 +86,7 @@ namespace QLNS.ResourceXAML
 
                 detailProductExpander.Visibility = Visibility.Visible;
                 detailProductExpander.IsExpanded = true;
-                //idSP = selectedProduct.idSP;
+                idSP = selectedProduct.idSP;
                 headerProductExpander.Text = selectedProduct.TenSP;
                 
                 if (selectedProduct.MoTa != "")
@@ -167,6 +173,7 @@ namespace QLNS.ResourceXAML
                                   orderby sanpham.MaSP
                                   select new
                                   {
+                                      idSP = sanpham.idSP,
                                       MaSP = sanpham.MaSP,
                                       TenSP = sanpham.TenSP,
                                       TenDM = danhmuc.TenDM,
@@ -256,6 +263,10 @@ namespace QLNS.ResourceXAML
             {
                 btnSub.IsEnabled = false;
             }
+            if(sl > 0 ) 
+            {
+                btnSub.IsEnabled = true;
+            }
             
         }
 
@@ -274,7 +285,7 @@ namespace QLNS.ResourceXAML
             lblSoLuongNhapHang.Text = TongSoLuongSP.ToString();
             TongTienNH = TongTienNH + ThanhTienSP;
             lblTongTienNhapHang.Text = TongTienNH.ToString();
-
+            
             btnNext.IsEnabled = true;
         }
         
@@ -349,7 +360,7 @@ namespace QLNS.ResourceXAML
             nhaphang.GhiChu = "";
             TongThanhTienNH = Convert.ToDecimal(lblTongTienNhapHang.Text);
             nhaphang.ThanhTien = TongThanhTienNH;
-            nhaphang.idND = idND;
+            nhaphang.idND = this.idND;
             
             return nhaphang;
         }

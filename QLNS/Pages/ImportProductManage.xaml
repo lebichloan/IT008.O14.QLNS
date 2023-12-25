@@ -72,7 +72,7 @@
 
                 <!--  Staff datagrid  -->
                 <DataGrid
-                    x:Name="staffDataGrid"
+                    x:Name="importDataGrid"
                     Grid.Row="3"
                     AutoGenerateColumns="False">
                     <DataGrid.Columns>
@@ -122,10 +122,10 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <Button Margin="0,0,5,0" Style="{DynamicResource gridViewButton}">
+                                        <Button Name="btnDetailImport" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetailImport_Click">
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                         </Button>
-                                        <Button Style="{DynamicResource gridViewButton}">
+                                        <Button Name="btnDeleteImport"  Style="{DynamicResource gridViewButton}" Click="btnDeleteImport_Click">
                                             <Icon:PackIconMaterial Kind="SquareEditOutline" Style="{DynamicResource gridButtonIcon}" />
                                         </Button>
                                     </StackPanel>
