@@ -81,10 +81,7 @@ namespace QLNS.Pages
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
 
-        private void btnDeleteImport_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
 
         private void btnDetailImport_Click(object sender, RoutedEventArgs e)
         {
