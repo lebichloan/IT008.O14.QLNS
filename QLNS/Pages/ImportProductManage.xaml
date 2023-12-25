@@ -125,9 +125,7 @@
                                         <Button Name="btnDetailImport" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetailImport_Click">
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                         </Button>
-                                        <Button Name="btnDeleteImport"  Style="{DynamicResource gridViewButton}" Click="btnDeleteImport_Click">
-                                            <Icon:PackIconMaterial Kind="SquareEditOutline" Style="{DynamicResource gridButtonIcon}" />
-                                        </Button>
+                                        
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
