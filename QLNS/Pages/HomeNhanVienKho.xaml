@@ -4,11 +4,64 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:QLNS.Pages"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HomeNhanVienKho">
+      Title="HomeNhanVienKho"
+      Name="homeNhanVienKho">
 
-    <Grid>
-        <TextBlock>Home nhan vien kho</TextBlock>
-    </Grid>
+    <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}" Padding="10 5 10 5">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="390"></ColumnDefinition>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
+                        <TextBlock Height="40" FontSize="25" FontWeight="Bold" Margin="0 0 8 0" VerticalAlignment="Center">Xin chào</TextBlock>
+                        <TextBlock Height="40" FontSize="25" FontWeight="Bold" Margin="0 0 0 0" VerticalAlignment="Center" Text="{Binding tennv}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                        <TextBlock Height="25" FontSize="14" FontWeight="Medium">Chúc bạn một ngày tốt lành!</TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1" HorizontalAlignment="Right">
+                    <StackPanel Width="250" Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#879FFF" VerticalAlignment="Center" Height="40" Width="40" Margin="0 0 12 0"/>
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock FontSize="15" FontWeight="SemiBold" Margin="0 16 0 0" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding tennv}"></TextBlock>
+                            <TextBlock FontSize="10" Text="Xem thông tin" TextDecorations="Underline" MouseLeftButtonDown="ViewProfile_MouseLeftButtonDown">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#879FFF"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseDirectlyOver" Value="True">
+                                                <Setter Property="Foreground" Value="#556CC9" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Border>
 </Page>
