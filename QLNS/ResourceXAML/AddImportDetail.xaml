@@ -42,7 +42,9 @@
             <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+            
         </Style>
+        
 
     </Window.Resources>
 
@@ -429,7 +431,6 @@
                                     KeyDown="txtSoLuongSanPham_KeyDown"
                                     LostFocus="txtSoLuongSanPham_LostFocus"
                                     TextAlignment="Center" />
-
                                 <Button
                                     x:Name="btnAdd"
                                     Click="btnAdd_Click"
@@ -441,7 +442,6 @@
                                         Foreground="{DynamicResource PrimaryTextColor}"
                                         Kind="Plus" />
                                 </Button>
-
                             </StackPanel>
 
                             <TextBlock

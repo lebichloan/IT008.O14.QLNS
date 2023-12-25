@@ -45,7 +45,6 @@ namespace QLNS.Pages
         private void btnAddImportDetail_Click(object sender, RoutedEventArgs e)
         {
             AddImportDetail addImportDetail = new AddImportDetail();
-            addImportDetail.idND = idND;
             addImportDetail.ShowDialog();
         }
 
@@ -76,10 +75,22 @@ namespace QLNS.Pages
                     GhiChu = nhaphang.GhiChu,
                 };
 
-            staffDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            importDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+        }
+
+        private void btnDeleteImport_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDetailImport_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedImport = (dynamic)importDataGrid.SelectedItem;
+            DetailImport detailImport = new DetailImport(selectedImport.idNH);
+            detailImport.ShowDialog();
         }
     }
 }
