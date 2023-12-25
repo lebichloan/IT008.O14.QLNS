@@ -77,9 +77,12 @@
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource customers}" IconWidth="16" Text="Quản lý nhân viên" VerticalAlignment="Center"/>
                         </Button>
                         <Button x:Name="btnReport" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnReport_MouseEnter" MouseLeave="btnReport_MouseLeave" Click="btnReport_Click">
-                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource dashboard}" IconWidth="16" Text="Báo cáo thống kê" VerticalAlignment="Center"/>
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource dashboard}" IconWidth="16" Text="Báo cáo thống kê bán hàng" VerticalAlignment="Center"/>
                         </Button>
-                       <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
+                        <Button x:Name="btnReportStorage" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnReportStorage_MouseEnter" MouseLeave="btnReportStorage_MouseLeave" Click="btnReportStorage_Click">
+                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource dashboard}" IconWidth="16" Text="Báo cáo thống kê kho hàng" VerticalAlignment="Center"/>
+                        </Button>
+                        <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource settings}" IconWidth="16" Text="Cài đặt" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
