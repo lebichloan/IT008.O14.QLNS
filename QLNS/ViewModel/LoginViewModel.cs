@@ -78,7 +78,9 @@ namespace QLNS.ViewModel
             }
             else
             {
-                MessageBox.Show("Thông tin tài khoản hoặc mật khẩu không chính xác");
+                Message message = new Message();
+                message.message.Text = "Thông tin tài khoản hoặc mật khẩu không chính xác!";
+                message.ShowDialog();
             }
         }
     }

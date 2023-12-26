@@ -107,14 +107,14 @@
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis x:Name="RevenueChart_AxisX" ShowLabels="True" Foreground="Black">
                                 <lvc:Axis.Separator>
-                                    <lvc:Separator x:Name="RevenueChart_AxisX_Separator" StrokeThickness="0" Stroke="Gray" Step="6">
+                                    <lvc:Separator x:Name="RevenueChart_AxisX_Separator" StrokeThickness="0" Stroke="Gray">
                                     </lvc:Separator>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0">
+                            <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0" MaxValue="100">
                                 <lvc:Axis.Separator>
                                     <lvc:Separator StrokeThickness="1" Stroke="#999999" />
                                 </lvc:Axis.Separator>
@@ -213,9 +213,9 @@
                         </lvc:CartesianChart.DataTooltip>
 
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis x:Name="CustomerChart_AxisX" ShowLabels="True" Foreground="Black" Labels="Jan,.,.,.,Feb,.,.,.,Mar,.,.,.,Apr,May,Jun,July,Aug">
+                            <lvc:Axis x:Name="CustomerChart_AxisX" ShowLabels="True" Foreground="Black">
                                 <lvc:Axis.Separator>
-                                    <lvc:Separator x:Name="CustomerChart_AxisX_Separator" StrokeThickness="0" Step="4"/>
+                                    <lvc:Separator x:Name="CustomerChart_AxisX_Separator" StrokeThickness="0"/>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisX>

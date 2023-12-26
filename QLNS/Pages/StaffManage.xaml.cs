@@ -140,21 +140,57 @@ namespace QLNS.Pages
             {
                 NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
                 NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
-                if (nguoidung != null)
+
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm thông tin này?";
+                messageOption.ShowDialog();
+                bool isAdd = MessageOption.isAgree;
+                if (isAdd)
                 {
-                    Message message = new Message();
-                    message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
-                    message.ShowDialog();
-                }
-                else
-                {
-                    NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
-                    DataProvider.Ins.DB.NHANVIENs.Remove(nv);
-                    DataProvider.Ins.DB.SaveChanges();
-                    LoadDataCurrent();
-                    Message message = new Message();
-                    message.message.Text = "Xóa thành công nhân viên!";
-                    message.ShowDialog();
+                    if (nguoidung != null)
+                    {
+                        bool IsDelete = true;
+                        if (DataProvider.Ins.DB.HOADONs.Any(hd => hd.idND == nguoidung.idND))
+                            IsDelete = false;
+                        else if(DataProvider.Ins.DB.KHUYENMAIs.Any(km => km.idND == nguoidung.idND))
+                            IsDelete = false;
+                        else if(DataProvider.Ins.DB.NHAPHANGs.Any(nh => nh.idND == nguoidung.idND))
+                            IsDelete = false;
+                        else if(DataProvider.Ins.DB.SANPHAMLOIs.Any(spl => spl.idND == nguoidung.idND))
+                            IsDelete = false;
+                        if(IsDelete == false)
+                        {
+                            Message message = new Message();
+                            message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
+                            message.ShowDialog();
+                        }
+                        else
+                        {
+                        
+                            NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
+                            DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
+                            DataProvider.Ins.DB.SaveChanges();
+
+                            NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                            DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                            DataProvider.Ins.DB.SaveChanges();
+                            LoadDataCurrent();
+                            Message message = new Message();
+                            message.message.Text = "Xóa thành công nhân viên!";
+                            message.ShowDialog();
+
+                        }
+                    }
+                    else
+                    {
+                        NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                        DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadDataCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa thành công nhân viên!";
+                        message.ShowDialog();
+                    }
                 }
             }
             catch (Exception ex)
