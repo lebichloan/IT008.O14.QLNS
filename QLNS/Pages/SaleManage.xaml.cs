@@ -2,7 +2,9 @@
 using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +22,16 @@ namespace QLNS.Pages
     /// <summary>
     /// Interaction logic for SaleManage.xaml
     /// </summary>
-    public partial class SaleManage : Page
+    public partial class SaleManage : Page, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         QLNSEntities qlnsEntities = new QLNSEntities();
 
         public SaleManage()
@@ -68,8 +78,8 @@ namespace QLNS.Pages
                     TenKM = khuyenmai.TenKM,
                     MoTa = khuyenmai.MoTa,
                     idLKH = loaikhachhang.TenLKH,
-                    NgayBD = khuyenmai.NgayBD.Month + "/" + khuyenmai.NgayBD.Day + "/" + khuyenmai.NgayBD.Year,
-                    NgayKT = khuyenmai.NgayKT.Month + "/" + khuyenmai.NgayKT.Day + "/" + khuyenmai.NgayKT.Year,
+                    NgayBD = khuyenmai.NgayBD,
+                    NgayKT = khuyenmai.NgayKT,
                     GiamGia = khuyenmai.GiamGia,
                     idND = khuyenmai.idND,
                 };
@@ -193,6 +203,45 @@ namespace QLNS.Pages
                 message.message.Text = ex.Message;
                 message.ShowDialog();
             }
+        }
+
+        private string searchText;
+        public string SearchText { get { return searchText; } set { searchText = value; OnPropertyChanged(); } }
+
+        private void txtSaleSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchText = txtSaleSearch_txtbox.Text;
+            int page = 0;
+            var query = from khuyenmai in qlnsEntities.KHUYENMAIs
+                        join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khuyenmai.idLKH equals loaikhachhang.idLKH
+                        orderby khuyenmai.idKM
+                        select new
+                        {
+                            idKM = khuyenmai.idKM,
+                            MaKM = khuyenmai.MaKM,
+                            TenKM = khuyenmai.TenKM,
+                            MoTa = khuyenmai.MoTa,
+                            idLKH = loaikhachhang.TenLKH,
+                            NgayBD = khuyenmai.NgayBD,
+                            NgayKT = khuyenmai.NgayKT,
+                            GiamGia = khuyenmai.GiamGia,
+                            idND = khuyenmai.idND,
+                        };
+
+            var lst = query.ToList();
+
+            for (int i = lst.Count - 1; i >= 0; i--)
+            {
+                if (!(lst[i].TenKM.Contains(SearchText)))
+                {
+                    lst.RemoveAt(i);
+                }
+            }
+
+            saleDataGrid.ItemsSource = lst.Skip(pageSize * page).Take(pageSize);
+            btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnNext.IsEnabled = lst.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
     }
 }
