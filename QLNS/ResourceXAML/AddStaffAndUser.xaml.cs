@@ -30,6 +30,20 @@ namespace QLNS.ResourceXAML
         {
             InitializeComponent();
         }
+        static bool CheckPass(string input)
+        {
+            if (input.Length <= 8)
+            {
+                return false;
+            }
+
+            if (input.Any(c => !char.IsLetterOrDigit(c)))
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -120,12 +134,29 @@ namespace QLNS.ResourceXAML
                         nguoidung.NgayTao = DateTime.Now;
                         nguoidung.TinhTrang = 1;
                     }
+                    
 
                     MessageOption messageOption = new MessageOption();
                     messageOption.message.Text = "Bạn có chắc chắn muốn thêm thông tin này?";
                     messageOption.ShowDialog();
                     bool isAdd = MessageOption.isAgree;
-                    messageOption.Close();
+                    if (IsAddUser.IsChecked == true)
+                    {
+                        if (DataProvider.Ins.DB.NGUOIDUNGs.Any(x => x.TenDN == TenDN.Text))
+                        {
+                            throw new Exception("Tài khoản người dùng đã tồn tại!");
+                        }
+                    }
+                    // Kiểm tra Mật Khẩu
+                    if (MatKhau.Password.Length < 8)
+                    {
+                        throw new Exception("Mật khẩu chứa ít nhất 8 ký tự!");
+                    }
+                    if (MatKhau.Password.Any(c => !char.IsLetterOrDigit(c)))
+                    {
+                        throw new Exception("Mật khẩu không chứa các ký tự đặc biệt, chỉ chứa số hoặc chữ");
+                    }
+
                     if (isAdd)
                     {
                         DataProvider.Ins.DB.NHANVIENs.Add(nhanvien);
