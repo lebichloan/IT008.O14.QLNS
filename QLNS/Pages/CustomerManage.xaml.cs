@@ -16,14 +16,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QLNS.ViewModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace QLNS.Pages
 {
     /// <summary>
     /// Interaction logic for CustomerManage.xaml
     /// </summary>
-    public partial class CustomerManage : Page
+    public partial class CustomerManage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         QLNSEntities qlnsEntities = new QLNSEntities();
         public CustomerManage()
         {
@@ -71,7 +80,7 @@ namespace QLNS.Pages
                     NgaySinh = khachhang.NgaySinh,
                     DiaChi = khachhang.DiaChi,
                     SDT = khachhang.SDT,
-                    NgayTG = khachhang.NgayTG.Month + "/" + khachhang.NgayTG.Day + "/" + khachhang.NgayTG.Year,
+                    NgayTG = khachhang.NgayTG,
                     DiemTichLuy = khachhang.DiemTichLuy,
                     idLKH = loaikhachhang.TenLKH,
                 };
@@ -321,6 +330,81 @@ namespace QLNS.Pages
             }
             catch { }
 
+        }
+
+        private string customerSearchValue;
+        public string CustomerSearchValue { get { return customerSearchValue; } set { customerSearchValue = value; OnPropertyChanged(); } }
+
+        private string customertypeSearchValue;
+        public string CustomerTypeSearchValue { get { return customertypeSearchValue; } set { customertypeSearchValue = value; OnPropertyChanged(); } }
+
+        private void txtCustomerSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CustomerSearchValue = txtCustomerSearch_txtbox.Text;
+
+            int page = 0;
+
+            var query =
+                from khachhang in qlnsEntities.KHACHHANGs
+                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khachhang.idLKH equals loaikhachhang.idLKH
+                orderby khachhang.idKH
+                select new
+                {
+                    idKH = khachhang.idKH,
+                    MaKH = khachhang.MaKH,
+                    TenKH = khachhang.TenKH,
+                    GioiTinh = khachhang.GioiTinh,
+                    NgaySinh = khachhang.NgaySinh,
+                    DiaChi = khachhang.DiaChi,
+                    SDT = khachhang.SDT,
+                    NgayTG = khachhang.NgayTG,
+                    DiemTichLuy = khachhang.DiemTichLuy,
+                    idLKH = loaikhachhang.TenLKH,
+                };
+
+            var lst = query.ToList();
+
+
+            for (int i = lst.Count - 1; i >= 0; i--)
+            {
+                if (!(lst[i].TenKH.Contains(CustomerSearchValue)))
+                {
+                    lst.RemoveAt(i);
+                }
+            }
+
+            CustomerDataGrid.ItemsSource = lst.Skip(pageSize * page).Take(pageSize);
+            btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnNext.IsEnabled = lst.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (lst.Count() + pageSize - 1) / pageSize);
+
+        }
+
+        private void txtCustomerTypeSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CustomerTypeSearchValue = txtCustomerTypeSearch_txtbox.Text;
+
+            int page = 0;
+
+            var query = from lkh in qlnsEntities.LOAIKHACHHANGs
+                        where lkh.idLKH != 0
+                        orderby lkh.idLKH
+                        select lkh;
+
+            var lst = query.ToList();
+
+            for (int i = lst.Count - 1; i >= 0; i--)
+            {
+                if (!(lst[i].TenLKH.Contains(CustomerTypeSearchValue)))
+                {
+                    lst.RemoveAt(i);
+                }
+            }
+
+            CustomerTypesDataGrid.ItemsSource = lst.Skip(pageSize1 * page).Take(pageSize1);
+            btnCTPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnCTNext.IsEnabled = lst.Skip(pageSize1 * (page + 1)).Take(pageSize1).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblCTPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize1 - 1) / pageSize1);
         }
     }
 }

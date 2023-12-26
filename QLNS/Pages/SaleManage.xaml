@@ -64,7 +64,7 @@
                                VerticalAlignment="Center"/>-->
 
                 <!--Search-->
-                <TextBlock Text="Filter by"
+                <TextBlock Text="Tìm kiếm"
                                Grid.Row="2"
                                FontSize="13"
                                FontWeight="SemiBold"
@@ -88,15 +88,16 @@
                                Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"
                             />
 
-                    <TextBox x:Name="txtSaleSearch" 
+                    <TextBox x:Name="txtSaleSearch_border" 
                             Style="{DynamicResource searchTextBox}"
                              IsReadOnly="True"
                             />
-                    <TextBox x:Name="txtSaleSearch1"
+                    <TextBox x:Name="txtSaleSearch_txtbox"
                              Margin="23,1,1,0"
                             Style="{DynamicResource searchTextBox}"
                              BorderThickness="0"
                              Height="22"
+                             TextChanged="txtSaleSearch_TextChanged"
                             />
 
                     <Icon:PackIconMaterial Kind="Magnify"
