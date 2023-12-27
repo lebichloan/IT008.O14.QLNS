@@ -138,7 +138,7 @@ namespace QLNS.ResourceXAML
             else
             {
                 MessageOption messageOption = new MessageOption();
-                messageOption.message.Text = "Bạn có chắc chắn muốn thêm loại khách hàng này?";
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm khách hàng này?";
                 messageOption.ShowDialog();
                 bool isAdd = MessageOption.isAgree;
                 messageOption.Close();

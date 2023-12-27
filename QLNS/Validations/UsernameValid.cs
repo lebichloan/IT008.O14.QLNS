@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace QLNS.Validations
 {
-    public class NewPasswordValid : ValidationRule
+    public class UsernameValid : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -17,21 +17,17 @@ namespace QLNS.Validations
             string str = value as string;
             if (value != null && str != string.Empty)
             {
-                int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
                 QLNSEntities qlns = new QLNSEntities();
                 var query = from nd in qlns.NGUOIDUNGs
-                            where nd.idND == id
                             select nd;
                 var lst = query.ToList();
-                if (str.Equals(lst[0].MatKhau))
+                for (int i = 0; i < lst.Count; i++)
                 {
-                    return new ValidationResult(false, "Mật khẩu mới không được trùng mật khẩu cũ!");
+                    if (lst[i].TenDN == str)
+                    {
+                        return new ValidationResult(false, "Đã tồn tại tài khoản người dùng này!");
+                    }
                 }
-                if (str.Length > 30)
-                {
-                    return new ValidationResult(false, "Mật khẩu không được quá 30 ký tự!");
-                }
-                App.Current.Properties["newPassword"] = str;
                 return new ValidationResult(true, null);
             }
             return new ValidationResult(false, "Vui lòng điền đầy đủ thông tin!");

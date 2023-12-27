@@ -255,6 +255,9 @@
     <Compile Include="ResourceXAML\AddStaffAndUser.xaml.cs">
       <DependentUpon>AddStaffAndUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\AddUser.xaml.cs">
+      <DependentUpon>AddUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
@@ -329,9 +332,11 @@
     <Compile Include="Validations\EmptyStringValid.cs" />
     <Compile Include="Validations\NewPasswordValid.cs" />
     <Compile Include="Validations\NumberValid.cs" />
+    <Compile Include="Validations\PasswordValid.cs" />
     <Compile Include="Validations\PhoneNumberValid.cs" />
     <Compile Include="Validations\Sale_EndDateValid.cs" />
     <Compile Include="Validations\Sale_StartDateValid.cs" />
+    <Compile Include="Validations\UsernameValid.cs" />
     <Compile Include="ViewModel\AddBillViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BillCustomerListBoxItem.cs" />
@@ -488,6 +493,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\AddStaffAndUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\AddUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
