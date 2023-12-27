@@ -1,5 +1,6 @@
 ﻿using QLNS.Controls;
 using QLNS.Model;
+using QLNS.Pages;
 using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace QLNS.ResourceXAML
     {
         private int idND = -1;
         
+        public ImportProductManage importProductManage {  get; set; }
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddImportDetail()
         {
@@ -292,12 +295,27 @@ namespace QLNS.ResourceXAML
 
         private void txtSoLuongSanPham_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.Key == Key.Enter)
+            {
+                searchTerm = txtSearchProduct.Text.ToLower();
+                if (searchTerm == "")
+                {
+                    isSearch = 0;
+                    productTabItem.Header = "Tất cả sản phẩm";
+                    LoadAllProduct();
+                }
+                else
+                {
+                    isSearch = 1;
+                    productTabItem.Header = "Kết quả tìm kiếm";
+                    FilterProduct(searchTerm);
+                }
+            }
         }
 
         private void txtSoLuongSanPham_LostFocus(object sender, RoutedEventArgs e)
         {
-
+            GetValueSoLuongSP();
         }
 
         private void productListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -344,9 +362,9 @@ namespace QLNS.ResourceXAML
                 DataProvider.Ins.DB.CTSPs.Add(ctsp);
                 DataProvider.Ins.DB.SaveChanges();
             }
-
-            MessageBox.Show("Them don nhap hang thanh cong");
-            
+            Message message = new Message();
+            message.message.Text = "Thêm đơn nhập hàng thành công";
+            importProductManage.LoadData(importProductManage.pageNumber);
             this.Close();
         }
 
@@ -375,7 +393,7 @@ namespace QLNS.ResourceXAML
             ctsp.DonGiaXuat =0;
             ctsp.SoLuongLoi = 0;
             ctsp.GhiChu = "";
-            //ctsp.TinhTrang = "Còn hàng";
+            ctsp.TinhTrang = 1;
             ctsp.idNH = idNH;
             ctsp.idCTSP = GetLastIdProductDetail();
             
@@ -389,7 +407,7 @@ namespace QLNS.ResourceXAML
                 product.SLConLai = (short)(product.SLConLai + sl);
                 if (product.SLConLai == 0)
                 {
-                    ///product.TinhTrang = "Đã bán hết";
+                    product.TinhTrang = 0;
                 }
                 qLNSEntities.SaveChanges();
             }
