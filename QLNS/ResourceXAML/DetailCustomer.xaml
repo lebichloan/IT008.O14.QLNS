@@ -70,17 +70,17 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 10 0 0">
-                        <TextBlock Text="Tên khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 18 0 30"></TextBlock>
-                        <TextBlock Text="Giới tính" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Ngày sinh" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Địa chỉ" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Số điện thoại" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Ngày tham gia" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Điểm tích lũy" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Loại khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
+                        <TextBlock Text="Tên khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 18 0 40"></TextBlock>
+                        <TextBlock Text="Giới tính" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Ngày sinh" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Địa chỉ" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Số điện thoại" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Ngày tham gia" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Điểm tích lũy" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Loại khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 35"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="0 10 0 0">
-                        <TextBox x:Name="TenKH" FontSize="14" Height="41" Margin="0 0 20 23" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox x:Name="TenKH" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}">
                             <TextBox.Text>
                                 <Binding Path="Text"
                                          ElementName="bindingTenKH"
@@ -95,13 +95,21 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <ComboBox x:Name="GioiTinh" FontSize="14" Height="25" Margin="0 0 20 26" BorderBrush="Black" ItemsSource="{Binding}"></ComboBox>
+                        <ComboBox x:Name="GioiTinh" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" ItemsSource="{Binding}" Style="{StaticResource ComboBoxStyle}"></ComboBox>
 
-                        <DatePicker x:Name="NgaySinh" FontSize="14" Height="25" Margin="0 0 20 11" BorderBrush="Black" ></DatePicker>
+                        <DatePicker x:Name="NgaySinh" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource DatePickerStyle}">
+                            <DatePicker.CalendarStyle>
+                                <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                    </Style.Resources>
+                                </Style>
+                            </DatePicker.CalendarStyle>
+                        </DatePicker>
 
-                        <TextBox x:Name="DiaChi" FontSize="14" Height="41" Margin="0 0 20 9" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}" ></TextBox>
+                        <TextBox x:Name="DiaChi" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}" ></TextBox>
 
-                        <TextBox x:Name="SDT" FontSize="14" Height="41" Margin="0 0 20 23" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox x:Name="SDT" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}" >
                             <TextBox.Text>
                                 <Binding Path="Text"
                                           ElementName="bindingSDT"
@@ -115,7 +123,7 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <DatePicker x:Name="NgayTG" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" >
+                        <DatePicker x:Name="NgayTG" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource DatePickerStyle}">
                             <DatePicker.SelectedDate>
                                 <Binding Path="SelectedDate"
                                          ElementName="bindingNgayTG"
@@ -127,9 +135,17 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </DatePicker.SelectedDate>
+
+                            <DatePicker.CalendarStyle>
+                                <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                    </Style.Resources>
+                                </Style>
+                            </DatePicker.CalendarStyle>
                         </DatePicker>
 
-                        <TextBox x:Name="DTL" FontSize="14" Height="41" Margin="0 0 20 24" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox x:Name="DTL" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}" >
                             <TextBox.Text>
                                 <Binding Path="Text"
                                           ElementName="bindingDTL"
@@ -143,7 +159,7 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <ComboBox x:Name="LoaiKH" FontSize="14" Height="25" Margin="0 0 20 25" BorderBrush="Black" ItemsSource="{Binding}" DisplayMemberPath="TenLKH" SelectedValuePath="MaLKH"></ComboBox>
+                        <ComboBox x:Name="LoaiKH" FontSize="14" Height="41" Margin="0 0 20 25" BorderBrush="Black" ItemsSource="{Binding}" DisplayMemberPath="TenLKH" SelectedValuePath="MaLKH" Style="{StaticResource ComboBoxStyle}"></ComboBox>
                     </StackPanel>
                 </Grid>
             </ScrollViewer>
