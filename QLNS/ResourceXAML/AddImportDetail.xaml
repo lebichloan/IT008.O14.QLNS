@@ -42,14 +42,15 @@
             <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            
+
+
         </Style>
-        
+
 
     </Window.Resources>
 
     <Border
-        Background="{DynamicResource SecundaryBackgroundColor}"
+        Background="{DynamicResource PrimaryBackgroundColor}"
         CornerRadius="5"
         MouseDown="Border_MouseDown"
         MouseLeftButtonDown="Border_MouseLeftButtonDown">
@@ -181,19 +182,18 @@
                                             Grid.Column="0"
                                             HorizontalAlignment="Left"
                                             Foreground="{DynamicResource PrimaryTextColor}"
-                                            Text="{Binding itemSoLuongSP}" />
+                                            Text="{Binding itemSoLuongNhapSP, StringFormat={}{0} cái}" />
 
                                         <TextBlock
                                             Grid.Column="1"
                                             HorizontalAlignment="Center"
                                             Foreground="{DynamicResource PrimaryTextColor}"
-                                            Text="{Binding itemDonGiaSP}" />
-
+                                            Text="{Binding itemDonGiaNhapSP, StringFormat=Đơn giá: {0:#} đồng}" />
                                         <TextBlock
                                             Grid.Column="2"
                                             HorizontalAlignment="Right"
                                             Foreground="{DynamicResource PrimaryTextColor}"
-                                            Text="{Binding itemThanhTienSP}" />
+                                            Text="{Binding itemThanhTienSP, StringFormat=Thành tiền: {0:#} đồng}" />
                                     </Grid>
 
                                     <Separator
@@ -412,8 +412,14 @@
 
                                 <Button
                                     x:Name="btnSub"
+                                    Background="{DynamicResource ButtonBackgroundColor}"
                                     Click="btnSub_Click"
                                     Style="{StaticResource quantityButton}">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10" />
+                                        </Style>
+                                    </Button.Resources>
                                     <Icon:PackIconMaterial
                                         Width="11"
                                         Height="11"
@@ -433,8 +439,14 @@
                                     TextAlignment="Center" />
                                 <Button
                                     x:Name="btnAdd"
+                                    Background="{DynamicResource ButtonBackgroundColor}"
                                     Click="btnAdd_Click"
                                     Style="{StaticResource quantityButton}">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10" />
+                                        </Style>
+                                    </Button.Resources>
                                     <Icon:PackIconMaterial
                                         Width="11"
                                         Height="11"

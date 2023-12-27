@@ -23,8 +23,8 @@ namespace QLNS.Pages
     public partial class ImportProductManage : Page
     {
         QLNSEntities qLNSEntities = new QLNSEntities();
-        int pageNumber = 0;
-        int pageSize = 15;
+        public int pageNumber = 0;
+        public int pageSize = 10;
 
         public int idND {  get; set; }
         public ImportProductManage()
@@ -45,6 +45,7 @@ namespace QLNS.Pages
         private void btnAddImportDetail_Click(object sender, RoutedEventArgs e)
         {
             AddImportDetail addImportDetail = new AddImportDetail();
+            addImportDetail.importProductManage = this;
             addImportDetail.ShowDialog();
         }
 
@@ -60,7 +61,7 @@ namespace QLNS.Pages
             pageNumber++;
             LoadData(pageNumber);
         }
-        private void LoadData(int page)
+        public void LoadData(int page)
         {
             var query =
                 from nhaphang in qLNSEntities.NHAPHANGs

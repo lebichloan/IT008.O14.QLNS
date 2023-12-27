@@ -413,8 +413,14 @@
 
                                 <Button
                                     x:Name="btnSub"
+                                    Background="{DynamicResource ButtonBackgroundColor}"
                                     Click="btnSub_Click"
                                     Style="{StaticResource quantityButton}">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10" />
+                                        </Style>
+                                    </Button.Resources>
                                     <Icon:PackIconMaterial
                                         Width="11"
                                         Height="11"
@@ -435,8 +441,14 @@
 
                                 <Button
                                     x:Name="btnAdd"
+                                    Background="{DynamicResource ButtonBackgroundColor}"
                                     Click="btnAdd_Click"
                                     Style="{StaticResource quantityButton}">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10" />
+                                        </Style>
+                                    </Button.Resources>
                                     <Icon:PackIconMaterial
                                         Width="11"
                                         Height="11"
