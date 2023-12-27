@@ -2,10 +2,12 @@
 using QLNS.ResourceXAML;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -56,8 +58,15 @@ namespace QLNS.Pages
             return status;
         }
     }
-    public partial class ProductManage : Page
+    public partial class ProductManage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public class ErrorProduct
         {
             public int idSPL { get; set; }
@@ -487,6 +496,9 @@ namespace QLNS.Pages
             addCategory.ShowDialog();
         }
 
+        private string pagetitle;
+        public string PageTitle { get { return pagetitle; } set { pagetitle = value; OnPropertyChanged(); } }
+
         private void productTabItem_Selected(object sender, RoutedEventArgs e)
         {
             LoadData(0);
@@ -494,7 +506,8 @@ namespace QLNS.Pages
             btnAddErrorProduct.Visibility = Visibility.Collapsed;
             btnAddCategory.Visibility = Visibility.Collapsed;
             btnAddProduct.Visibility = Visibility.Visible;
-
+            pageTitle.Text = "Quản lý sản phẩm";
+            pageTitle.DataContext = this;
         }
 
         private void errorProductTabItem_Selected(object sender, RoutedEventArgs e)
@@ -504,7 +517,8 @@ namespace QLNS.Pages
             btnAddProduct.Visibility = Visibility.Collapsed;
             btnAddCategory.Visibility = Visibility.Collapsed;
             btnAddErrorProduct.Visibility = Visibility.Visible;
-
+            pageTitle.Text = "Quản lý sản phẩm lỗi";
+            pageTitle.DataContext = this;
         }
 
         private void categoryTabItem_Selected(object sender, RoutedEventArgs e)
@@ -514,6 +528,8 @@ namespace QLNS.Pages
             btnAddCategory.Visibility = Visibility.Visible;
             btnAddProduct.Visibility = Visibility.Collapsed;
             btnAddErrorProduct.Visibility = Visibility.Collapsed;
+            pageTitle.Text = "Quản lý danh mục";
+            pageTitle.DataContext = this;
         }
 
         
