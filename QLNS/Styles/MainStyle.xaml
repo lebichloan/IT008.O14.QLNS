@@ -328,4 +328,43 @@
         <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
     </Style>
     <!--End: Text box style-->
+
+    <!--Start: Tab item style-->
+    <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource MaterialDesignTabItem}">
+        <Setter Value="#879FFF" Property="materialDesign:ColorZoneAssist.Foreground" />
+        <Setter Value="Custom" Property="materialDesign:ColorZoneAssist.Mode" />
+    </Style>
+    <!--End: Tab item style-->
+
+    <!--Start: Datepicker style-->
+    <Style x:Key="DatePickerStyle" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="materialDesign:TextFieldAssist.HasFilledTextField" Value="False" />
+                    <Condition Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
+                    <Condition Property="UIElement.IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Value="#879FFF" Property="BorderBrush" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--End: Datepicker style-->
+
+    <!--Start: ComboBox style-->
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+    </Style>
+    <!--End: ComboBox style-->
+
+    <!--Start: PasswordBox style-->
+    <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}">
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+    </Style>
+    <!--End: PasswordBox style-->
+
 </ResourceDictionary>

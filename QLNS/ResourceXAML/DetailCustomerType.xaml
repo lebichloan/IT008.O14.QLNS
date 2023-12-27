@@ -74,7 +74,7 @@
                         <TextBlock Text="Mô tả" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 45"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="0 11 0 0">
-                        <TextBox x:Name="TenLKH" FontSize="14" Height="41" Margin="10 0 10 24" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox x:Name="TenLKH" FontSize="14" Height="41" Margin="10 0 10 24" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}">
                             <TextBox.Text>
                                 <Binding Path="Text"
                                          ElementName="bindingTenLKH"
@@ -89,7 +89,7 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <TextBox x:Name="DTLTT" FontSize="14" Height="41" Margin="10 0 10 24" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox x:Name="DTLTT" FontSize="14" Height="41" Margin="10 0 10 24" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}" >
                             <TextBox.Text>
                                 <Binding Path="Text"
                                           ElementName="bindingDTLTT"
@@ -102,8 +102,8 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        
-                        <TextBox x:Name="MoTa" FontSize="14" Margin="10 0 10 25" TextWrapping="Wrap" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}" ></TextBox>
+
+                        <TextBox x:Name="MoTa" FontSize="14" Margin="10 0 10 25" TextWrapping="Wrap" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}" ></TextBox>
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

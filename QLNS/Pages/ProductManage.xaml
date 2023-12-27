@@ -113,14 +113,15 @@
                     <TabItem
                         Name="productTabItem"
                         Header="Sản phẩm"
-                        Selector.Selected="productTabItem_Selected">
+                        Selector.Selected="productTabItem_Selected"
+                        Style="{StaticResource TabItemStyle}">
 
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height=".85*" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-                            
+
                             <DataGrid
                                 x:Name="productDataGrid"
                                 Grid.Row="0"
@@ -274,7 +275,8 @@
                         Name="errorProductTabItem"
                         Header="Sản phẩm lỗi"
                         Loaded="errorProductTabItem_Loaded"
-                        Selector.Selected="errorProductTabItem_Selected">
+                        Selector.Selected="errorProductTabItem_Selected"
+                        Style="{StaticResource TabItemStyle}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="53*" />
@@ -420,7 +422,8 @@
                         Name="categoryTabItem"
                         Header="Danh mục"
                         Loaded="categoryTabItem_Loaded"
-                        Selector.Selected="categoryTabItem_Selected">
+                        Selector.Selected="categoryTabItem_Selected"
+                        Style="{StaticResource TabItemStyle}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height=".85*" />
@@ -470,7 +473,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                                    
+
 
                                                     <Button
                                                         Name="btnDelete"

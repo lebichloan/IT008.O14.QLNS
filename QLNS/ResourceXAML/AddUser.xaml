@@ -83,7 +83,7 @@
                              Width="300" Height="40"
                              Margin="10 5 0 15"
                              materialDesign:HintAssist.Hint="Tên người dùng"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                             Style="{StaticResource HintTextBoxStyle}">
                             <TextBox.Text>
                                 <Binding Path="Text"
                                      ElementName="binding_txtbox"
@@ -102,7 +102,7 @@
                                  Width="300" Height="40"
                                  Margin="10 5 0 15"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
-                                 Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}">
+                                 Style="{StaticResource PasswordBoxStyle}">
                             <materialDesign:PasswordBoxAssist.Password>
                                 <Binding Path="Password"
                                      ElementName="newPass"
@@ -117,11 +117,11 @@
                         </PasswordBox>
 
                         <PasswordBox x:Name="nhapLaiMatKhau" VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="300" Height="40"
-                             Margin="10 5 0 15"
-                             materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
-                             Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" >
+                                     HorizontalAlignment="Left"
+                                     Width="300" Height="40"
+                                     Margin="10 5 0 15"
+                                     materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
+                                     Style="{StaticResource PasswordBoxStyle}">
                             <materialDesign:PasswordBoxAssist.Password>
                                 <Binding Path="Password"
                                      ElementName="cfmPass"
@@ -140,7 +140,7 @@
                                   Width="300" Height="40"
                                   Margin="10 5 0 15"
                                   materialDesign:HintAssist.Hint="Tình trạng"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                  Style="{StaticResource ComboBoxStyle}">
                             <ComboBoxItem Content="Đã bị khóa"/>
                             <ComboBoxItem Content="Đang hoạt động"/>
                             <ComboBox.SelectedValue>
@@ -162,7 +162,7 @@
                                   Width="300" Height="40"
                                   Margin="10 5 0 15"
                                   materialDesign:HintAssist.Hint="ID Nhân viên"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  Style="{StaticResource ComboBoxStyle}"
                                   ItemsSource="{Binding}"
                                   DisplayMemberPath="idNV"
                                   SelectedValuePath="idNV">
@@ -185,7 +185,7 @@
                                   Width="300" Height="40"
                                   Margin="10 5 0 15"
                                   materialDesign:HintAssist.Hint="Loại người dùng"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                  Style="{StaticResource ComboBoxStyle}"
                                   ItemsSource="{Binding}"
                                   DisplayMemberPath="TenLND"
                                   SelectedValuePath="idLND">
