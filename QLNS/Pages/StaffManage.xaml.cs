@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Xml;
 
 namespace QLNS.Pages
@@ -22,6 +23,7 @@ namespace QLNS.Pages
     /// </summary>
     public class StatusConvert : IValueConverter
     {
+        //Convert du lieu hien thi
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int status = (int)value;
@@ -86,31 +88,54 @@ namespace QLNS.Pages
         {
             InitializeComponent();
         }
+
         int pageNumber = 0;
         int pageSize = 10;
-
         int userPageNumber = 0;
         int userPageSize = 10;
+
+        //Start: load staff data
         private void staffManage_Loaded(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu ban đầu khi vừa vào
             LoadData(0);
         }
-        private void btnPre_Click(object sender, RoutedEventArgs e)
-        {
-            // Load dữ liệu page trước đó
-            pageNumber--;
-            LoadData(pageNumber);
-        }
         public void LoadDataCurrent()
         {
             LoadData(pageNumber);
         }
+        public void LoadDataCurrentFilter()
+        {
+            FilterData(searchTerm, pageNumberFilter);
+        }
+        private void btnPre_Click(object sender, RoutedEventArgs e)
+        {
+            // Load dữ liệu page trước đó
+            if (isSearch == 1)
+            {
+                pageNumberFilter--;
+                FilterData(searchTerm, pageNumberFilter);
+            }
+            else
+            {
+                pageNumber--;
+                LoadData(pageNumber);
+            }
+        }
+        
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
-            pageNumber++;
-            LoadData(pageNumber);
+            if (isSearch == 1)
+            {
+                pageNumberFilter++;
+                FilterData(searchTerm, pageNumberFilter);
+            }
+            else
+            {
+                pageNumber++;
+                LoadData(pageNumber);
+            }
         }
         private void LoadData(int page)
         {
@@ -120,6 +145,40 @@ namespace QLNS.Pages
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
+        //End: Load staff data
+
+        //Start: FilterDataStaff
+        public string searchTerm = null;
+        public int pageNumberFilter = 0;
+        public int isSearch = 0;
+        private void FilterData(string searchTerm, int page)
+        {
+            var query = DataProvider.Ins.DB.NHANVIENs.Where(nv => nv.TenNV.ToLower().Contains(searchTerm) || nv.GioiTinh.ToLower().Contains(searchTerm) || nv.ChucVu.ToLower().Contains(searchTerm)).OrderBy(nv => nv.idNV);
+            staffDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            btnPre.IsEnabled = page > 0;
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any();
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+        }
+        private void StaffSearch_txtbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                searchTerm = StaffSearch_txtbox.Text.ToLower();
+                if (searchTerm == "")
+                {
+                    LoadData(0);
+                    isSearch = 0;
+                    pageNumber = 0;
+                }
+                else
+                {
+                    FilterData(searchTerm, 0);
+                    isSearch = 1;
+                    pageNumberFilter = 0;
+                }
+            }
+        }
+        //End: FilterDataStaff
 
         //Start: Load user data
         private void userManage_Loaded(object sender, RoutedEventArgs e)
@@ -168,13 +227,141 @@ namespace QLNS.Pages
         }
         //End: Load user data
 
+        //Start: btnAdd
         private void btnAddStaff_Click(object sender, RoutedEventArgs e)
         {
             AddStaffAndUser addStaffAndUser = new AddStaffAndUser();
             addStaffAndUser.staffManage = this;
             addStaffAndUser.ShowDialog();
         }
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+            AddUser adduser = new AddUser();
+            adduser.ShowDialog();
+            LoadUserDataCurrent();
+        }
+        //End: btnAdd
 
+        //Start: btDelete
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
+                NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
+
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm thông tin này?";
+                messageOption.ShowDialog();
+                bool isAdd = MessageOption.isAgree;
+                if (isAdd)
+                {
+                    if (nguoidung != null)
+                    {
+                        bool IsDelete = true;
+                        if (DataProvider.Ins.DB.HOADONs.Any(hd => hd.idND == nguoidung.idND))
+                            IsDelete = false;
+                        else if (DataProvider.Ins.DB.KHUYENMAIs.Any(km => km.idND == nguoidung.idND))
+                            IsDelete = false;
+                        else if (DataProvider.Ins.DB.NHAPHANGs.Any(nh => nh.idND == nguoidung.idND))
+                            IsDelete = false;
+                        else if (DataProvider.Ins.DB.SANPHAMLOIs.Any(spl => spl.idND == nguoidung.idND))
+                            IsDelete = false;
+                        if (IsDelete == false)
+                        {
+                            Message message = new Message();
+                            message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
+                            message.ShowDialog();
+                        }
+                        else
+                        {
+
+                            NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
+                            DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
+                            DataProvider.Ins.DB.SaveChanges();
+
+                            NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                            DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                            DataProvider.Ins.DB.SaveChanges();
+                            if (isSearch == 1)
+                            {
+                                LoadDataCurrentFilter();
+                            }
+                            else
+                            {
+                                LoadDataCurrent();
+                            }
+                            Message message = new Message();
+                            message.message.Text = "Xóa thành công nhân viên!";
+                            message.ShowDialog();
+
+                        }
+                    }
+                    else
+                    {
+                        NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                        DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                        DataProvider.Ins.DB.SaveChanges();
+                        if (isSearch == 1)
+                        {
+                            LoadDataCurrentFilter();
+                        }
+                        else
+                        {
+                            LoadDataCurrent();
+                        }
+                        Message message = new Message();
+                        message.message.Text = "Xóa thành công nhân viên!";
+                        message.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
+        }
+        private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string MaND = ((TextBlock)userDataGrid.SelectedCells[2].Column.GetCellContent(userDataGrid.SelectedCells[2].Item)).Text;
+                NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.MaND == MaND);
+
+                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idND == nguoidung.idND);
+                KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.idND == nguoidung.idND);
+                NHAPHANG nhaphang = DataProvider.Ins.DB.NHAPHANGs.FirstOrDefault(n => n.idND == nguoidung.idND);
+                SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.FirstOrDefault(s => s.idND == nguoidung.idND);
+                if (hoadon != null || khuyenmai != null || nhaphang != null || sanphamloi != null)
+                {
+                    Message message = new Message();
+                    message.message.Text = "Không thể xóa người dùng này, vì tồn tại nhiều dữ liệu liên quan!";
+                    message.ShowDialog();
+                }
+                else
+                {
+                    MessageOption messageOption = new MessageOption();
+                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa người dùng này?";
+                    messageOption.ShowDialog();
+                    bool isDelete = MessageOption.isAgree;
+                    messageOption.Close();
+                    if (isDelete)
+                    {
+                        NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
+                        DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadUserDataCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa người dùng thành công!";
+                        message.ShowDialog();
+                    }
+                }
+            }
+            catch { }
+        }
+        //End: btnDelete
         private void btnShowDetail_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -219,137 +406,17 @@ namespace QLNS.Pages
             {
             }
         }
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
-                NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
 
-                MessageOption messageOption = new MessageOption();
-                messageOption.message.Text = "Bạn có chắc chắn muốn thêm thông tin này?";
-                messageOption.ShowDialog();
-                bool isAdd = MessageOption.isAgree;
-                if (isAdd)
-                {
-                    if (nguoidung != null)
-                    {
-                        bool IsDelete = true;
-                        if (DataProvider.Ins.DB.HOADONs.Any(hd => hd.idND == nguoidung.idND))
-                            IsDelete = false;
-                        else if (DataProvider.Ins.DB.KHUYENMAIs.Any(km => km.idND == nguoidung.idND))
-                            IsDelete = false;
-                        else if (DataProvider.Ins.DB.NHAPHANGs.Any(nh => nh.idND == nguoidung.idND))
-                            IsDelete = false;
-                        else if (DataProvider.Ins.DB.SANPHAMLOIs.Any(spl => spl.idND == nguoidung.idND))
-                            IsDelete = false;
-                        if (IsDelete == false)
-                        {
-                            Message message = new Message();
-                            message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
-                            message.ShowDialog();
-                        }
-                        else
-                        {
-
-                            NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
-                            DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
-                            DataProvider.Ins.DB.SaveChanges();
-
-                            NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
-                            DataProvider.Ins.DB.NHANVIENs.Remove(nv);
-                            DataProvider.Ins.DB.SaveChanges();
-                            LoadDataCurrent();
-                            Message message = new Message();
-                            message.message.Text = "Xóa thành công nhân viên!";
-                            message.ShowDialog();
-
-                        }
-                    }
-                    else
-                    {
-                        NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
-                        DataProvider.Ins.DB.NHANVIENs.Remove(nv);
-                        DataProvider.Ins.DB.SaveChanges();
-                        LoadDataCurrent();
-                        Message message = new Message();
-                        message.message.Text = "Xóa thành công nhân viên!";
-                        message.ShowDialog();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Message message = new Message();
-                message.message.Text = ex.Message;
-                message.ShowDialog();
-            }
-        }
-
-        private void StaffSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
         private void UserSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
-
-        private void btnAddUser_Click(object sender, RoutedEventArgs e)
-        {
-            AddUser adduser = new AddUser();
-            adduser.ShowDialog();
-            LoadUserDataCurrent();
-        }
-
-
         private void btnShowUserDetail_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
-        private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string MaND = ((TextBlock)userDataGrid.SelectedCells[2].Column.GetCellContent(userDataGrid.SelectedCells[2].Item)).Text;
-                NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.MaND == MaND);
-
-                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idND == nguoidung.idND);
-                KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.idND == nguoidung.idND);
-                NHAPHANG nhaphang = DataProvider.Ins.DB.NHAPHANGs.FirstOrDefault(n => n.idND == nguoidung.idND);
-                SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.FirstOrDefault(s => s.idND == nguoidung.idND);
-                if (hoadon != null || khuyenmai != null || nhaphang != null || sanphamloi != null)
-                {
-                    Message message = new Message();
-                    message.message.Text = "Không thể xóa người dùng này, vì tồn tại nhiều dữ liệu liên quan!";
-                    message.ShowDialog();
-                }
-                else
-                {
-                    MessageOption messageOption = new MessageOption();
-                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa người dùng này?";
-                    messageOption.ShowDialog();
-                    bool isDelete = MessageOption.isAgree;
-                    messageOption.Close();
-                    if (isDelete)
-                    {
-                        NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
-                        DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
-                        DataProvider.Ins.DB.SaveChanges();
-                        LoadUserDataCurrent();
-                        Message message = new Message();
-                        message.message.Text = "Xóa người dùng thành công!";
-                        message.ShowDialog();
-                    }
-                }
-            }
-            catch { }
-        }
-
         private string pagetitle;
         public string PageTitle { get { return pagetitle; } set { pagetitle = value; OnPropertyChanged(); } }
-
         private void StaffTab_Selected(object sender, RoutedEventArgs e)
         {
             btnAddBill.Visibility = Visibility.Visible;
@@ -357,7 +424,6 @@ namespace QLNS.Pages
             pageTitle.Text = "Quản lý nhân viên";
             pageTitle.DataContext = this;
         }
-
         private void UserTab_Selected(object sender, RoutedEventArgs e)
         {
             btnAddBill.Visibility = Visibility.Collapsed;
@@ -365,5 +431,7 @@ namespace QLNS.Pages
             pageTitle.Text = "Quản lý người dùng";
             pageTitle.DataContext = this;
         }
+
+        
     }
 }
