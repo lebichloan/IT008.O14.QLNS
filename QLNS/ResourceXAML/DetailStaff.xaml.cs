@@ -107,7 +107,14 @@ namespace QLNS.ResourceXAML
                     if (isUpdate)
                     {
                         DataProvider.Ins.DB.SaveChanges();
-                        staffManage.LoadDataCurrent();
+                        if(staffManage.isSearch == 1)
+                        {
+                            staffManage.LoadDataCurrentFilter();
+                        }
+                        else
+                        {
+                            staffManage.LoadDataCurrent();
+                        }
                         Message message = new Message();
                         message.message.Text = "Sửa thông tin thành công!";
                         message.ShowDialog();

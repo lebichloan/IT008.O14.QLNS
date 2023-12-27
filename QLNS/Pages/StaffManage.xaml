@@ -149,7 +149,7 @@
                                              Style="{DynamicResource searchTextBox}"
                                              BorderThickness="0"
                                              Height="22"
-                                             TextChanged="StaffSearch_TextChanged"/>
+                                             KeyDown="StaffSearch_txtbox_KeyDown"/>
 
                                     <Icon:PackIconMaterial Kind="Magnify"
                                                            Width="14"
