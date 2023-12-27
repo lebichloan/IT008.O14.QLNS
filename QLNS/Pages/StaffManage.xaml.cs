@@ -3,9 +3,11 @@ using QLNS.Model;
 using QLNS.ResourceXAML;
 using QLNS.ViewModel;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Controls;
@@ -70,8 +72,15 @@ namespace QLNS.Pages
         }
     }
 
-    public partial class StaffManage : Page
+    public partial class StaffManage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         public StaffManage()
         {
@@ -338,5 +347,23 @@ namespace QLNS.Pages
             catch { }
         }
 
+        private string pagetitle;
+        public string PageTitle { get { return pagetitle; } set { pagetitle = value; OnPropertyChanged(); } }
+
+        private void StaffTab_Selected(object sender, RoutedEventArgs e)
+        {
+            btnAddBill.Visibility = Visibility.Visible;
+            btnAddUser.Visibility = Visibility.Collapsed;
+            pageTitle.Text = "Quản lý nhân viên";
+            pageTitle.DataContext = this;
+        }
+
+        private void UserTab_Selected(object sender, RoutedEventArgs e)
+        {
+            btnAddBill.Visibility = Visibility.Collapsed;
+            btnAddUser.Visibility = Visibility.Visible;
+            pageTitle.Text = "Quản lý người dùng";
+            pageTitle.DataContext = this;
+        }
     }
 }

@@ -29,12 +29,13 @@
 
                 <!--  Page title  -->
                 <TextBlock
+                    x:Name="pageTitle"
                     Grid.Row="0"
                     Margin="0,10,0,10"
                     HorizontalAlignment="Left"
                     FontSize="25"
                     FontWeight="Bold"
-                    Text="Quản lý sản phẩm" />
+                    Text="{Binding PageTitle}" />
 
                 <!--  Add staff  -->
                 <Button

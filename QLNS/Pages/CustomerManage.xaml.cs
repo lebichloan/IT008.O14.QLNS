@@ -406,5 +406,23 @@ namespace QLNS.Pages
             btnCTNext.IsEnabled = lst.Skip(pageSize1 * (page + 1)).Take(pageSize1).Any(); // Kiểm tra page kế tiếp có dữ liệu không
             lblCTPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize1 - 1) / pageSize1);
         }
+
+        private string pagetitle;
+        public string PageTitle {  get { return pagetitle; } set {  pagetitle = value; OnPropertyChanged(); } }
+        private void customerTab_Selected(object sender, RoutedEventArgs e)
+        {
+            btnAddCustomer.Visibility = Visibility.Visible;
+            btnAddCustomerTypes.Visibility = Visibility.Collapsed;
+            PageTitle = "Quản lý khách hàng";
+            pageTitle.DataContext = this;
+        }
+
+        private void customerTypeTab_Selected(object sender, RoutedEventArgs e)
+        {
+            btnAddCustomer.Visibility = Visibility.Collapsed;
+            btnAddCustomerTypes.Visibility = Visibility.Visible;
+            PageTitle = "Quản lý loại khách hàng";
+            pageTitle.DataContext = this;
+        }
     }
 }
