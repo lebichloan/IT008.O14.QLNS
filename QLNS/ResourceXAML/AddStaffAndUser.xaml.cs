@@ -125,7 +125,7 @@ namespace QLNS.ResourceXAML
                         nguoidung.MatKhau = MatKhauNhapLai.Password;
                         if (LoaiND.Text == "Quản lý")
                             nguoidung.idLND = 1;
-                        else if (LoaiND.Text == "Thu Ngân")
+                        else if (LoaiND.Text == "Thu ngân")
                             nguoidung.idLND = 2;
                         else if (LoaiND.Text == "Nhân viên kho")
                             nguoidung.idLND = 3;
@@ -148,13 +148,16 @@ namespace QLNS.ResourceXAML
                         }
                     }
                     // Kiểm tra Mật Khẩu
-                    if (MatKhau.Password.Length < 8)
+                    if(IsAddUser.IsChecked == true)
                     {
-                        throw new Exception("Mật khẩu chứa ít nhất 8 ký tự!");
-                    }
-                    if (MatKhau.Password.Any(c => !char.IsLetterOrDigit(c)))
-                    {
-                        throw new Exception("Mật khẩu không chứa các ký tự đặc biệt, chỉ chứa số hoặc chữ");
+                        if (MatKhau.Password.Length < 8)
+                        {
+                            throw new Exception("Mật khẩu chứa ít nhất 8 ký tự!");
+                        }
+                        if (MatKhau.Password.Any(c => !char.IsLetterOrDigit(c)))
+                        {
+                            throw new Exception("Mật khẩu không chứa các ký tự đặc biệt, chỉ chứa số hoặc chữ");
+                        }
                     }
 
                     if (isAdd)
@@ -171,6 +174,7 @@ namespace QLNS.ResourceXAML
                         Message message = new Message();
                         message.message.Text = "Thêm thông tin thành công!";
                         message.ShowDialog();
+                        this.Close();
                     }
                 }
                 catch (Exception ex)
