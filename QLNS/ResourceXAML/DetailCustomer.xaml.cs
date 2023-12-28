@@ -33,10 +33,6 @@ namespace QLNS.ResourceXAML
 
         public CustomerManage customerManage { get; set; }
         public int idKH { get; set; }
-
-        private string _TenKH;
-        public string tenkh { get => _TenKH; set { _TenKH = value; OnPropertyChanged(); } }
-
         public DetailCustomer()
         {
             InitializeComponent();
@@ -45,8 +41,14 @@ namespace QLNS.ResourceXAML
         private void Binding_Combobox()
         {
             QLNSEntities qlns = new QLNSEntities();
-            List<LOAIKHACHHANG> lkh = qlns.LOAIKHACHHANGs.ToList();
-            LoaiKH.ItemsSource = lkh;
+            var query = from lkh in qlns.LOAIKHACHHANGs
+                        orderby lkh.idLKH
+                        where lkh.idLKH != 0
+                        select lkh;
+
+            var loaikh = query.ToList();
+
+            LoaiKH.ItemsSource = loaikh;
             LoaiKH.DisplayMemberPath = "TenLKH";
             LoaiKH.SelectedValuePath = "idLKH";
             List<String> gender = new List<String>();
@@ -90,7 +92,9 @@ namespace QLNS.ResourceXAML
                 ForceValidation(); //Kiem tra rang buoc khi click button
                 if (Validation.GetHasError(TenKH) || Validation.GetHasError(SDT) || Validation.GetHasError(NgayTG) || Validation.GetHasError(DTL))
                 {
-                    MessageBox.Show("Đã có lỗi xảy ra!");
+                    Message message = new Message();
+                    message.message.Text = "Đã có lỗi xảy ra";
+                    message.ShowDialog();
                 }
                 else
                 {

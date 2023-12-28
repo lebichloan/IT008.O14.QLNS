@@ -68,8 +68,14 @@ namespace QLNS.ResourceXAML
         private void Binding_LoaiKH()
         {
             QLNSEntities qlns = new QLNSEntities();
-            List<LOAIKHACHHANG> lkh = qlns.LOAIKHACHHANGs.ToList();
-            loaiKH.ItemsSource = lkh;
+            var query = from lkh in qlns.LOAIKHACHHANGs
+                        orderby lkh.idLKH
+                        where lkh.idLKH != 0
+                        select lkh;
+
+            var loaikh = query.ToList();
+
+            loaiKH.ItemsSource = loaikh;
             loaiKH.DisplayMemberPath = "TenLKH";
             loaiKH.SelectedValuePath = "idLKH";
         }
@@ -115,7 +121,6 @@ namespace QLNS.ResourceXAML
         {
             tenKH.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             gioiTinh.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
-            diaChi.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             sDT.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
             ngayTG.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
@@ -124,14 +129,16 @@ namespace QLNS.ResourceXAML
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             ForceValidation();
-            if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(diaChi) || Validation.GetHasError(sDT) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayTG) || Validation.GetHasError(diemTL))
+            if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(sDT) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayTG) || Validation.GetHasError(diemTL))
             {
-                MessageBox.Show("Đã có lỗi xảy ra!");
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra";
+                message.ShowDialog();
             }
             else
             {
                 MessageOption messageOption = new MessageOption();
-                messageOption.message.Text = "Bạn có chắc chắn muốn thêm loại khách hàng này?";
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm khách hàng này?";
                 messageOption.ShowDialog();
                 bool isAdd = MessageOption.isAgree;
                 messageOption.Close();

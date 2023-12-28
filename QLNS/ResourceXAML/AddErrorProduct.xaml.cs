@@ -1,4 +1,5 @@
 ﻿using QLNS.Model;
+using QLNS.Pages;
 using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,9 @@ namespace QLNS.ResourceXAML
     
     public partial class AddErrorProduct : Window
     {
-        private int idND = 1;
+        public int idND {  get; set; }
+        public ProductManage productManage {  get; set; }
+        
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddErrorProduct()
         {
@@ -92,11 +95,14 @@ namespace QLNS.ResourceXAML
             {
                 SANPHAMLOI spl = CreateErrorProduct(item);
                 DataProvider.Ins.DB.SANPHAMLOIs.Add(spl);
+                CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(spl.idCTSP);
+                ctsp.SLConLai = (short)(ctsp.SLConLai - spl.SoLuongLoi);
                 DataProvider.Ins.DB.SaveChanges();
             }
-
-            MessageBox.Show("Them san pham loi thanh cong");
-            
+            Message message = new Message();
+            message.message.Text = "Thêm sản phẩm lỗi thành công";
+            message.Show();
+            productManage.LoadDataCurrent();
             this.Close();
         }
         private SANPHAMLOI CreateErrorProduct(ErrorItemListBox errorItem)
@@ -192,12 +198,16 @@ namespace QLNS.ResourceXAML
                     short soLuongSPInput = short.Parse(txtSoLuongSanPham.Text);
                     if (soLuongSPInput <= 0)
                     {
-                        MessageBox.Show("Vui long nhap so luong lon hon 0");
+                        Message message = new Message();
+                        message.message.Text = "Vui lòng nhập số lượng lớn hơn 0";
+                        message.Show();
                         txtSoLuongSanPham.Focus();
                     }
                     else if (soLuongSPInput > SLSPCL)
                     {
-                        MessageBox.Show("Kho khong the cung cap so luong nay");
+                        Message message = new Message();
+                        message.message.Text = "Số lượng sản phẩm lỗi vượt quá số lượng sản phẩm hiện có";
+                        message.Show();
                         txtSoLuongSanPham.Focus();
                     }
                     else
@@ -209,7 +219,9 @@ namespace QLNS.ResourceXAML
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Khong the doi thanh so");
+                    Message message = new Message();
+                    message.message.Text = "Không thể đổi thành số";
+                    message.Show();
                     txtSoLuongSanPham.Text = SLSP.ToString();
                 }
                 CheckInputSoLuong(SLSP);

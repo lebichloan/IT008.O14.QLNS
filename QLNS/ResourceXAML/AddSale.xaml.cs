@@ -108,26 +108,21 @@ namespace QLNS.ResourceXAML
         private void ForceValidation()
         {
             tenKM.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            moTa.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            var bd = loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty);
-
-            if (bd != null)
-            {
-                bd.UpdateSource();
-            }
-
             ngayBatDau.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             ngayKetThuc.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             giamGia.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
 
             ForceValidation();
-            if (Validation.GetHasError(tenKM) || Validation.GetHasError(moTa) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
+            if (Validation.GetHasError(tenKM) || Validation.GetHasError(loaiKH) ||Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
             {
-                MessageBox.Show("Đã có lỗi xảy ra!");
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra";
+                message.ShowDialog();
             }
             else
             {
@@ -155,7 +150,7 @@ namespace QLNS.ResourceXAML
                     {
                         loaind = 0;
                     }
-                    
+
                     var KHUYENMAI = new KHUYENMAI()
                     {
                         TenKM = tenkm,

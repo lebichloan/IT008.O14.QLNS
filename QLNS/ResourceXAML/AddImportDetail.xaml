@@ -42,12 +42,15 @@
             <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+
+
         </Style>
+
 
     </Window.Resources>
 
     <Border
-        Background="{DynamicResource SecundaryBackgroundColor}"
+        Background="{DynamicResource PrimaryBackgroundColor}"
         CornerRadius="5"
         MouseDown="Border_MouseDown"
         MouseLeftButtonDown="Border_MouseLeftButtonDown">
@@ -179,19 +182,18 @@
                                             Grid.Column="0"
                                             HorizontalAlignment="Left"
                                             Foreground="{DynamicResource PrimaryTextColor}"
-                                            Text="{Binding itemSoLuongSP}" />
+                                            Text="{Binding itemSoLuongNhapSP, StringFormat={}{0} cái}" />
 
                                         <TextBlock
                                             Grid.Column="1"
                                             HorizontalAlignment="Center"
                                             Foreground="{DynamicResource PrimaryTextColor}"
-                                            Text="{Binding itemDonGiaSP}" />
-
+                                            Text="{Binding itemDonGiaNhapSP, StringFormat=Đơn giá: {0:#} đồng}" />
                                         <TextBlock
                                             Grid.Column="2"
                                             HorizontalAlignment="Right"
                                             Foreground="{DynamicResource PrimaryTextColor}"
-                                            Text="{Binding itemThanhTienSP}" />
+                                            Text="{Binding itemThanhTienSP, StringFormat=Thành tiền: {0:#} đồng}" />
                                     </Grid>
 
                                     <Separator
@@ -309,7 +311,8 @@
                         <TabItem
                             Name="productTabItem"
                             HorizontalAlignment="Left"
-                            Header="Tất cả sản phẩm">
+                            Header="Tất cả sản phẩm"
+                            Style="{StaticResource TabItemStyle}">
                             <DataGrid
                                 x:Name="productDataGrid"
                                 AutoGenerateColumns="False"
@@ -323,28 +326,22 @@
                                         IsReadOnly="True" />
 
                                     <DataGridTextColumn
-                                        Width="*"
+                                        Width="auto"
                                         Binding="{Binding TenSP}"
                                         Header="Tên sản phẩm"
                                         IsReadOnly="True" />
-
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding SLCL}"
-                                        Header="SLCL"
+                                        Binding="{Binding TenDM}"
+                                        Header="Danh mục"
                                         IsReadOnly="True" />
-
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding DonGia}"
-                                        Header="Đơn giá"
+                                        Binding="{Binding MoTa}"
+                                        Header="Mô tả"
                                         IsReadOnly="True" />
 
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding GhiChu}"
-                                        Header="Ghi chú"
-                                        IsReadOnly="True" />
+
 
                                 </DataGrid.Columns>
                             </DataGrid>
@@ -381,19 +378,11 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel
+                            <TextBlock
+                                Name="lblDanhMuc"
                                 Grid.Row="0"
-                                Grid.Column="0"
-                                Orientation="Horizontal">
-                                <TextBlock Name="lblSoLuongDaBan" />
+                                Grid.Column="0" />
 
-                                <Rectangle
-                                    Width="1"
-                                    Margin="5,0"
-                                    Stroke="{DynamicResource SepratorBackgroundColor}" />
-
-                                <TextBlock Name="lblSoLuongConLai" />
-                            </StackPanel>
 
                             <TextBlock
                                 Name="lblMoTa"
@@ -424,8 +413,14 @@
 
                                 <Button
                                     x:Name="btnSub"
+                                    Background="{DynamicResource ButtonBackgroundColor}"
                                     Click="btnSub_Click"
                                     Style="{StaticResource quantityButton}">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10" />
+                                        </Style>
+                                    </Button.Resources>
                                     <Icon:PackIconMaterial
                                         Width="11"
                                         Height="11"
@@ -443,11 +438,16 @@
                                     KeyDown="txtSoLuongSanPham_KeyDown"
                                     LostFocus="txtSoLuongSanPham_LostFocus"
                                     TextAlignment="Center" />
-
                                 <Button
                                     x:Name="btnAdd"
+                                    Background="{DynamicResource ButtonBackgroundColor}"
                                     Click="btnAdd_Click"
                                     Style="{StaticResource quantityButton}">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10" />
+                                        </Style>
+                                    </Button.Resources>
                                     <Icon:PackIconMaterial
                                         Width="11"
                                         Height="11"
@@ -455,7 +455,6 @@
                                         Foreground="{DynamicResource PrimaryTextColor}"
                                         Kind="Plus" />
                                 </Button>
-
                             </StackPanel>
 
                             <TextBlock

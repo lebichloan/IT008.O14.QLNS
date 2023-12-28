@@ -23,10 +23,25 @@ namespace QLNS.ResourceXAML
     public partial class DetailProduct : Window
     {
         public ProductManage productManage { get; set; }
+        public int idCTSP { get; set; }
+
         public int idSP { get; set; }
         public DetailProduct()
         {
             InitializeComponent();
+            ComboBoxItem newitem = new ComboBoxItem();
+            newitem.Content = "Đã bán hết";
+            TinhTrang.Items.Add(newitem);
+            newitem = new ComboBoxItem();
+            newitem.Content = "Còn hàng";
+            TinhTrang.Items.Add(newitem);
+            newitem = new ComboBoxItem();
+            newitem.Content = "Đã ẩn";
+            TinhTrang.Items.Add(newitem);
+            newitem = new ComboBoxItem();
+            newitem.Content = "Ngừng bán";
+            TinhTrang.Items.Add(newitem);
+
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -48,6 +63,7 @@ namespace QLNS.ResourceXAML
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.Find(idSP);
+            CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(idCTSP);
             if (sanpham != null)
             {
                 try
@@ -70,6 +86,11 @@ namespace QLNS.ResourceXAML
                     sanpham.idDM = danhMuc.idDM;
                     sanpham.MoTa = MoTa.Text.ToString();
 
+                    ctsp.DonGiaNhap = Convert.ToDecimal(GiaNhap.Text.ToString());
+                    ctsp.DonGiaXuat = Convert.ToDecimal(GiaBan.Text.ToString());
+                    ctsp.TinhTrang = TinhTrang.SelectedIndex;
+
+
                     MessageOption messageOption = new MessageOption();
                     messageOption.message.Text = "Bạn có chắc chắn muốn sửa đổi thông tin này?";
                     messageOption.ShowDialog();
@@ -82,6 +103,9 @@ namespace QLNS.ResourceXAML
                         Message message = new Message();
                         message.message.Text = "Sửa thông tin thành công!";
                         message.ShowDialog();
+                        productManage.LoadDataCurrent();
+                        this.Close();
+
                     }
                 }
                 catch (Exception ex)

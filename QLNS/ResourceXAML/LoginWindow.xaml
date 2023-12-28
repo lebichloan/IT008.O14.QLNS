@@ -43,20 +43,20 @@
             </Border.Clip>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#3AA9AD" Offset="0"></GradientStop>
-                    <GradientStop Color="#3AADA1" Offset="1"></GradientStop>
+                    <GradientStop Color="#0784F2" Offset="0"></GradientStop>
+                    <GradientStop Color="#07B0F2" Offset="1"></GradientStop>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <!--Titles-->
                 <Canvas>
-                    <Polygon Points="0, 20, 250, 140, 0 270" Fill="#4EB1B6"/>
-                    <Polygon Points="275, 0, 400, 20, 325, 100" Fill="#4EB1B6"/>
-                    <Polygon Points="30, 520, 120, 370, 250, 570" Fill="#4EB1B6"/>
-                    <Polygon Points="230, 250, 400, 300, 275, 400" Fill="#4EB1B6"/>
-                    <Ellipse Margin="300 525 0 0" Width="50" Height="50" Fill="#4EB1B6" />
-                    <Ellipse Margin="300 150 0 0" Width="40" Height="40" Fill="#4EB1B6" />
-                    <Ellipse Margin="-30 350 0 0" Width="80" Height="80" Fill="#4EB1B6" />
+                    <Polygon Points="0, 20, 250, 140, 0 270" Fill="#07BDF2"/>
+                    <Polygon Points="275, 0, 400, 20, 325, 100" Fill="#07BDF2"/>
+                    <Polygon Points="30, 520, 120, 370, 250, 570" Fill="#07BDF2"/>
+                    <Polygon Points="230, 250, 400, 300, 275, 400" Fill="#07BDF2"/>
+                    <Ellipse Margin="300 525 0 0" Width="50" Height="50" Fill="#07BDF2" />
+                    <Ellipse Margin="300 150 0 0" Width="40" Height="40" Fill="#07BDF2" />
+                    <Ellipse Margin="-30 350 0 0" Width="80" Height="80" Fill="#07BDF2" />
                 </Canvas>
                 <StackPanel Margin="0 120 0 0"
                     VerticalAlignment="Top">
@@ -174,7 +174,7 @@
                     <!--Text: Đăng nhập-->
                     <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
                           Margin="0,120,0,0">
-                        <TextBlock FontSize="40" FontWeight="Bold" Foreground="#3AA9AD">ĐĂNG NHẬP</TextBlock>
+                        <TextBlock FontSize="40" FontWeight="Bold" Foreground="#0784F2">ĐĂNG NHẬP</TextBlock>
                     </Grid>
 
                     <!--Tên đăng nhập-->
@@ -182,8 +182,8 @@
                           Margin="0,35,0,0">
                         <TextBox Background="White" Width="325" Height="60" 
                                  materialDesign:HintAssist.Hint="Tên đăng nhập"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="#3AA9AD"
-                                 materialDesign:HintAssist.Foreground="#3AA9AD"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#0784F2"
+                                 materialDesign:HintAssist.Foreground="#0784F2"
                                  FontWeight="Bold" FontSize="15"
                                  Text ="{Binding UserName}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -204,8 +204,8 @@
                                      Background="White" Width="325" Height="60" 
                                      materialDesign:HintAssist.Hint="Mật khẩu"
                                      materialDesign:TextFieldAssist.HasClearButton="True"
-                                     materialDesign:TextFieldAssist.UnderlineBrush="#3AA9AD"
-                                     materialDesign:HintAssist.Foreground="#3AA9AD"
+                                     materialDesign:TextFieldAssist.UnderlineBrush="#0784F2"
+                                     materialDesign:HintAssist.Foreground="#0784F2"
                                      FontWeight="Bold" FontSize="15"
                                      Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" 
                                      Grid.ColumnSpan="2" Margin="40,0,40,0"
@@ -232,11 +232,11 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <CheckBox Content="Nhớ mật khẩu" Background="#3AA9AD" 
+                        <Grid Grid.Column="0" Visibility="Hidden">
+                            <CheckBox Content="Nhớ mật khẩu" Background="#0784F2" 
                                       FontSize="15" Foreground="Black"></CheckBox>
                         </Grid>
-                        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Grid Grid.Column="1" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Right">
                             <TextBlock FontSize="15">
                                 <Hyperlink Foreground="Black">Quên mật khẩu?</Hyperlink>
                             </TextBlock>
@@ -245,8 +245,8 @@
 
                     <!--Button đăng nhập-->
                     <Grid Grid.Row="4"
-                          Margin="0,40,0,0">
-                        <Button Background="#3AA9AD" Width="180" Height="50" FontSize="18"
+                          Margin="0,0,0,0">
+                        <Button Background="#0784F2" Width="180" Height="50" FontSize="18"
                                 Content="ĐĂNG NHẬP" FontWeight="Bold" BorderThickness="0"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFlatMidBgButton}" 

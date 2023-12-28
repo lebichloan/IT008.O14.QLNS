@@ -16,14 +16,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QLNS.ViewModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace QLNS.Pages
 {
     /// <summary>
     /// Interaction logic for CustomerManage.xaml
     /// </summary>
-    public partial class CustomerManage : Page
+    public partial class CustomerManage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         QLNSEntities qlnsEntities = new QLNSEntities();
         public CustomerManage()
         {
@@ -71,7 +80,7 @@ namespace QLNS.Pages
                     NgaySinh = khachhang.NgaySinh,
                     DiaChi = khachhang.DiaChi,
                     SDT = khachhang.SDT,
-                    NgayTG = khachhang.NgayTG.Month + "/" + khachhang.NgayTG.Day + "/" + khachhang.NgayTG.Year,
+                    NgayTG = khachhang.NgayTG,
                     DiemTichLuy = khachhang.DiemTichLuy,
                     idLKH = loaikhachhang.TenLKH,
                 };
@@ -98,6 +107,10 @@ namespace QLNS.Pages
         int pageNumber1 = 0;
         int pageSize1 = 10;
 
+        public void LoadDataCustomerTypesCurrent()
+        {
+            LoadCustomerTypesData(pageNumber1);
+        }
         private void btnCTPre_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page trước đó
@@ -117,6 +130,7 @@ namespace QLNS.Pages
             var query =
                 from loaikhachhang in qlnsEntities.LOAIKHACHHANGs
                 orderby loaikhachhang.idLKH
+                where loaikhachhang.idLKH != 0
                 select new
                 {
                     idLKH = loaikhachhang.idLKH,
@@ -136,12 +150,14 @@ namespace QLNS.Pages
         {
             AddCustomer addCustomer = new AddCustomer();
             addCustomer.ShowDialog();
+            LoadDataCustomerCurrent();
         }
 
         private void btnAddCustomerTypes_Click(object sender, RoutedEventArgs e)
         {
             AddCustomerType addCustomerType = new AddCustomerType();
             addCustomerType.ShowDialog();
+            LoadDataCustomerTypesCurrent();
         }
 
         private void btnDetailCustommer_Click(object sender, RoutedEventArgs e)
@@ -184,6 +200,8 @@ namespace QLNS.Pages
                 detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[8].Column.GetCellContent(CustomerDataGrid.SelectedCells[8].Item)).Text;
                 detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[9].Column.GetCellContent(CustomerDataGrid.SelectedCells[9].Item)).Text;
                 detail.ShowDialog();
+
+                LoadDataCustomerCurrent();
             }
             catch { }
 
@@ -192,6 +210,219 @@ namespace QLNS.Pages
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        private void buttonDeleteLKH_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string idLKH = ((TextBlock)CustomerTypesDataGrid.SelectedCells[1].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[1].Item)).Text;
+
+                KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.FirstOrDefault(k => k.idLKH.ToString() == idLKH);
+                KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.idLKH.ToString() == idLKH);
+                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idLKH.ToString() == idLKH);
+                //NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
+                if (khachhang != null || khuyenmai != null || hoadon != null)
+                {
+                    Message message = new Message();
+                    message.message.Text = "Không thể xóa loại khách hàng này, vì tồn tại nhiều dữ liệu liên quan!";
+                    message.ShowDialog();
+                }
+                else
+                {
+                    MessageOption messageOption = new MessageOption();
+                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa loại khách hàng này?";
+                    messageOption.ShowDialog();
+                    bool isDelete = MessageOption.isAgree;
+                    messageOption.Close();
+                    if (isDelete)
+                    {
+                        LOAIKHACHHANG lkh = DataProvider.Ins.DB.LOAIKHACHHANGs.Find(int.Parse(idLKH));
+                        DataProvider.Ins.DB.LOAIKHACHHANGs.Remove(lkh);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadDataCustomerTypesCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa thành công loại khách hàng!";
+                        message.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
+        }
+
+        private void btnDeleteCustomer_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string MaKH = ((TextBlock)CustomerDataGrid.SelectedCells[1].Column.GetCellContent(CustomerDataGrid.SelectedCells[1].Item)).Text;
+
+                KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.FirstOrDefault(k => k.MaKH == MaKH);
+                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idKH == khachhang.idKH);
+
+                if (hoadon != null)
+                {
+                    Message message = new Message();
+                    message.message.Text = "Không thể xóa khách hàng này, vì tồn tại nhiều dữ liệu liên quan!";
+                    message.ShowDialog();
+                }
+                else
+                {
+                    MessageOption messageOption = new MessageOption();
+                    messageOption.message.Text = "Bạn có chắc chắn muốn xóa khách hàng này?";
+                    messageOption.ShowDialog();
+                    bool isDelete = MessageOption.isAgree;
+                    messageOption.Close();
+                    if (isDelete)
+                    {
+                        KHACHHANG kh = DataProvider.Ins.DB.KHACHHANGs.Find(khachhang.idKH);
+                        DataProvider.Ins.DB.KHACHHANGs.Remove(kh);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadDataCustomerCurrent();
+                        Message message = new Message();
+                        message.message.Text = "Xóa thành công khách hàng!";
+                        message.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message message = new Message();
+                message.message.Text = ex.Message;
+                message.ShowDialog();
+            }
+        }
+
+        private void buttonDetailCustomerType_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var cellInfo = CustomerTypesDataGrid.SelectedCells[1];
+                var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
+                var query = from lkh in qlnsEntities.LOAIKHACHHANGs
+                            where content == lkh.MaLKH
+                            select lkh;
+
+                var lst = query.ToList();
+
+                DetailCustomerType detail = new DetailCustomerType();
+                detail.customerManage = this;
+                detail.idLKH = lst[0].idLKH;
+                detail.TenLKH.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text;
+
+                if (((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text == "")// can null
+                {
+                    detail.MoTa.Text = "";
+                }
+                else
+                {
+                    detail.MoTa.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text;
+                }
+                detail.DTLTT.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[4].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[4].Item)).Text;
+                detail.ShowDialog();
+
+                LoadDataCustomerTypesCurrent();
+            }
+            catch { }
+
+        }
+
+        private string customerSearchValue;
+        public string CustomerSearchValue { get { return customerSearchValue; } set { customerSearchValue = value; OnPropertyChanged(); } }
+
+        private string customertypeSearchValue;
+        public string CustomerTypeSearchValue { get { return customertypeSearchValue; } set { customertypeSearchValue = value; OnPropertyChanged(); } }
+
+        private void txtCustomerSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CustomerSearchValue = txtCustomerSearch_txtbox.Text;
+
+            int page = 0;
+
+            var query =
+                from khachhang in qlnsEntities.KHACHHANGs
+                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khachhang.idLKH equals loaikhachhang.idLKH
+                orderby khachhang.idKH
+                select new
+                {
+                    idKH = khachhang.idKH,
+                    MaKH = khachhang.MaKH,
+                    TenKH = khachhang.TenKH,
+                    GioiTinh = khachhang.GioiTinh,
+                    NgaySinh = khachhang.NgaySinh,
+                    DiaChi = khachhang.DiaChi,
+                    SDT = khachhang.SDT,
+                    NgayTG = khachhang.NgayTG,
+                    DiemTichLuy = khachhang.DiemTichLuy,
+                    idLKH = loaikhachhang.TenLKH,
+                };
+
+            var lst = query.ToList();
+
+
+            for (int i = lst.Count - 1; i >= 0; i--)
+            {
+                if (!(lst[i].TenKH.Contains(CustomerSearchValue)))
+                {
+                    lst.RemoveAt(i);
+                }
+            }
+
+            CustomerDataGrid.ItemsSource = lst.Skip(pageSize * page).Take(pageSize);
+            btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnNext.IsEnabled = lst.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblPage.Text = string.Format("{0}/{1}", page + 1, (lst.Count() + pageSize - 1) / pageSize);
+
+        }
+
+        private void txtCustomerTypeSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CustomerTypeSearchValue = txtCustomerTypeSearch_txtbox.Text;
+
+            int page = 0;
+
+            var query = from lkh in qlnsEntities.LOAIKHACHHANGs
+                        where lkh.idLKH != 0
+                        orderby lkh.idLKH
+                        select lkh;
+
+            var lst = query.ToList();
+
+            for (int i = lst.Count - 1; i >= 0; i--)
+            {
+                if (!(lst[i].TenLKH.Contains(CustomerTypeSearchValue)))
+                {
+                    lst.RemoveAt(i);
+                }
+            }
+
+            CustomerTypesDataGrid.ItemsSource = lst.Skip(pageSize1 * page).Take(pageSize1);
+            btnCTPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
+            btnCTNext.IsEnabled = lst.Skip(pageSize1 * (page + 1)).Take(pageSize1).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            lblCTPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize1 - 1) / pageSize1);
+        }
+
+        private string pagetitle;
+        public string PageTitle {  get { return pagetitle; } set {  pagetitle = value; OnPropertyChanged(); } }
+        private void customerTab_Selected(object sender, RoutedEventArgs e)
+        {
+            btnAddCustomer.Visibility = Visibility.Visible;
+            btnAddCustomerTypes.Visibility = Visibility.Collapsed;
+            PageTitle = "Quản lý khách hàng";
+            pageTitle.DataContext = this;
+        }
+
+        private void customerTypeTab_Selected(object sender, RoutedEventArgs e)
+        {
+            btnAddCustomer.Visibility = Visibility.Collapsed;
+            btnAddCustomerTypes.Visibility = Visibility.Visible;
+            PageTitle = "Quản lý loại khách hàng";
+            pageTitle.DataContext = this;
         }
     }
 }

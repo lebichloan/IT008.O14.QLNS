@@ -91,6 +91,7 @@ namespace QLNS.ResourceXAML
                     window.Close();
                 }
             }
+            App.Current.Properties["isLogin"] = 0;
             LoginWindow Login = new LoginWindow();
             this.Close();
             Login.Show();
@@ -280,7 +281,7 @@ namespace QLNS.ResourceXAML
                 Popup.PlacementTarget = btnReport;
                 Popup.Placement = PlacementMode.Right;
                 Popup.IsOpen = true;
-                Header.PopupText.Text = "Báo cáo thống kê";
+                Header.PopupText.Text = "Báo cáo thống kê bán hàng";
             }
         }
 
@@ -293,6 +294,28 @@ namespace QLNS.ResourceXAML
         private void btnReport_Click(object sender, RoutedEventArgs e)
         {
             fContainer.Navigate(new System.Uri("Pages/Report.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void btnReportStorage_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Tg_Btn.IsChecked == false)
+            {
+                Popup.PlacementTarget = btnReportStorage;
+                Popup.Placement = PlacementMode.Right;
+                Popup.IsOpen = true;
+                Header.PopupText.Text = "Báo cáo thống kê kho hàng";
+            }
+        }
+
+        private void btnReportStorage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Popup.Visibility = Visibility.Collapsed;
+            Popup.IsOpen = false;
+        }
+
+        private void btnReportStorage_Click(object sender, RoutedEventArgs e)
+        {
+            fContainer.Navigate(new System.Uri("Pages/ReportStorage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

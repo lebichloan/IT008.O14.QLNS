@@ -1,0 +1,130 @@
+﻿<Window x:Class="QLNS.ResourceXAML.UserDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QLNS.ResourceXAML"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Name="userDialog"
+        Title="UserDialog" Height="350" Width="280">
+
+    <Border Background="White" CornerRadius="5" Margin="5" BorderThickness="1" BorderBrush="#BFBFBF">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="180"></RowDefinition>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Button x:Name="btnClose" HorizontalAlignment="Right" Click="btnClose_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Width" Value="25"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border Background="{TemplateBinding Background}" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Icon:PackIconMaterial Kind="Close" Height="15" Width="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Icon:PackIconMaterial>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Icon:PackIconMaterial Kind="AccountCircle" Height="150" Width="150" Foreground="#879FFF" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+
+            <Button x:Name="UserInfo"
+                    Grid.Row ="2"
+                    Height="39"
+                    Width="270"
+                    Style="{DynamicResource squareButton}"
+                    HorizontalContentAlignment="Left"
+                    BorderThickness="0"
+                    Click="UserInfo_Clicked">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <Icon:PackIconMaterial Kind="AccountDetails"
+                                            VerticalAlignment="Center"
+                                            Width="30"
+                                            Height="30"
+                                            Margin="15 0 15 0"
+                                            Foreground="#879FFF"/>
+                    <TextBlock Text="Thông tin người dùng" FontSize="20"
+                               Foreground="Black"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="AccountInfo"
+                    Grid.Row ="3"
+                    Height="39"
+                    Width="270"
+                    Style="{DynamicResource squareButton}"
+                    HorizontalContentAlignment="Left"
+                    BorderThickness="0"
+                    Click="AccountInfo_Clicked">
+
+                <StackPanel Orientation="Horizontal">
+
+                    <Icon:PackIconMaterial Kind="Cog"
+                                           VerticalAlignment="Center"
+                                           Width="30"
+                                           Height="30"
+                                           Margin="12 0 18 0"
+                                           Foreground="#879FFF"/>
+                    <TextBlock Text="Thông tin tài khoản" FontSize="20"
+                               Foreground="Black"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="ChangePassword"
+                    Grid.Row ="4"
+                    Height="39"
+                    Width="275"
+                    Style="{DynamicResource squareButton}" 
+                    HorizontalContentAlignment="Left"
+                    BorderThickness="0"
+                    Click="ChangePassword_Clicked">
+
+                <StackPanel Orientation="Horizontal" >
+
+                    <Icon:PackIconMaterial Kind="Lock"
+                                           VerticalAlignment="Center"
+                                           Width="25"
+                                           Height="25"
+                                           Margin="20 0 21 0"
+                                           Foreground="#879FFF"/>
+                    <TextBlock Text="Đổi mật khẩu" FontSize="20"
+                               Foreground="Black"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Border>
+
+</Window>

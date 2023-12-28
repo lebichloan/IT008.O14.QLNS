@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
     <!--  xmlns:local="clr-namespace:QLNS.Styles">  -->
 
     <!--  Start: Pop-up Button Style  -->
@@ -301,4 +303,68 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!--Start: Square button style-->
+    <Style x:Key="squareButton" TargetType="Button">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#D3D3D3" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--End: Square button style-->
+
+    <!--Start: Text box style-->
+    <Style x:Key="HintTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+    </Style>
+    <!--End: Text box style-->
+
+    <!--Start: Tab item style-->
+    <Style x:Key="TabItemStyle" TargetType="TabItem" BasedOn="{StaticResource MaterialDesignTabItem}">
+        <Setter Value="#879FFF" Property="materialDesign:ColorZoneAssist.Foreground" />
+        <Setter Value="Custom" Property="materialDesign:ColorZoneAssist.Mode" />
+    </Style>
+    <!--End: Tab item style-->
+
+    <!--Start: Datepicker style-->
+    <Style x:Key="DatePickerStyle" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="materialDesign:TextFieldAssist.HasFilledTextField" Value="False" />
+                    <Condition Property="materialDesign:TextFieldAssist.HasOutlinedTextField" Value="False" />
+                    <Condition Property="UIElement.IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Value="#879FFF" Property="BorderBrush" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--End: Datepicker style-->
+
+    <!--Start: ComboBox style-->
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+    </Style>
+    <!--End: ComboBox style-->
+
+    <!--Start: PasswordBox style-->
+    <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}">
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="#879FFF" />
+        <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#879FFF" />
+    </Style>
+    <!--End: PasswordBox style-->
+
 </ResourceDictionary>

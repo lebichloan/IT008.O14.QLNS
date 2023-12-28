@@ -23,11 +23,18 @@ namespace QLNS.Pages
     public partial class ImportProductManage : Page
     {
         QLNSEntities qLNSEntities = new QLNSEntities();
-        int pageNumber = 0;
-        int pageSize = 15;
+        public int pageNumber = 0;
+        public int pageSize = 10;
+
+        public int idND {  get; set; }
         public ImportProductManage()
         {
             InitializeComponent();
+        }
+        public ImportProductManage(int userID)
+        {
+            InitializeComponent();
+            idND = userID;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -38,6 +45,7 @@ namespace QLNS.Pages
         private void btnAddImportDetail_Click(object sender, RoutedEventArgs e)
         {
             AddImportDetail addImportDetail = new AddImportDetail();
+            addImportDetail.importProductManage = this;
             addImportDetail.ShowDialog();
         }
 
@@ -53,7 +61,7 @@ namespace QLNS.Pages
             pageNumber++;
             LoadData(pageNumber);
         }
-        private void LoadData(int page)
+        public void LoadData(int page)
         {
             var query =
                 from nhaphang in qLNSEntities.NHAPHANGs
@@ -68,10 +76,19 @@ namespace QLNS.Pages
                     GhiChu = nhaphang.GhiChu,
                 };
 
-            staffDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
+            importDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToList();
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
+        }
+
+       
+
+        private void btnDetailImport_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedImport = (dynamic)importDataGrid.SelectedItem;
+            DetailImport detailImport = new DetailImport(selectedImport.idNH);
+            detailImport.ShowDialog();
         }
     }
 }

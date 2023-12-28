@@ -1,5 +1,6 @@
 ﻿using QLNS.Controls;
 using QLNS.Model;
+using QLNS.Pages;
 using QLNS.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,19 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddImportDetail : Window
     {
-        private int idND = 1;
+        private int idND = -1;
         
+        public ImportProductManage importProductManage {  get; set; }
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddImportDetail()
         {
+            idND = 1;
+            InitializeComponent();
+        }
+        public AddImportDetail(int idImport)
+        {
+            idND = idImport;
             InitializeComponent();
         }
         
@@ -82,13 +91,12 @@ namespace QLNS.ResourceXAML
                 detailProductExpander.IsExpanded = true;
                 idSP = selectedProduct.idSP;
                 headerProductExpander.Text = selectedProduct.TenSP;
-                lblSoLuongDaBan.Text = string.Format("{0} {1}", "Đã bán", selectedProduct.SLDB.ToString());
-                SLSPCL = selectedProduct.SLCL;
-                lblSoLuongConLai.Text = string.Format("{0} {1}", "Còn lại", SLSPCL.ToString());
+                
                 if (selectedProduct.MoTa != "")
                 {
                     lblMoTa.Text = selectedProduct.MoTa;
                 }
+                lblDanhMuc.Text = selectedProduct.TenDM;
                 
                 btnSub.IsEnabled = false;
                 SLSPNH = 0;
@@ -153,39 +161,32 @@ namespace QLNS.ResourceXAML
                 MessageBox.Show("Vui long nhap so luong lon hon 0");
                 //txtSoLuongSanPham.Focus();
             }
-            else if (SLSPNH > SLSPCL)
-            {
-                MessageBox.Show("Kho khong the cung cap so luong nay");
-            }
+            
             else
             {
                 addProducttoBill();
                 detailProductExpander.Visibility = Visibility.Collapsed;
             }
         }
-        private void LoadAllProduct()
+        public void LoadAllProduct()
         {
             var queryAllProduct = from sanpham in qLNSEntities.SANPHAMs
-                                  join ctsp in qLNSEntities.CTSPs
-                                  on sanpham.idSP equals ctsp.idSP
-                                  orderby ctsp.idCTSP
-                                  where ctsp.SLConLai > 0
+                                  join danhmuc in qLNSEntities.DANHMUCs
+                                  on sanpham.idDM equals danhmuc.idDM
+                                  orderby sanpham.MaSP
                                   select new
                                   {
-                                      idSP = ctsp.idCTSP,
-                                      MaSP = ctsp.MaCTSP,
+                                      idSP = sanpham.idSP,
+                                      MaSP = sanpham.MaSP,
                                       TenSP = sanpham.TenSP,
-                                      SLDB = ctsp.DaBan,
-                                      SLCL = ctsp.SLConLai,
+                                      TenDM = danhmuc.TenDM,
                                       MoTa = sanpham.MoTa,
-                                      DonGia = ctsp.DonGiaXuat,
-                                      GhiChu = ctsp.GhiChu,
                                   };
 
             productDataGrid.ItemsSource = queryAllProduct.ToList();
         }
 
-        private void SetValues()
+        public void SetValues()
         {
             lblSoLuongNhapHang.Text = "0";
             lblTongTienNhapHang.Text = "0";
@@ -223,7 +224,6 @@ namespace QLNS.ResourceXAML
         }
 
         private int idSP = 0;
-        private int SLSPCL = 0;
         private decimal DonGiaSP = 0;
         private short SLSPNH = 0;
         private decimal ThanhTienSP = 0;
@@ -241,11 +241,6 @@ namespace QLNS.ResourceXAML
                     if (soLuongSPInput <= 0)
                     {
                         MessageBox.Show("Vui long nhap so luong lon hon 0");
-                        txtSoLuongSanPham.Focus();
-                    }
-                    else if (soLuongSPInput > SLSPCL)
-                    {
-                        MessageBox.Show("Kho khong the cung cap so luong nay");
                         txtSoLuongSanPham.Focus();
                     }
                     else
@@ -271,15 +266,11 @@ namespace QLNS.ResourceXAML
             {
                 btnSub.IsEnabled = false;
             }
-            if (sl >= SLSPCL)
+            if(sl > 0 ) 
             {
-                btnAdd.IsEnabled = false;
-            }
-            if (sl > 0 && sl < SLSPCL)
-            {
-                btnAdd.IsEnabled = true;
                 btnSub.IsEnabled = true;
             }
+            
         }
 
         private int TongSoLuongSP = 0;
@@ -297,19 +288,34 @@ namespace QLNS.ResourceXAML
             lblSoLuongNhapHang.Text = TongSoLuongSP.ToString();
             TongTienNH = TongTienNH + ThanhTienSP;
             lblTongTienNhapHang.Text = TongTienNH.ToString();
-
+            
             btnNext.IsEnabled = true;
         }
         
 
         private void txtSoLuongSanPham_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.Key == Key.Enter)
+            {
+                searchTerm = txtSearchProduct.Text.ToLower();
+                if (searchTerm == "")
+                {
+                    isSearch = 0;
+                    productTabItem.Header = "Tất cả sản phẩm";
+                    LoadAllProduct();
+                }
+                else
+                {
+                    isSearch = 1;
+                    productTabItem.Header = "Kết quả tìm kiếm";
+                    FilterProduct(searchTerm);
+                }
+            }
         }
 
         private void txtSoLuongSanPham_LostFocus(object sender, RoutedEventArgs e)
         {
-
+            GetValueSoLuongSP();
         }
 
         private void productListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -319,8 +325,9 @@ namespace QLNS.ResourceXAML
 
         private void btnAddNewProduct_Click(object sender, RoutedEventArgs e)
         {
-            AddNewProductWhenImport addNewProductWhenImport = new AddNewProductWhenImport();
-            addNewProductWhenImport.ShowDialog();
+            AddNewProduct addNewProduct = new AddNewProduct();
+            addNewProduct.addImportDetail = this;
+            addNewProduct.Show();
         }
         private List<ImportItemListBox> listProduct;
         private List<ImportItemListBox> GetListBoxProduct()
@@ -355,9 +362,9 @@ namespace QLNS.ResourceXAML
                 DataProvider.Ins.DB.CTSPs.Add(ctsp);
                 DataProvider.Ins.DB.SaveChanges();
             }
-
-            MessageBox.Show("Them don nhap hang thanh cong");
-            
+            Message message = new Message();
+            message.message.Text = "Thêm đơn nhập hàng thành công";
+            importProductManage.LoadData(importProductManage.pageNumber);
             this.Close();
         }
 
@@ -371,7 +378,7 @@ namespace QLNS.ResourceXAML
             nhaphang.GhiChu = "";
             TongThanhTienNH = Convert.ToDecimal(lblTongTienNhapHang.Text);
             nhaphang.ThanhTien = TongThanhTienNH;
-            nhaphang.idND = idND;
+            nhaphang.idND = this.idND;
             
             return nhaphang;
         }

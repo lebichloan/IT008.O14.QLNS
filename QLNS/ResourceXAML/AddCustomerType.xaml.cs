@@ -85,16 +85,17 @@ namespace QLNS.ResourceXAML
         private void ForceValidation()
         {
             tenLKH.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            moTa.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             diemTLTT.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             ForceValidation();
-            if ((Validation.GetHasError(tenLKH)) || (Validation.GetHasError(moTa)) || (Validation.GetHasError(diemTLTT)))
+            if ((Validation.GetHasError(tenLKH)) || (Validation.GetHasError(diemTLTT)))
             {
-                MessageBox.Show("Đã có lỗi xảy ra!");
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra";
+                message.ShowDialog();
             }
             else
             {

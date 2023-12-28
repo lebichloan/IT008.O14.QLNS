@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vld="clr-namespace:QLNS.Validations"
         xmlns:local="clr-namespace:QLNS.ResourceXAML"
         mc:Ignorable="d"
                 WindowStyle="None"
@@ -11,7 +12,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="DetailStaff" Height="400" Width="450">
+        Title="DetailStaff" Height="460" Width="450">
     <Border Background="White" CornerRadius="5" Margin="10" BorderThickness="1" BorderBrush="#BFBFBF">
         <Grid>
             <Grid.RowDefinitions>
@@ -21,6 +22,14 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+
+            <!--Start: Binding Control-->
+            <TextBox x:Name="bindingTenKM" Visibility="Collapsed"></TextBox>
+            <TextBox x:Name="bindingGiamGia" Visibility="Collapsed"></TextBox>
+            <DatePicker x:Name="bindingNgayBD" Visibility="Collapsed"></DatePicker>
+            <DatePicker x:Name="bindingNgayKT" Visibility="Collapsed"></DatePicker>
+            <!--End: Binding Control-->
+
             <DockPanel Grid.Row="0">
                 <TextBlock DockPanel.Dock="Left" FontSize="20" FontWeight="Bold" Margin="20 10 10 5">
                     Thông tin khuyến mãi
@@ -50,29 +59,102 @@
                     </Button.Style>
                 </Button>
             </DockPanel>
+
             <Separator Grid.Row="1" Height="5" Margin="20 0 20 0"/>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 10 0 0">
-                    <TextBlock Text="Tên khuyến mãi" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Loại khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Ngày bắt đầu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Ngày kết thúc" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Giảm giá" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Mô tả" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Margin="0 10 0 0">
-                    <TextBox x:Name="TenKM" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1"></TextBox>
-                    <TextBox x:Name="idLKH" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
-                    <TextBox x:Name="NgayBD" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
-                    <TextBox x:Name="NgayKT" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
-                    <TextBox x:Name="GiamGia" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
-                    <TextBox x:Name="MoTa" FontSize="14" Height="50" Margin="0 0 20 10" BorderBrush="Black" TextWrapping="Wrap" AcceptsReturn="True" ></TextBox>
-                </StackPanel>
-            </Grid>
+
+            <ScrollViewer Grid.Row="2" Height="312.7">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 10 0 0">
+                        <TextBlock Text="Tên khuyến mãi" FontSize="15" FontWeight="SemiBold" Margin="0 18 0 40"></TextBlock>
+                        <TextBlock Text="Loại khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Ngày bắt đầu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Ngày kết thúc" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Giảm giá" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Mô tả" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="0 11 0 0">
+                        <TextBox x:Name="TenKM" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}">
+                            <TextBox.Text>
+                                <Binding Path="Text"
+                                         ElementName="bindingTenKM"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <vld:EmptyStringValid></vld:EmptyStringValid>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <ComboBox x:Name="idLKH" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" ItemsSource="{Binding}" DisplayMemberPath="TenLKH" SelectedValuePath="MaLKH" Style="{StaticResource ComboBoxStyle}"></ComboBox>
+
+                        <DatePicker x:Name="NgayBD" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource DatePickerStyle}">
+                            <DatePicker.SelectedDate>
+                                <Binding Path="SelectedDate"
+                                         ElementName="bindingNgayBD"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <vld:Sale_StartDateValid></vld:Sale_StartDateValid>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </DatePicker.SelectedDate>
+
+                            <DatePicker.CalendarStyle>
+                                <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                    </Style.Resources>
+                                </Style>
+                            </DatePicker.CalendarStyle>
+                        </DatePicker>
+
+                        <DatePicker x:Name="NgayKT" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource DatePickerStyle}">
+                            <DatePicker.SelectedDate>
+                                <Binding Path="SelectedDate"
+                                         ElementName="bindingNgayKT"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <vld:Sale_EndDateValid></vld:Sale_EndDateValid>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </DatePicker.SelectedDate>
+
+                            <DatePicker.CalendarStyle>
+                                <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                    </Style.Resources>
+                                </Style>
+                            </DatePicker.CalendarStyle>
+                        </DatePicker>
+
+                        <TextBox x:Name="GiamGia" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}">
+                            <TextBox.Text>
+                                <Binding Path="Text"
+                                         ElementName="bindingGiamGia"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <vld:DiscountValid></vld:DiscountValid>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox x:Name="MoTa" FontSize="14" Margin="0 0 20 19" BorderBrush="Black" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource HintTextBoxStyle}"></TextBox>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
             <Separator Grid.Row="3" Height="5" Margin="20 5 20 10"></Separator>
             <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" Margin="0 0 20 0" VerticalAlignment="Center">
                 <Button x:Name="btnCancel" Style="{StaticResource btnCancel}" Content="Hủy" Margin="0 0 10 0" Foreground="#879FFF"

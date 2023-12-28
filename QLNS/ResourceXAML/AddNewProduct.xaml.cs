@@ -20,6 +20,8 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddNewProduct : Window
     {
+        public AddImportDetail addImportDetail {  get; set; }
+
         private string _MaSP;
         public string masp { get => _MaSP; set { _MaSP = value; } }
 
@@ -40,7 +42,14 @@ namespace QLNS.ResourceXAML
             InitializeComponent();
             LoadComboBox();
         }
+        public AddNewProduct(object refToParent)
+        {
 
+            InitializeComponent();
+            LoadComboBox();
+            refToP = refToParent;
+        }
+        private object refToP;
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -96,6 +105,8 @@ namespace QLNS.ResourceXAML
 
             DataProvider.Ins.DB.SANPHAMs.Add(SANPHAM);
             DataProvider.Ins.DB.SaveChanges();
+            addImportDetail.LoadAllProduct();
+            addImportDetail.SetValues();
             this.Close();
         }
         QLNSEntities qLNSEntities = new QLNSEntities();

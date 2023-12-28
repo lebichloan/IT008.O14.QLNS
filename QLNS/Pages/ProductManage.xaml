@@ -29,12 +29,13 @@
 
                 <!--  Page title  -->
                 <TextBlock
+                    x:Name="pageTitle"
                     Grid.Row="0"
                     Margin="0,10,0,10"
                     HorizontalAlignment="Left"
                     FontSize="25"
                     FontWeight="Bold"
-                    Text="Quản lý sản phẩm" />
+                    Text="{Binding PageTitle}" />
 
                 <!--  Add staff  -->
                 <Button
@@ -112,7 +113,8 @@
                     <TabItem
                         Name="productTabItem"
                         Header="Sản phẩm"
-                        Selector.Selected="productTabItem_Selected">
+                        Selector.Selected="productTabItem_Selected"
+                        Style="{StaticResource TabItemStyle}">
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -124,9 +126,15 @@
                                 x:Name="productDataGrid"
                                 Grid.Row="0"
                                 Height="auto"
-                                AutoGenerateColumns="False">
+                                HorizontalAlignment="Stretch"
+                                AutoGenerateColumns="False"
+                                HorizontalScrollBarVisibility="Visible">
+                                <DataGrid.Resources>
+                                    <local:StatusProductConvert x:Key="statusProductConvert"></local:StatusProductConvert>
+                                </DataGrid.Resources>
 
                                 <DataGrid.Columns>
+
                                     <!--  Checkbox  -->
                                     <DataGridCheckBoxColumn Width="auto" CanUserResize="False">
                                         <DataGridCheckBoxColumn.HeaderTemplate>
@@ -139,7 +147,7 @@
                                     <!--  Mã sản phẩm  -->
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding MaSP}"
+                                        Binding="{Binding MaCTSP}"
                                         CanUserResize="False"
                                         Header="Mã SP"
                                         IsReadOnly="True" />
@@ -150,21 +158,33 @@
                                         Header="Tên sản phẩm"
                                         IsReadOnly="True" />
                                     <!--  Mô tả  -->
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding MoTa}"
-                                        Header="Mô tả"
-                                        IsReadOnly="True" />
 
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding SLDB}"
+                                        Binding="{Binding DaBan}"
                                         Header="Đã bán"
                                         IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding DonGiaNhap}"
+                                        Header="Đơn giá nhập"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding DonGiaXuat}"
+                                        Header="Đơn giá bán"
+                                        IsReadOnly="True" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding TinhTrang, Converter={StaticResource ResourceKey=statusProductConvert}}"
+                                        Header="Tình trạng"
+                                        IsReadOnly="True" />
+
+
 
                                     <DataGridTextColumn
                                         Width="auto"
-                                        Binding="{Binding SLCL}"
+                                        Binding="{Binding SoLuongConLai}"
                                         Header="Còn lại"
                                         IsReadOnly="True" />
 
@@ -177,6 +197,7 @@
 
 
                                     <DataGridTemplateColumn Width="auto" IsReadOnly="True">
+
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -254,7 +275,8 @@
                         Name="errorProductTabItem"
                         Header="Sản phẩm lỗi"
                         Loaded="errorProductTabItem_Loaded"
-                        Selector.Selected="errorProductTabItem_Selected">
+                        Selector.Selected="errorProductTabItem_Selected"
+                        Style="{StaticResource TabItemStyle}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="53*" />
@@ -319,7 +341,7 @@
                                         IsReadOnly="True" />
                                     <DataGridTextColumn
                                         Width="*"
-                                        Binding="{Binding TenDM}"
+                                        Binding="{Binding danhmuc}"
                                         Header="Danh mục"
                                         IsReadOnly="True" />
 
@@ -329,17 +351,17 @@
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                                     <Button
-                                                        x:Name="btnDetail"
+                                                        x:Name="btnErrorDetail"
                                                         Margin="0,0,5,0"
-                                                        Click="btnDetail_Click"
+                                                        Click="btnErrorDetail_Click"
                                                         Style="{DynamicResource gridViewButton}">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
 
                                                     <Button
-                                                        Name="btnDelete"
+                                                        Name="btnErrorDelete"
                                                         Margin="5,0,0,0"
-                                                        Click="btnDelete_Click"
+                                                        Click="btnErrorDelete_Click"
                                                         Style="{DynamicResource gridViewButton}">
                                                         <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
@@ -400,7 +422,8 @@
                         Name="categoryTabItem"
                         Header="Danh mục"
                         Loaded="categoryTabItem_Loaded"
-                        Selector.Selected="categoryTabItem_Selected">
+                        Selector.Selected="categoryTabItem_Selected"
+                        Style="{StaticResource TabItemStyle}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height=".85*" />
@@ -450,13 +473,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                                    <Button
-                                                        x:Name="btnDetailCategory"
-                                                        Margin="0,0,5,0"
-                                                        Click="btnDetailCategory_Click"
-                                                        Style="{DynamicResource gridViewButton}">
-                                                        <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
-                                                    </Button>
+
 
                                                     <Button
                                                         Name="btnDelete"

@@ -19,35 +19,81 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <!-- Page title -->
 
-            <TextBlock Text="Quản lý khách hàng"
+            <TextBlock x:Name="pageTitle"
+                       Text="{Binding PageTitle}"
                        Grid.Row="0"
                        FontSize="25"
                        FontWeight="Bold"                               
                        HorizontalAlignment="Left"
                        Margin="0 10 0 10"/>
 
+            <!-- Add Button -->
+            <Button x:Name="btnAddCustomer"
+                    Grid.Row="0"
+                    Style="{StaticResource addButton}" Click="btnAddCustomer_Click"
+                    >
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Plus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Margin="0 0 10 0"
+                                            Foreground="{DynamicResource IconButtonColor}"/>
+
+                    <TextBlock Text="Thêm khách hàng"
+                                Foreground="{DynamicResource TextButtonColor}"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnAddCustomerTypes"
+                    Grid.Row="0"
+                    Style="{StaticResource addButton}" Click="btnAddCustomerTypes_Click"
+                    Width="170"
+                                    >
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Plus"
+                                            VerticalAlignment="Center"
+                                            Width="11"
+                                            Height="11"
+                                            Margin="0 0 10 0"
+                                            Foreground="{DynamicResource IconButtonColor}"/>
+
+                    <TextBlock Text="Thêm loại khách hàng"
+                                Foreground="{DynamicResource TextButtonColor}"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Seprator -->
+            <Separator Height="5" Grid.Row="1" 
+                        Background="{DynamicResource SepratorBackgroundColor}"
+                        Margin="0 0 0 0"/>
+
+
             <TabControl HorizontalContentAlignment="Left" 
-                        Grid.Row="1">
-                <TabItem Header="Quản lý khách hàng" 
+                        Grid.Row="2">
+                <TabItem x:Name="customerTab"
+                         Header="Quản lý khách hàng" 
                          Width="200" 
                          Loaded="customer_Loaded" 
-                         HorizontalAlignment="Left">
+                         HorizontalAlignment="Left"
+                         Selector.Selected="customerTab_Selected"
+                         Style="{StaticResource TabItemStyle}">
                     <DockPanel Grid.Column="0" LastChildFill="True">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <!-- Add Button -->
+                            <!--
                             <Button x:Name="btnAddCustomer"
                                     Grid.Row="0"
                                     Style="{StaticResource addButton}" Click="btnAddCustomer_Click"
@@ -60,17 +106,10 @@
                                                             Margin="0 0 10 0"
                                                             Foreground="{DynamicResource IconButtonColor}"/>
 
-                                    <TextBlock Text="Thêm mới"
+                                    <TextBlock Text="Thêm khách hàng"
                                                 Foreground="{DynamicResource TextButtonColor}"/>
                                 </StackPanel>
-                            </Button>
-
-                            <!-- Seprator -->
-
-                            <Separator Height="10" Grid.Row="1" 
-                                           Background="{DynamicResource SepratorBackgroundColor}"
-                                           Margin="0 0 0 5"/>
-
+                            </Button>-->
 
                             <!-- Counter Title -->
                             <!--<TextBlock Text="so luong khach hang"
@@ -81,8 +120,8 @@
                                            VerticalAlignment="Center"/>-->
 
                             <!--Search-->
-                            <TextBlock Text="Filter by"
-                               Grid.Row="2"
+                            <TextBlock Text="Tìm kiếm"
+                               Grid.Row="0"
                                FontSize="13"
                                FontWeight="SemiBold"
                                Margin="0 10 215 10"
@@ -90,7 +129,7 @@
                                VerticalAlignment="Center"/>
 
                             <Grid 
-                                Grid.Row="2"
+                                Grid.Row="0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Width="190"
@@ -114,6 +153,7 @@
                                          Style="{DynamicResource searchTextBox}"
                                          BorderThickness="0"
                                          Height="22"
+                                         TextChanged="txtCustomerSearch_TextChanged"
                             />
 
                                 <Icon:PackIconMaterial Kind="Magnify"
@@ -127,7 +167,7 @@
 
                             <!-- Member datagrid -->
 
-                            <DataGrid Grid.Row="3"
+                            <DataGrid Grid.Row="1"
                                       x:Name="CustomerDataGrid"
                                       AutoGenerateColumns="False"
                                       VerticalAlignment="Top">
@@ -193,11 +233,14 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                    <Button x:Name="btnDetailCustommer" Style="{DynamicResource gridViewButton}" Click="btnDetailCustommer_Click">
+                                                    <Button x:Name="btnDetailCustommer" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetailCustommer_Click">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
-
+                                                    <Button x:Name="btnDeleteCustomer" Margin="5,0,0,0" Style="{DynamicResource gridViewButton}" Click="btnDeleteCustomer_Clicked">
+                                                        <Icon:PackIconMaterial Kind="TrashCan"
+                                                                               Style="{DynamicResource gridButtonIcon}"/>
+                                                    </Button>
 
                                                 </StackPanel>
                                             </DataTemplate>
@@ -207,7 +250,7 @@
                             </DataGrid>
 
                             <!--Pagination Section-->
-                            <Border Grid.Row="4"
+                            <Border Grid.Row="2"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     BorderBrush="{DynamicResource FocusBorderColor}"
@@ -253,21 +296,27 @@
                     </DockPanel>
                 </TabItem>
 
-                <TabItem Header="Quản lý loại khách hàng" Loaded="customerTypes_Loaded" HorizontalAlignment="Left" Width="200">
+                <TabItem x:Name="customerTypeTab"
+                         Header="Quản lý loại khách hàng" 
+                         Loaded="customerTypes_Loaded" 
+                         HorizontalAlignment="Left" 
+                         Width="200"
+                         Selector.Selected="customerTypeTab_Selected"
+                         Style="{StaticResource TabItemStyle}">
                     <DockPanel Grid.Column="0" LastChildFill="True">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <!-- Add Button -->
+                            <!--
                             <Button x:Name="btnAddCustomerTypes"
                                     Grid.Row="0"
                                     Style="{StaticResource addButton}" Click="btnAddCustomerTypes_Click"
+                                    Width="170"
                                     >
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Plus"
@@ -277,21 +326,14 @@
                                                             Margin="0 0 10 0"
                                                             Foreground="{DynamicResource IconButtonColor}"/>
 
-                                    <TextBlock Text="Thêm mới"
+                                    <TextBlock Text="Thêm loại khách hàng"
                                                 Foreground="{DynamicResource TextButtonColor}"/>
                                 </StackPanel>
-                            </Button>
-
-                            <!-- Seprator -->
-
-                            <Separator Height="1" Grid.Row="1" 
-                                           Background="{DynamicResource SepratorBackgroundColor}"
-                                           Margin="0 0 0 5"/>
-
+                            </Button>-->
 
                             <!--Search-->
-                            <TextBlock Text="Filter by"
-                               Grid.Row="2"
+                            <TextBlock Text="Tìm kiếm"
+                               Grid.Row="0"
                                FontSize="13"
                                FontWeight="SemiBold"
                                Margin="0 10 215 10"
@@ -299,7 +341,7 @@
                                VerticalAlignment="Center"/>
 
                             <Grid 
-                                Grid.Row="2"
+                                Grid.Row="0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Width="190"
@@ -323,6 +365,7 @@
                                          Style="{DynamicResource searchTextBox}"
                                          BorderThickness="0"
                                          Height="22"
+                                         TextChanged="txtCustomerTypeSearch_TextChanged"
                             />
 
                                 <Icon:PackIconMaterial Kind="Magnify"
@@ -336,7 +379,7 @@
 
                             <DataGrid x:Name="CustomerTypesDataGrid"
                                       AutoGenerateColumns="False"
-                                      Grid.Row="3">
+                                      Grid.Row="1">
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn CanUserResize="False"
                                                         Width="auto">
@@ -347,11 +390,11 @@
                                         </DataGridCheckBoxColumn.HeaderTemplate>
                                     </DataGridCheckBoxColumn>
 
-                                    <DataGridTextColumn Header="#"
+                                    <!--<DataGridTextColumn Header="#"
                                                 Binding="{Binding idLKH}"
                                                 IsReadOnly="True"
                                                 CanUserResize="False"
-                                                Width="auto"/>
+                                                Width="auto"/>-->
 
                                     <DataGridTextColumn Header="Mã loại khách hàng"
                                                 Binding="{Binding MaLKH}"
@@ -379,16 +422,18 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Button Style="{DynamicResource gridViewButton}"
+                                                    <Button Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="buttonDetailCustomerType_Clicked"
                                                                 >
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
-                                                    <Button Style="{DynamicResource gridViewButton}"
-                                                                Margin="5,0,0,0">
-                                                        <Icon:PackIconMaterial Kind="SquareEditOutline"
-                                                                        Style="{DynamicResource gridButtonIcon}"/>
+                                                    <Button x:Name="buttonDeleteLKH"
+                                                            Style="{DynamicResource gridViewButton}"
+                                                                Margin="5,0,0,0"
+                                                            Click="buttonDeleteLKH_Clicked">
+                                                        <Icon:PackIconMaterial Kind="TrashCan"
+                                                                               Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
                                                 </StackPanel>
                                             </DataTemplate>
@@ -398,7 +443,7 @@
                             </DataGrid>
 
                             <!--Pagination Section-->
-                            <Border Grid.Row="4"
+                            <Border Grid.Row="2"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Bottom"
                                         BorderBrush="{DynamicResource FocusBorderColor}"
