@@ -63,14 +63,14 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 10 0 0">
-                    <TextBlock Text="Tên nhân viên" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
-                    <TextBlock Text="Ngày sinh" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Giới tính" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Địa chỉ" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Số điện thoại" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Ngày vào làm" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Chức vụ" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
-                    <TextBlock Text="Ghi chú" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
+                        <TextBlock Text="Tên nhân viên" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Ngày sinh" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Giới tính" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Địa chỉ" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Số điện thoại" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Ngày vào làm" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Chức vụ" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
+                        <TextBlock Text="Ghi chú" Style="{DynamicResource TextBlockLableInfo}"></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0 10 0 0">
                     <TextBox x:Name="TenNV" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1"></TextBox>
@@ -90,8 +90,14 @@
                             </Style>
                         </DatePicker.CalendarStyle>
                     </DatePicker>
-                    <TextBox x:Name="GioiTinh" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
-                    <TextBox x:Name="DiaChi" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
+                        <Border CornerRadius="4" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1" >
+                            <ComboBox x:Name="GioiTinh" FontSize="14" Height="25" Padding="0 0 5 0"
+                                    materialDesign:TextFieldAssist.UnderlineBrush="Black">
+                                <TextBlock Width="250" HorizontalAlignment="Left" Text="Nam"></TextBlock>
+                                <TextBlock Width="250" HorizontalAlignment="Left" Text="Nữ"></TextBlock>
+                            </ComboBox>
+                        </Border>
+                        <TextBox x:Name="DiaChi" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
                     <TextBox x:Name="SDT" FontSize="14" Height="25" Margin="0 0 20 10" BorderBrush="Black" ></TextBox>
                     <DatePicker x:Name="NgayVL" Margin="0 0 20 10" FontSize="14"
                                 Width="250" Height="26" Padding="1 0 5 0" HorizontalAlignment="Left"
@@ -126,10 +132,10 @@
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
-                    <TextBlock Text="Tên đăng nhập" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
-                    <TextBlock Text="Mật khẩu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
-                    <TextBlock Text="Nhập lại mật khẩu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
-                    <TextBlock Text="Loại người dùng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15" ></TextBlock>
+                        <TextBlock Text="Tên đăng nhập" Style="{DynamicResource TextBlockLableInfo}" ></TextBlock>
+                        <TextBlock Text="Mật khẩu" Style="{DynamicResource TextBlockLableInfo}" ></TextBlock>
+                        <TextBlock Text="Nhập lại mật khẩu" Style="{DynamicResource TextBlockLableInfo}" ></TextBlock>
+                        <TextBlock Text="Loại người dùng" Style="{DynamicResource TextBlockLableInfo}" ></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="0 30 0 0">
                     <StackPanel.Style>
