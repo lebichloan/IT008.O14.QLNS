@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:local="clr-namespace:QLNS.ResourceXAML"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="DetailStaff"
     Width="450"
-    Height="450"
+    Height="470"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
@@ -141,21 +142,11 @@
                         BorderThickness="1"
                         FontSize="14" />
                     <Border
-                        Width="258"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        HorizontalAlignment="Left"
-                        BorderBrush="Black"
-                        BorderThickness="0.8"
-                        CornerRadius="5">
+                        CornerRadius="4" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1">
                         <ComboBox
                             x:Name="LoaiSP"
-                            Width="250"
-                            Height="25"
-                            Margin="2,0,0.5,5"
-                            HorizontalAlignment="Left"
-                            FlowDirection="LeftToRight"
-                            FontSize="14" />
+                            FontSize="14" Height="25" Padding="0 0 5 0"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Black"/>
                     </Border>
                     <TextBox
                         x:Name="SLCL"
@@ -189,21 +180,11 @@
                         FontSize="14" />
 
                     <Border
-                        Width="258"
-                        Height="25"
-                        Margin="0,0,20,10"
-                        HorizontalAlignment="Left"
-                        BorderBrush="Black"
-                        BorderThickness="0.8"
-                        CornerRadius="5">
+                        CornerRadius="4" Height="25" Margin="0 0 20 10" BorderBrush="Black" BorderThickness="1">
                         <ComboBox
                             x:Name="TinhTrang"
-                            Width="250"
-                            Height="25"
-                            Margin="2,0,0.5,5"
-                            HorizontalAlignment="Left"
-                            FlowDirection="LeftToRight"
-                            FontSize="14" />
+                            FontSize="14" Height="25" Padding="0 0 5 0"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Black" />
                     </Border>
                     <TextBox
                         x:Name="MoTa"
@@ -221,7 +202,7 @@
                 Margin="20,5,20,10" />
             <StackPanel
                 Grid.Row="4"
-                Margin="0,0,20,0"
+                Margin="0,0,20,10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
