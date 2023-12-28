@@ -91,10 +91,20 @@ namespace QLNS.ResourceXAML
                     nhanvien.ChucVu = ChucVu.Text.ToString();
                     if(TinhTrang.Text == "Nghỉ việc")
                     {
+                        NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(x => x.idNV == nhanvien.idNV);
+                        if(nguoidung != null)
+                        {
+                            nguoidung.TinhTrang = 0;
+                        }
                         nhanvien.TinhTrang = 0;
                     }
                     else
                     {
+                        NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(x => x.idNV == nhanvien.idNV);
+                        if (nguoidung != null)
+                        {
+                            nguoidung.TinhTrang = 1;
+                        }
                         nhanvien.TinhTrang = 1;
                     }
                     nhanvien.GhiChu = GhiChu.Text.ToString();
