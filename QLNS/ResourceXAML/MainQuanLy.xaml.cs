@@ -296,7 +296,7 @@ namespace QLNS.ResourceXAML
         {
             if (Tg_Btn.IsChecked == false)
             {
-                Popup.PlacementTarget = btnReport;
+                Popup.PlacementTarget = btnReportStorage;
                 Popup.Placement = PlacementMode.Right;
                 Popup.IsOpen = true;
                 Header.PopupText.Text = "Báo cáo thống kê kho hàng";

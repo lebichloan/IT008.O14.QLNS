@@ -17,9 +17,9 @@ namespace QLNS.ResourceXAML
     /// <summary>
     /// Interaction logic for DetailUser.xaml
     /// </summary>
-    public partial class DetailUser : Window
+    public partial class DetailHomeUser : Window
     {
-        public DetailUser()
+        public DetailHomeUser()
         {
             InitializeComponent();
         }

@@ -32,7 +32,7 @@ namespace QLNS.ResourceXAML
 
         private void UserInfo_Clicked(object sender, RoutedEventArgs e)
         {
-            DetailUser detailUser = new DetailUser();
+            DetailHomeUser detailUser = new DetailHomeUser();
 
             int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
 

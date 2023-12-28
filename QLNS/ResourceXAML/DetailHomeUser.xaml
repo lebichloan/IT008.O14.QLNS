@@ -1,4 +1,4 @@
-﻿<Window x:Class="QLNS.ResourceXAML.DetailUser"
+﻿<Window x:Class="QLNS.ResourceXAML.DetailHomeUser"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,8 +12,8 @@
         AllowsTransparency="True"
         Background="Transparent"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Name="detailUser"
-        Title="DetailUser" Height="500" Width="450">
+        Name="detailHomeUser"
+        Title="DetailHomeUser" Height="500" Width="450">
     <Border Background="White" CornerRadius="5" Margin="10" BorderThickness="1" BorderBrush="#BFBFBF">
         <Grid>
             <Grid.RowDefinitions>
