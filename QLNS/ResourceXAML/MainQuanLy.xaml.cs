@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLNS.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,15 +22,17 @@ namespace QLNS.ResourceXAML
     public partial class MainQuanLy : Window
     {
         private int idND = -1;
+        private int idLND = -1;
         public MainQuanLy()
         {
             InitializeComponent();
         }
 
-        public MainQuanLy(int idND)
+        public MainQuanLy(int idND, int idLND)
         {
             InitializeComponent();
             this.idND = idND;
+            this.idLND = idLND;
         }
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -201,7 +204,8 @@ namespace QLNS.ResourceXAML
 
         private void btnBill_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/BillManage.xaml", UriKind.RelativeOrAbsolute));
+            BillManage billManage = new BillManage(idND, idLND);
+            fContainer.Navigate(billManage);
         }
 
         private void btnSetting_MouseEnter(object sender, MouseEventArgs e)
