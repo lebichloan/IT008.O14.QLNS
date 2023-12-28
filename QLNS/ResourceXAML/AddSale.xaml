@@ -76,7 +76,7 @@
                              Width="300" Height="40"
                              Margin="10 5 0 15"
                              materialDesign:HintAssist.Hint="Tên khuyến mãi"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                             Style="{StaticResource HintTextBoxStyle}" >
                         <TextBox.Text>
                             <Binding Path="tenkm"
                                      ElementName="addSale"
@@ -96,7 +96,7 @@
                              Margin="10 5 0 15"
                              materialDesign:HintAssist.Hint="Mô tả"
                              TextWrapping="Wrap"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                             Style="{StaticResource HintTextBoxStyle}">
                     </TextBox>
 
                     <ComboBox x:Name="loaiKH" VerticalAlignment="Center"
@@ -104,7 +104,7 @@
                              Width="300" Height="40"
                              Margin="10 5 0 15"
                              materialDesign:HintAssist.Hint="Loại khách hàng"
-                             Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                             Style="{StaticResource ComboBoxStyle}">
                         <ComboBox.SelectedValue>
                             <Binding Path="SelectedValue"
                                      ElementName="binding_ComboBox"
@@ -122,7 +122,7 @@
                                 Width="300"  
                                 materialDesign:HintAssist.Hint="Ngày bắt đầu" 
                                 materialDesign:TextFieldAssist.HasClearButton="True"
-                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                Style="{StaticResource DatePickerStyle}">
                         <DatePicker.SelectedDate>
                             <Binding Path="SelectedDate" 
                                      ElementName="dateProvider_Start" 
@@ -149,7 +149,7 @@
                                 Width="300"  
                                 materialDesign:HintAssist.Hint="Ngày kết thúc" 
                                 materialDesign:TextFieldAssist.HasClearButton="True"
-                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                Style="{StaticResource DatePickerStyle}">
                         <DatePicker.SelectedDate>
                             <Binding Path="SelectedDate" 
                                      ElementName="dateProvider_End" 
@@ -176,7 +176,7 @@
                              Width="300" Height="40"
                              Margin="10 5 0 0"
                              materialDesign:HintAssist.Hint="Giảm giá"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                             Style="{StaticResource HintTextBoxStyle}">
                         <TextBox.Text>
                             <Binding Path="giamgia"
                                      ElementName="addSale"

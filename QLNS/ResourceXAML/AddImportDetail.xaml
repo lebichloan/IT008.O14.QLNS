@@ -311,7 +311,8 @@
                         <TabItem
                             Name="productTabItem"
                             HorizontalAlignment="Left"
-                            Header="Tất cả sản phẩm">
+                            Header="Tất cả sản phẩm"
+                            Style="{StaticResource TabItemStyle}">
                             <DataGrid
                                 x:Name="productDataGrid"
                                 AutoGenerateColumns="False"

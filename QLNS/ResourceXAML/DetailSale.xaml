@@ -69,15 +69,15 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 10 0 0">
-                        <TextBlock Text="Tên khuyến mãi" FontSize="15" FontWeight="SemiBold" Margin="0 18 0 30"></TextBlock>
-                        <TextBlock Text="Loại khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Ngày bắt đầu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Ngày kết thúc" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
-                        <TextBlock Text="Giảm giá" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 30"></TextBlock>
+                        <TextBlock Text="Tên khuyến mãi" FontSize="15" FontWeight="SemiBold" Margin="0 18 0 40"></TextBlock>
+                        <TextBlock Text="Loại khách hàng" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Ngày bắt đầu" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Ngày kết thúc" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
+                        <TextBlock Text="Giảm giá" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 40"></TextBlock>
                         <TextBlock Text="Mô tả" FontSize="15" FontWeight="SemiBold" Margin="0 0 0 15"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="0 11 0 0">
-                        <TextBox x:Name="TenKM" FontSize="14" Height="41" Margin="0 0 20 23" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox x:Name="TenKM" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}">
                             <TextBox.Text>
                                 <Binding Path="Text"
                                          ElementName="bindingTenKM"
@@ -91,9 +91,9 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <ComboBox x:Name="idLKH" FontSize="14" Height="25" Margin="0 0 20 25.5" BorderBrush="Black" ItemsSource="{Binding}" DisplayMemberPath="TenLKH" SelectedValuePath="MaLKH"></ComboBox>
+                        <ComboBox x:Name="idLKH" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" ItemsSource="{Binding}" DisplayMemberPath="TenLKH" SelectedValuePath="MaLKH" Style="{StaticResource ComboBoxStyle}"></ComboBox>
 
-                        <DatePicker x:Name="NgayBD" FontSize="14" Height="25" Margin="0 0 20 24" BorderBrush="Black" >
+                        <DatePicker x:Name="NgayBD" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource DatePickerStyle}">
                             <DatePicker.SelectedDate>
                                 <Binding Path="SelectedDate"
                                          ElementName="bindingNgayBD"
@@ -105,9 +105,17 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </DatePicker.SelectedDate>
+
+                            <DatePicker.CalendarStyle>
+                                <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                    </Style.Resources>
+                                </Style>
+                            </DatePicker.CalendarStyle>
                         </DatePicker>
 
-                        <DatePicker x:Name="NgayKT" FontSize="14" Height="25" Margin="0 0 20 11" BorderBrush="Black" >
+                        <DatePicker x:Name="NgayKT" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource DatePickerStyle}">
                             <DatePicker.SelectedDate>
                                 <Binding Path="SelectedDate"
                                          ElementName="bindingNgayKT"
@@ -119,9 +127,17 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </DatePicker.SelectedDate>
+
+                            <DatePicker.CalendarStyle>
+                                <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#879FFF" />
+                                    </Style.Resources>
+                                </Style>
+                            </DatePicker.CalendarStyle>
                         </DatePicker>
 
-                        <TextBox x:Name="GiamGia" FontSize="14" Height="41" Margin="0 0 20 9" BorderBrush="Black" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox x:Name="GiamGia" FontSize="14" Height="41" Margin="0 0 20 19" BorderBrush="Black" Style="{StaticResource HintTextBoxStyle}">
                             <TextBox.Text>
                                 <Binding Path="Text"
                                          ElementName="bindingGiamGia"
@@ -135,7 +151,7 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <TextBox x:Name="MoTa" FontSize="14" Margin="0 0 20 10" BorderBrush="Black" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                        <TextBox x:Name="MoTa" FontSize="14" Margin="0 0 20 19" BorderBrush="Black" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource HintTextBoxStyle}"></TextBox>
                     </StackPanel>
                 </Grid>
             </ScrollViewer>
