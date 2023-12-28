@@ -108,7 +108,7 @@
                                      ElementName="newPass"
                                      ValidatesOnDataErrors="True"
                                      NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="PropertyChanged">
+                                     UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
                                         <vld:PasswordValid></vld:PasswordValid>
                                     </Binding.ValidationRules>
@@ -127,7 +127,7 @@
                                      ElementName="cfmPass"
                                      ValidatesOnDataErrors="True"
                                      NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="PropertyChanged">
+                                     UpdateSourceTrigger="LostFocus">
                                     <Binding.ValidationRules>
                                         <vld:ConfirmPasswordValid></vld:ConfirmPasswordValid>
                                     </Binding.ValidationRules>

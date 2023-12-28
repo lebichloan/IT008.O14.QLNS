@@ -86,65 +86,77 @@
                 Margin="0,0,0,5"
                 Background="{DynamicResource SepratorBackgroundColor}" />
 
-            <StackPanel
+            <ScrollViewer Grid.Row="2" Height="200" Width="370">
+                <StackPanel
                 Grid.Row="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Orientation="Vertical">
-                <!--<TextBox x:Name="maKM" VerticalAlignment="Center"
+                    <!--<TextBox x:Name="maKM" VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Width="300" Height="40"
                      Margin="10 5 0 0"
                      materialDesign:HintAssist.Hint="Mã khuyến mãi"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />-->
 
-                <TextBox
+                    <TextBox
                     x:Name="tenSP"
                     Width="300"
                     Height="40"
-                    Margin="10,5,0,0"
+                    Margin="5,5,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Tên sản phẩm"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <ComboBox
+                    Style="{StaticResource HintTextBoxStyle}" />
+                    <ComboBox
                     x:Name="danhMucComboBox"
                     Width="300"
                     Height="40"
-                    Margin="10,5,0,0"
+                    Margin="5,5,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Loại sản phẩm"
                     DisplayMemberPath="tenDM"
                     SelectedValuePath="iDDM"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    Style="{StaticResource ComboBoxStyle}" />
 
-                <TextBox
+                    <TextBox
                     x:Name="moTa"
                     Width="300"
-                    Height="40"
-                    Margin="10,5,0,0"
+                    TextWrapping="Wrap"
+                    Margin="5,5,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Mô tả"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox
+                    Style="{StaticResource HintTextBoxStyle}" />
+                    <TextBox
                     x:Name="ghiChu"
                     Width="300"
-                    Height="40"
-                    Margin="10,5,0,0"
+                    TextWrapping="Wrap"
+                    Margin="5,5,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="Ghi chú"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            </StackPanel>
+                    Style="{StaticResource HintTextBoxStyle}" />
+                </StackPanel>
+            </ScrollViewer>
             <Button
-                Grid.Row="3"
-                Width="150"
-                Height="35"
-                Margin="5"
-                Click="Button_Click"
-                Content="Thêm mới" />
+                    x:Name="btnAddProduct"
+                    Grid.Row="3"
+                    Click="Button_Click"
+                    Style="{StaticResource addButton}"
+                    HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial
+                            Width="11"
+                            Height="11"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource IconButtonColor}"
+                            Kind="Plus" />
+                    <TextBlock Foreground="{DynamicResource TextButtonColor}" Text="Thêm sản phẩm" />
+                </StackPanel>
+            </Button>
         </Grid>
     </Border>
 </Window>
