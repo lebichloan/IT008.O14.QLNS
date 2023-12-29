@@ -13,6 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace QLNS.ResourceXAML
 {
@@ -25,6 +28,7 @@ namespace QLNS.ResourceXAML
         private int idAccount = -1;
         private int idLoaiND = -1;
         private int idTinhTrang = -1;
+        private string phoneNumber = null;
         public DetailAccount()
         {
             InitializeComponent();
@@ -44,7 +48,42 @@ namespace QLNS.ResourceXAML
 
         private void btnResetPass_Click(object sender, RoutedEventArgs e)
         {
+            string accountSid = "ACf95b337f4f1ffa4d2e28cdea1ee744f6";
+            string authToken = "2b5ea766def589821d570e347210eb56";
+            string twilioPhoneNumber = "+12054985938";
 
+            string userPhoneNumber = "+84338439300";
+            string newPassword = GenerateRandomPassword();
+
+            SendResetSMS(accountSid, authToken, twilioPhoneNumber, userPhoneNumber, newPassword);
+        }
+
+        private void SendResetSMS(string accountSid, string authToken, string twilioPhoneNumber, string userPhoneNumber, string newPassword)
+        {
+            TwilioClient.Init(accountSid, authToken);
+            
+            try
+            {
+                var message = MessageResource.Create(
+                    body: $"Your new password is: {newPassword}",
+                    from: new PhoneNumber(twilioPhoneNumber),
+                    to: new PhoneNumber(userPhoneNumber)
+                    );
+                MessageBox.Show($"SMS sent successfully to {userPhoneNumber}.");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending reset SMS: {ex.Message}");
+            }
+        }
+
+        private string GenerateRandomPassword()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 8)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private void btnDeleteAccount_Click(object sender, RoutedEventArgs e)
@@ -103,6 +142,7 @@ namespace QLNS.ResourceXAML
                             ngayTao = nguoidung.NgayTao,
                             tinhTrang = nguoidung.TinhTrang,
                             loaiND = nguoidung.idLND,
+                            sdt = nguoidung.NHANVIEN.SDT,
                         };
 
             var user = query.ToList().FirstOrDefault();
@@ -137,6 +177,8 @@ namespace QLNS.ResourceXAML
                 {
                     cmbLoaiND.SelectedIndex = 2;
                 }
+
+                phoneNumber = user.sdt;
             }
         }
 
