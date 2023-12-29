@@ -457,6 +457,7 @@
                 <TextBox x:Name="txtGhiChu"
                          Grid.Row="1"
                          MaxHeight="100"
+                         Style="{DynamicResource HintTextBoxStyle}"
                          />
             </StackPanel>
             

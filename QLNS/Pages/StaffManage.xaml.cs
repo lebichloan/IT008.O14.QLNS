@@ -233,6 +233,7 @@ namespace QLNS.Pages
             AddStaffAndUser addStaffAndUser = new AddStaffAndUser();
             addStaffAndUser.staffManage = this;
             addStaffAndUser.ShowDialog();
+            LoadData(0);
         }
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
@@ -401,6 +402,8 @@ namespace QLNS.Pages
                 else
                     detail.GhiChu.Text = nhanvien.GhiChu.ToString();
                 detail.Show();
+
+                LoadData(0);
             }
             catch
             {
@@ -413,7 +416,15 @@ namespace QLNS.Pages
         }
         private void btnShowUserDetail_Click(object sender, RoutedEventArgs e)
         {
+            if (userDataGrid.SelectedItems.Count > 0)
+            {
+                var selectedItem = (dynamic)userDataGrid.SelectedItem;
+                int selectedId = selectedItem.idND;
 
+                DetailAccount detailAccount = new DetailAccount(selectedId);
+                detailAccount.ShowDialog();
+                LoadUserData(0);
+            }
         }
         private string pagetitle;
         public string PageTitle { get { return pagetitle; } set { pagetitle = value; OnPropertyChanged(); } }

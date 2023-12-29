@@ -120,6 +120,8 @@
                             Text="HD0001" />
                     </StackPanel>
 
+                    <Separator Grid.Row="1" Height="5" Margin="100 0"/>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
