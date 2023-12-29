@@ -24,13 +24,18 @@ namespace QLNS.ResourceXAML
     
     public partial class AddErrorProduct : Window
     {
-        public int idND {  get; set; }
+        private int idND = -1;
         public ProductManage productManage {  get; set; }
         
         QLNSEntities qLNSEntities = new QLNSEntities();
         public AddErrorProduct()
         {
             InitializeComponent();
+        }
+        public AddErrorProduct(int userID)
+        {
+            InitializeComponent();
+            idND = userID;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -366,6 +371,7 @@ namespace QLNS.ResourceXAML
                 SLSP = 0;
                 txtSoLuongSanPham.Text = SLSP.ToString();
                 txtChiTietLoi.Text = "";
+                btnAdd.IsEnabled = true;
             }
             else
             {
