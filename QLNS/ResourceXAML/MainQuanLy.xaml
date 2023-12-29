@@ -44,7 +44,7 @@
                                 <EventTrigger RoutedEvent="ToggleButton.Checked">
                                     <BeginStoryboard>
                                         <Storyboard x:Name="ShowStackPanel">
-                                            <DoubleAnimation Storyboard.TargetName="GridNav" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="210" Duration="0:0:0.5">
+                                            <DoubleAnimation Storyboard.TargetName="GridNav" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="245" Duration="0:0:0.5">
                                             </DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -132,7 +132,7 @@
 
                 <Frame Grid.Row="2"
                        Name="fContainer"
-                       Margin="20 20 20 20"
+                       Margin="20 -20 20 20"
                        NavigationUIVisibility="Hidden">
 
                 </Frame>
