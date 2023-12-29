@@ -47,6 +47,7 @@ namespace QLNS.Pages
             AddImportDetail addImportDetail = new AddImportDetail();
             addImportDetail.importProductManage = this;
             addImportDetail.ShowDialog();
+            LoadData(0);
         }
 
         private void btnPre_Click(object sender, RoutedEventArgs e)

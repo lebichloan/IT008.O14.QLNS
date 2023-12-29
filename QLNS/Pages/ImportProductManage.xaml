@@ -41,7 +41,7 @@
                     x:Name="btnAddImportDetail"
                     Grid.Row="0"
                     Click="btnAddImportDetail_Click"
-                    Style="{StaticResource addButton}">
+                    Style="{StaticResource addButton}" HorizontalAlignment="Left" Margin="630,0,0,9" VerticalAlignment="Bottom">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial
                             Width="11"

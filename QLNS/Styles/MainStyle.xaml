@@ -367,4 +367,89 @@
     </Style>
     <!--End: PasswordBox style-->
 
+    <!--  Start: Save Button  -->
+    <Style x:Key="saveButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+        <!--<Setter Property="Grid.Row" Value="0"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--  End: Save Button  -->
+
+    <!--  Start: Cancel Button  -->
+    <Style x:Key="cancelButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ClickButtonBackgroundColor}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--  End: Cancel Button  -->
+
+    <!--  Start: Delete Button  -->
+    <Style x:Key="deleteButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource ErrorBorderColor}" 
+                            BorderThickness="1">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SecundaryTextColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--  End: Delete Button  -->
+
 </ResourceDictionary>
