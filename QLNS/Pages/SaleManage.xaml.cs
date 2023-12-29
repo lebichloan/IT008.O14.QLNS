@@ -158,6 +158,7 @@ namespace QLNS.Pages
                 }
 
                 detailSale.ShowDialog();
+                LoadData(0);
 
             }
             catch { }

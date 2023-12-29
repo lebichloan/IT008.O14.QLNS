@@ -228,6 +228,7 @@ namespace QLNS.Pages
         {
             AddNewProduct addNewProduct = new AddNewProduct(); 
             addNewProduct.ShowDialog();
+            LoadData(0);
         }
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
@@ -265,6 +266,7 @@ namespace QLNS.Pages
                 }
 
                 detail.ShowDialog();
+                LoadData(0);
             }
             catch { }
         }
@@ -333,6 +335,7 @@ namespace QLNS.Pages
             addErrorProduct.productManage = this;
             addErrorProduct.idND = idND;
             addErrorProduct.ShowDialog();
+            LoadErrorProduct(0);
         }
 
         private void btnErrorDetail_Click(object sender, RoutedEventArgs e)
@@ -362,6 +365,7 @@ namespace QLNS.Pages
                 }
 
                 detailErrorProduct.ShowDialog();
+                LoadErrorProduct(0);
             }
         }
 
@@ -492,6 +496,7 @@ namespace QLNS.Pages
         {
             AddCategory addCategory = new AddCategory(); 
             addCategory.ShowDialog();
+            LoadCategory(0);
         }
 
         private string pagetitle;
