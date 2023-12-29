@@ -41,7 +41,6 @@ namespace QLNS.ResourceXAML
             newitem = new ComboBoxItem();
             newitem.Content = "Ngừng bán";
             TinhTrang.Items.Add(newitem);
-
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -116,5 +115,6 @@ namespace QLNS.ResourceXAML
                 }
             }
         }
+
     }
 }

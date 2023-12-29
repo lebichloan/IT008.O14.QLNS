@@ -241,14 +241,12 @@ namespace QLNS.Pages
                 detail.idSP = product.idSP;
                 detail.idCTSP = product.idCTSP;
 
-                List<TextBlock> danhmucItems = new List<TextBlock>();
                 foreach (var danhmuc in DataProvider.Ins.DB.DANHMUCs)
                 {
-                    TextBlock textBlock = new TextBlock();
-                    textBlock.Text = danhmuc.TenDM;
-                    danhmucItems.Add(textBlock);
+                    ComboBoxItem textBlock = new ComboBoxItem();
+                    textBlock.Content = danhmuc.TenDM;
+                    detail.LoaiSP.Items.Add(textBlock);
                 }
-                detail.LoaiSP.ItemsSource = danhmucItems;
 
                 detail.TenSP.Text = product.TenSP.ToString();
                 detail.GiaBan.Text = product.DonGiaXuat.ToString();
