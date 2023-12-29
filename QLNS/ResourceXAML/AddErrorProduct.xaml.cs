@@ -254,21 +254,28 @@ namespace QLNS.ResourceXAML
         private decimal TongTienNH = 0;
         private void addProducttoBill()
         {
-            errorProductListBox.Items.Add(new ErrorItemListBox(
-                MaSP,
-                headerProductExpander.Text,
-                idSP,
-                SLSP,
-                txtChiTietLoi.Text,
-                DateTime.Now,
-                idND
-                ));
+            try
+            {
+                errorProductListBox.Items.Add(new ErrorItemListBox(
+                    MaSP,
+                    headerProductExpander.Text,
+                    idSP,
+                    SLSP,
+                    txtChiTietLoi.Text,
+                    DateTime.Now,
+                    idND
+                    ));
 
-            TongSoLuongSP = TongSoLuongSP + SLSP;
-            lblSoLuongLoi.Text = TongSoLuongSP.ToString();
-            
+                TongSoLuongSP = TongSoLuongSP + SLSP;
+                lblSoLuongLoi.Text = TongSoLuongSP.ToString();
 
-            btnSave.IsEnabled = true;
+
+                btnSave.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error add", ex.ToString());
+            }
         }
 
         private void btnSub_Click(object sender, RoutedEventArgs e)

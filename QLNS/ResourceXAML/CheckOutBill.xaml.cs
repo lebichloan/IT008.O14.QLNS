@@ -76,6 +76,12 @@ namespace QLNS.ResourceXAML
             lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
             lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
             lblTongThanhToan.Text = TongThanhToanHD.ToString();
+
+            lblTenKH.Visibility = Visibility.Collapsed;
+            lblSDT.Visibility = Visibility.Collapsed;
+            lblDiaChi.Visibility = Visibility.Collapsed;
+            lblLoaiKH.Visibility = Visibility.Collapsed;
+            lblDiemTichLuy.Visibility = Visibility.Collapsed;
         }
 
         private List<BillProductListBoxItem> listProduct;
@@ -165,11 +171,19 @@ namespace QLNS.ResourceXAML
 
                 LoadVoucher(idLKHSelected);
 
+                lblTenKH.Visibility = Visibility.Visible;
+                lblSDT.Visibility = Visibility.Visible;
+                lblDiaChi.Visibility = Visibility.Visible;
+                lblLoaiKH.Visibility = Visibility.Visible;
+                lblDiemTichLuy.Visibility = Visibility.Visible;
+
                 lblTenKH.Text = selectedCustomer.itemTenKH;
                 lblSDT.Text = selectedCustomer.itemSDT;
                 lblDiaChi.Text = selectedCustomer.itemDiaChi;
                 lblLoaiKH.Text = selectedCustomer.itemLoaiKH;
                 lblDiemTichLuy.Text = selectedCustomer.itemDiemTichLuy.ToString();
+
+                btnCancel.Visibility = Visibility.Visible;
             }
         }
 
@@ -195,27 +209,73 @@ namespace QLNS.ResourceXAML
             {
                 var selectedPayment = (dynamic)paymentComboBox.SelectedItem;
                 idPaymentSelected = selectedPayment.idPT;
+                if (paymentComboBox.SelectedIndex == 0)
+                {
+                    paymentCast.Visibility = Visibility.Visible;
+                    lblThanhToan.Text = TongThanhToanHD.ToString();
+                }
+                else
+                {
+                    paymentCast.Visibility = Visibility.Collapsed;
+                }
             }
+        }
+
+        private void LoadPaymentCash()
+        {
+            decimal TienKhachDua = 0;
+            try
+            {
+                TienKhachDua = decimal.Parse(txtTienKhachDua.Text);
+                if (TienKhachDua < TongThanhToanHD)
+                {
+                    MessageBox.Show("Số tiền khách đưa nhỏ hơn tổng thanh toán hóa đơn");
+                    return;
+                }
+                else
+                {
+                    decimal TienThua = TienKhachDua - TongThanhToanHD;
+                    lblTienThua.Text = TienThua.ToString();
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Vui lòng nhập số tiền khách đưa hợp lệ");
+            }
+
         }
 
         private void btnCheckOut_Click(object sender, RoutedEventArgs e)
         {
-
-            HOADON hoadon = CreateBill();
-            DataProvider.Ins.DB.HOADONs.Add(hoadon);
-            DataProvider.Ins.DB.SaveChanges();
-            int idHD = GetLastIdHD();
-
-            foreach (BillProductListBoxItem item in listProduct)
+            if (idPaymentSelected == 0)
             {
-                CTHD cthd = CreateDetailBill(item, idHD);
-                DataProvider.Ins.DB.CTHDs.Add(cthd);
-                DataProvider.Ins.DB.SaveChanges();
-                SetSLSP(item.itemIdCTSP, item.itemSoLuongSP);
+                MessageBox.Show("Vui lòng chọn phương thức thanh toán");
             }
+            else
+            {
+                if (txtTienKhachDua.Text == "" && paymentComboBox.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Vui lòng nhập vào số tiền khách đưa");
+                }
+                else
+                {
+                    HOADON hoadon = CreateBill();
+                    DataProvider.Ins.DB.HOADONs.Add(hoadon);
+                    DataProvider.Ins.DB.SaveChanges();
+                    int idHD = GetLastIdHD();
 
-            MessageBox.Show("Them hoa don thanh cong");
-            this.Close();
+                    foreach (BillProductListBoxItem item in listProduct)
+                    {
+                        CTHD cthd = CreateDetailBill(item, idHD);
+                        DataProvider.Ins.DB.CTHDs.Add(cthd);
+                        DataProvider.Ins.DB.SaveChanges();
+                        SetSLSP(item.itemIdCTSP, item.itemSoLuongSP);
+                    }
+
+                    MessageBox.Show("Thêm hóa đơn thành công");
+                    this.Close();
+                }
+            }
         }
 
         private int GetLastIdHD()
@@ -245,6 +305,7 @@ namespace QLNS.ResourceXAML
                 product.SLConLai = (short)(product.SLConLai - sl);
                 if (product.SLConLai == 0)
                 {
+                    product.TinhTrang = 0;
                     //product.TinhTrang = "Đã bán hết";
                 }
                 qLNSEntities.SaveChanges();
@@ -258,7 +319,10 @@ namespace QLNS.ResourceXAML
             hoadon.NgayHD = ngayHD;
             hoadon.GiamGia = GiamGiaHD;
             hoadon.ThanhTien = TongThanhTienHD;
-            hoadon.GhiChu = txtGhiChu.Text;
+            if (txtGhiChu.Text != "")
+            {
+                hoadon.GhiChu = txtGhiChu.Text;
+            }
             hoadon.idLKH = idLKHSelected;
             if (idKHSelected != -1)
             {
@@ -389,5 +453,38 @@ namespace QLNS.ResourceXAML
             voucherListBox.ItemsSource = queryVoucher.ToList();
         }
 
+        private void txtTienKhachDua_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoadPaymentCash();
+            }
+
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            lblTenKH.Visibility = Visibility.Collapsed;
+            lblSDT.Visibility = Visibility.Collapsed;
+            lblDiaChi.Visibility = Visibility.Collapsed;
+            lblLoaiKH.Visibility = Visibility.Collapsed;
+            lblDiemTichLuy.Visibility = Visibility.Collapsed;
+
+            idKHSelected = -1;
+            idLKHSelected = 0;
+            idVoucherSelected = -1;
+            GiamGiaHD = 0;
+            LoadVoucher(idLKHSelected);
+
+            btnCancel.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnCancelVoucher_Click(object sender, RoutedEventArgs e)
+        {
+            lblTenKM.Visibility = Visibility.Collapsed;
+            idVoucherSelected = -1;
+            GiamGiaHD = 0;
+            btnCancelVoucher.Visibility = Visibility.Collapsed;
+        }
     }
 }
