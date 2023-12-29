@@ -101,7 +101,7 @@ namespace QLNS.Pages
             public string TenDM { get; set; }
         }
 
-        public int idND {  get; set; }
+        private int idND = -1;
 
         QLNSEntities qLNSEntities = new QLNSEntities();
         public ProductManage()
@@ -300,9 +300,6 @@ namespace QLNS.Pages
             var query =
                 from spl in qLNSEntities.SANPHAMLOIs
                 
-
-
-                
                 join ctsp in qLNSEntities.CTSPs
                 on spl.idCTSP equals ctsp.idCTSP
                 join sanpham in qLNSEntities.SANPHAMs
@@ -331,9 +328,8 @@ namespace QLNS.Pages
 
         private void btnAddErrorProduct_Click(object sender, RoutedEventArgs e)
         {
-            AddErrorProduct addErrorProduct = new AddErrorProduct();
+            AddErrorProduct addErrorProduct = new AddErrorProduct(idND);
             addErrorProduct.productManage = this;
-            addErrorProduct.idND = idND;
             addErrorProduct.ShowDialog();
             LoadErrorProduct(0);
         }
