@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLNS.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,7 +62,8 @@ namespace QLNS.ResourceXAML
 
         private void mainNhanVienKho_Loaded(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/HomeNhanVienKho.xaml", UriKind.RelativeOrAbsolute));
+            HomeNhanVienKho homeNhanVienKho = new HomeNhanVienKho(idND);
+            fContainer.Navigate(homeNhanVienKho);
         }
 
         private void btnHome_MouseEnter(object sender, MouseEventArgs e)
@@ -83,7 +85,8 @@ namespace QLNS.ResourceXAML
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/HomeNhanVienKho.xaml", UriKind.RelativeOrAbsolute));
+            HomeNhanVienKho homeNhanVienKho = new HomeNhanVienKho(idND);
+            fContainer.Navigate(homeNhanVienKho);
         }
 
         private void btnImport_MouseEnter(object sender, MouseEventArgs e)
