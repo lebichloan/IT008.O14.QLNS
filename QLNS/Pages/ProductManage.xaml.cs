@@ -107,6 +107,15 @@ namespace QLNS.Pages
         public ProductManage()
         {
             InitializeComponent();
+            if (App.Current.Properties["idND_Sale"] != null)
+            {
+                idND = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng đăng nhập");
+                
+            }
         }
         public ProductManage(int userID)
         {
