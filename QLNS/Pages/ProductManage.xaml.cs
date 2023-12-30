@@ -45,7 +45,7 @@ namespace QLNS.Pages
             else if (status == 3)
             {
                 return "Ngừng bán";
-            } 
+            }
             else
             {
                 return null;
@@ -70,7 +70,7 @@ namespace QLNS.Pages
         public class ErrorProduct
         {
             public int idSPL { get; set; }
-            
+
 
             public string maSPL { get; set; }
             public string tenSPL { get; set; }
@@ -97,7 +97,7 @@ namespace QLNS.Pages
             public decimal DonGiaNhap {  get; set; }
             public decimal DonGiaXuat {  get; set; }
             public int SoLuongConLai {  get; set; }
-            
+
             public string TenDM { get; set; }
         }
 
@@ -123,17 +123,17 @@ namespace QLNS.Pages
             idND = userID;
         }
 
-        
+
         int pageNumber = 0;
         int pageSize = 15;
 
         private void productManage_Loaded(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu ban đầu khi vừa vào
-            
+
             LoadData(0);
         }
-        
+
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page trước đó
@@ -155,30 +155,29 @@ namespace QLNS.Pages
 
         private void LoadData(int page)
         {
-            var query =
-                from ctsp in qLNSEntities.CTSPs
-                join sanpham in qLNSEntities.SANPHAMs
-                on ctsp.idSP equals sanpham.idSP
-                join danhmuc in qLNSEntities.DANHMUCs
-                on sanpham.idDM equals danhmuc.idDM
+            var query = from ctsp in qLNSEntities.CTSPs
+                        join sanpham in qLNSEntities.SANPHAMs
+                        on ctsp.idSP equals sanpham.idSP
+                        join danhmuc in qLNSEntities.DANHMUCs
+                        on sanpham.idDM equals danhmuc.idDM
 
-                orderby ctsp.MaCTSP
-                select new Product
-                {
-                    idSP = sanpham.idSP,
-                    idCTSP = ctsp.idCTSP,
-                    MaSP = sanpham.MaSP,
-                    MaCTSP = ctsp.MaCTSP,
-                    TenSP = sanpham.TenSP,
-                    MoTa = sanpham.MoTa,
-                    TinhTrang = ctsp.TinhTrang,
-                    DaBan = ctsp.DaBan,
-                    DonGiaNhap = ctsp.DonGiaNhap,
-                    SoLuongLoi = ctsp.SoLuongLoi,
-                    DonGiaXuat = ctsp.DonGiaXuat,
-                    SoLuongConLai = ctsp.SLConLai,
-                    TenDM = sanpham.DANHMUC.TenDM,
-                };
+                        orderby ctsp.MaCTSP
+                        select new Product
+                        {
+                            idSP = sanpham.idSP,
+                            idCTSP = ctsp.idCTSP,
+                            MaSP = sanpham.MaSP,
+                            MaCTSP = ctsp.MaCTSP,
+                            TenSP = sanpham.TenSP,
+                            MoTa = sanpham.MoTa,
+                            TinhTrang = ctsp.TinhTrang,
+                            DaBan = ctsp.DaBan,
+                            DonGiaNhap = ctsp.DonGiaNhap,
+                            SoLuongLoi = ctsp.SoLuongLoi,
+                            DonGiaXuat = ctsp.DonGiaXuat,
+                            SoLuongConLai = ctsp.SLConLai,
+                            TenDM = sanpham.DANHMUC.TenDM,
+                        };
 
             productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
@@ -192,7 +191,7 @@ namespace QLNS.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
             if (connectionString.ToLower().StartsWith("metadata="))
             {
                 System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder efBuilder = new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(connectionString);
@@ -200,7 +199,7 @@ namespace QLNS.Pages
             }
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand sqlCommand = sqlConnection.CreateCommand();
-            
+
 
             if (productDataGrid.SelectedItems.Count > 0)
             {
@@ -222,27 +221,27 @@ namespace QLNS.Pages
                     }
                     catch
                     {
-                        
+
                     }
                     finally { sqlConnection.Close(); }
                 }
                 LoadData(pageNumber);
-                
+
             }
-                
+
 
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            AddNewProduct addNewProduct = new AddNewProduct(); 
+            AddNewProductWhenImport addNewProduct = new AddNewProductWhenImport();
             addNewProduct.ShowDialog();
-            LoadData(0);
+            LoadDataCurrent();
         }
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
-            try 
+            try
             {
                 Product product = (Product)productDataGrid.SelectedItem;
                 DetailProduct detail = new DetailProduct();
@@ -280,9 +279,9 @@ namespace QLNS.Pages
             catch { }
         }
 
-        
+
         //Product Error Tab
-        
+
 
         private void btnPreErrorTab_Click(object sender, RoutedEventArgs e)
         {
@@ -296,19 +295,19 @@ namespace QLNS.Pages
             LoadErrorProduct(errorProductPage);
         }
 
-        
+
 
         private void errorProductTabItem_Loaded(object sender, RoutedEventArgs e)
         {
             LoadErrorProduct(0);
-            
+
         }
         private int errorProductPage = 0;
         private void LoadErrorProduct(int page)
         {
             var query =
                 from spl in qLNSEntities.SANPHAMLOIs
-                
+
                 join ctsp in qLNSEntities.CTSPs
                 on spl.idCTSP equals ctsp.idCTSP
                 join sanpham in qLNSEntities.SANPHAMs
@@ -446,13 +445,13 @@ namespace QLNS.Pages
             categoryPageNumber--;
             LoadCategory(categoryPageNumber);
         }
-        
+
 
         private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string MaDM = ((TextBlock)categoryDataGrid.SelectedCells[1].Column.GetCellContent(categoryDataGrid.SelectedCells[1].Item)).Text;
+                string MaDM = ((TextBlock)categoryDataGrid.SelectedCells[0].Column.GetCellContent(categoryDataGrid.SelectedCells[0].Item)).Text;
 
                 DANHMUC danhmuc = DataProvider.Ins.DB.DANHMUCs.FirstOrDefault(k => k.MaDM == MaDM);
                 SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.FirstOrDefault(h => h.idDM == danhmuc.idDM);
@@ -477,7 +476,7 @@ namespace QLNS.Pages
                         DataProvider.Ins.DB.SaveChanges();
                         LoadDataCurrent();
                         Message message = new Message();
-                        message.message.Text = "Xóa khuyến mãi thành công!";
+                        message.message.Text = "Xóa danh mục thành công!";
                         message.ShowDialog();
                     }
                 }
@@ -495,11 +494,11 @@ namespace QLNS.Pages
             LoadCategory(0);
         }
 
-        
+
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
-            AddCategory addCategory = new AddCategory(); 
+            AddCategory addCategory = new AddCategory();
             addCategory.ShowDialog();
             LoadCategory(0);
         }
@@ -540,6 +539,6 @@ namespace QLNS.Pages
             pageTitle.DataContext = this;
         }
 
-        
+
     }
 }

@@ -78,8 +78,13 @@ namespace QLNS.ResourceXAML
             var IDNV = query2.ToList();
 
             idNhanVien.ItemsSource = IDNV;
-            idNhanVien.DisplayMemberPath = "idNV";
+            idNhanVien.DisplayMemberPath = "MaNV";
             idNhanVien.SelectedValuePath = "idNV";
+
+            List<string> tinhtrang = new List<string>();
+            tinhtrang.Add("Đã bị khóa");
+            tinhtrang.Add("Đang hoạt động");
+            tinhTrang.ItemsSource = tinhtrang;
         }
 
 
@@ -128,7 +133,7 @@ namespace QLNS.ResourceXAML
             loaiND.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
             idNhanVien.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
         }
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             ForceValidation();
             if (Validation.GetHasError(tenND) || Validation.GetHasError(tinhTrang) || Validation.GetHasError(matKhau) || Validation.GetHasError(nhapLaiMatKhau) || Validation.GetHasError(loaiND) || Validation.GetHasError(idNhanVien))
@@ -153,7 +158,11 @@ namespace QLNS.ResourceXAML
                     matkhau = matKhau.Password;
                     tinhtrang = tinhTrang.SelectedIndex;
                     loaind = int.Parse(id[0].idLND.ToString());
-                    idnv = idNhanVien.SelectedIndex + 1;
+                    var query = from nv in qlns.NHANVIENs
+                                where nv.MaNV == idNhanVien.Text
+                                select nv;
+                    var lst = query.ToList();
+                    idnv = lst[0].idNV;
                     ngaytao = DateTime.Today;
 
                     var NGUOIDUNG = new NGUOIDUNG()
@@ -180,6 +189,11 @@ namespace QLNS.ResourceXAML
                     //Close window
                 }
             }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -100,6 +100,7 @@ namespace QLNS.Pages
                         select nd;
             var lst = query.ToList();
 
+            detailUser.idNV = lst[0].idNV;
             detailUser.TenNV.Text = lst[0].NHANVIEN.TenNV;
             detailUser.GioiTinh.Text = lst[0].NHANVIEN.GioiTinh;
             detailUser.NgaySinh.Text = lst[0].NHANVIEN.NgaySinh.ToString("MM/dd/yyyy");
@@ -143,8 +144,38 @@ namespace QLNS.Pages
 
         private void btnAccount_Click(object sender, RoutedEventArgs e)
         {
-            DetailAccount detailAccount = new DetailAccount(idND);
-            detailAccount.ShowDialog();
+            DetailHomeAccount detailHomeAccount = new DetailHomeAccount();
+            QLNSEntities qlns = new QLNSEntities();
+            int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+
+            var query = from nd in qlns.NGUOIDUNGs
+                        join lnd in qlns.LOAINGUOIDUNGs on nd.idLND equals lnd.idLND
+                        where nd.idND == id
+                        select nd;
+            var lst = query.ToList();
+
+            detailHomeAccount.idND = id;
+            detailHomeAccount.TenTK.Text = lst[0].TenDN;
+            detailHomeAccount.NgayTaoTaiKhoan.Text = lst[0].NgayTao.ToString("MM/dd/yyyy");
+            if (lst[0].TinhTrang == 0)
+            {
+                detailHomeAccount.TinhTrang.Text = "Đã bị khóa";
+            }
+            else
+            {
+                detailHomeAccount.TinhTrang.Text = "Đang hoạt động";
+            }
+            detailHomeAccount.LoaiND.Text = lst[0].LOAINGUOIDUNG.TenLND;
+            if (lst[0].LOAINGUOIDUNG.MoTa is null)
+            {
+                detailHomeAccount.MoTa.Text = "";
+            }
+            else
+            {
+                detailHomeAccount.MoTa.Text = lst[0].LOAINGUOIDUNG.MoTa;
+            }
+
+            detailHomeAccount.ShowDialog();
         }
 
         private void btnChangePass_Click(object sender, RoutedEventArgs e)

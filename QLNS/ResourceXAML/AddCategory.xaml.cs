@@ -66,30 +66,55 @@ namespace QLNS.ResourceXAML
             WindowState = WindowState.Minimized;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ForceValidation()
         {
-            if (tenDM.Text != "")
+            tenDM.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
+
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            ForceValidation();
+            if (Validation.GetHasError(tenDM))
             {
-                danhmuc = tenDM.Text;
-                mota = moTa.Text;
-
-                var DANHMUC = new DANHMUC()
-                {
-
-                    MoTa = mota,
-                    TenDM = danhmuc,
-
-                };
-
-                DataProvider.Ins.DB.DANHMUCs.Add(DANHMUC);
-                DataProvider.Ins.DB.SaveChanges();
-                MessageBox.Show("Them danh muc thanh cong");
-                this.Close();
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";
+                message.ShowDialog();
             }
             else
-                MessageBox.Show("Vui long nhap ten danh muc");
-            
-            
+            {
+                MessageOption messageOption = new MessageOption();
+                messageOption.message.Text = "Bạn có chắc chắn muốn thêm danh mục này?";
+                messageOption.ShowDialog();
+                bool isAdd = MessageOption.isAgree;
+                messageOption.Close();
+                if (isAdd)
+                {
+                    danhmuc = tenDM.Text;
+                    mota = moTa.Text;
+
+                    var DANHMUC = new DANHMUC()
+                    {
+
+                        MoTa = mota,
+                        TenDM = danhmuc,
+
+                    };
+                    DataProvider.Ins.DB.DANHMUCs.Add(DANHMUC);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    Message message = new Message();
+                    message.message.Text = "Thêm danh mục thành công!";
+                    message.ShowDialog();
+
+                    this.Close();
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

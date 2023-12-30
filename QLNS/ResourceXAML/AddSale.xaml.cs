@@ -114,14 +114,14 @@ namespace QLNS.ResourceXAML
             loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
         }
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
 
             ForceValidation();
-            if (Validation.GetHasError(tenKM) || Validation.GetHasError(loaiKH) ||Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
+            if (Validation.GetHasError(tenKM) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayBatDau) || Validation.GetHasError(ngayKetThuc) || Validation.GetHasError(giamGia))
             {
                 Message message = new Message();
-                message.message.Text = "Đã có lỗi xảy ra";
+                message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";
                 message.ShowDialog();
             }
             else
@@ -176,6 +176,10 @@ namespace QLNS.ResourceXAML
                     // Do not close the window  
                 }
             }
+        }
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

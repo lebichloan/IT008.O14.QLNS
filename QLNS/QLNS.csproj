@@ -268,8 +268,8 @@
     <Compile Include="ResourceXAML\AddSale.xaml.cs">
       <DependentUpon>AddSale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceXAML\AddStaffAndUser.xaml.cs">
-      <DependentUpon>AddStaffAndUser.xaml</DependentUpon>
+    <Compile Include="ResourceXAML\AddStaff.xaml.cs">
+      <DependentUpon>AddStaff.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResourceXAML\AddUser.xaml.cs">
       <DependentUpon>AddUser.xaml</DependentUpon>
@@ -512,7 +512,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceXAML\AddStaffAndUser.xaml">
+    <Page Include="ResourceXAML\AddStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

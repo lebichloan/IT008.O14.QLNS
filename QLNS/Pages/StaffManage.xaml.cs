@@ -103,7 +103,7 @@ namespace QLNS.Pages
         public void LoadDataCurrent()
         {
             LoadData(pageNumber);
-            if(staffDataGrid.Items.Count == 0)
+            if (staffDataGrid.Items.Count == 0)
             {
                 pageNumber--;
                 LoadData(pageNumber);
@@ -209,7 +209,7 @@ namespace QLNS.Pages
         public void LoadUserDataCurrent()
         {
             LoadUserData(userPageNumber);
-            if(userDataGrid.Items.Count == 0)
+            if (userDataGrid.Items.Count == 0)
             {
                 userPageNumber--;
                 LoadUserData(userPageNumber);
@@ -255,10 +255,10 @@ namespace QLNS.Pages
         //Start: btnAdd
         private void btnAddStaff_Click(object sender, RoutedEventArgs e)
         {
-            AddStaffAndUser addStaffAndUser = new AddStaffAndUser();
-            addStaffAndUser.staffManage = this;
-            addStaffAndUser.ShowDialog();
-            LoadData(0);
+            AddStaff addStaff = new AddStaff();
+            addStaff.staffManage = this;
+            addStaff.ShowDialog();
+            LoadDataCurrent();
         }
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {

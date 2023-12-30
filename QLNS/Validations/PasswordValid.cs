@@ -17,6 +17,10 @@ namespace QLNS.Validations
             string str = value as string;
             if (value != null && str != string.Empty)
             {
+                if (str.Length < 8)
+                {
+                    return new ValidationResult(false, "Mật khẩu không được dưới 8 ký tự!");
+                }
                 if (str.Length > 30)
                 {
                     return new ValidationResult(false, "Mật khẩu không được quá 30 ký tự!");

@@ -77,43 +77,54 @@ namespace QLNS.ResourceXAML
             WindowState = WindowState.Minimized;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ForceValidation()
         {
-            //makm = maKM.Text;
-            tensp = tenSP.Text;
-            mota = moTa.Text;
-            danhmuc = int.Parse(danhMucComboBox.Text);
-            ghichu = ghiChu.Text;
-            mota = moTa.Text;
-
-            //loaind = int.Parse(loaiND.Text);
-
-            var SANPHAM = new SANPHAM()
-            {
-                //MaKM = makm,
-                TenSP = tensp,
-                MoTa = mota,
-                idDM = danhmuc,
-                
-            };
-
-            DataProvider.Ins.DB.SANPHAMs.Add(SANPHAM);
-            DataProvider.Ins.DB.SaveChanges();
+            tenSP.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            loaiSP.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
         }
+
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            ForceValidation();
+            if (Validation.GetHasError(tenSP) || Validation.GetHasError(loaiSP))
+            {
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";
+                message.ShowDialog();
+            }
+            else
+            {
+                tensp = tenSP.Text;
+                mota = moTa.Text;
+                danhmuc = loaiSP.SelectedIndex + 1;
+
+                var SANPHAM = new SANPHAM()
+                {
+                    TenSP = tensp,
+                    MoTa = mota,
+                    idDM = danhmuc,
+                };
+
+                DataProvider.Ins.DB.SANPHAMs.Add(SANPHAM);
+                DataProvider.Ins.DB.SaveChanges();
+                this.Close();
+
+            }
+        }
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         private void LoadComboBox()
         {
-            var query =
-                from danhmuc in qLNSEntities.DANHMUCs
-                orderby danhmuc.idDM
-                //where hoadon.idHD == 0
-                select new
-                {
-                    iDDM = danhmuc.idDM,
-                    tenDM = danhmuc.TenDM,
-                };
-            danhMucComboBox.ItemsSource = query.ToList();
-            
+            List<DANHMUC> dm = qLNSEntities.DANHMUCs.ToList();
+            loaiSP.ItemsSource = dm;
+            loaiSP.DisplayMemberPath = "TenDM";
+            loaiSP.SelectedValuePath = "idDM";
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
