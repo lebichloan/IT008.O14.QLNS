@@ -13,6 +13,7 @@
         Background="Transparent"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Name="detailAccount"
+        Loaded="detailAccount_Loaded"
         Title="DetailAccount" Height="480" Width="400">
 
     <Window.Resources>
@@ -52,7 +53,7 @@
                         Click="btnClose_Click" 
                         Tag="IsCloseButton"/>
             </Grid>
-            
+
             <Separator Grid.Row="1" Height="5" Margin="0 0"/>
 
             <StackPanel Orientation="Vertical"
@@ -72,7 +73,7 @@
                     <TextBlock
                             Name="lblMaND"
                             FontSize="10"
-                            Text="ND0001" />
+                            Text="{Binding MaND}" />
                 </StackPanel>
 
                 <Separator Grid.Row="1" Height="5" Margin="125 0"/>
@@ -82,7 +83,7 @@
             <StackPanel Orientation="Vertical"
                         Margin="10 5"
                         Grid.Row="3">
-                
+
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource TitleText}"
@@ -133,7 +134,7 @@
                                    Margin="0 5"
                                    />
                         </Border>
-                      
+
                         <Button Name="btnResetPass"
                                 Click="btnResetPass_Click"
                                 Style="{DynamicResource addButton}"
@@ -205,7 +206,7 @@
                                    Foreground="{DynamicResource ErrorBorderColor}"/>
                         </Button>
                     </Grid>
-                    
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource TitleText}"
                                Text="Loại người dùng"
@@ -236,7 +237,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Hủy bỏ"
                                    Foreground="{DynamicResource PrimaryTextColor}"/>
-                                
+
                                 <Icon:PackIconMaterial Kind="Cancel"
                                                 VerticalAlignment="Center"
                                                 Width="11"
@@ -253,7 +254,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Lưu"
                                    Foreground="{DynamicResource TextButtonColor}"/>
-                                
+
                                 <Icon:PackIconMaterial Kind="ContentSave"
                                                 VerticalAlignment="Center"
                                                 Width="11"
@@ -266,9 +267,9 @@
                     </StackPanel>
 
                 </StackPanel>
-                
+
             </StackPanel>
-            
+
         </Grid>
     </Border>
 </Window>

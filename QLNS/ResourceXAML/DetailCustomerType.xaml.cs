@@ -34,6 +34,8 @@ namespace QLNS.ResourceXAML
         public CustomerManage customerManage { get; set; }
         public int idLKH { get; set; }
 
+        private string maLoaiKhachHang;
+        public string MaLoaiKhachHang { get { return maLoaiKhachHang; } set { maLoaiKhachHang = value; OnPropertyChanged(); } }
         public DetailCustomerType()
         {
             InitializeComponent();
@@ -62,7 +64,7 @@ namespace QLNS.ResourceXAML
             DTLTT.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             QLNSEntities qlns = new QLNSEntities();
             LOAIKHACHHANG loaikhachhang = qlns.LOAIKHACHHANGs.Find(idLKH);
@@ -106,6 +108,16 @@ namespace QLNS.ResourceXAML
                         //message.ShowDialog();
                     }
                 }
+            }
+        }
+
+        private void detailCustomerType_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = this;
+            LOAIKHACHHANG loaikhachhang = DataProvider.Ins.DB.LOAIKHACHHANGs.Find(idLKH);
+            if (loaikhachhang != null)
+            {
+                MaLoaiKhachHang = loaikhachhang.MaLKH;
             }
         }
     }

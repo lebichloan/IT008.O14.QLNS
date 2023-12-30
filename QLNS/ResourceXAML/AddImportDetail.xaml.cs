@@ -173,7 +173,7 @@ namespace QLNS.ResourceXAML
             var queryAllProduct = from sanpham in qLNSEntities.SANPHAMs
                                   join danhmuc in qLNSEntities.DANHMUCs
                                   on sanpham.idDM equals danhmuc.idDM
-                                  orderby sanpham.MaSP
+                                  orderby sanpham.idSP
                                   select new
                                   {
                                       idSP = sanpham.idSP,

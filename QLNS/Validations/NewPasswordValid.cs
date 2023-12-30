@@ -27,6 +27,10 @@ namespace QLNS.Validations
                 {
                     return new ValidationResult(false, "Mật khẩu mới không được trùng mật khẩu cũ!");
                 }
+                if (str.Length < 8)
+                {
+                    return new ValidationResult(false, "Mật khẩu không được dưới 8 ký tự!");
+                }
                 if (str.Length > 30)
                 {
                     return new ValidationResult(false, "Mật khẩu không được quá 30 ký tự!");

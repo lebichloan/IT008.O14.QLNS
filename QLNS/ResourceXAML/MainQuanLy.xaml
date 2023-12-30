@@ -44,7 +44,7 @@
                                 <EventTrigger RoutedEvent="ToggleButton.Checked">
                                     <BeginStoryboard>
                                         <Storyboard x:Name="ShowStackPanel">
-                                            <DoubleAnimation Storyboard.TargetName="GridNav" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="210" Duration="0:0:0.5">
+                                            <DoubleAnimation Storyboard.TargetName="GridNav" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="60" To="245" Duration="0:0:0.5">
                                             </DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -81,9 +81,6 @@
                         </Button>
                         <Button x:Name="btnReportStorage" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnReportStorage_MouseEnter" MouseLeave="btnReportStorage_MouseLeave" Click="btnReportStorage_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource dashboard}" IconWidth="16" Text="Báo cáo thống kê kho hàng" VerticalAlignment="Center"/>
-                        </Button>
-                        <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
-                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource settings}" IconWidth="16" Text="Cài đặt" VerticalAlignment="Center"/>
                         </Button>
                     </StackPanel>
                     <!-- End: MenuItem -->
@@ -132,7 +129,7 @@
 
                 <Frame Grid.Row="2"
                        Name="fContainer"
-                       Margin="20 20 20 20"
+                       Margin="20 -20 20 20"
                        NavigationUIVisibility="Hidden">
 
                 </Frame>

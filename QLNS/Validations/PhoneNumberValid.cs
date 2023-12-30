@@ -16,7 +16,7 @@ namespace QLNS.Validations
             //throw new NotImplementedException();
             string number = value as string;
             var isNumeric = Int64.TryParse(number, out _);
-            if (value != null)
+            if (value != null && number != string.Empty)
             {
                 if (!isNumeric)
                 {

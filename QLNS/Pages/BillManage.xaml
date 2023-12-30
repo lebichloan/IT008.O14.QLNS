@@ -83,21 +83,10 @@
                     Margin="20 0 10 0"
                     >
 
-                    <TextBlock Margin="20 0 100 0"
-                            Foreground="{DynamicResource PrimaryTextColor}"
-                            VerticalAlignment="Center"
-                            IsHitTestVisible="False"
-                            Panel.ZIndex="1"
-                            Text="Search here"
-                            Visibility="{Binding ElementName=txtSearch, Converter={StaticResource BoolToVis}}"
-                            />
-                    <TextBox x:Name="StaffSearch_border" 
-                             Style="{DynamicResource searchTextBox}"
-                             IsReadOnly="True"/>
-
                     <TextBox x:Name="txtSearch" Margin="23,1,1,0"
-                            Style="{DynamicResource searchTextBox}"
-                            BorderThickness="0"
+                            Style="{DynamicResource HintTextBoxStyle}"
+                             BorderBrush="{DynamicResource PrimaryTextColor}"
+                             BorderThickness="0 0 0 0.5"
                             Height="22"
                             KeyDown="txtSearch_KeyDown"
                             />

@@ -56,6 +56,11 @@ namespace QLNS.Pages
         public void LoadDataCurrent()
         {
             LoadData(pageNumber);
+            if (saleDataGrid.Items.Count == 0)
+            {
+                pageNumber--;
+                LoadData(pageNumber);
+            }
         }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
@@ -88,7 +93,6 @@ namespace QLNS.Pages
             btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
-
         }
 
         private void btnAddSale_Click(object sender, RoutedEventArgs e)
@@ -121,7 +125,7 @@ namespace QLNS.Pages
             try
             {
                 //KHUYENMAI khuyenmai = (KHUYENMAI)saleDataGrid.SelectedItem;
-                string content = ((TextBlock)saleDataGrid.SelectedCells[1].Column.GetCellContent(saleDataGrid.SelectedCells[1].Item)).Text;
+                string content = ((TextBlock)saleDataGrid.SelectedCells[0].Column.GetCellContent(saleDataGrid.SelectedCells[0].Item)).Text;
 
                 var query = from km in qlnsEntities.KHUYENMAIs
                             join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on km.idLKH equals loaikhachhang.idLKH
@@ -134,31 +138,31 @@ namespace QLNS.Pages
                 detailSale.saleManage = this;
                 detailSale.idKM = lst[0].idKM;
 
-                detailSale.TenKM.Text = ((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text;
-                detailSale.NgayBD.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[4].Column.GetCellContent(saleDataGrid.SelectedCells[4].Item)).Text);
-                detailSale.NgayKT.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[5].Column.GetCellContent(saleDataGrid.SelectedCells[5].Item)).Text);
-                detailSale.GiamGia.Text = ((TextBlock)saleDataGrid.SelectedCells[6].Column.GetCellContent(saleDataGrid.SelectedCells[6].Item)).Text;
+                detailSale.TenKM.Text = ((TextBlock)saleDataGrid.SelectedCells[1].Column.GetCellContent(saleDataGrid.SelectedCells[1].Item)).Text;
+                detailSale.NgayBD.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text);
+                detailSale.NgayKT.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[4].Column.GetCellContent(saleDataGrid.SelectedCells[4].Item)).Text);
+                detailSale.GiamGia.Text = ((TextBlock)saleDataGrid.SelectedCells[5].Column.GetCellContent(saleDataGrid.SelectedCells[5].Item)).Text;
 
-                if (((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text == "")
+                if (((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text == "")
                 {
-                    detailSale.idLKH.SelectedIndex = -1;
+                    detailSale.LoaiKH.SelectedIndex = -1;
                 }
                 else
                 {
-                    detailSale.idLKH.Text = ((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text;
+                    detailSale.LoaiKH.Text = ((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text;
                 }
 
-                if (((TextBlock)saleDataGrid.SelectedCells[7].Column.GetCellContent(saleDataGrid.SelectedCells[7].Item)).Text == "")
+                if (((TextBlock)saleDataGrid.SelectedCells[6].Column.GetCellContent(saleDataGrid.SelectedCells[6].Item)).Text == "")
                 {
                     detailSale.MoTa.Text = "";
                 }
                 else
                 {
-                    detailSale.MoTa.Text = ((TextBlock)saleDataGrid.SelectedCells[7].Column.GetCellContent(saleDataGrid.SelectedCells[7].Item)).Text;
+                    detailSale.MoTa.Text = ((TextBlock)saleDataGrid.SelectedCells[6].Column.GetCellContent(saleDataGrid.SelectedCells[6].Item)).Text;
                 }
 
                 detailSale.ShowDialog();
-                LoadData(0);
+                LoadDataCurrent();
 
             }
             catch { }
@@ -168,7 +172,7 @@ namespace QLNS.Pages
         {
             try
             {
-                string MaKM = ((TextBlock)saleDataGrid.SelectedCells[1].Column.GetCellContent(saleDataGrid.SelectedCells[1].Item)).Text;
+                string MaKM = ((TextBlock)saleDataGrid.SelectedCells[0].Column.GetCellContent(saleDataGrid.SelectedCells[0].Item)).Text;
 
                 KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.MaKM == MaKM);
                 HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idKM == khuyenmai.idKM);

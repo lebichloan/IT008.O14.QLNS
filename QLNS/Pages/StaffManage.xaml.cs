@@ -103,6 +103,11 @@ namespace QLNS.Pages
         public void LoadDataCurrent()
         {
             LoadData(pageNumber);
+            if(staffDataGrid.Items.Count == 0)
+            {
+                pageNumber--;
+                LoadData(pageNumber);
+            }
         }
         public void LoadDataCurrentFilter()
         {
@@ -122,7 +127,7 @@ namespace QLNS.Pages
                 LoadData(pageNumber);
             }
         }
-        
+
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
@@ -139,7 +144,22 @@ namespace QLNS.Pages
         }
         private void LoadData(int page)
         {
-            var query = DataProvider.Ins.DB.NHANVIENs.Where(nhanvien => nhanvien.idNV != 0).OrderBy(nhanvien => nhanvien.idNV);
+            //var query = DataProvider.Ins.DB.NHANVIENs.Where(nhanvien => nhanvien.idNV != 0).OrderBy(nhanvien => nhanvien.idNV);
+            var query = from nv in qLNSEntities.NHANVIENs
+                        orderby nv.idNV
+                        select new
+                        {
+                            idNV = nv.idNV,
+                            MaNV = nv.MaNV,
+                            TenNV = nv.TenNV,
+                            GioiTinh = nv.GioiTinh,
+                            SDT = nv.SDT,
+                            NgaySinh = nv.NgaySinh,
+                            NgayVL = nv.NgayVL,
+                            ChucVu = nv.ChucVu,
+                            TinhTrang = nv.TinhTrang,
+                        };
+
             staffDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
@@ -189,6 +209,11 @@ namespace QLNS.Pages
         public void LoadUserDataCurrent()
         {
             LoadUserData(userPageNumber);
+            if(userDataGrid.Items.Count == 0)
+            {
+                userPageNumber--;
+                LoadUserData(userPageNumber);
+            }
         }
 
         private void LoadUserData(int page)
@@ -248,74 +273,91 @@ namespace QLNS.Pages
         {
             try
             {
-                NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
-                NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
+                string maNV = ((TextBlock)staffDataGrid.SelectedCells[0].Column.GetCellContent(staffDataGrid.SelectedCells[0].Item)).Text;
+                NHANVIEN nhanvien = DataProvider.Ins.DB.NHANVIENs.FirstOrDefault(n => n.MaNV == maNV);
 
                 MessageOption messageOption = new MessageOption();
-                messageOption.message.Text = "Bạn có chắc chắn muốn thêm thông tin này?";
+                messageOption.message.Text = "Bạn có chắc chắn muốn xóa nhân viên này?";
                 messageOption.ShowDialog();
-                bool isAdd = MessageOption.isAgree;
-                if (isAdd)
+                bool isDelete = MessageOption.isAgree;
+                messageOption.Close();
+                if (isDelete)
                 {
-                    if (nguoidung != null)
-                    {
-                        bool IsDelete = true;
-                        if (DataProvider.Ins.DB.HOADONs.Any(hd => hd.idND == nguoidung.idND))
-                            IsDelete = false;
-                        else if (DataProvider.Ins.DB.KHUYENMAIs.Any(km => km.idND == nguoidung.idND))
-                            IsDelete = false;
-                        else if (DataProvider.Ins.DB.NHAPHANGs.Any(nh => nh.idND == nguoidung.idND))
-                            IsDelete = false;
-                        else if (DataProvider.Ins.DB.SANPHAMLOIs.Any(spl => spl.idND == nguoidung.idND))
-                            IsDelete = false;
-                        if (IsDelete == false)
-                        {
-                            Message message = new Message();
-                            message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
-                            message.ShowDialog();
-                        }
-                        else
-                        {
-
-                            NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
-                            DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
-                            DataProvider.Ins.DB.SaveChanges();
-
-                            NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
-                            DataProvider.Ins.DB.NHANVIENs.Remove(nv);
-                            DataProvider.Ins.DB.SaveChanges();
-                            if (isSearch == 1)
-                            {
-                                LoadDataCurrentFilter();
-                            }
-                            else
-                            {
-                                LoadDataCurrent();
-                            }
-                            Message message = new Message();
-                            message.message.Text = "Xóa thành công nhân viên!";
-                            message.ShowDialog();
-
-                        }
-                    }
-                    else
-                    {
-                        NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
-                        DataProvider.Ins.DB.NHANVIENs.Remove(nv);
-                        DataProvider.Ins.DB.SaveChanges();
-                        if (isSearch == 1)
-                        {
-                            LoadDataCurrentFilter();
-                        }
-                        else
-                        {
-                            LoadDataCurrent();
-                        }
-                        Message message = new Message();
-                        message.message.Text = "Xóa thành công nhân viên!";
-                        message.ShowDialog();
-                    }
+                    NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                    DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                    DataProvider.Ins.DB.SaveChanges();
+                    LoadDataCurrent();
+                    Message message = new Message();
+                    message.message.Text = "Xóa nhân viên thành công!";
+                    message.ShowDialog();
                 }
+                //NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
+
+                //MessageOption messageOption = new MessageOption();
+                //messageOption.message.Text = "Bạn có chắc chắn muốn thêm thông tin này?";
+                //messageOption.ShowDialog();
+                //bool isAdd = MessageOption.isAgree;
+                //if (isAdd)
+                //{
+                //    if (nguoidung != null)
+                //    {
+                //        bool IsDelete = true;
+                //        if (DataProvider.Ins.DB.HOADONs.Any(hd => hd.idND == nguoidung.idND))
+                //            IsDelete = false;
+                //        else if (DataProvider.Ins.DB.KHUYENMAIs.Any(km => km.idND == nguoidung.idND))
+                //            IsDelete = false;
+                //        else if (DataProvider.Ins.DB.NHAPHANGs.Any(nh => nh.idND == nguoidung.idND))
+                //            IsDelete = false;
+                //        else if (DataProvider.Ins.DB.SANPHAMLOIs.Any(spl => spl.idND == nguoidung.idND))
+                //            IsDelete = false;
+                //        if (IsDelete == false)
+                //        {
+                //            Message message = new Message();
+                //            message.message.Text = "Không thể xóa nhân viên này, vì tồn tại nhiều dữ liệu liên quan!";
+                //            message.ShowDialog();
+                //        }
+                //        else
+                //        {
+
+                //            NGUOIDUNG nd = DataProvider.Ins.DB.NGUOIDUNGs.Find(nguoidung.idND);
+                //            DataProvider.Ins.DB.NGUOIDUNGs.Remove(nd);
+                //            DataProvider.Ins.DB.SaveChanges();
+
+                //            NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                //            DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                //            DataProvider.Ins.DB.SaveChanges();
+                //            if (isSearch == 1)
+                //            {
+                //                LoadDataCurrentFilter();
+                //            }
+                //            else
+                //            {
+                //                LoadDataCurrent();
+                //            }
+                //            Message message = new Message();
+                //            message.message.Text = "Xóa thành công nhân viên!";
+                //            message.ShowDialog();
+
+                //        }
+                //    }
+                //    else
+                //    {
+                //        NHANVIEN nv = DataProvider.Ins.DB.NHANVIENs.Find(nhanvien.idNV);
+                //        DataProvider.Ins.DB.NHANVIENs.Remove(nv);
+                //        DataProvider.Ins.DB.SaveChanges();
+                //        if (isSearch == 1)
+                //        {
+                //            LoadDataCurrentFilter();
+                //        }
+                //        else
+                //        {
+                //            LoadDataCurrent();
+                //        }
+                //        Message message = new Message();
+                //        message.message.Text = "Xóa thành công nhân viên!";
+                //        message.ShowDialog();
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -328,7 +370,7 @@ namespace QLNS.Pages
         {
             try
             {
-                string MaND = ((TextBlock)userDataGrid.SelectedCells[2].Column.GetCellContent(userDataGrid.SelectedCells[2].Item)).Text;
+                string MaND = ((TextBlock)userDataGrid.SelectedCells[0].Column.GetCellContent(userDataGrid.SelectedCells[0].Item)).Text;
                 NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.MaND == MaND);
 
                 HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idND == nguoidung.idND);
@@ -367,43 +409,49 @@ namespace QLNS.Pages
         {
             try
             {
-                NHANVIEN nhanvien = (NHANVIEN)staffDataGrid.SelectedItem;
+                string maNV = ((TextBlock)staffDataGrid.SelectedCells[0].Column.GetCellContent(staffDataGrid.SelectedCells[0].Item)).Text;
+                var query = from nv in DataProvider.Ins.DB.NHANVIENs
+                            orderby nv.idNV
+                            where nv.MaNV == maNV
+                            select nv;
+                var lst = query.ToList();
 
                 DetailStaff detail = new DetailStaff();
                 detail.staffManage = this;
-                detail.idNV = nhanvien.idNV;
-                detail.TenNV.Text = nhanvien.TenNV;
-                detail.NgaySinh.Text = nhanvien.NgaySinh.ToString();
-                detail.GioiTinh.Text = nhanvien.GioiTinh.ToString();
+                detail.idNV = lst[0].idNV;
+                detail.TenNV.Text = ((TextBlock)staffDataGrid.SelectedCells[1].Column.GetCellContent(staffDataGrid.SelectedCells[1].Item)).Text;
+                detail.NgaySinh.SelectedDate = lst[0].NgaySinh;
+                detail.GioiTinh.Text = ((TextBlock)staffDataGrid.SelectedCells[2].Column.GetCellContent(staffDataGrid.SelectedCells[2].Item)).Text;
 
-                if (nhanvien.DiaChi == null)
+                if (lst[0].DiaChi == "" || lst[0].DiaChi is null)
+                {
                     detail.DiaChi.Text = "";
-                else
-                    detail.DiaChi.Text = nhanvien.DiaChi.ToString();
-
-                if (nhanvien.SDT == null)
-                    detail.SDT.Text = "";
-                else
-                    detail.SDT.Text = nhanvien.SDT.ToString();
-
-                detail.NgayVL.Text = nhanvien.NgayVL.Date.ToString();
-                detail.ChucVu.Text = nhanvien.ChucVu.ToString();
-                if (nhanvien.TinhTrang == 0)
-                {
-                    detail.TinhTrang.SelectedIndex = 0;
                 }
                 else
                 {
-                    detail.TinhTrang.SelectedIndex = 1;
+                    detail.DiaChi.Text = lst[0].DiaChi.ToString();
                 }
 
-                if (nhanvien.GhiChu == null)
+                detail.SDT.Text = ((TextBlock)staffDataGrid.SelectedCells[3].Column.GetCellContent(staffDataGrid.SelectedCells[3].Item)).Text;
+
+                detail.NgayVL.SelectedDate = DateTime.Parse(((TextBlock)staffDataGrid.SelectedCells[4].Column.GetCellContent(staffDataGrid.SelectedCells[4].Item)).Text);
+                detail.ChucVu.Text = ((TextBlock)staffDataGrid.SelectedCells[5].Column.GetCellContent(staffDataGrid.SelectedCells[5].Item)).Text;
+                //if (nhanvien.TinhTrang == 0)
+                //{
+                //    detail.TinhTrang.SelectedIndex = 0;
+                //}
+                //else
+                //{
+                //    detail.TinhTrang.SelectedIndex = 1;
+                //}
+                detail.TinhTrang.Text = ((TextBlock)staffDataGrid.SelectedCells[6].Column.GetCellContent(staffDataGrid.SelectedCells[6].Item)).Text;
+                if (lst[0].GhiChu == "")
                     detail.GhiChu.Text = "";
                 else
-                    detail.GhiChu.Text = nhanvien.GhiChu.ToString();
-                detail.Show();
+                    detail.GhiChu.Text = lst[0].GhiChu;
+                detail.ShowDialog();
 
-                LoadData(0);
+                LoadDataCurrent();
             }
             catch
             {
@@ -423,7 +471,7 @@ namespace QLNS.Pages
 
                 DetailAccount detailAccount = new DetailAccount(selectedId);
                 detailAccount.ShowDialog();
-                LoadUserData(0);
+                LoadUserDataCurrent();
             }
         }
         private string pagetitle;
@@ -443,6 +491,6 @@ namespace QLNS.Pages
             pageTitle.DataContext = this;
         }
 
-        
+
     }
 }

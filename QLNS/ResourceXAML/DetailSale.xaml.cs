@@ -33,6 +33,9 @@ namespace QLNS.ResourceXAML
 
         public SaleManage saleManage { get; set; }
         public int idKM { get; set; }
+
+        private string maKhuyenMai;
+        public string MaKhuyenMai { get { return maKhuyenMai; } set { maKhuyenMai = value; OnPropertyChanged(); } }
         public DetailSale()
         {
             InitializeComponent();
@@ -44,9 +47,9 @@ namespace QLNS.ResourceXAML
         {
             QLNSEntities qlns = new QLNSEntities();
             List<LOAIKHACHHANG> lkh = qlns.LOAIKHACHHANGs.ToList();
-            idLKH.ItemsSource = lkh;
-            idLKH.DisplayMemberPath = "TenLKH";
-            idLKH.SelectedValuePath = "idLKH";
+            LoaiKH.ItemsSource = lkh;
+            LoaiKH.DisplayMemberPath = "TenLKH";
+            LoaiKH.SelectedValuePath = "idLKH";
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -74,7 +77,7 @@ namespace QLNS.ResourceXAML
             NgayKT.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             QLNSEntities qlns = new QLNSEntities();
             KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.Find(idKM);
@@ -95,10 +98,10 @@ namespace QLNS.ResourceXAML
                         khuyenmai.NgayBD = DateTime.Parse(NgayBD.Text);
                         khuyenmai.NgayKT = DateTime.Parse(NgayKT.Text);
 
-                        
-                        var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{idLKH.Text}'").ToList();
+
+                        var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{LoaiKH.Text}'").ToList();
                         khuyenmai.idLKH = int.Parse(id[0].idLKH.ToString());
-                        
+
 
                         khuyenmai.GiamGia = short.Parse(GiamGia.Text);
                         khuyenmai.MoTa = MoTa.Text.ToString();
@@ -125,6 +128,16 @@ namespace QLNS.ResourceXAML
                         message.ShowDialog();
                     }
                 }
+            }
+        }
+
+        private void detailSale_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = this;
+            KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.Find(idKM);
+            if (khuyenmai != null)
+            {
+                MaKhuyenMai = khuyenmai.MaKM;
             }
         }
     }

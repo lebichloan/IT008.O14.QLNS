@@ -39,9 +39,8 @@
                 <!--  Add staff  -->
                 <Button
                     x:Name="btnAddImportDetail"
-                    Grid.Row="0"
                     Click="btnAddImportDetail_Click"
-                    Style="{StaticResource addButton}" HorizontalAlignment="Left" Margin="630,0,0,9" VerticalAlignment="Bottom">
+                    Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="630,0,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial
                             Width="11"
@@ -68,7 +67,8 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Text="Đơn nhập hàng" />
+                    Text="Đơn nhập hàng" 
+                    Name="lblTotal" />
 
                 <!--  Staff datagrid  -->
                 <DataGrid
@@ -76,22 +76,6 @@
                     Grid.Row="3"
                     AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <!--  Checkbox  -->
-                        <DataGridCheckBoxColumn Width="auto" CanUserResize="False">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox />
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
-
-                        <!--  #  -->
-                        <DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding idNH}"
-                            CanUserResize="False"
-                            Header="#"
-                            IsReadOnly="True" />
                         <!--  Tên nhân viên  -->
                         <DataGridTextColumn
                             Width="*"
@@ -125,7 +109,7 @@
                                         <Button Name="btnDetailImport" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetailImport_Click">
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                         </Button>
-                                        
+
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

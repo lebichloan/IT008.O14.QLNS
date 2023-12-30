@@ -263,7 +263,7 @@ namespace QLNS.Pages
                         join ctsp in DataProvider.Ins.DB.CTSPs on sp.idSP equals ctsp.idSP
                         join cthd in DataProvider.Ins.DB.CTHDs on ctsp.idCTSP equals cthd.idCTSP
                         join hd in DataProvider.Ins.DB.HOADONs on cthd.idHD equals hd.idHD
-                        where hd.NgayHD > startDate && hd.NgayHD <= endDate
+                        where hd.NgayHD >= startDate && hd.NgayHD <= endDate
                         group new { sp, cthd } by new { sp.TenSP, sp.idSP } into grouped
                         orderby grouped.Key.TenSP
                         select new 
