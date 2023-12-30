@@ -1,4 +1,6 @@
-﻿using QLNS.Model;
+﻿using LiveCharts;
+using MaterialDesignThemes.Wpf;
+using QLNS.Model;
 using QLNS.ResourceXAML;
 using QLNS.ViewModel;
 using System;
@@ -38,6 +40,7 @@ namespace QLNS.Pages
             InitializeComponent();
             DataContext = this;
             SetValue();
+            Load();
         }
 
         private string tenNV;
@@ -77,6 +80,185 @@ namespace QLNS.Pages
                 message.message.Text = "Vui lòng đăng nhập để xem thông tin!";
                 message.ShowDialog();
             }
+        }
+
+        private DateTime startDate;
+        private DateTime endDate;
+        private float TotalRevenue;
+        private int TotalOrders;
+        private float Profit;
+        private ChartValues<float> RevenueValues;
+
+        public void Load()
+        {
+            List<string> dateLabels = new List<string>();
+            RevenueValues = new ChartValues<float>();
+            TotalRevenue = 0;
+            TotalOrders = 0;
+            Profit = 0;
+            endDate = new DateTime(2023, 12, 30);
+            startDate = new DateTime(2023,10,1);
+            float maxRevenueValue = 0;
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                dateLabels.Add(date.ToString("dd/MM/yyyy"));
+
+                float revenue = GetRevenue(date);
+                TotalRevenue += revenue;
+                if(revenue > maxRevenueValue)
+                {
+                    maxRevenueValue = revenue;
+                }
+                RevenueValues.Add(revenue);
+            }
+            // Chart Doanh thu 
+            RevenueChart_Values.Values = RevenueValues;
+            RevenueChart_AxisX.Labels = dateLabels;
+            if (RevenueValues.Count() < 5)
+            {
+                RevenueChart_AxisX_Separator.Step = 1;
+            }
+            else
+            {
+                RevenueChart_AxisX_Separator.Step = RevenueValues.Count() / 5;
+            }
+            //int temp = (int)maxRevenueValue / 50000;
+            //RevenueChart_AxisY.MaxValue = (temp + 1) * 50000;
+            Profit = TotalRevenue - GetImport();
+            txtProfit.Text = Profit.ToString("N0") + " VND";
+            txtTotalValues.Text = TotalRevenue.ToString("N0") + " VND";
+            LoadProduct();
+
+            //Text hien thi
+            txtToTalOrders.Text = GetSLOrders().ToString();
+            txtPercentRevenue.Text = Percent(GetTotalRevenuePre(), TotalRevenue) + " so với cùng kì tháng trước";
+            txtPercentProfit.Text = Percent(GetTotalRevenuePre() - GetImportPre(),Profit) + " so với cùng kì tháng trước";
+            txtPercentOrders.Text = Percent(GetSLOrdersPre(), GetSLOrders()) + " so với cùng kì tháng trước";
+        }
+
+        public float GetRevenue(DateTime date)
+        {
+            var query = DataProvider.Ins.DB.HOADONs.Where(hd => hd.NgayHD.Year == date.Year && hd.NgayHD.Month == date.Month && hd.NgayHD.Day == date.Day);
+            float totalValues = 0;
+            if (query.Count() > 0)
+            {
+                foreach (var hoadon in query)
+                {
+                    HOADON hOADON = (HOADON)hoadon;
+                    totalValues += (float)hOADON.ThanhToan;
+                }
+                return totalValues;
+            }
+            return 0;
+        }
+        public float GetImport()
+        {
+            float totalImport = 0;
+            var query = from hd in DataProvider.Ins.DB.HOADONs
+                        join cthd in DataProvider.Ins.DB.CTHDs on hd.idHD equals cthd.idHD
+                        join ctsp in DataProvider.Ins.DB.CTSPs on cthd.idCTSP equals ctsp.idCTSP
+                        where hd.NgayHD >= startDate && hd.NgayHD <= endDate
+                        group new { ctsp, cthd } by 1 into grouped
+                        select new
+                        {
+                            totalImport = (float)grouped.Sum(x => x.cthd.SoLuong * x.ctsp.DonGiaNhap),
+                        };
+            if (query !=null) {
+                foreach(var hd in query)
+                {
+                    totalImport = hd.totalImport;
+                }
+            }
+            return totalImport;
+        }
+        public void LoadProduct()
+        {
+            var query = from hd in DataProvider.Ins.DB.HOADONs
+                        join cthd in DataProvider.Ins.DB.CTHDs on hd.idHD equals cthd.idHD
+                        join ctsp in DataProvider.Ins.DB.CTSPs on cthd.idCTSP equals ctsp.idCTSP
+                        join sp in DataProvider.Ins.DB.SANPHAMs on ctsp.idSP equals sp.idSP
+                        where hd.NgayHD >= startDate && hd.NgayHD <= endDate
+                        group new { sp, cthd } by new { sp.TenSP, sp.idSP } into grouped
+                        orderby grouped.Sum(x => x.cthd.SoLuong) descending
+                        select new
+                        {
+                            TenSP = grouped.Key.TenSP,
+                            SoLuong = grouped.Sum(x => x.cthd.SoLuong),
+                            TongDoanhThu = (float)grouped.Sum(x => x.cthd.ThanhTien)
+                        };
+            if(query!= null)
+            {
+                var limitedQuery = query.Take(13);
+
+                if (limitedQuery != null)
+                {
+                    DataGrid_Product.ItemsSource = limitedQuery.ToList();
+                }
+            }
+        }
+
+        public float GetTotalRevenuePre()
+        {
+            DateTime startDatePre = startDate.AddDays(-5);
+            startDatePre = new DateTime(startDatePre.Year, startDatePre.Month,1);
+            DateTime endDatePre = startDate.AddDays(30);
+            float totalRevenue = (float)DataProvider.Ins.DB.HOADONs.Where(x => x.NgayHD >= startDatePre && x.NgayHD <= endDatePre && x.NgayHD.Month == startDatePre.Month).Sum(x => x.ThanhToan);
+            return totalRevenue;
+        }
+        public float GetImportPre()
+        {
+            DateTime startDatePre = startDate.AddDays(-5);
+            startDatePre = new DateTime(startDatePre.Year, startDatePre.Month, 1);
+            DateTime endDatePre = startDate.AddDays(30);
+            float totalImport = 0;
+            var query = from hd in DataProvider.Ins.DB.HOADONs
+                        join cthd in DataProvider.Ins.DB.CTHDs on hd.idHD equals cthd.idHD
+                        join ctsp in DataProvider.Ins.DB.CTSPs on cthd.idCTSP equals ctsp.idCTSP
+                        where hd.NgayHD >= startDatePre && hd.NgayHD <= endDatePre && hd.NgayHD.Month==startDatePre.Month
+                        group new { ctsp, cthd } by 1 into grouped
+                        select new
+                        {
+                            totalImport = (float)grouped.Sum(x => x.cthd.SoLuong * x.ctsp.DonGiaNhap),
+                        };
+            if (query != null)
+            {
+                foreach (var hd in query)
+                {
+                    totalImport = hd.totalImport;
+                }
+            }
+            return totalImport;
+        }
+        public int GetSLOrdersPre()
+        {
+            DateTime startDatePre = startDate.AddDays(-5);
+            startDatePre = new DateTime(startDatePre.Year, startDatePre.Month, 1);
+            DateTime endDatePre = startDate.AddDays(30);
+            int sl = DataProvider.Ins.DB.HOADONs.Where(x => x.NgayHD >= startDatePre && x.NgayHD <= endDatePre && x.NgayHD.Month == startDatePre.Month).Count();
+            return sl;
+        }
+        public int GetSLOrders()
+        {
+            int sl = DataProvider.Ins.DB.HOADONs.Where(x => x.NgayHD >= startDate && x.NgayHD <= endDate && x.NgayHD.Month == startDate.Month).Count();
+            return sl;
+        }
+        public string Percent(float a, float b)
+        {
+            a=Math.Abs(a);
+            b=Math.Abs(b);
+            float percent = 0;
+            string kq;
+            if(a > b)
+            {
+                percent = (float)(a - b) / (float)a;
+                kq = "Giảm " + percent.ToString("P2");
+            }
+            else
+            {
+                percent = (float)(b - a) / (float)a;
+                kq = "Tăng " + percent.ToString("P2");
+            }
+            return kq;
         }
     }
 }
