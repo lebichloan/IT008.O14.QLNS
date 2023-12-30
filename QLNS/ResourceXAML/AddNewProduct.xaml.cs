@@ -20,7 +20,7 @@ namespace QLNS.ResourceXAML
     /// </summary>
     public partial class AddNewProduct : Window
     {
-        public AddImportDetail addImportDetail {  get; set; }
+        public AddImportDetail addImportDetail { get; set; }
 
         private string _MaSP;
         public string masp { get => _MaSP; set { _MaSP = value; } }
@@ -79,49 +79,58 @@ namespace QLNS.ResourceXAML
             else
                 WindowState = WindowState.Normal;
         }
+        private void ForceValidation()
+        {
+            tenSP.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            loaiSP.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
+        }
+
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            tensp = tenSP.Text;
-            mota = moTa.Text;
-            danhmuc = danhMucComboBox.SelectedIndex+1;
-            ghichu = ghiChu.Text;
-            mota = moTa.Text;
+            ForceValidation();
+            if (Validation.GetHasError(tenSP) || Validation.GetHasError(loaiSP))
+            {
+                Message message = new Message();
+                message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";
+                message.ShowDialog();
+            }
+            else
+            {
+                tensp = tenSP.Text;
+                mota = moTa.Text;
+                danhmuc = loaiSP.SelectedIndex + 1;
+
+                var SANPHAM = new SANPHAM()
+                {
+                    TenSP = tensp,
+                    MoTa = mota,
+                    idDM = danhmuc,
+                };
+
+                DataProvider.Ins.DB.SANPHAMs.Add(SANPHAM);
+                DataProvider.Ins.DB.SaveChanges();
+                addImportDetail.LoadAllProduct();
+                addImportDetail.SetValues();
+                this.Close();
+
+            }
 
             //loaind = int.Parse(loaiND.Text);
 
-            var SANPHAM = new SANPHAM()
-            {
-                TenSP = tensp,
-                MoTa = mota,
-                idDM = danhmuc,
-                
-            };
-
-            DataProvider.Ins.DB.SANPHAMs.Add(SANPHAM);
-            DataProvider.Ins.DB.SaveChanges();
-            addImportDetail.LoadAllProduct();
-            addImportDetail.SetValues();
-            this.Close();
         }
         QLNSEntities qLNSEntities = new QLNSEntities();
         private void LoadComboBox()
         {
-            var query =
-                from danhmuc in qLNSEntities.DANHMUCs
-                orderby danhmuc.idDM
-                //where sanpham.idHD == 0
-                select new
-                {
-                    iDDM = danhmuc.idDM,
-                    tenDM = danhmuc.TenDM,
-                };
-            danhMucComboBox.ItemsSource = query.ToList();
+            List<DANHMUC> dm = qLNSEntities.DANHMUCs.ToList();
+            loaiSP.ItemsSource = dm;
+            loaiSP.DisplayMemberPath = "TenDM";
+            loaiSP.SelectedValuePath = "idDM";
 
         }
         private int GetLastIdProduct()
@@ -140,6 +149,11 @@ namespace QLNS.ResourceXAML
                 return lastSP.idHD;
             }
             return 0;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

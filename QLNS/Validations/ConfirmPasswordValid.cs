@@ -24,7 +24,7 @@ namespace QLNS.Validations
             {
                 if (!(str.Equals(newPass)))
                 {
-                    return new ValidationResult(false, "Mật khẩu không trùng khớp!");
+                    return new ValidationResult(false, "Mật khẩu xác nhận không trùng khớp!");
                 }
                 return new ValidationResult(true, null);
             }

@@ -62,10 +62,10 @@ namespace QLNS.ResourceXAML
         {
             InitializeComponent();
             DataContext = this;
-            Binding_LoaiKH();
+            Binding_ComboBox();
         }
 
-        private void Binding_LoaiKH()
+        private void Binding_ComboBox()
         {
             QLNSEntities qlns = new QLNSEntities();
             var query = from lkh in qlns.LOAIKHACHHANGs
@@ -78,6 +78,10 @@ namespace QLNS.ResourceXAML
             loaiKH.ItemsSource = loaikh;
             loaiKH.DisplayMemberPath = "TenLKH";
             loaiKH.SelectedValuePath = "idLKH";
+            List<String> gender = new List<String>();
+            gender.Add("Nam");
+            gender.Add("Nữ");
+            gioiTinh.ItemsSource = gender;
         }
 
 
@@ -116,7 +120,7 @@ namespace QLNS.ResourceXAML
             ngayTG.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             diemTL.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             ForceValidation();
             if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(sDT) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayTG) || Validation.GetHasError(diemTL))

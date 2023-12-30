@@ -3,225 +3,320 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QLNS.ResourceXAML"
         xmlns:vld="clr-namespace:QLNS.Validations"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:QLNS.ResourceXAML"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:uc="clr-namespace:QLNS.Controls"
-        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
         WindowStyle="None"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="Transparent"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Name="addUser"
-        Title="AddUser" Height="500" Width="380">
+        Title="AddUser" Height="600" Width="500">
 
-    <Border CornerRadius="5"
-            Background="{DynamicResource SecundaryBackgroundColor}"
-            MouseDown="Border_MouseDown"
-            MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Window.Resources>
+        <Style x:Key="TitleText" TargetType="TextBlock">
+            <Setter Property="Grid.Column" Value="0" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
 
+        <Style x:Key="ContentText" TargetType="TextBlock">
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+
+    </Window.Resources>
+
+    <Border Background="White" CornerRadius="5" Margin="10" Padding="10 5 10 15" BorderBrush="#BFBFBF" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="45"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <!--Start: Binding control for validation-->
-            <ComboBox x:Name="binding_ComboBox" Visibility="Collapsed"/>
-            <ComboBox x:Name="binding_ComboBox2" Visibility="Collapsed"/>
-            <ComboBox x:Name="binding_ComboBox3" Visibility="Collapsed"/>
-            <TextBox x:Name="binding_txtbox" Visibility="Collapsed"></TextBox>
-            <PasswordBox x:Name="newPass" Visibility="Collapsed"></PasswordBox>
-            <PasswordBox x:Name="cfmPass" Visibility="Collapsed"></PasswordBox>
+            <ComboBox x:Name="bindingTinhTrang" Visibility="Collapsed"/>
+            <ComboBox x:Name="bindingIdNV" Visibility="Collapsed"/>
+            <ComboBox x:Name="bindingLoaiND" Visibility="Collapsed"/>
+            <TextBox x:Name="bindingTenTK" Visibility="Collapsed"></TextBox>
+            <PasswordBox x:Name="bindingNewPass" Visibility="Collapsed"></PasswordBox>
+            <PasswordBox x:Name="bindingConfirmPass" Visibility="Collapsed"></PasswordBox>
             <!--End: Binding control for validation-->
 
-            <TextBlock Text="Thêm người dùng"
-                       Grid.Row="0"
-                       FontSize="25"
-                       FontWeight="Bold"   
-                       Margin="5 5 0 0"
-                       HorizontalAlignment="Left" />
+            <Grid>
+                <Button x:Name="btnClose" 
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource IconButtonsStyle}" 
+                        Content="{DynamicResource close}" 
+                        Click="btnClose_Click" 
+                        Tag="IsCloseButton"/>
+            </Grid>
 
-            <!-- Start: Button Close | Restore | Minimize -->
-            <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Separator Grid.Row="1" Height="5" Margin="0 0"/>
 
-                <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-                <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
-                            <Setter Property="Content" Value="{DynamicResource maximize}"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
-                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                    <Setter Property="Content" Value="{DynamicResource restore}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="2">
+                <TextBlock Text="THÊM TÀI KHOẢN"
+                           FontWeight="Bold"
+                           FontSize="15"
+                           HorizontalAlignment="Center"
+                           Margin="0 5 0 0"
+                           />
+
+                <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock FontSize="10"
+                               FontWeight="SemiBold"
+                               Text="Mã khách hàng: " />
+                    <TextBlock Name="lblMaKH"
+                               FontSize="10"
+                               Text="{Binding MaKhachHang}" />
+                </StackPanel>-->
+
+                <Separator Grid.Row="1" Height="5" Margin="125 0"/>
+
             </StackPanel>
 
-            <!-- Seprator -->
-            <Separator Height="1" Grid.Row="1" Grid.ColumnSpan="2"
-                   Background="{DynamicResource SepratorBackgroundColor}"
-                   Margin="0 0 0 5"/>
+            <StackPanel Orientation="Vertical"
+                        Margin="10 5"
+                        Grid.Row="3">
 
-            <ScrollViewer Grid.Row="2" Height="390">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Text="Tên tài khoản"/>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="0">
-                        <TextBox x:Name="tenND" VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                             Width="300" Height="40"
-                             Margin="10 5 0 15"
-                             materialDesign:HintAssist.Hint="Tên người dùng"
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Foreground="Red"                                   
+                                   Text="*"/>
+                    </StackPanel>
+
+                    <TextBox Name="tenND"
+                             VerticalAlignment="Center"
+                             FontSize="14"         
+                             Margin="0 0 0 20"
+                             materialDesign:HintAssist.Hint="Tên tài khoản"
                              Style="{StaticResource HintTextBoxStyle}">
-                            <TextBox.Text>
-                                <Binding Path="Text"
-                                     ElementName="binding_txtbox"
+                        <TextBox.Text>
+                            <Binding Path="Text"
+                                     ElementName="bindingTenTK"
                                      ValidatesOnDataErrors="True"
                                      NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <vld:UsernameValid></vld:UsernameValid>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     Mode="Default">
+                                <Binding.ValidationRules>
+                                    <vld:EmptyStringValid></vld:EmptyStringValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
-                        <PasswordBox x:Name="matKhau" VerticalAlignment="Center"
-                                 HorizontalAlignment="Left"
-                                 Width="300" Height="40"
-                                 Margin="10 5 0 15"
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource TitleText}"
+                               Text="Mật khẩu"
+                               />
+
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Foreground="Red"                                   
+                                   Text="*"
+                                   />
+                    </StackPanel>
+
+                    <PasswordBox Name="matKhau"
+                                 VerticalAlignment="Center"
+                                 FontSize="14"         
+                                 Margin="0 0 0 20"
                                  materialDesign:HintAssist.Hint="Mật khẩu"
                                  Style="{StaticResource PasswordBoxStyle}">
-                            <materialDesign:PasswordBoxAssist.Password>
-                                <Binding Path="Password"
-                                     ElementName="newPass"
+                        <materialDesign:PasswordBoxAssist.Password>
+                            <Binding Path="Password"
+                                     ElementName="bindingNewPass"
                                      ValidatesOnDataErrors="True"
                                      NotifyOnValidationError="True"
                                      UpdateSourceTrigger="LostFocus">
-                                    <Binding.ValidationRules>
-                                        <vld:PasswordValid></vld:PasswordValid>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </materialDesign:PasswordBoxAssist.Password>
-                        </PasswordBox>
+                                <Binding.ValidationRules>
+                                    <vld:PasswordValid></vld:PasswordValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </materialDesign:PasswordBoxAssist.Password>
+                    </PasswordBox>
 
-                        <PasswordBox x:Name="nhapLaiMatKhau" VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     Width="300" Height="40"
-                                     Margin="10 5 0 15"
-                                     materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
-                                     Style="{StaticResource PasswordBoxStyle}">
-                            <materialDesign:PasswordBoxAssist.Password>
-                                <Binding Path="Password"
-                                     ElementName="cfmPass"
-                                     ValidatesOnDataErrors="True"
-                                     NotifyOnValidationError="True"
-                                     UpdateSourceTrigger="LostFocus">
-                                    <Binding.ValidationRules>
-                                        <vld:ConfirmPasswordValid></vld:ConfirmPasswordValid>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </materialDesign:PasswordBoxAssist.Password>
-                        </PasswordBox>
-
-                        <ComboBox x:Name="tinhTrang" VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Width="300" Height="40"
-                                  Margin="10 5 0 15"
-                                  materialDesign:HintAssist.Hint="Tình trạng"
-                                  Style="{StaticResource ComboBoxStyle}">
-                            <ComboBoxItem Content="Đã bị khóa"/>
-                            <ComboBoxItem Content="Đang hoạt động"/>
-                            <ComboBox.SelectedValue>
-                                <Binding Path="SelectedValue"
-                                         ElementName="binding_ComboBox"
-                                         UpdateSourceTrigger="PropertyChanged"
-                                         ValidatesOnDataErrors="True"
-                                         NotifyOnValidationError="True"
-                                         Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-
-                        <ComboBox x:Name="idNhanVien"  VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Width="300" Height="40"
-                                  Margin="10 5 0 15"
-                                  materialDesign:HintAssist.Hint="ID Nhân viên"
-                                  Style="{StaticResource ComboBoxStyle}"
-                                  ItemsSource="{Binding}"
-                                  DisplayMemberPath="idNV"
-                                  SelectedValuePath="idNV">
-                            <ComboBox.SelectedValue>
-                                <Binding Path="SelectedValue"
-                                         ElementName="binding_ComboBox2"
-                                         UpdateSourceTrigger="PropertyChanged"
-                                         ValidatesOnDataErrors="True"
-                                         NotifyOnValidationError="True"
-                                         Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-
-                        <ComboBox x:Name="loaiND" VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
-                                  Width="300" Height="40"
-                                  Margin="10 5 0 15"
-                                  materialDesign:HintAssist.Hint="Loại người dùng"
-                                  Style="{StaticResource ComboBoxStyle}"
-                                  ItemsSource="{Binding}"
-                                  DisplayMemberPath="TenLND"
-                                  SelectedValuePath="idLND">
-                            <ComboBox.SelectedValue>
-                                <Binding Path="SelectedValue"
-                                         ElementName="binding_ComboBox3"
-                                         UpdateSourceTrigger="PropertyChanged"
-                                         ValidatesOnDataErrors="True"
-                                         NotifyOnValidationError="True"
-                                         Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </ComboBox.SelectedValue>
-                        </ComboBox>
-                    </StackPanel>
-                </Grid>
-            </ScrollViewer>
-            <Grid Grid.Row="3" HorizontalAlignment="Center">
-                <Button Height="35" Margin="5" Width="150"
-                            Click="ButtonAdd_Click"
-                            Style="{StaticResource addButton}">
                     <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus"
-                            VerticalAlignment="Center"
-                            Width="11"
-                            Height="11"
-                            Margin="0 0 10 0"
-                            Foreground="{DynamicResource IconButtonColor}"/>
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Text="Xác nhận mật khẩu"/>
 
-                        <TextBlock Text="Thêm khách hàng"
-                Foreground="{DynamicResource TextButtonColor}"/>
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Foreground="Red"                                   
+                                   Text="*"/>
                     </StackPanel>
-                </Button>
-            </Grid>
+
+                    <PasswordBox Name="nhapLaiMatKhau"
+                                 VerticalAlignment="Center"
+                                 FontSize="14"         
+                                 Margin="0 0 0 20"
+                                 materialDesign:HintAssist.Hint="Xác nhận mật khẩu"
+                                 Style="{StaticResource PasswordBoxStyle}">
+                        <materialDesign:PasswordBoxAssist.Password>
+                            <Binding Path="Password"
+                                     ElementName="bindingConfirmPass"
+                                     ValidatesOnDataErrors="True"
+                                     NotifyOnValidationError="True"
+                                     UpdateSourceTrigger="LostFocus">
+                                <Binding.ValidationRules>
+                                    <vld:ConfirmPasswordValid></vld:ConfirmPasswordValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </materialDesign:PasswordBoxAssist.Password>
+                    </PasswordBox>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Text="Tình trạng"/>
+
+                        <TextBlock Style="{StaticResource TitleText}"
+                                   Foreground="Red"                                   
+                                   Text="*"/>
+                    </StackPanel>
+
+                    <ComboBox Name="tinhTrang"
+                             VerticalAlignment="Center"
+                             FontSize="14"         
+                             Margin="0 0 0 20"
+                             materialDesign:HintAssist.Hint="Tình trạng"
+                             Style="{StaticResource ComboBoxStyle}">
+                        <ComboBox.SelectedValue>
+                            <Binding Path="SelectedValue"
+                                     ElementName="bindingTinhTrang"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     ValidatesOnDataErrors="True"
+                                     NotifyOnValidationError="True"
+                                     Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedValue>
+                    </ComboBox>
+
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource TitleText}"
+                                           Text="Mã nhân viên"/>
+
+                                <TextBlock Style="{StaticResource TitleText}"
+                                           Foreground="Red"                                   
+                                           Text="*"/>
+                            </StackPanel>
+
+                            <ComboBox Name="idNhanVien"
+                                     VerticalAlignment="Center"
+                                     FontSize="14"         
+                                     Margin="0 0 10 20"
+                                     materialDesign:HintAssist.Hint="Mã nhân viên"
+                                     Style="{StaticResource ComboBoxStyle}">
+                                <ComboBox.SelectedValue>
+                                    <Binding Path="SelectedValue"
+                                             ElementName="bindingIdNV"
+                                             UpdateSourceTrigger="PropertyChanged"
+                                             ValidatesOnDataErrors="True"
+                                             NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.SelectedValue>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="10 0 0 20">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource TitleText}"
+                                           Text="Loại người dùng"/>
+
+                                <TextBlock Style="{StaticResource TitleText}"
+                                           Foreground="Red"                                   
+                                           Text="*"/>
+                            </StackPanel>
+
+                            <ComboBox Name="loaiND"
+                                      VerticalAlignment="Center"
+                                      FontSize="14"         
+                                      materialDesign:HintAssist.Hint="Loại người dùng"
+                                      Style="{StaticResource ComboBoxStyle}">
+                                <ComboBox.SelectedValue>
+                                    <Binding Path="SelectedValue"
+                                             ElementName="bindingLoaiND"
+                                             UpdateSourceTrigger="PropertyChanged"
+                                             ValidatesOnDataErrors="True"
+                                             NotifyOnValidationError="True"
+                                             Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.SelectedValue>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+
+                    <StackPanel Orientation="Horizontal" Margin="0 30 0 0"
+                                HorizontalAlignment="Right">
+                        <Button Style="{DynamicResource cancelButton}"
+                                Name="btnCancel"
+                                Click="btnCancel_Click"
+                                Margin="0 0 10 0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Hủy bỏ"
+                                   Foreground="{DynamicResource PrimaryTextColor}"/>
+
+                                <Icon:PackIconMaterial Kind="Cancel"
+                                                VerticalAlignment="Center"
+                                                Width="11"
+                                                Height="11"
+                                               Margin="10 0 0 0"
+                                               Foreground="{DynamicResource PrimaryTextColor}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{DynamicResource saveButton}"
+                                Name="btnSave"
+                                Click="btnSave_Click"
+                                Margin="10 0 0 0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Lưu"
+                                   Foreground="{DynamicResource TextButtonColor}"/>
+
+                                <Icon:PackIconMaterial Kind="ContentSave"
+                                                VerticalAlignment="Center"
+                                                Width="11"
+                                                Height="11"
+                                               Margin="10 0 0 0"
+                                               Foreground="{DynamicResource IconButtonColor}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>
