@@ -346,8 +346,8 @@ namespace QLNS.Pages
 
 
 
-                detailErrorProduct.TenSP.Text = errorProduct.tenSPL;
-                detailErrorProduct.SL.Text = errorProduct.soluongloi.ToString();
+                detailErrorProduct.TenSPL.Text = errorProduct.tenSPL;
+                detailErrorProduct.SLL.Text = errorProduct.soluongloi.ToString();
                 detailErrorProduct.NgayLoi.SelectedDate = errorProduct.ngayloi;
 
 

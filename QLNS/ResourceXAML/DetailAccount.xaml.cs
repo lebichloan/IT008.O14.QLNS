@@ -2,7 +2,9 @@
 using QLNS.Pages;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,13 +24,22 @@ namespace QLNS.ResourceXAML
     /// <summary>
     /// Interaction logic for DetailAccount.xaml
     /// </summary>
-    public partial class DetailAccount : Window
+    public partial class DetailAccount : Window , INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         QLNSEntities qLNSEntities = new QLNSEntities();
         private int idAccount = -1;
         private int idLoaiND = -1;
         private int idTinhTrang = -1;
         private string phoneNumber = null;
+        private string maND;
+        public string MaND { get { return maND; } set { maND = value; OnPropertyChanged(); } }
+
         public DetailAccount()
         {
             InitializeComponent();
@@ -149,9 +160,14 @@ namespace QLNS.ResourceXAML
 
             if (user != null)
             {
+                string mk = string.Empty;
                 lblMaND.Text = user.maND;
                 txtTenDN.Text = user.tenDN;
-                txtMatKhau.Text = "********";
+                for (int i = 0; i < user.matKhau.Length; i++)
+                {
+                    mk += "*";
+                }
+                txtMatKhau.Text = mk;
                 txtNgayTao.Text = user.ngayTao.ToString();
 
                 idTinhTrang = user.tinhTrang;
@@ -215,5 +231,14 @@ namespace QLNS.ResourceXAML
                 }
             }
         }
+        private void detailAccount_Loaded(object sender, RoutedEventArgs e)
+        {
+            NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.Find(idAccount);
+            if (nguoidung != null)
+            {
+                MaND = nguoidung.MaND;
+            }
+        }
+
     }
 }

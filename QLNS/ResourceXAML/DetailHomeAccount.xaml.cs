@@ -18,9 +18,9 @@ using System.Windows.Shapes;
 namespace QLNS.ResourceXAML
 {
     /// <summary>
-    /// Interaction logic for DetailUser.xaml
+    /// Interaction logic for DetailHomeAccount.xaml
     /// </summary>
-    public partial class DetailHomeUser : Window, INotifyPropertyChanged
+    public partial class DetailHomeAccount : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,11 +29,12 @@ namespace QLNS.ResourceXAML
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public int idNV { get; set; }
+        public int idND { get; set; }
 
-        private string maNhanVien;
-        public string MaNhanVien { get { return maNhanVien; } set { maNhanVien = value; OnPropertyChanged(); } }
-        public DetailHomeUser()
+        private string maNguoiDung;
+        public string MaNguoiDung { get { return maNguoiDung; } set { maNguoiDung = value; OnPropertyChanged(); } }
+
+        public DetailHomeAccount()
         {
             InitializeComponent();
         }
@@ -43,13 +44,13 @@ namespace QLNS.ResourceXAML
             Close();
         }
 
-        private void detailHomeUser_Loaded(object sender, RoutedEventArgs e)
+        private void detailHomeAccount_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = this;
-            NHANVIEN nhanvien = DataProvider.Ins.DB.NHANVIENs.Find(idNV);
-            if (nhanvien != null)
+            NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.Find(idND);
+            if (nguoidung != null)
             {
-                MaNhanVien = nhanvien.MaNV;
+                MaNguoiDung = nguoidung.MaND;
             }
         }
     }

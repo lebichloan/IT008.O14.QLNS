@@ -295,6 +295,9 @@
     <Compile Include="ResourceXAML\DetailErrorProduct.xaml.cs">
       <DependentUpon>DetailErrorProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceXAML\DetailHomeAccount.xaml.cs">
+      <DependentUpon>DetailHomeAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceXAML\DetailImport.xaml.cs">
       <DependentUpon>DetailImport.xaml</DependentUpon>
     </Compile>
@@ -342,6 +345,7 @@
     </Compile>
     <Compile Include="Validations\ConfirmPasswordValid.cs" />
     <Compile Include="Validations\CurrentPasswordValid.cs" />
+    <Compile Include="Validations\DecimalNumberValid.cs" />
     <Compile Include="Validations\DiscountValid.cs" />
     <Compile Include="Validations\EmptyComboBoxValid.cs" />
     <Compile Include="Validations\EmptyDateValid.cs" />
@@ -541,6 +545,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceXAML\DetailErrorProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceXAML\DetailHomeAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
