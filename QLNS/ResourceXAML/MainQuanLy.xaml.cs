@@ -62,7 +62,8 @@ namespace QLNS.ResourceXAML
 
         private void mainQuanLy_Loaded(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/HomeQuanLy.xaml", UriKind.RelativeOrAbsolute));
+            HomeQuanLy homeQuanLy = new HomeQuanLy(idND);
+            fContainer.Navigate(homeQuanLy);
         }
 
         private void btnLogOut_MouseEnter(object sender, MouseEventArgs e)
@@ -116,7 +117,8 @@ namespace QLNS.ResourceXAML
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/HomeQuanLy.xaml", UriKind.RelativeOrAbsolute));
+            HomeQuanLy homeQuanLy = new HomeQuanLy(idND);
+            fContainer.Navigate(homeQuanLy);
         }
 
         private void btnProduct_MouseEnter(object sender, MouseEventArgs e)

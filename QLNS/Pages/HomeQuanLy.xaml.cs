@@ -43,6 +43,16 @@ namespace QLNS.Pages
             Load();
         }
 
+        private int idND = 0;
+        public HomeQuanLy(int idND)
+        {
+            InitializeComponent();
+            DataContext = this;
+            SetValue();
+            Load();
+            this.idND = idND;
+        }
+
         private string tenNV;
         public string tennv { get { return tenNV; } set { tenNV = value; OnPropertyChanged(); } }
 
@@ -259,6 +269,77 @@ namespace QLNS.Pages
                 kq = "Tăng " + percent.ToString("P2");
             }
             return kq;
+        }
+
+        private void btnStaff_Click(object sender, RoutedEventArgs e)
+        {
+            DetailHomeUser detailUser = new DetailHomeUser();
+
+            int id = int.Parse(App.Current.Properties["idND_Sale"].ToString());
+
+            QLNSEntities qlns = new QLNSEntities();
+            var query = from nd in qlns.NGUOIDUNGs
+                        join nv in qlns.NHANVIENs on nd.idNV equals nv.idNV
+                        where nd.idND == id
+                        select nd;
+            var lst = query.ToList();
+
+            detailUser.TenNV.Text = lst[0].NHANVIEN.TenNV;
+            detailUser.GioiTinh.Text = lst[0].NHANVIEN.GioiTinh;
+            detailUser.NgaySinh.Text = lst[0].NHANVIEN.NgaySinh.ToString("MM/dd/yyyy");
+            if (lst[0].NHANVIEN.DiaChi is null)
+            {
+                detailUser.DiaChi.Text = "";
+            }
+            else
+            {
+                detailUser.DiaChi.Text = lst[0].NHANVIEN.DiaChi;
+            }
+            if (lst[0].NHANVIEN.SDT is null)
+            {
+                detailUser.SDT.Text = "";
+            }
+            else
+            {
+                detailUser.SDT.Text = lst[0].NHANVIEN.SDT;
+            }
+            detailUser.NgayVL.Text = lst[0].NHANVIEN.NgayVL.ToString("MM/dd/yyyy");
+            detailUser.ChucVu.Text = lst[0].NHANVIEN.ChucVu;
+            if (lst[0].NHANVIEN.TinhTrang == 0)
+            {
+                detailUser.TinhTrang.Text = "Đã nghỉ việc";
+            }
+            else
+            {
+                detailUser.TinhTrang.Text = "Đang làm việc";
+            }
+            if (lst[0].NHANVIEN.GhiChu is null)
+            {
+                detailUser.GhiChu.Text = "";
+            }
+            else
+            {
+                detailUser.GhiChu.Text = lst[0].NHANVIEN.GhiChu;
+            }
+            detailUser.ShowDialog();
+
+        }
+
+        private void btnAccount_Click(object sender, RoutedEventArgs e)
+        {
+            DetailAccount detailAccount = new DetailAccount(idND);
+            detailAccount.ShowDialog();
+        }
+
+        private void btnChangePass_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePassword changePassword = new ChangePassword();
+            changePassword.ShowDialog();
+        }
+
+        private void lblViewProfile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            lblViewProfile.ContextMenu.IsOpen = true;
         }
     }
 }

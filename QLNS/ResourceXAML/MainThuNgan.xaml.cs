@@ -174,7 +174,8 @@ namespace QLNS.ResourceXAML
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/HomeThuNgan.xaml", UriKind.RelativeOrAbsolute));
+            HomeThuNgan homeThuNgan = new HomeThuNgan(idND);
+            fContainer.Navigate(homeThuNgan);
         }
 
         private void btnProduct_Click(object sender, RoutedEventArgs e)
@@ -224,7 +225,8 @@ namespace QLNS.ResourceXAML
 
         private void mainThuNgan_Loaded(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/HomeThuNgan.xaml", UriKind.RelativeOrAbsolute));
+            HomeThuNgan homeThuNgan = new HomeThuNgan(idND);
+            fContainer.Navigate(homeThuNgan);
         }
     }
 }

@@ -45,7 +45,7 @@
 
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize="15" FontWeight="SemiBold" Margin="0 16 0 0" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding tennv}"></TextBlock>
-                            <TextBlock FontSize="10" Text="Xem thông tin" TextDecorations="Underline" MouseLeftButtonDown="ViewProfile_MouseLeftButtonDown">
+                            <TextBlock Name="lblViewProfile" FontSize="10" Text="Xem thông tin" TextDecorations="Underline" MouseLeftButtonDown="lblViewProfile_MouseLeftButtonDown">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Foreground" Value="#879FFF"/>
@@ -56,6 +56,22 @@
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Name="btnStaff" 
+                                                  Header="Thông tin người dùng" 
+                                                  Click="btnStaff_Click"/>
+
+                                        <MenuItem Name="btnAccount" 
+                                                  Header="Thông tin tài khoản" 
+                                                  Click="btnAccount_Click"/>
+
+                                        <MenuItem Name="btnChangePass" 
+                                                  Header="Đổi mật khẩu" 
+                                                  Click="btnChangePass_Click"/>
+
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
