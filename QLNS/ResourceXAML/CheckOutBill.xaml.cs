@@ -123,7 +123,7 @@ namespace QLNS.ResourceXAML
         private void LoadVoucher(int idLKH)
         {
             var queryVoucher = from khuyenmai in qLNSEntities.KHUYENMAIs
-                               where khuyenmai.idLKH == idLKH
+                               where (khuyenmai.idLKH == idLKH || khuyenmai.idLKH == 0)
                                && khuyenmai.NgayKT >= DateTime.Now
                                && khuyenmai.NgayBD <= DateTime.Now
                                orderby khuyenmai.GiamGia
@@ -163,6 +163,8 @@ namespace QLNS.ResourceXAML
                 idLKHSelected = selectedCustomer.idLKH;
 
                 idVoucherSelected = -1;
+                lblTenKM.Visibility = Visibility.Collapsed;
+                btnCancelVoucher.Visibility = Visibility.Collapsed;
                 GiamGiaHD = 0;
                 TongThanhToanHD = TongThanhTienHD;
                 lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
@@ -200,6 +202,10 @@ namespace QLNS.ResourceXAML
                 lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
                 lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
                 lblTongThanhToan.Text = TongThanhToanHD.ToString();
+
+                lblTenKM.Visibility = Visibility.Visible;
+                lblTenKM.Text = selectedVoucher.itemTenKM;
+                btnCancelVoucher.Visibility = Visibility.Visible;
             }
         }
 
@@ -472,11 +478,17 @@ namespace QLNS.ResourceXAML
 
             idKHSelected = -1;
             idLKHSelected = 0;
+            lblTenKM.Visibility = Visibility.Collapsed;
             idVoucherSelected = -1;
             GiamGiaHD = 0;
+            TongThanhToanHD = TongThanhTienHD;
+            lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
+            lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
+            lblTongThanhToan.Text = TongThanhToanHD.ToString();
             LoadVoucher(idLKHSelected);
 
             btnCancel.Visibility = Visibility.Collapsed;
+            btnCancelVoucher.Visibility = Visibility.Collapsed;
         }
 
         private void btnCancelVoucher_Click(object sender, RoutedEventArgs e)
@@ -484,6 +496,11 @@ namespace QLNS.ResourceXAML
             lblTenKM.Visibility = Visibility.Collapsed;
             idVoucherSelected = -1;
             GiamGiaHD = 0;
+            TongThanhToanHD = TongThanhTienHD;
+            lblGiamGiaHoaDon.Text = GiamGiaHD.ToString();
+            lblTongThanhToanHoaDon.Text = TongThanhToanHD.ToString();
+            lblTongThanhToan.Text = TongThanhToanHD.ToString();
+
             btnCancelVoucher.Visibility = Visibility.Collapsed;
         }
     }
