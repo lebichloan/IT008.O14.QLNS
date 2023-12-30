@@ -103,6 +103,11 @@ namespace QLNS.Pages
         public void LoadDataCurrent()
         {
             LoadData(pageNumber);
+            if(staffDataGrid.Items.Count == 0)
+            {
+                pageNumber--;
+                LoadData(pageNumber);
+            }
         }
         public void LoadDataCurrentFilter()
         {
@@ -204,6 +209,11 @@ namespace QLNS.Pages
         public void LoadUserDataCurrent()
         {
             LoadUserData(userPageNumber);
+            if(userDataGrid.Items.Count == 0)
+            {
+                userPageNumber--;
+                LoadUserData(userPageNumber);
+            }
         }
 
         private void LoadUserData(int page)
@@ -263,7 +273,7 @@ namespace QLNS.Pages
         {
             try
             {
-                string maNV = ((TextBlock)staffDataGrid.SelectedCells[1].Column.GetCellContent(staffDataGrid.SelectedCells[1].Item)).Text;
+                string maNV = ((TextBlock)staffDataGrid.SelectedCells[0].Column.GetCellContent(staffDataGrid.SelectedCells[0].Item)).Text;
                 NHANVIEN nhanvien = DataProvider.Ins.DB.NHANVIENs.FirstOrDefault(n => n.MaNV == maNV);
 
                 MessageOption messageOption = new MessageOption();
@@ -360,7 +370,7 @@ namespace QLNS.Pages
         {
             try
             {
-                string MaND = ((TextBlock)userDataGrid.SelectedCells[2].Column.GetCellContent(userDataGrid.SelectedCells[2].Item)).Text;
+                string MaND = ((TextBlock)userDataGrid.SelectedCells[0].Column.GetCellContent(userDataGrid.SelectedCells[0].Item)).Text;
                 NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.MaND == MaND);
 
                 HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idND == nguoidung.idND);
@@ -399,7 +409,7 @@ namespace QLNS.Pages
         {
             try
             {
-                string maNV = ((TextBlock)staffDataGrid.SelectedCells[1].Column.GetCellContent(staffDataGrid.SelectedCells[1].Item)).Text;
+                string maNV = ((TextBlock)staffDataGrid.SelectedCells[0].Column.GetCellContent(staffDataGrid.SelectedCells[0].Item)).Text;
                 var query = from nv in DataProvider.Ins.DB.NHANVIENs
                             orderby nv.idNV
                             where nv.MaNV == maNV
@@ -409,19 +419,23 @@ namespace QLNS.Pages
                 DetailStaff detail = new DetailStaff();
                 detail.staffManage = this;
                 detail.idNV = lst[0].idNV;
-                detail.TenNV.Text = ((TextBlock)staffDataGrid.SelectedCells[2].Column.GetCellContent(staffDataGrid.SelectedCells[2].Item)).Text;
+                detail.TenNV.Text = ((TextBlock)staffDataGrid.SelectedCells[1].Column.GetCellContent(staffDataGrid.SelectedCells[1].Item)).Text;
                 detail.NgaySinh.SelectedDate = lst[0].NgaySinh;
-                detail.GioiTinh.Text = ((TextBlock)staffDataGrid.SelectedCells[3].Column.GetCellContent(staffDataGrid.SelectedCells[3].Item)).Text;
+                detail.GioiTinh.Text = ((TextBlock)staffDataGrid.SelectedCells[2].Column.GetCellContent(staffDataGrid.SelectedCells[2].Item)).Text;
 
-                if (lst[0].DiaChi == "")
+                if (lst[0].DiaChi == "" || lst[0].DiaChi is null)
+                {
                     detail.DiaChi.Text = "";
+                }
                 else
+                {
                     detail.DiaChi.Text = lst[0].DiaChi.ToString();
+                }
 
-                detail.SDT.Text = ((TextBlock)staffDataGrid.SelectedCells[4].Column.GetCellContent(staffDataGrid.SelectedCells[4].Item)).Text;
+                detail.SDT.Text = ((TextBlock)staffDataGrid.SelectedCells[3].Column.GetCellContent(staffDataGrid.SelectedCells[3].Item)).Text;
 
-                detail.NgayVL.SelectedDate = DateTime.Parse(((TextBlock)staffDataGrid.SelectedCells[5].Column.GetCellContent(staffDataGrid.SelectedCells[5].Item)).Text);
-                detail.ChucVu.Text = ((TextBlock)staffDataGrid.SelectedCells[6].Column.GetCellContent(staffDataGrid.SelectedCells[6].Item)).Text;
+                detail.NgayVL.SelectedDate = DateTime.Parse(((TextBlock)staffDataGrid.SelectedCells[4].Column.GetCellContent(staffDataGrid.SelectedCells[4].Item)).Text);
+                detail.ChucVu.Text = ((TextBlock)staffDataGrid.SelectedCells[5].Column.GetCellContent(staffDataGrid.SelectedCells[5].Item)).Text;
                 //if (nhanvien.TinhTrang == 0)
                 //{
                 //    detail.TinhTrang.SelectedIndex = 0;
@@ -430,14 +444,14 @@ namespace QLNS.Pages
                 //{
                 //    detail.TinhTrang.SelectedIndex = 1;
                 //}
-                detail.TinhTrang.Text = ((TextBlock)staffDataGrid.SelectedCells[7].Column.GetCellContent(staffDataGrid.SelectedCells[7].Item)).Text;
+                detail.TinhTrang.Text = ((TextBlock)staffDataGrid.SelectedCells[6].Column.GetCellContent(staffDataGrid.SelectedCells[6].Item)).Text;
                 if (lst[0].GhiChu == "")
                     detail.GhiChu.Text = "";
                 else
                     detail.GhiChu.Text = lst[0].GhiChu;
                 detail.ShowDialog();
 
-                LoadData(0);
+                LoadDataCurrent();
             }
             catch
             {
@@ -457,7 +471,7 @@ namespace QLNS.Pages
 
                 DetailAccount detailAccount = new DetailAccount(selectedId);
                 detailAccount.ShowDialog();
-                LoadUserData(0);
+                LoadUserDataCurrent();
             }
         }
         private string pagetitle;

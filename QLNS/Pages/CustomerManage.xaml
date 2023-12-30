@@ -172,15 +172,6 @@
                                       AutoGenerateColumns="False"
                                       VerticalAlignment="Top">
                                 <DataGrid.Columns>
-                                    <DataGridCheckBoxColumn CanUserResize="False"
-                                                                Width="auto">
-                                        <DataGridCheckBoxColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <CheckBox/>
-                                            </DataTemplate>
-                                        </DataGridCheckBoxColumn.HeaderTemplate>
-                                    </DataGridCheckBoxColumn>
-
                                     <DataGridTextColumn Header="Mã khách hàng"
                                                         Binding="{Binding MaKH}"
                                                         IsReadOnly="True"
@@ -381,21 +372,6 @@
                                       AutoGenerateColumns="False"
                                       Grid.Row="1">
                                 <DataGrid.Columns>
-                                    <DataGridCheckBoxColumn CanUserResize="False"
-                                                        Width="auto">
-                                        <DataGridCheckBoxColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <CheckBox/>
-                                            </DataTemplate>
-                                        </DataGridCheckBoxColumn.HeaderTemplate>
-                                    </DataGridCheckBoxColumn>
-
-                                    <!--<DataGridTextColumn Header="#"
-                                                Binding="{Binding idLKH}"
-                                                IsReadOnly="True"
-                                                CanUserResize="False"
-                                                Width="auto"/>-->
-
                                     <DataGridTextColumn Header="Mã loại khách hàng"
                                                 Binding="{Binding MaLKH}"
                                                 IsReadOnly="True"

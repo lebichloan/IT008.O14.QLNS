@@ -82,9 +82,6 @@
                         <Button x:Name="btnReportStorage" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnReportStorage_MouseEnter" MouseLeave="btnReportStorage_MouseLeave" Click="btnReportStorage_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource dashboard}" IconWidth="16" Text="Báo cáo thống kê kho hàng" VerticalAlignment="Center"/>
                         </Button>
-                        <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
-                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource settings}" IconWidth="16" Text="Cài đặt" VerticalAlignment="Center"/>
-                        </Button>
                     </StackPanel>
                     <!-- End: MenuItem -->
 
