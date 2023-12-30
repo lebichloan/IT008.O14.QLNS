@@ -90,8 +90,8 @@
                                 </Grid>
                                 <TextBlock Text="Tổng Doanh Thu" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <TextBlock Grid.Row="1" Text="14,000,000 VND" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtTotalValues" Grid.Row="1" Text="14,000,000 VND" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtPercentRevenue" Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                     <Border Grid.Column="1" Margin="10" CornerRadius="10" Background="White">
@@ -111,8 +111,8 @@
                                 </Grid>
                                 <TextBlock Text="Lợi Nhuận" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <TextBlock Grid.Row="1" Text="14,000,000 VND" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtProfit" Grid.Row="1" Text="14,000,000 VND" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtPercentProfit" Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                     <Border Grid.Column="2" Margin="10" CornerRadius="10" Background="White">
@@ -132,8 +132,8 @@
                                 </Grid>
                                 <TextBlock Text="Tổng Số Hóa Đơn" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <TextBlock Grid.Row="1" Text="144" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtToTalOrders" Grid.Row="1" Text="144" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtPercentOrders" Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -148,7 +148,7 @@
                                 <RowDefinition Height="50"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="Biểu đồ doanh thu" FontSize="20" Margin="20 10 0 0" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Row="0" Text="Biểu đồ doanh thu" FontSize="20" Margin="20 20 0 0" FontWeight="SemiBold"/>
                             <lvc:CartesianChart Grid.Row="1" LegendLocation="None" Margin="20 15 30 20">
                                 <lvc:CartesianChart.DataTooltip>
                                     <lvc:DefaultTooltip Background="#101a28" Foreground="#d5e2ff"/>
@@ -164,7 +164,7 @@
                                 </lvc:CartesianChart.AxisX>
 
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0" MaxValue="100">
+                                    <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0" >
                                         <lvc:Axis.Separator>
                                             <lvc:Separator StrokeThickness="1" Stroke="#999999" />
                                         </lvc:Axis.Separator>
@@ -185,7 +185,7 @@
                         </Grid>
                     </Border>
                     <Border Grid.Column="1" Margin="10" CornerRadius="10" Background="White">
-                        <Grid>
+                        <Grid Margin="20 10 20 20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
@@ -197,7 +197,7 @@
                                                         Binding="{Binding TenSP}"
                                                         Foreground="Black"
                                                         IsReadOnly="True"/>
-                                    <DataGridTextColumn MinWidth="110" Header="Số lượng"
+                                    <DataGridTextColumn MinWidth="100" Header="Số lượng bán"
                                                         Binding="{Binding SoLuong}"
                                                         Foreground="Black"
                                                         IsReadOnly="True"/>
