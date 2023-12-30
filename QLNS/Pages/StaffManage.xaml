@@ -178,11 +178,10 @@
                                             </DataGridCheckBoxColumn.HeaderTemplate>
                                         </DataGridCheckBoxColumn>
 
-                                        <!-- # -->
-                                        <DataGridTextColumn Header="#"
-                                                            Binding="{Binding idNV}"
+                                        <!-- Mã nhân viên -->
+                                        <DataGridTextColumn Header="Mã nhân viên"
+                                                            Binding="{Binding MaNV}"
                                                             IsReadOnly="True"
-                                                            CanUserResize="False"
                                                             Width="auto"/>
                                         <!-- Tên nhân viên -->
                                         <DataGridTextColumn Header="Tên nhân viên"

@@ -2,7 +2,9 @@
 using QLNS.Pages;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,15 +21,25 @@ namespace QLNS.ResourceXAML
     /// <summary>
     /// Interaction logic for DetailErrorProduct.xaml
     /// </summary>
-    public partial class DetailErrorProduct : Window
+    public partial class DetailErrorProduct : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public ProductManage productManage { get; set; }
         public int idSPL { get; set; }
         public int idCTSP { get; set; }
+
+        private string maSPLoi;
+        public string MaSPLoi { get { return maSPLoi; } set { maSPLoi = value; OnPropertyChanged(); } }
         public DetailErrorProduct()
         {
             InitializeComponent();
-            
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -35,7 +47,7 @@ namespace QLNS.ResourceXAML
             Close();
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.Find(idSPL);
             CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(idCTSP);
@@ -44,11 +56,11 @@ namespace QLNS.ResourceXAML
                 try
                 {
                     //Xử lý để trống thông tin
-                    if (TenSP.Text == "")
+                    if (TenSPL.Text == "")
                     {
                         throw new Exception("Tên sản phẩm không được để trống");
                     }
-                    if(Convert.ToInt16(SL.Text) > (ctsp.SoLuongLoi + ctsp.SLConLai))
+                    if (Convert.ToInt16(SLL.Text) > (ctsp.SoLuongLoi + ctsp.SLConLai))
                     {
                         throw new Exception("Số lượng sản phẩm lỗi không thể lớn hơn " + (ctsp.SoLuongLoi + ctsp.SLConLai));
                     }
@@ -56,14 +68,14 @@ namespace QLNS.ResourceXAML
 
                     // Xử lý sai định dạng
 
-                    short slldiff = (short)(sanphamloi.SoLuongLoi - Convert.ToInt16(SL.Text));
+                    short slldiff = (short)(sanphamloi.SoLuongLoi - Convert.ToInt16(SLL.Text));
                     sanphamloi.ChiTietLoi = ChiTietLoi.Text.ToString();
-                    sanphamloi.SoLuongLoi = Convert.ToInt16(SL.Text);
+                    sanphamloi.SoLuongLoi = Convert.ToInt16(SLL.Text);
 
 
-                    ctsp.SoLuongLoi = Convert.ToInt16(SL.Text);
+                    ctsp.SoLuongLoi = Convert.ToInt16(SLL.Text);
                     ctsp.SLConLai = (short)(ctsp.SLConLai + slldiff);
-                    
+
 
 
 
@@ -91,11 +103,21 @@ namespace QLNS.ResourceXAML
                 }
             }
         }
-    
+
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void detailErrorProduct_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = this;
+            SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.Find(idSPL);
+            if (sanphamloi != null)
+            {
+                MaSPLoi = sanphamloi.MaSPL;
+            }
         }
     }
 }

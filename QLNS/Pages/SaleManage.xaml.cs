@@ -141,11 +141,11 @@ namespace QLNS.Pages
 
                 if (((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text == "")
                 {
-                    detailSale.idLKH.SelectedIndex = -1;
+                    detailSale.LoaiKH.SelectedIndex = -1;
                 }
                 else
                 {
-                    detailSale.idLKH.Text = ((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text;
+                    detailSale.LoaiKH.Text = ((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text;
                 }
 
                 if (((TextBlock)saleDataGrid.SelectedCells[7].Column.GetCellContent(saleDataGrid.SelectedCells[7].Item)).Text == "")

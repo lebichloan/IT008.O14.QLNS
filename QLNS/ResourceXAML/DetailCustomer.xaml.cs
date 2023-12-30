@@ -33,6 +33,9 @@ namespace QLNS.ResourceXAML
 
         public CustomerManage customerManage { get; set; }
         public int idKH { get; set; }
+
+        private string maKhachHang;
+        public string MaKhachHang { get { return maKhachHang; } set { maKhachHang = value; OnPropertyChanged(); } }
         public DetailCustomer()
         {
             InitializeComponent();
@@ -83,7 +86,17 @@ namespace QLNS.ResourceXAML
             DTL.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void detailCustomer_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = this;
+            KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.Find(idKH);
+            if (khachhang != null)
+            {
+                MaKhachHang = khachhang.MaKH;
+            }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             QLNSEntities qlns = new QLNSEntities();
             KHACHHANG khachhang = qlns.KHACHHANGs.Find(idKH);
@@ -93,71 +106,13 @@ namespace QLNS.ResourceXAML
                 if (Validation.GetHasError(TenKH) || Validation.GetHasError(SDT) || Validation.GetHasError(NgayTG) || Validation.GetHasError(DTL))
                 {
                     Message message = new Message();
-                    message.message.Text = "Đã có lỗi xảy ra";
+                    message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";
                     message.ShowDialog();
                 }
                 else
                 {
                     try
                     {
-                        ////Xử lý để trống thông tin
-                        //if (TenKH.Text == "")//tên khách hàng 
-                        //{
-                        //    throw new Exception("Tên khách hàng không được để trống");
-                        //}
-                        //if (GioiTinh.Text == "")//Giới tính
-                        //{
-                        //    throw new Exception("Giới tính không được để trống");
-                        //}
-                        //if (SDT.Text == "")//SDT
-                        //{
-                        //    throw new Exception("Số điện thoại không được để trống");
-                        //}
-                        //if (NgayTG.Text == "")//Ngày tham gia
-                        //{
-                        //    throw new Exception("Ngày tham gia không được để trống");
-                        //}
-                        //if (DTL.Text == "")//Điểm tích lũy
-                        //{
-                        //    throw new Exception("Điểm tích lũy không được để trống không được để trống");
-                        //}
-                        //if (LoaiKH.Text == "")// Loại khách hàng
-                        //{
-                        //    throw new Exception("Loại khách hàng không được để trống không được để trống");
-                        //}
-
-                        //// Xử lý sai định dạng
-                        //// ràng buộc các dữ liệu datetime
-                        //if (NgaySinh.Text != "")
-                        //{
-                        //    if (!IsValidDateFormat(NgaySinh.Text))
-                        //    {
-                        //        throw new Exception("Ngày sinh không hợp lệ, vui lòng nhập theo định dạng (ngày/tháng/năm)");
-                        //    }
-                        //}
-                        //if (!IsValidDateFormat(NgayTG.Text))
-                        //{
-                        //    throw new Exception("Ngày tham gia không hợp lệ, vui lòng nhập theo định dạng (ngày/tháng/năm)");
-                        //}
-
-                        //// ràng buộc điểm tích lũy
-                        //if (!int.TryParse(DTL.Text, out int temp))
-                        //{
-                        //    throw new Exception("Điểm tích lũy không hợp lệ, vui lòng nhập số");
-                        //}
-
-                        //// ràng buộc idLKH
-                        //if (!int.TryParse(LoaiKH.Text, out int temp1))
-                        //{
-                        //    throw new Exception("Loại khách hàng không hợp lệ, vui lòng nhập( 1: Khách lẻ, 2: Hội viên, 3: Hội viên VIP)");
-                        //}
-                        //else
-                        //{
-                        //    if (temp1 != 1 && temp1 != 2 && temp1 != 3)
-                        //        throw new Exception("Loại khách hàng không hợp lệ, vui lòng nhập( 1: Khách lẻ, 2: Hội viên, 3: Hội viên VIP)");
-                        //}
-
-
                         khachhang.TenKH = TenKH.Text.ToString();
                         khachhang.GioiTinh = GioiTinh.Text.ToString();
                         if (NgaySinh.Text == "")
