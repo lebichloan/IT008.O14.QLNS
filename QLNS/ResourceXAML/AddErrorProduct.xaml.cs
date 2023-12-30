@@ -253,8 +253,9 @@ namespace QLNS.ResourceXAML
         private int TongSoLuongSP = 0;
         private decimal TongTienNH = 0;
         private void addProducttoBill()
-        {
-            errorProductListBox.Items.Add(new ErrorItemListBox(
+        { try
+            {
+                errorProductListBox.Items.Add(new ErrorItemListBox(
                 MaSP,
                 headerProductExpander.Text,
                 idSP,
@@ -264,11 +265,17 @@ namespace QLNS.ResourceXAML
                 idND
                 ));
 
-            TongSoLuongSP = TongSoLuongSP + SLSP;
-            lblSoLuongLoi.Text = TongSoLuongSP.ToString();
-            
+                TongSoLuongSP = TongSoLuongSP + SLSP;
+                lblSoLuongLoi.Text = TongSoLuongSP.ToString();
 
-            btnSave.IsEnabled = true;
+
+                btnSave.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private void btnSub_Click(object sender, RoutedEventArgs e)
