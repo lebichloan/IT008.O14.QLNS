@@ -57,6 +57,11 @@ namespace QLNS.Pages
         public void LoadDataCustomerCurrent()
         {
             LoadCustomerData(pageNumber);
+            if(CustomerDataGrid.Items.Count == 0)
+            {
+                pageNumber--;
+                LoadCustomerData(pageNumber);
+            }
         }
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
@@ -110,6 +115,11 @@ namespace QLNS.Pages
         public void LoadDataCustomerTypesCurrent()
         {
             LoadCustomerTypesData(pageNumber1);
+            if(CustomerTypesDataGrid.Items.Count == 0)
+            {
+                pageNumber1--;
+                LoadCustomerTypesData(pageNumber1);
+            }
         }
         private void btnCTPre_Click(object sender, RoutedEventArgs e)
         {
@@ -164,7 +174,7 @@ namespace QLNS.Pages
         {
             try
             {
-                var cellInfo = CustomerDataGrid.SelectedCells[1];
+                var cellInfo = CustomerDataGrid.SelectedCells[0];
                 var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
                 var query = from kh in qlnsEntities.KHACHHANGs
                             join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on kh.idLKH equals loaikhachhang.idLKH
@@ -176,29 +186,29 @@ namespace QLNS.Pages
                 DetailCustomer detail = new DetailCustomer();
                 detail.customerManage = this;
                 detail.idKH = lst[0].idKH;
-                detail.TenKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[2].Column.GetCellContent(CustomerDataGrid.SelectedCells[2].Item)).Text;
-                detail.GioiTinh.Text = ((TextBlock)CustomerDataGrid.SelectedCells[3].Column.GetCellContent(CustomerDataGrid.SelectedCells[3].Item)).Text;
+                detail.TenKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[1].Column.GetCellContent(CustomerDataGrid.SelectedCells[1].Item)).Text;
+                detail.GioiTinh.Text = ((TextBlock)CustomerDataGrid.SelectedCells[2].Column.GetCellContent(CustomerDataGrid.SelectedCells[2].Item)).Text;
 
-                if (((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text != "")// can null
+                if (((TextBlock)CustomerDataGrid.SelectedCells[3].Column.GetCellContent(CustomerDataGrid.SelectedCells[3].Item)).Text != "")// can null
                 {
-                    DateTime temp = DateTime.Parse(((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text);
+                    DateTime temp = DateTime.Parse(((TextBlock)CustomerDataGrid.SelectedCells[3].Column.GetCellContent(CustomerDataGrid.SelectedCells[3].Item)).Text);
                     detail.NgaySinh.SelectedDate = temp;
                 }
                 else
                     detail.NgaySinh.Text = "";
 
-                if (((TextBlock)CustomerDataGrid.SelectedCells[5].Column.GetCellContent(CustomerDataGrid.SelectedCells[5].Item)).Text == "")// can null
+                if (((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text == "")// can null
                 {
                     detail.DiaChi.Text = "";
                 }
                 else
                 {
-                    detail.DiaChi.Text = ((TextBlock)CustomerDataGrid.SelectedCells[5].Column.GetCellContent(CustomerDataGrid.SelectedCells[5].Item)).Text;
+                    detail.DiaChi.Text = ((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text;
                 }
-                detail.SDT.Text = ((TextBlock)CustomerDataGrid.SelectedCells[6].Column.GetCellContent(CustomerDataGrid.SelectedCells[6].Item)).Text;
-                detail.NgayTG.SelectedDate = DateTime.Parse(((TextBlock)CustomerDataGrid.SelectedCells[7].Column.GetCellContent(CustomerDataGrid.SelectedCells[7].Item)).Text);
-                detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[8].Column.GetCellContent(CustomerDataGrid.SelectedCells[8].Item)).Text;
-                detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[9].Column.GetCellContent(CustomerDataGrid.SelectedCells[9].Item)).Text;
+                detail.SDT.Text = ((TextBlock)CustomerDataGrid.SelectedCells[5].Column.GetCellContent(CustomerDataGrid.SelectedCells[5].Item)).Text;
+                detail.NgayTG.SelectedDate = DateTime.Parse(((TextBlock)CustomerDataGrid.SelectedCells[6].Column.GetCellContent(CustomerDataGrid.SelectedCells[6].Item)).Text);
+                detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[7].Column.GetCellContent(CustomerDataGrid.SelectedCells[7].Item)).Text;
+                detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[8].Column.GetCellContent(CustomerDataGrid.SelectedCells[8].Item)).Text;
                 detail.ShowDialog();
 
                 LoadDataCustomerCurrent();
@@ -217,11 +227,12 @@ namespace QLNS.Pages
         {
             try
             {
-                string idLKH = ((TextBlock)CustomerTypesDataGrid.SelectedCells[1].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[1].Item)).Text;
+                string maLKH = ((TextBlock)CustomerTypesDataGrid.SelectedCells[0].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[0].Item)).Text;
 
-                KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.FirstOrDefault(k => k.idLKH.ToString() == idLKH);
-                KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.idLKH.ToString() == idLKH);
-                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idLKH.ToString() == idLKH);
+                LOAIKHACHHANG loaikhachhang = DataProvider.Ins.DB.LOAIKHACHHANGs.FirstOrDefault(l => l.MaLKH == maLKH);
+                KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.FirstOrDefault(k => k.idLKH == loaikhachhang.idLKH);
+                KHUYENMAI khuyenmai = DataProvider.Ins.DB.KHUYENMAIs.FirstOrDefault(k => k.idLKH == loaikhachhang.idLKH);
+                HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idLKH == loaikhachhang.idLKH);
                 //NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.FirstOrDefault(n => n.idNV == nhanvien.idNV);
                 if (khachhang != null || khuyenmai != null || hoadon != null)
                 {
@@ -238,7 +249,7 @@ namespace QLNS.Pages
                     messageOption.Close();
                     if (isDelete)
                     {
-                        LOAIKHACHHANG lkh = DataProvider.Ins.DB.LOAIKHACHHANGs.Find(int.Parse(idLKH));
+                        LOAIKHACHHANG lkh = DataProvider.Ins.DB.LOAIKHACHHANGs.Find(loaikhachhang.idLKH);
                         DataProvider.Ins.DB.LOAIKHACHHANGs.Remove(lkh);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadDataCustomerTypesCurrent();
@@ -260,7 +271,7 @@ namespace QLNS.Pages
         {
             try
             {
-                string MaKH = ((TextBlock)CustomerDataGrid.SelectedCells[1].Column.GetCellContent(CustomerDataGrid.SelectedCells[1].Item)).Text;
+                string MaKH = ((TextBlock)CustomerDataGrid.SelectedCells[0].Column.GetCellContent(CustomerDataGrid.SelectedCells[0].Item)).Text;
 
                 KHACHHANG khachhang = DataProvider.Ins.DB.KHACHHANGs.FirstOrDefault(k => k.MaKH == MaKH);
                 HOADON hoadon = DataProvider.Ins.DB.HOADONs.FirstOrDefault(h => h.idKH == khachhang.idKH);
@@ -302,7 +313,7 @@ namespace QLNS.Pages
         {
             try
             {
-                var cellInfo = CustomerTypesDataGrid.SelectedCells[1];
+                var cellInfo = CustomerTypesDataGrid.SelectedCells[0];
                 var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
                 var query = from lkh in qlnsEntities.LOAIKHACHHANGs
                             where content == lkh.MaLKH
@@ -313,17 +324,17 @@ namespace QLNS.Pages
                 DetailCustomerType detail = new DetailCustomerType();
                 detail.customerManage = this;
                 detail.idLKH = lst[0].idLKH;
-                detail.TenLKH.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text;
+                detail.TenLKH.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[1].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[1].Item)).Text;
 
-                if (((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text == "")// can null
+                if (((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text == "")// can null
                 {
                     detail.MoTa.Text = "";
                 }
                 else
                 {
-                    detail.MoTa.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text;
+                    detail.MoTa.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text;
                 }
-                detail.DTLTT.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[4].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[4].Item)).Text;
+                detail.DTLTT.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text;
                 detail.ShowDialog();
 
                 LoadDataCustomerTypesCurrent();

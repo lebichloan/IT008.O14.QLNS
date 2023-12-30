@@ -70,9 +70,6 @@
                         <Button x:Name="btnBill" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnBill_MouseEnter" MouseLeave="btnBill_MouseLeave" Click="btnBill_Click">
                             <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource car}" IconWidth="16" Text="Quản lý hóa đơn" VerticalAlignment="Center"/>
                         </Button>
-                        <Button x:Name="btnSetting" Style="{DynamicResource PopupButtonStyle}"  MouseEnter="btnSetting_MouseEnter" MouseLeave="btnSetting_MouseLeave" Click="btnSetting_Click">
-                            <ctls:MenuItem GroupName="MenuItem" IndicatorBrush="{DynamicResource PrimaryBlueColor}" Icon="{DynamicResource settings}" IconWidth="16" Text="Cài đặt" VerticalAlignment="Center"/>
-                        </Button>
                     </StackPanel>
                     <!-- End: MenuItem -->
 

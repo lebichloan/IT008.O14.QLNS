@@ -114,21 +114,6 @@
                           x:Name="saleDataGrid"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn CanUserResize="False"
-                                                    Width="auto">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
-
-                        <!--<DataGridTextColumn Header="#"
-                                            Binding="{Binding idKM}"
-                                            IsReadOnly="True"
-                                            CanUserResize="False"
-                                            Width="auto"/>-->
-
                         <DataGridTextColumn Header="Mã khuyến mãi"
                                             Binding="{Binding MaKM}"
                                             IsReadOnly="True"

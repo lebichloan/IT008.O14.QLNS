@@ -133,23 +133,6 @@ namespace QLNS.ResourceXAML
             Popup.IsOpen = false;
         }
 
-        private void btnSetting_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (Tg_Btn.IsChecked == false)
-            {
-                Popup.PlacementTarget = btnSetting;
-                Popup.Placement = PlacementMode.Right;
-                Popup.IsOpen = true;
-                Header.PopupText.Text = "Cài đặt";
-            }
-        }
-
-        private void btnSetting_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Popup.Visibility = Visibility.Collapsed;
-            Popup.IsOpen = false;
-        }
-
         private void btnLogOut_MouseEnter(object sender, MouseEventArgs e)
         {
             if (Tg_Btn.IsChecked == false)

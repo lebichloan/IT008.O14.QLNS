@@ -85,6 +85,10 @@
                              Style="{StaticResource TabItemStyle}">
                         <DockPanel LastChildFill="True">
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="86*"/>
+                                    <ColumnDefinition Width="109*"/>
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
@@ -120,20 +124,18 @@
 
                                 <!--Search-->
                                 <TextBlock Text="Tìm kiếm"
-                                           Grid.Row="0"
                                            FontSize="13"
                                            FontWeight="SemiBold"
-                                           Margin="0 10 215 10"
-                                           HorizontalAlignment="Right"
-                                           VerticalAlignment="Center"/>
+                                           Margin="167,0,0,0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center" Grid.Column="1"/>
 
-                                <Grid 
-                                Grid.Row="0"
-                                HorizontalAlignment="Right"
+                                <Grid
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Width="190"
                                 Height="25"
-                                Margin="20 0 10 0">
+                                Margin="236,0,0,0" Grid.Column="1">
                                     <TextBlock Margin="20 0 100 0"
                                                Foreground="{DynamicResource PrimaryTextColor}"
                                                VerticalAlignment="Center"
@@ -161,23 +163,13 @@
 
 
                                 <!-- Staff datagrid -->
-                                <DataGrid Grid.Row="1"
+                                <DataGrid
                                           x:Name="staffDataGrid"
-                                          AutoGenerateColumns="False">
+                                          AutoGenerateColumns="False" Grid.ColumnSpan="2" Margin="0,37,0,0" Grid.RowSpan="2">
                                     <DataGrid.Resources>
                                         <local:StatusConvert x:Key="statusConvert"></local:StatusConvert>
                                     </DataGrid.Resources>
                                     <DataGrid.Columns>
-                                        <!--Checkbox-->
-                                        <DataGridCheckBoxColumn CanUserResize="False"
-                                                Width="auto">
-                                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox/>
-                                                </DataTemplate>
-                                            </DataGridCheckBoxColumn.HeaderTemplate>
-                                        </DataGridCheckBoxColumn>
-
                                         <!-- Mã nhân viên -->
                                         <DataGridTextColumn Header="Mã nhân viên"
                                                             Binding="{Binding MaNV}"
@@ -249,7 +241,7 @@
                                         CornerRadius="5"
                                         Padding="5"
                                         Background="{DynamicResource SecundaryBackgroundColor}"
-                                        Margin="0 10 10 0"
+                                        Margin="0 10 10 0" Grid.Column="1"
                             >
                                     <StackPanel Orientation="Horizontal">
                                         <Button Style="{DynamicResource pagingButton}"
@@ -376,22 +368,6 @@
                                         <local:UserStatusConvert x:Key="userStatusConvert"></local:UserStatusConvert>
                                     </DataGrid.Resources>
                                     <DataGrid.Columns>
-                                        <!--Checkbox-->
-                                        <DataGridCheckBoxColumn CanUserResize="False"
-                                                Width="auto">
-                                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox/>
-                                                </DataTemplate>
-                                            </DataGridCheckBoxColumn.HeaderTemplate>
-                                        </DataGridCheckBoxColumn>
-
-                                        <!-- # -->
-                                        <DataGridTextColumn Header="#"
-                                                            Binding="{Binding idND}"
-                                                            IsReadOnly="True"
-                                                            CanUserResize="False"
-                                                            Width="auto"/>
                                         <!-- Mã người dùng -->
                                         <DataGridTextColumn Header="Mã người dùng"
                                                             Binding="{Binding MaND}"
