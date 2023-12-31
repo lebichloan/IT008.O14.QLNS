@@ -124,7 +124,7 @@
                                     <Border CornerRadius="20" Height="40" Width="40" Background="#FD9F05" Opacity="0.2">
                                     </Border>
                                     <Border Height="20" Width="20" CornerRadius="2" Background="#FD9F05">
-                                        <Icon:PackIconMaterial Foreground="White" Height="15" Width="15" Kind="Finance" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Icon:PackIconMaterial Foreground="White" Height="15" Width="15" Kind="CurrencyUsd" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
                                 <TextBlock Text="Lợi Nhuận" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>

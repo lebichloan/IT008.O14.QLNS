@@ -198,7 +198,7 @@ namespace QLNS.Pages
                         };
             if(query!= null)
             {
-                var limitedQuery = query.Take(13);
+                var limitedQuery = query.Take(12);
 
                 if (limitedQuery != null)
                 {
