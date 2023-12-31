@@ -285,17 +285,23 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="10,5">
-                        <TextBox
-                            x:Name="txtSearchProduct"
-                            KeyDown="txtSearchProduct_KeyDown"
-                            Style="{DynamicResource searchTextBox}" />
+                        <TextBox x:Name="txtSearchProduct_border" 
+                                 Style="{DynamicResource searchTextBox}"
+                                 IsReadOnly="True"/>
 
-                        <Icon:PackIconMaterial
-                            Width="14"
-                            Height="14"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource PrimaryTextColor}"
-                            Kind="Magnify" />
+                        <TextBox x:Name="txtSearchProduct"
+                                 KeyDown="txtSearchProduct_KeyDown"
+                                 Margin="23,1,1,0"
+                                 BorderThickness="0"
+                                 Height="22"
+                                 Style="{DynamicResource searchTextBox}" />
+
+                        <Icon:PackIconMaterial Width="14"
+                                               Height="14"
+                                               Margin="5,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource PrimaryTextColor}"
+                                               Kind="Magnify" />
                     </Grid>
 
                     <Button
