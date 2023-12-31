@@ -67,7 +67,7 @@
 
             <StackPanel Orientation="Vertical"
                         Grid.Row="2">
-                <TextBlock Text="THÊM TÀI KHOẢN"
+                <TextBlock Text="THÊM NGƯỜI DÙNG"
                            FontWeight="Bold"
                            FontSize="15"
                            HorizontalAlignment="Center"
@@ -115,7 +115,7 @@
                                      UpdateSourceTrigger="PropertyChanged"
                                      Mode="Default">
                                 <Binding.ValidationRules>
-                                    <vld:EmptyStringValid></vld:EmptyStringValid>
+                                    <vld:UsernameValid></vld:UsernameValid>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>

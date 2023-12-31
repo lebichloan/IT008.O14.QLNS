@@ -67,17 +67,6 @@ namespace QLNS.ResourceXAML
 
         private void Binding_ComboBox()
         {
-            QLNSEntities qlns = new QLNSEntities();
-            var query = from lkh in qlns.LOAIKHACHHANGs
-                        orderby lkh.idLKH
-                        where lkh.idLKH != 0
-                        select lkh;
-
-            var loaikh = query.ToList();
-
-            loaiKH.ItemsSource = loaikh;
-            loaiKH.DisplayMemberPath = "TenLKH";
-            loaiKH.SelectedValuePath = "idLKH";
             List<String> gender = new List<String>();
             gender.Add("Nam");
             gender.Add("Nữ");
@@ -116,17 +105,17 @@ namespace QLNS.ResourceXAML
             tenKH.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             gioiTinh.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
             sDT.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            loaiKH.GetBindingExpression(ComboBox.SelectedValueProperty).UpdateSource();
             ngayTG.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
+            ngaySinh.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             diemTL.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             ForceValidation();
-            if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(sDT) || Validation.GetHasError(loaiKH) || Validation.GetHasError(ngayTG) || Validation.GetHasError(diemTL))
+            if (Validation.GetHasError(tenKH) || Validation.GetHasError(gioiTinh) || Validation.GetHasError(sDT) || Validation.GetHasError(ngayTG) || Validation.GetHasError(ngaySinh) || Validation.GetHasError(diemTL))
             {
                 Message message = new Message();
-                message.message.Text = "Đã có lỗi xảy ra";
+                message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";
                 message.ShowDialog();
             }
             else
@@ -139,14 +128,24 @@ namespace QLNS.ResourceXAML
                 if (isAdd)
                 {
                     QLNSEntities qlns = new QLNSEntities();
-                    var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{loaiKH.Text}'").ToList();
+                    var query = from lkh in qlns.LOAIKHACHHANGs
+                                where lkh.idLKH != 0
+                                select lkh;
+                    var LoaiKH = query.ToList();
 
                     tenkh = tenKH.Text;
                     gioitinh = gioiTinh.Text;
                     diachi = diaChi.Text;
                     sdt = sDT.Text;
-                    loaikh = int.Parse(id[0].idLKH.ToString());
                     diemtl = diemTL.Text;
+                    for (int i = LoaiKH.Count - 1; i >= 0; i--)
+                    {
+                        if (int.Parse(diemtl) >= LoaiKH[i].DiemTichLuyToiThieu)
+                        {
+                            loaikh = LoaiKH[i].idLKH;
+                            break;
+                        }
+                    }
                     ngaysinh = ngaySinh.SelectedDate;
                     ngaytg = (DateTime)ngayTG.SelectedDate;
 
@@ -182,6 +181,27 @@ namespace QLNS.ResourceXAML
                 else
                 {
                     //Close window
+                }
+            }
+        }
+
+        private void diemTL_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (diemTL != null && diemTL.Text != "" && !Validation.GetHasError(diemTL))
+            {
+                QLNSEntities qlns = new QLNSEntities();
+                var query = from lkh in qlns.LOAIKHACHHANGs
+                            where lkh.idLKH != 0
+                            select lkh;
+                var LoaiKH = query.ToList();
+
+                for (int i = LoaiKH.Count - 1; i >= 0; i--)
+                {
+                    if (int.Parse(diemTL.Text) >= LoaiKH[i].DiemTichLuyToiThieu)
+                    {
+                        loaiKH.Text = LoaiKH[i].TenLKH;
+                        break;
+                    }
                 }
             }
         }

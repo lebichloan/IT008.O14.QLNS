@@ -19,6 +19,7 @@ namespace QLNS.Validations
             {
                 QLNSEntities qlns = new QLNSEntities();
                 var query = from nd in qlns.NGUOIDUNGs
+                            orderby nd.idND
                             select nd;
                 var lst = query.ToList();
                 for (int i = 0; i < lst.Count; i++)
