@@ -1,4 +1,5 @@
-﻿using QLNS.Model;
+﻿using LiveCharts;
+using QLNS.Model;
 using QLNS.ResourceXAML;
 using QLNS.ViewModel;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,6 +40,7 @@ namespace QLNS.Pages
             InitializeComponent();
             DataContext = this;
             SetValue();
+            //Load();
         }
 
         private int idND = 0;
@@ -47,6 +50,8 @@ namespace QLNS.Pages
             DataContext = this;
             SetValue();
             this.idND = idND;
+            Load();
+
         }
 
         private string tenNV;
@@ -186,6 +191,103 @@ namespace QLNS.Pages
         private void lblViewProfile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             lblViewProfile.ContextMenu.IsOpen = true;
+        }
+        private DateTime startDate;
+        private DateTime endDate;
+        private int TotalTonKho;
+        private int TotalHetHang;
+        private float TotalGiaTriTonKho;
+        public void Load()
+        {
+            List<string> dateLabels = new List<string>();
+            ChartValues<float> ImportValues = new ChartValues<float>();
+            endDate = DateTime.Now;
+            startDate = endDate.AddDays(-30);
+            TotalTonKho = 0;
+            TotalGiaTriTonKho = 0;
+            LoadProduct();
+            LoadProductHetHang();
+            LoadLanNhapGanDay();
+            //Ui text hien thi
+            txtTonKho.Text = TotalTonKho.ToString("N0") + " Sản phẩm";
+            txtHetHang.Text = TotalHetHang.ToString("N0") + " Sản phẩm";
+            txtTotalImport.Text = TotalGiaTriTonKho.ToString("N0") + " VND";
+            //load chart
+            var nhaphang = DataProvider.Ins.DB.NHAPHANGs.OrderBy(x => x.NgayNhap).Take(8);
+            foreach(var nh in nhaphang)
+            {
+                dateLabels.Add(nh.NgayNhap.ToShortDateString());
+                ImportValues.Add((float)nh.ThanhTien);
+            }
+            ImportChart_AxisX.Labels = dateLabels;
+            ImportChart_Values.Values = ImportValues;
+        }
+        public void LoadProduct()
+        {
+            var query = from ctsp in DataProvider.Ins.DB.CTSPs
+                        join sp in DataProvider.Ins.DB.SANPHAMs on ctsp.idSP equals sp.idSP
+                        where ctsp.TinhTrang == 1 && ctsp.SLConLai > 0
+                        group new { sp,ctsp} by new {sp.idSP,sp.TenSP} into grouped
+                        orderby grouped.Sum(x => x.ctsp.SLConLai) descending
+                        select new
+                        {
+                            TenSP = grouped.Key.TenSP,
+                            SoLuong = grouped.Sum(x => x.ctsp.SLConLai)
+                        };
+            if (query != null)
+            {
+                int spsaphet = 0;
+
+                TotalTonKho = query.Count();
+                var limitedQuery = query.Take(12);
+                if (limitedQuery != null)
+                {
+                    DataGrid_Product.ItemsSource = limitedQuery.ToList();
+                }
+                foreach (var q in query)
+                {
+                    if (q.SoLuong < 10)
+                    {
+                        spsaphet++;
+                    }
+                }
+                if (spsaphet > 0)
+                {
+                    txtMoreHetHang.Text = spsaphet.ToString("N0") + " sản phẩm sắp hết";
+                }
+                else
+                {
+                    txtMoreHetHang.Text = "";
+                }
+            }
+        }
+        public void LoadProductHetHang()
+        {
+            var query = from ctsp in DataProvider.Ins.DB.CTSPs
+                        join sp in DataProvider.Ins.DB.SANPHAMs on ctsp.idSP equals sp.idSP
+                        where ctsp.TinhTrang == 0 && ctsp.SLConLai == 0
+                        group new { sp, ctsp } by new { sp.idSP, sp.TenSP } into grouped
+                        orderby grouped.Sum(x => x.ctsp.SLConLai) descending
+                        select new
+                        {
+                            TenSP = grouped.Key.TenSP,
+                            SoLuong = grouped.Sum(x => x.ctsp.SLConLai)
+                        };
+            if (query != null)
+            {
+                TotalHetHang = query.Count();
+                
+            }
+        }
+        public void LoadLanNhapGanDay()
+        {
+            DateTime NgayNhapGanNhat = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.NgayNhap);
+            NHAPHANG nhaphang = DataProvider.Ins.DB.NHAPHANGs.FirstOrDefault(x => x.NgayNhap == NgayNhapGanNhat);
+            TotalGiaTriTonKho = (float)DataProvider.Ins.DB.CTSPs.Sum(x => x.SLConLai * x.DonGiaNhap);
+            int slspNhap = DataProvider.Ins.DB.CTSPs.Where(x => x.idNH == nhaphang.idNH).Count();
+            //text ui
+            txtMoreImport.Text = "Giá trị nhập gần đây " + nhaphang.ThanhTien.ToString("N0") + " VND";
+            txtMoreTonKho.Text = "Số sản phẩm nhập gần đây " + slspNhap.ToString("N0") + " sản phẩm";
         }
     }
 }
