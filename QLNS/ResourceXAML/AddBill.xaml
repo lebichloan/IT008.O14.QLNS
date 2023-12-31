@@ -284,24 +284,31 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="10,5">
+                        <TextBox x:Name="txtSearchProduct_border" 
+                                 Style="{DynamicResource searchTextBox}"
+                                 IsReadOnly="True"/>
                         <TextBox
                             x:Name="txtSearchProduct"
+                            Margin="23,1,1,0"
+                            BorderThickness="0"
+                            Height="22"
                             KeyDown="txtSearchProduct_KeyDown"
                             Style="{DynamicResource searchTextBox}" />
 
-                        <Icon:PackIconMaterial
-                            Width="14"
-                            Height="14"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource PrimaryTextColor}"
-                            Kind="Magnify" />
+                        <Icon:PackIconMaterial Width="14"
+                                               Height="14"
+                                               Margin="5,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource PrimaryTextColor}"
+                                               Kind="Magnify" />
                     </Grid>
 
                     <TabControl Grid.Row="1">
                         <TabItem
                             Name="productTabItem"
                             HorizontalAlignment="Left"
-                            Header="Tất cả sản phẩm">
+                            Header="Tất cả sản phẩm"
+                            Style="{StaticResource TabItemStyle}">
                             <DataGrid
                                 x:Name="productDataGrid"
                                 AutoGenerateColumns="False"

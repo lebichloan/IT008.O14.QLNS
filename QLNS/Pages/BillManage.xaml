@@ -47,7 +47,7 @@
                                                Margin="0 0 10 0"
                                                Foreground="{DynamicResource IconButtonColor}"/>
 
-                        <TextBlock Text="Thêm mới"
+                        <TextBlock Text="Thêm hóa đơn"
                                    Foreground="{DynamicResource TextButtonColor}"/>
                     </StackPanel>
                 </Button>
@@ -66,39 +66,46 @@
                             VerticalAlignment="Center"/>
 
                 <!--Search-->
-                <TextBlock Text="Filter by"
-                               Grid.Row="2"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               Margin="0 10 215 10"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"/>
+                <TextBlock Text="Tìm kiếm"
+                           Grid.Row="2"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Margin="0 10 215 10"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
 
-                <Grid 
-                    Grid.Row="2"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="190"
-                    Height="25"
-                    Margin="20 0 10 0"
-                    >
+                <Grid  Grid.Row="2"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Width="190"
+                       Height="25"
+                       Margin="20 0 10 0">
+                    <TextBlock Margin="20 0 100 0"
+                               Foreground="{DynamicResource PrimaryTextColor}"
+                               VerticalAlignment="Center"
+                               IsHitTestVisible="False"
+                               Panel.ZIndex="1"
+                               Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
-                    <TextBox x:Name="txtSearch" Margin="23,1,1,0"
-                            Style="{DynamicResource HintTextBoxStyle}"
-                             BorderBrush="{DynamicResource PrimaryTextColor}"
-                             BorderThickness="0 0 0 0.5"
-                            Height="22"
-                            KeyDown="txtSearch_KeyDown"
-                            />
+                    <TextBox x:Name="txtBillSearch_border" 
+                             Style="{DynamicResource searchTextBox}"
+                             IsReadOnly="True"/>
+                    
+                    <TextBox x:Name="txtBillSearch_txtbox"
+                             Margin="23,1,1,0"
+                             Style="{DynamicResource searchTextBox}"
+                             BorderThickness="0"
+                             Height="22"
+                             KeyDown="txtBillSearch_KeyDown"/>
 
                     <Icon:PackIconMaterial Kind="Magnify"
-                                        Width="14"
-                                        Height="14" Margin="5 0 0 0"
-                                        Foreground="{DynamicResource PrimaryTextColor}"
-                                        VerticalAlignment="Center"
-                                        />
+                                           Width="14"
+                                           Height="14"
+                                           Margin="5,0,0,0"
+                                           Foreground="{DynamicResource PrimaryTextColor}"
+                                           VerticalAlignment="Center"/>
                 </Grid>
-                
+
                 <!-- Member datagrid -->
                 <DataGrid Grid.Row="3"
                           x:Name="memberDataGrid"

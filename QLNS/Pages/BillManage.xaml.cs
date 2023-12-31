@@ -167,11 +167,11 @@ namespace QLNS.Pages
             lblTotal.Text = string.Format("{0} {1} {2}", "Danh sách bao gồm", query.Count(), "hóa đơn");
         }
 
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        private void txtBillSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                searchTerm = txtSearch.Text.ToLower();
+                searchTerm = txtBillSearch_txtbox.Text.ToLower();
                 if (searchTerm == "")
                 {
                     LoadData(0);
