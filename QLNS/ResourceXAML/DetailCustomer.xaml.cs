@@ -43,17 +43,6 @@ namespace QLNS.ResourceXAML
         }
         private void Binding_Combobox()
         {
-            QLNSEntities qlns = new QLNSEntities();
-            var query = from lkh in qlns.LOAIKHACHHANGs
-                        orderby lkh.idLKH
-                        where lkh.idLKH != 0
-                        select lkh;
-
-            var loaikh = query.ToList();
-
-            LoaiKH.ItemsSource = loaikh;
-            LoaiKH.DisplayMemberPath = "TenLKH";
-            LoaiKH.SelectedValuePath = "idLKH";
             List<String> gender = new List<String>();
             gender.Add("Nam");
             gender.Add("Nữ");
@@ -129,9 +118,19 @@ namespace QLNS.ResourceXAML
                         khachhang.NgayTG = DateTime.Parse(NgayTG.Text);
                         khachhang.DiemTichLuy = int.Parse(DTL.Text);
 
-                        //Lay idLKH tu TenLKH
-                        var id = qlns.LOAIKHACHHANGs.SqlQuery($"SELECT * FROM LOAIKHACHHANG WHERE TenLKH = N'{LoaiKH.Text}'").ToList();
-                        khachhang.idLKH = int.Parse(id[0].idLKH.ToString());
+                        var query = from lkh in qlns.LOAIKHACHHANGs
+                                    where lkh.idLKH != 0
+                                    select lkh;
+                        var LoaiKH = query.ToList();
+                        for (int i = LoaiKH.Count - 1; i >= 0; i--)
+                        {
+                            if (int.Parse(DTL.Text) >= LoaiKH[i].DiemTichLuyToiThieu)
+                            {
+                                khachhang.idLKH = LoaiKH[i].idLKH;
+                                break;
+                            }
+                        }
+
 
                         MessageOption messageOption = new MessageOption();
                         messageOption.message.Text = "Bạn có chắc chắn muốn sửa đổi thông tin này?";
@@ -145,14 +144,35 @@ namespace QLNS.ResourceXAML
                             Message message = new Message();
                             message.message.Text = "Sửa thông tin thành công!";
                             message.ShowDialog();
+                            this.Close();
                         }
-                        this.Close();
                     }
                     catch //(Exception ex)
                     {
                         //Message message = new Message();
                         //message.message.Text = ex.Message;
                         //message.ShowDialog();
+                    }
+                }
+            }
+        }
+
+        private void DTL_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (DTL != null && DTL.Text != "" && !Validation.GetHasError(DTL))
+            {
+                QLNSEntities qlns = new QLNSEntities();
+                var query = from lkh in qlns.LOAIKHACHHANGs
+                            where lkh.idLKH != 0
+                            select lkh;
+                var loaiKH = query.ToList();
+
+                for (int i = loaiKH.Count - 1; i >= 0; i--)
+                {
+                    if (int.Parse(DTL.Text) >= loaiKH[i].DiemTichLuyToiThieu)
+                    {
+                        LoaiKH.Text = loaiKH[i].TenLKH;
+                        break;
                     }
                 }
             }

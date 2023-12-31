@@ -98,8 +98,8 @@ namespace QLNS.ResourceXAML
                             Message message = new Message();
                             message.message.Text = "Sửa thông tin thành công!";
                             message.ShowDialog();
+                            this.Close();
                         }
-                        this.Close();
                     }
                     catch //(Exception ex)
                     {

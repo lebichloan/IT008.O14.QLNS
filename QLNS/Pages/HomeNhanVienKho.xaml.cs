@@ -284,7 +284,7 @@ namespace QLNS.Pages
             DateTime NgayNhapGanNhat = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.NgayNhap);
             NHAPHANG nhaphang = DataProvider.Ins.DB.NHAPHANGs.FirstOrDefault(x => x.NgayNhap == NgayNhapGanNhat);
             TotalGiaTriTonKho = (float)DataProvider.Ins.DB.CTSPs.Sum(x => x.SLConLai * x.DonGiaNhap);
-            int slspNhap = DataProvider.Ins.DB.CTSPs.Where(x => x.idNH == nhaphang.idNH).Count();
+            int slspNhap = DataProvider.Ins.DB.CTSPs.Where(x => x.idNH == nhaphang.idNH).ToList().Count();
             //text ui
             txtMoreImport.Text = "Giá trị nhập gần đây " + nhaphang.ThanhTien.ToString("N0") + " VND";
             txtMoreTonKho.Text = "Số sản phẩm nhập gần đây " + slspNhap.ToString("N0") + " sản phẩm";

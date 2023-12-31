@@ -50,8 +50,16 @@ namespace QLNS.Pages
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page trước đó
-            pageNumber--;
-            LoadData(pageNumber);
+            if (isSaleSearch == 1)
+            {
+                SalePageNumberFilter--;
+                FilterSaleData(SaleSearchTerm, SalePageNumberFilter);
+            }
+            else
+            {
+                pageNumber--;
+                LoadData(pageNumber);
+            }
         }
         public void LoadDataCurrent()
         {
@@ -65,8 +73,16 @@ namespace QLNS.Pages
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             // Load dữ liệu page kế tiếp
-            pageNumber++;
-            LoadData(pageNumber);
+            if (isSaleSearch == 1)
+            {
+                SalePageNumberFilter++;
+                FilterSaleData(SaleSearchTerm, SalePageNumberFilter);
+            }
+            else
+            {
+                pageNumber++;
+                LoadData(pageNumber);
+            }
         }
         private void LoadData(int page)
         {
@@ -195,7 +211,14 @@ namespace QLNS.Pages
                         KHUYENMAI km = DataProvider.Ins.DB.KHUYENMAIs.Find(khuyenmai.idKM);
                         DataProvider.Ins.DB.KHUYENMAIs.Remove(km);
                         DataProvider.Ins.DB.SaveChanges();
-                        LoadDataCurrent();
+                        if (isSaleSearch == 1)
+                        {
+                            LoadSaleDataCurrentFilter();
+                        }
+                        else
+                        {
+                            LoadDataCurrent();
+                        }
                         Message message = new Message();
                         message.message.Text = "Xóa khuyến mãi thành công!";
                         message.ShowDialog();
@@ -210,15 +233,17 @@ namespace QLNS.Pages
             }
         }
 
-        private string searchText;
-        public string SearchText { get { return searchText; } set { searchText = value; OnPropertyChanged(); } }
-
-        private void txtSaleSearch_TextChanged(object sender, TextChangedEventArgs e)
+        //Start: Search sale by MaKM || TenKM || LoaiKH
+        public string SaleSearchTerm = null;
+        public int SalePageNumberFilter = 0;
+        public int isSaleSearch = 0;
+        private void FilterSaleData(string searchTerm, int page)
         {
-            SearchText = txtSaleSearch_txtbox.Text;
-            int page = 0;
+
+            //var query = DataProvider.Ins.DB.NHANVIENs.Where(nv => nv.TenNV.ToLower().Contains(searchTerm) || nv.GioiTinh.ToLower().Contains(searchTerm) || nv.ChucVu.ToLower().Contains(searchTerm)).OrderBy(nv => nv.idNV);
             var query = from khuyenmai in qlnsEntities.KHUYENMAIs
                         join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on khuyenmai.idLKH equals loaikhachhang.idLKH
+                        where khuyenmai.MaKM.ToLower().Contains(searchTerm) || khuyenmai.TenKM.ToLower().Contains(searchTerm) || khuyenmai.LOAIKHACHHANG.TenLKH.Contains(searchTerm)
                         orderby khuyenmai.idKM
                         select new
                         {
@@ -233,20 +258,40 @@ namespace QLNS.Pages
                             idND = khuyenmai.idND,
                         };
 
-            var lst = query.ToList();
-
-            for (int i = lst.Count - 1; i >= 0; i--)
-            {
-                if (!(lst[i].TenKM.Contains(SearchText)))
-                {
-                    lst.RemoveAt(i);
-                }
-            }
-
-            saleDataGrid.ItemsSource = lst.Skip(pageSize * page).Take(pageSize);
-            btnPre.IsEnabled = page > 0; // Kiểm tra page có ở trang đầu tiên không
-            btnNext.IsEnabled = lst.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Kiểm tra page kế tiếp có dữ liệu không
+            saleDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            btnPre.IsEnabled = page > 0;
+            btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any();
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
         }
+
+        private void txtSaleSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SaleSearchTerm = txtSaleSearch_txtbox.Text.ToLower();
+                if (SaleSearchTerm == "")
+                {
+                    LoadData(0);
+                    isSaleSearch = 0;
+                    pageNumber = 0;
+                }
+                else
+                {
+                    FilterSaleData(SaleSearchTerm, 0);
+                    isSaleSearch = 1;
+                    SalePageNumberFilter = 0;
+                }
+            }
+        }
+        public void LoadSaleDataCurrentFilter()
+        {
+            FilterSaleData(SaleSearchTerm, SalePageNumberFilter);
+            if (saleDataGrid.Items.Count == 0)
+            {
+                SalePageNumberFilter--;
+                FilterSaleData(SaleSearchTerm, SalePageNumberFilter);
+            }
+        }
+
     }
 }

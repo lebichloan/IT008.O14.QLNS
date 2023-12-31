@@ -345,6 +345,8 @@
     </Compile>
     <Compile Include="Validations\ConfirmPasswordValid.cs" />
     <Compile Include="Validations\CurrentPasswordValid.cs" />
+    <Compile Include="Validations\CustomerBirthdayValid.cs" />
+    <Compile Include="Validations\CustomerJoiningDateValid.cs" />
     <Compile Include="Validations\DecimalNumberValid.cs" />
     <Compile Include="Validations\DiscountValid.cs" />
     <Compile Include="Validations\EmptyComboBoxValid.cs" />
@@ -356,6 +358,8 @@
     <Compile Include="Validations\PhoneNumberValid.cs" />
     <Compile Include="Validations\Sale_EndDateValid.cs" />
     <Compile Include="Validations\Sale_StartDateValid.cs" />
+    <Compile Include="Validations\StaffBirthdayValid.cs" />
+    <Compile Include="Validations\StaffDayOfWorkValid.cs" />
     <Compile Include="Validations\UsernameValid.cs" />
     <Compile Include="ViewModel\AddBillViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />

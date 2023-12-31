@@ -153,8 +153,7 @@
                                          Style="{DynamicResource searchTextBox}"
                                          BorderThickness="0"
                                          Height="22"
-                                         TextChanged="txtCustomerSearch_TextChanged"
-                            />
+                                         KeyDown="txtCustomerSearch_KeyDown"/>
 
                                 <Icon:PackIconMaterial Kind="Magnify"
                                            Width="14"
@@ -356,7 +355,7 @@
                                          Style="{DynamicResource searchTextBox}"
                                          BorderThickness="0"
                                          Height="22"
-                                         TextChanged="txtCustomerTypeSearch_TextChanged"
+                                         KeyDown="txtCustomerTypeSearch_KeyDown"
                             />
 
                                 <Icon:PackIconMaterial Kind="Magnify"

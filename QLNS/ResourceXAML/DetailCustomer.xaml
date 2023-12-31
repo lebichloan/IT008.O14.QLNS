@@ -282,7 +282,8 @@
                                      VerticalAlignment="Center"
                                      FontSize="14"         
                                      Margin="0 0 10 20"
-                                     Style="{StaticResource HintTextBoxStyle}">
+                                     Style="{StaticResource HintTextBoxStyle}"
+                                     LostFocus="DTL_LostFocus">
                                 <TextBox.Text>
                                     <Binding Path="Text"
                                           ElementName="bindingDTL"
@@ -304,14 +305,15 @@
 
                                 <TextBlock Style="{StaticResource TitleText}"
                                            Foreground="Red"                                   
-                                           Text="*"/>
+                                           Text=""/>
                             </StackPanel>
 
-                            <ComboBox Name="LoaiKH"
-                                      VerticalAlignment="Center"
-                                      FontSize="14"         
-                                      Style="{StaticResource ComboBoxStyle}">
-                            </ComboBox>
+                            <TextBox Name="LoaiKH"
+                                     VerticalAlignment="Center"
+                                     FontSize="14"      
+                                     IsReadOnly="True"
+                                     Style="{StaticResource HintTextBoxStyle}">
+                            </TextBox>
                         </StackPanel>
                     </Grid>
 

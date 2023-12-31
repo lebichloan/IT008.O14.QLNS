@@ -89,16 +89,15 @@
                             />
 
                     <TextBox x:Name="txtSaleSearch_border" 
-                            Style="{DynamicResource searchTextBox}"
+                             Style="{DynamicResource searchTextBox}"
                              IsReadOnly="True"
                             />
                     <TextBox x:Name="txtSaleSearch_txtbox"
                              Margin="23,1,1,0"
-                            Style="{DynamicResource searchTextBox}"
+                             Style="{DynamicResource searchTextBox}"
                              BorderThickness="0"
                              Height="22"
-                             TextChanged="txtSaleSearch_TextChanged"
-                            />
+                             KeyDown="txtSaleSearch_KeyDown"/>
 
                     <Icon:PackIconMaterial Kind="Magnify"
                                            Width="14"

@@ -51,6 +51,7 @@
             <TextBox x:Name="bindingSDT" Visibility="Collapsed"></TextBox>
             <TextBox x:Name="bindingDTL" Visibility="Collapsed"></TextBox>
             <DatePicker x:Name="bindingNgayTG" Visibility="Collapsed"></DatePicker>
+            <DatePicker x:Name="bindingNgaySinh" Visibility="Collapsed"></DatePicker>
             <ComboBox x:Name="bindingGioiTinh" Visibility="Collapsed"/>
             <ComboBox x:Name="bindingLoaiKH" Visibility="Collapsed"/>
             <!--End: Binding Control-->
@@ -172,6 +173,18 @@
                                         Height="42"
                                         materialDesign:HintAssist.Hint="Ngày sinh"
                                         Style="{StaticResource DatePickerStyle}">
+                                <DatePicker.SelectedDate>
+                                    <Binding Path="SelectedDate"
+                                         ElementName="bindingNgaySinh"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <vld:CustomerBirthdayValid></vld:CustomerBirthdayValid>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DatePicker.SelectedDate>
+
                                 <DatePicker.CalendarStyle>
                                     <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
                                         <Style.Resources>
@@ -266,7 +279,7 @@
                                          NotifyOnValidationError="True"
                                          UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
-                                            <vld:EmptyDateValid></vld:EmptyDateValid>
+                                            <vld:CustomerJoiningDateValid></vld:CustomerJoiningDateValid>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </DatePicker.SelectedDate>
@@ -304,7 +317,8 @@
                                      FontSize="14"         
                                      Margin="0 0 10 20"
                                      materialDesign:HintAssist.Hint="Điểm tích lũy"
-                                     Style="{StaticResource HintTextBoxStyle}">
+                                     Style="{StaticResource HintTextBoxStyle}"
+                                     LostFocus="diemTL_LostFocus">
                                 <TextBox.Text>
                                     <Binding Path="Text"
                                           ElementName="bindingDTL"
@@ -326,27 +340,15 @@
 
                                 <TextBlock Style="{StaticResource TitleText}"
                                            Foreground="Red"                                   
-                                           Text="*"/>
+                                           Text=""/>
                             </StackPanel>
 
-                            <ComboBox Name="loaiKH"
-                                      VerticalAlignment="Center"
-                                      FontSize="14"         
-                                      materialDesign:HintAssist.Hint="Loại khách hàng"
-                                      Style="{StaticResource ComboBoxStyle}">
-                                <ComboBox.SelectedValue>
-                                    <Binding Path="SelectedValue"
-                                             ElementName="bindingLoaiKH"
-                                             UpdateSourceTrigger="PropertyChanged"
-                                             ValidatesOnDataErrors="True"
-                                             NotifyOnValidationError="True"
-                                             Mode="TwoWay">
-                                        <Binding.ValidationRules>
-                                            <vld:EmptyComboBoxValid></vld:EmptyComboBoxValid>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </ComboBox.SelectedValue>
-                            </ComboBox>
+                            <TextBox Name="loaiKH"
+                                     VerticalAlignment="Center"
+                                     FontSize="14"  
+                                     IsReadOnly="True"  
+                                     Style="{StaticResource HintTextBoxStyle}">
+                            </TextBox>
                         </StackPanel>
                     </Grid>
 
