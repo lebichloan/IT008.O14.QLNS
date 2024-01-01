@@ -406,7 +406,8 @@
                                     Width="200"
                                     Height="30"
                                     Background="{DynamicResource SecundaryBackgroundColor}"
-                                    Foreground="{DynamicResource PrimaryTextColor}" />
+                                    Foreground="{DynamicResource PrimaryTextColor}"
+                                    TextChanged="textBoxDonGia_TextChanged"/>
                             </StackPanel>
 
 
@@ -439,11 +440,13 @@
                                     x:Name="txtSoLuongSanPham"
                                     Width="50"
                                     Height="30"
+                                    Text="1"
                                     Background="{DynamicResource SecundaryBackgroundColor}"
                                     Foreground="{DynamicResource PrimaryTextColor}"
                                     KeyDown="txtSoLuongSanPham_KeyDown"
                                     LostFocus="txtSoLuongSanPham_LostFocus"
-                                    TextAlignment="Center" />
+                                    TextAlignment="Center" 
+                                    TextChanged="txtSoLuongSanPham_TextChanged"/>
                                 <Button
                                     x:Name="btnAdd"
                                     Background="{DynamicResource ButtonBackgroundColor}"

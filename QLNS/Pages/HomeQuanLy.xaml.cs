@@ -213,10 +213,15 @@ namespace QLNS.Pages
 
         public float GetTotalRevenuePre()
         {
+            float totalRevenue = 0;
             DateTime startDatePre = startDate.AddDays(-5);
             startDatePre = new DateTime(startDatePre.Year, startDatePre.Month,1);
             DateTime endDatePre = startDate.AddDays(30);
-            float totalRevenue = (float)DataProvider.Ins.DB.HOADONs.Where(x => x.NgayHD >= startDatePre && x.NgayHD <= endDatePre && x.NgayHD.Month == startDatePre.Month).Sum(x => x.ThanhToan);
+            var temp = DataProvider.Ins.DB.HOADONs.Where(x => x.NgayHD >= startDatePre && x.NgayHD <= endDatePre && x.NgayHD.Month == startDatePre.Month);
+            if(temp != null && temp.Count() != 0)
+            {
+                totalRevenue = float.Parse(temp.Sum(x => x.ThanhToan).ToString());
+            }
             return totalRevenue;
         }
         public float GetImportPre()

@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -24,7 +25,12 @@ namespace QLNS.ResourceXAML
     public partial class AddImportDetail : Window
     {
         private int idND = -1;
-        
+        bool isTextChanged = false;
+        private int idSP = 0;
+        private decimal DonGiaSP = 0;
+        private short SLSPNH = 1;
+        private decimal ThanhTienSP = 0;
+
         public ImportProductManage importProductManage {  get; set; }
 
         QLNSEntities qLNSEntities = new QLNSEntities();
@@ -83,8 +89,10 @@ namespace QLNS.ResourceXAML
 
         private void productDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            isTextChanged = true;
             if (productDataGrid.SelectedItem != null)
             {
+                
                 var selectedProduct = (dynamic)productDataGrid.SelectedItem;
 
                 detailProductExpander.Visibility = Visibility.Visible;
@@ -99,7 +107,7 @@ namespace QLNS.ResourceXAML
                 lblDanhMuc.Text = selectedProduct.TenDM;
                 
                 btnSub.IsEnabled = false;
-                SLSPNH = 0;
+                SLSPNH = 1;
                 txtSoLuongSanPham.Text = SLSPNH.ToString();
                 textBoxDonGia.Text = "0";
                 ThanhTienSP = 0;
@@ -141,6 +149,7 @@ namespace QLNS.ResourceXAML
             SLSPNH--;
             txtSoLuongSanPham.Text = SLSPNH.ToString();
             ThanhTienSP = SLSPNH * Convert.ToDecimal(textBoxDonGia.Text);
+            tempThanhTien = ThanhTienSP;
             lblThanhTienSanPham.Text = ThanhTienSP.ToString();
             CheckInputSoLuong(SLSPNH);
         }
@@ -150,22 +159,35 @@ namespace QLNS.ResourceXAML
             SLSPNH++;
             txtSoLuongSanPham.Text = SLSPNH.ToString();
             ThanhTienSP = SLSPNH * Convert.ToDecimal(textBoxDonGia.Text);
+            tempThanhTien = ThanhTienSP;
             lblThanhTienSanPham.Text = ThanhTienSP.ToString();
             CheckInputSoLuong(SLSPNH);
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
+            //MessageBox.Show(lblThanhTienSanPham.Text);
+            if (textBoxDonGia.Text == "0")
+            {
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số nguyên dương!";
+                message.ShowDialog();
+                return;
+            }
             if (SLSPNH <= 0)
             {
                 MessageBox.Show("Vui long nhap so luong lon hon 0");
                 //txtSoLuongSanPham.Focus();
             }
-            
             else
             {
+               
                 addProducttoBill();
-                detailProductExpander.Visibility = Visibility.Collapsed;
+                if (tempThanhTien > 0)
+                {
+                    detailProductExpander.Visibility = Visibility.Collapsed;
+                }
+                tempThanhTien = 0;
             }
         }
         public void LoadAllProduct()
@@ -179,6 +201,7 @@ namespace QLNS.ResourceXAML
                                       idSP = sanpham.idSP,
                                       MaSP = sanpham.MaSP,
                                       TenSP = sanpham.TenSP,
+       
                                       TenDM = danhmuc.TenDM,
                                       MoTa = sanpham.MoTa,
                                   };
@@ -188,6 +211,7 @@ namespace QLNS.ResourceXAML
 
         public void SetValues()
         {
+            MessageBox.Show("OKOKK");
             lblSoLuongNhapHang.Text = "0";
             lblTongTienNhapHang.Text = "0";
             btnNext.IsEnabled = false;
@@ -223,10 +247,6 @@ namespace QLNS.ResourceXAML
             productDataGrid.ItemsSource = queryFilterProduct.ToList();
         }
 
-        private int idSP = 0;
-        private decimal DonGiaSP = 0;
-        private short SLSPNH = 0;
-        private decimal ThanhTienSP = 0;
         private void GetValueSoLuongSP()
         {
             if (txtSoLuongSanPham.Text == "")
@@ -241,7 +261,7 @@ namespace QLNS.ResourceXAML
                     if (soLuongSPInput <= 0)
                     {
                         MessageBox.Show("Vui long nhap so luong lon hon 0");
-                        txtSoLuongSanPham.Focus();
+                        //txtSoLuongSanPham.Focus();
                     }
                     else
                     {
@@ -277,19 +297,34 @@ namespace QLNS.ResourceXAML
         private decimal TongTienNH = 0;
         private void addProducttoBill()
         {
-            productListBox.Items.Add(new ImportItemListBox(
-                idSP,
-                headerProductExpander.Text,
-                SLSPNH,
-                Convert.ToDecimal(textBoxDonGia.Text),
-                ThanhTienSP));
+            //MessageBox.Show(tempThanhTien.ToString());
+            if(textBoxDonGia.Text == "")
+            {
+                //var selectedProduct = (dynamic)productDataGrid.SelectedItem;
+                //detailProductExpander.Visibility = Visibility.Visible;
+                //detailProductExpander.IsExpanded = true;
+                //idSP = selectedProduct.idSP;
+                //headerProductExpander.Text = selectedProduct.TenSP;
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập một số nguyên!";
+                message.ShowDialog();
+            }
+            else
+            {
+                productListBox.Items.Add(new ImportItemListBox(
+                    idSP,
+                    headerProductExpander.Text,
+                    SLSPNH,
+                    Convert.ToDecimal(textBoxDonGia.Text),
+                    tempThanhTien));
 
-            TongSoLuongSP = TongSoLuongSP + SLSPNH;
-            lblSoLuongNhapHang.Text = TongSoLuongSP.ToString();
-            TongTienNH = TongTienNH + ThanhTienSP;
-            lblTongTienNhapHang.Text = TongTienNH.ToString();
-            
-            btnNext.IsEnabled = true;
+                TongSoLuongSP = TongSoLuongSP + SLSPNH;
+                lblSoLuongNhapHang.Text = TongSoLuongSP.ToString();
+                TongTienNH = TongTienNH + tempThanhTien;
+                lblTongTienNhapHang.Text = TongTienNH.ToString();
+
+                btnNext.IsEnabled = true;
+            }
         }
         
 
@@ -349,6 +384,7 @@ namespace QLNS.ResourceXAML
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show(tempThanhTien.ToString());
             NHAPHANG nhaphang = CreateImport();
             DataProvider.Ins.DB.NHAPHANGs.Add(nhaphang);
             DataProvider.Ins.DB.SaveChanges();
@@ -449,6 +485,43 @@ namespace QLNS.ResourceXAML
                 return lastNH.idNH;
             }
             return 0;
+        }
+
+        private void textBoxDonGia_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!int.TryParse(textBoxDonGia.Text, out _) && textBoxDonGia.Text != "") 
+            {
+                textBoxDonGia.Clear();
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số nguyên dương!";
+                message.ShowDialog();
+            }
+            else if(int.TryParse(textBoxDonGia.Text, out _))
+            {
+                ThanhTienSP = SLSPNH * Convert.ToDecimal(textBoxDonGia.Text);
+                lblThanhTienSanPham.Text = ThanhTienSP.ToString();
+                tempThanhTien = ThanhTienSP;
+            }
+        }
+
+        decimal tempThanhTien;
+        private void txtSoLuongSanPham_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!int.TryParse(txtSoLuongSanPham.Text, out _) && txtSoLuongSanPham.Text != "")
+            {
+                txtSoLuongSanPham.Clear();
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số nguyên dương!";
+                message.ShowDialog();
+            }
+            else if (int.TryParse(txtSoLuongSanPham.Text, out _) && isTextChanged)
+            {
+                SLSPNH = short.Parse(txtSoLuongSanPham.Text);
+                ThanhTienSP = SLSPNH * Convert.ToDecimal(textBoxDonGia.Text);
+                tempThanhTien = ThanhTienSP;
+                lblThanhTienSanPham.Text = ThanhTienSP.ToString();
+                CheckInputSoLuong(SLSPNH);
+            }
         }
     }
 }
