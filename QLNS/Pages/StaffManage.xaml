@@ -126,16 +126,16 @@
                                 <TextBlock Text="Tìm kiếm"
                                            FontSize="13"
                                            FontWeight="SemiBold"
-                                           Margin="167,0,0,0"
-                                           HorizontalAlignment="Left"
+                                           Margin="167,0,200,0"
+                                           HorizontalAlignment="Right"
                                            VerticalAlignment="Center" Grid.Column="1"/>
 
                                 <Grid
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Width="190"
-                                Height="25"
-                                Margin="236,0,0,0" Grid.Column="1">
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Width="190"
+                                    Height="25"
+                                    Margin="236,0,0,0" Grid.Column="1">
                                     <TextBlock Margin="20 0 100 0"
                                                Foreground="{DynamicResource PrimaryTextColor}"
                                                VerticalAlignment="Center"
