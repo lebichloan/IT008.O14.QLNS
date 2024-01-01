@@ -1,4 +1,5 @@
-﻿using QLNS.Model;
+﻿using LiveCharts;
+using QLNS.Model;
 using QLNS.ResourceXAML;
 using QLNS.ViewModel;
 using System;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Twilio.TwiML.Voice;
 
 namespace QLNS.Pages
 {
@@ -47,6 +49,7 @@ namespace QLNS.Pages
             DataContext = this;
             SetValue();
             this.idND = idND;
+            Load();
         }
 
         private string tenNV;
@@ -187,6 +190,120 @@ namespace QLNS.Pages
         private void lblViewProfile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             lblViewProfile.ContextMenu.IsOpen = true;
+        }
+        private DateTime startDate;
+        private DateTime endDate;
+        private float TotalRevenue;
+        private int TotalOrders;
+        private int TotalProduct;
+        private ChartValues<float> RevenueValues;
+        public void Load()
+        {
+            List<string> dateLabels = new List<string>();
+            RevenueValues = new ChartValues<float>();
+            TotalRevenue = 0;
+            TotalOrders = 0;
+            TotalProduct = 0;
+            endDate = DateTime.Now;
+            startDate = new DateTime(endDate.Year, endDate.Month, 1);
+            float maxRevenueValue = 0;
+            for (DateTime date = endDate.AddDays(-30); date <= endDate; date = date.AddDays(1))
+            {
+                dateLabels.Add(date.ToString("dd/MM/yyyy"));
+
+                float revenue = GetRevenue(date);
+                if (date.Month == endDate.Month)
+                {
+                    TotalRevenue += revenue;
+                }
+                if (revenue > maxRevenueValue)
+                {
+                    maxRevenueValue = revenue;
+                }
+                RevenueValues.Add(revenue);
+            }
+            // Chart Doanh thu 
+            RevenueChart_Values.Values = RevenueValues;
+            RevenueChart_AxisX.Labels = dateLabels;
+            if (RevenueValues.Count() < 5)
+            {
+                RevenueChart_AxisX_Separator.Step = 1;
+            }
+            else
+            {
+                RevenueChart_AxisX_Separator.Step = RevenueValues.Count() / 5;
+            }
+            LoadProduct();
+            //text ui
+            txtTotalValues.Text = TotalRevenue.ToString("N0") + " VND";
+            txtToTalOrders.Text = TotalOrders.ToString("N0") + " Hóa đơn";
+            TotalProduct = GetTotalProduct();
+            txtTotalProduct.Text = TotalProduct.ToString("N0") + " Sản phẩm";
+        }
+
+        public void LoadProduct()
+        {
+            DateTime date30Pre = endDate.AddDays(-30);
+            var query = from hd in DataProvider.Ins.DB.HOADONs
+                        join cthd in DataProvider.Ins.DB.CTHDs on hd.idHD equals cthd.idHD
+                        join ctsp in DataProvider.Ins.DB.CTSPs on cthd.idCTSP equals ctsp.idCTSP
+                        join sp in DataProvider.Ins.DB.SANPHAMs on ctsp.idSP equals sp.idSP
+                        where hd.NgayHD >= date30Pre && hd.NgayHD <= endDate
+                        group new { sp, cthd } by new { sp.idSP, sp.TenSP } into grouped
+                        orderby grouped.Sum(x => x.cthd.SoLuong) descending
+                        select new
+                        {
+                            TenSP = grouped.Key.TenSP,
+                            SoLuong = grouped.Sum(x => x.cthd.SoLuong)
+                        };
+            if (query != null)
+            {
+
+                var limitedQuery = query.Take(12);
+                if (limitedQuery != null)
+                {
+                    DataGrid_Product.ItemsSource = limitedQuery.ToList();
+                }
+            }
+        }
+        public float GetRevenue(DateTime date)
+        {
+            var query = DataProvider.Ins.DB.HOADONs.Where(hd => hd.NgayHD.Year == date.Year && hd.NgayHD.Month == date.Month && hd.NgayHD.Day == date.Day && hd.idND == idND);
+            float totalValues = 0;
+            if (query.Count() > 0)
+            {
+                foreach (var hoadon in query)
+                {
+                    if (hoadon.NgayHD.Month == startDate.Month)
+                        TotalOrders++;
+                    HOADON hOADON = (HOADON)hoadon;
+                    totalValues += (float)hOADON.ThanhToan;
+                }
+                return totalValues;
+            }
+            return 0;
+        }
+        public int GetTotalProduct()
+        {
+            if(idND == 0)
+               return 0;
+
+            var query = from hd in DataProvider.Ins.DB.HOADONs
+                        join cthd in DataProvider.Ins.DB.CTHDs on hd.idHD equals cthd.idHD
+                        join ctsp in DataProvider.Ins.DB.CTSPs on cthd.idCTSP equals ctsp.idCTSP
+                        join sp in DataProvider.Ins.DB.SANPHAMs on ctsp.idSP equals sp.idSP
+                        where hd.NgayHD >= startDate && hd.NgayHD <= endDate && hd.idND == idND
+                        group new { sp, ctsp } by new { sp.TenSP, sp.idSP } into grouped
+                        select grouped;
+            if (query != null)
+            {
+                if (query.Count() > 0)
+                {
+                    return query.Count();
+                }
+                else return 0;
+            }
+            else return 0;
         }
     }
 }

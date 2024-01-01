@@ -49,8 +49,8 @@ namespace QLNS.Pages
             InitializeComponent();
             DataContext = this;
             SetValue();
-            Load();
             this.idND = idND;
+            Load();
         }
 
         private string tenNV;
@@ -106,15 +106,18 @@ namespace QLNS.Pages
             TotalRevenue = 0;
             TotalOrders = 0;
             Profit = 0;
-            endDate = new DateTime(2023, 12, 30);
-            startDate = new DateTime(2023,10,1);
+            endDate = DateTime.Now;
+            startDate = new DateTime(endDate.Year,endDate.Month,1);
             float maxRevenueValue = 0;
-            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            for (DateTime date = endDate.AddDays(-30); date <= endDate; date = date.AddDays(1))
             {
                 dateLabels.Add(date.ToString("dd/MM/yyyy"));
 
                 float revenue = GetRevenue(date);
-                TotalRevenue += revenue;
+                if(date.Month == endDate.Month)
+                {
+                    TotalRevenue += revenue;
+                }
                 if(revenue > maxRevenueValue)
                 {
                     maxRevenueValue = revenue;
@@ -183,11 +186,12 @@ namespace QLNS.Pages
         }
         public void LoadProduct()
         {
+            DateTime date30Pre = endDate.AddDays(-30);
             var query = from hd in DataProvider.Ins.DB.HOADONs
                         join cthd in DataProvider.Ins.DB.CTHDs on hd.idHD equals cthd.idHD
                         join ctsp in DataProvider.Ins.DB.CTSPs on cthd.idCTSP equals ctsp.idCTSP
                         join sp in DataProvider.Ins.DB.SANPHAMs on ctsp.idSP equals sp.idSP
-                        where hd.NgayHD >= startDate && hd.NgayHD <= endDate
+                        where hd.NgayHD >= date30Pre && hd.NgayHD <= endDate
                         group new { sp, cthd } by new { sp.TenSP, sp.idSP } into grouped
                         orderby grouped.Sum(x => x.cthd.SoLuong) descending
                         select new

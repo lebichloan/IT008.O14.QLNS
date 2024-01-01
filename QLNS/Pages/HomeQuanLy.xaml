@@ -106,7 +106,7 @@
                                         <Icon:PackIconMaterial Foreground="White" Height="15" Width="15" Kind="Finance" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
-                                <TextBlock Text="Tổng Doanh Thu" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Tổng Doanh Thu(Tháng này)" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <TextBlock x:Name="txtTotalValues" Grid.Row="1" Text="14,000,000 VND" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
                             <TextBlock x:Name="txtPercentRevenue" Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
@@ -127,7 +127,7 @@
                                         <Icon:PackIconMaterial Foreground="White" Height="15" Width="15" Kind="CurrencyUsd" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
-                                <TextBlock Text="Lợi Nhuận" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Lợi Nhuận(Tháng này)" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <TextBlock x:Name="txtProfit" Grid.Row="1" Text="14,000,000 VND" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
                             <TextBlock x:Name="txtPercentProfit" Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
@@ -148,7 +148,7 @@
                                         <Icon:PackIconMaterial Foreground="White" Height="15" Width="15" Kind="ScriptTextOutline" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
-                                <TextBlock Text="Tổng Số Hóa Đơn" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Tổng Số Hóa Đơn(Tháng này)" FontWeight="SemiBold" FontSize="17" Margin="10 0 0 0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <TextBlock x:Name="txtToTalOrders" Grid.Row="1" Text="144" FontWeight="Bold" FontSize="22" Margin="20 5 5 0" VerticalAlignment="Center"/>
                             <TextBlock x:Name="txtPercentOrders" Grid.Row="2" Text="Tăng 14% so với tháng trước" FontWeight="Normal" FontSize="15" Margin="20 5 5 0" VerticalAlignment="Center"/>
@@ -166,7 +166,7 @@
                                 <RowDefinition Height="50"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="Biểu đồ doanh thu" FontSize="20" Margin="20 20 0 0" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Row="0" Text="Biến Động Doanh Thu (30 ngày gần đây)" FontSize="20" Margin="20 20 0 0" FontWeight="SemiBold"/>
                             <lvc:CartesianChart Grid.Row="1" LegendLocation="None" Margin="20 15 30 20">
                                 <lvc:CartesianChart.DataTooltip>
                                     <lvc:DefaultTooltip Background="#101a28" Foreground="#d5e2ff"/>
