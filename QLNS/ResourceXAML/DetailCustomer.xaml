@@ -51,6 +51,7 @@
             <TextBox x:Name="bindingSDT" Visibility="Collapsed"></TextBox>
             <TextBox x:Name="bindingDTL" Visibility="Collapsed"></TextBox>
             <DatePicker x:Name="bindingNgayTG" Visibility="Collapsed"></DatePicker>
+            <DatePicker x:Name="bindingNgaySinh" Visibility="Collapsed"></DatePicker>
             <!--End: Binding Control-->
 
             <Grid>
@@ -154,6 +155,18 @@
                                         FontSize="14"
                                         Height="41"
                                         Style="{StaticResource DatePickerStyle}">
+                                <DatePicker.SelectedDate>
+                                    <Binding Path="SelectedDate"
+                                         ElementName="bindingNgaySinh"
+                                         ValidatesOnDataErrors="True"
+                                         NotifyOnValidationError="True"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <vld:CustomerBirthdayValid></vld:CustomerBirthdayValid>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DatePicker.SelectedDate>
+
                                 <DatePicker.CalendarStyle>
                                     <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
                                         <Style.Resources>
@@ -245,7 +258,7 @@
                                          NotifyOnValidationError="True"
                                          UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
-                                            <vld:EmptyDateValid></vld:EmptyDateValid>
+                                            <vld:CustomerJoiningDateValid></vld:CustomerJoiningDateValid>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </DatePicker.SelectedDate>

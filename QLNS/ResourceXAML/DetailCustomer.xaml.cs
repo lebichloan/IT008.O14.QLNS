@@ -72,6 +72,7 @@ namespace QLNS.ResourceXAML
             TenKH.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             SDT.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             NgayTG.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
+            NgaySinh.GetBindingExpression(DatePicker.SelectedDateProperty).UpdateSource();
             DTL.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
@@ -92,7 +93,7 @@ namespace QLNS.ResourceXAML
             if (khachhang != null)
             {
                 ForceValidation(); //Kiem tra rang buoc khi click button
-                if (Validation.GetHasError(TenKH) || Validation.GetHasError(SDT) || Validation.GetHasError(NgayTG) || Validation.GetHasError(DTL))
+                if (Validation.GetHasError(TenKH) || Validation.GetHasError(SDT) || Validation.GetHasError(NgayTG) || Validation.GetHasError(NgaySinh) || Validation.GetHasError(DTL))
                 {
                     Message message = new Message();
                     message.message.Text = "Đã có lỗi xảy ra! Vui lòng kiểm tra lại thông tin!";

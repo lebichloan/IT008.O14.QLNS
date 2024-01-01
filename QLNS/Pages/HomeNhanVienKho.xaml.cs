@@ -196,7 +196,7 @@ namespace QLNS.Pages
         private DateTime endDate;
         private int TotalTonKho;
         private int TotalHetHang;
-        private float TotalGiaTriTonKho;
+        private double TotalGiaTriTonKho;
         public void Load()
         {
             List<string> dateLabels = new List<string>();
@@ -281,11 +281,11 @@ namespace QLNS.Pages
         }
         public void LoadLanNhapGanDay()
         {
-            DateTime NgayNhapGanNhat = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.NgayNhap);
-            NHAPHANG nhaphang = DataProvider.Ins.DB.NHAPHANGs.FirstOrDefault(x => x.NgayNhap == NgayNhapGanNhat);
-            TotalGiaTriTonKho = (float)DataProvider.Ins.DB.CTSPs.Sum(x => x.SLConLai * x.DonGiaNhap);
-            int slspNhap = DataProvider.Ins.DB.CTSPs.Where(x => x.idNH == nhaphang.idNH).ToList().Count();
-            //text ui
+            // NgayNhapGanNhat = DataProvider.Ins.DB.NHAPHANGs.Max(x => x.NgayNhap);
+            NHAPHANG nhaphang = DataProvider.Ins.DB.NHAPHANGs.FirstOrDefault(x => x.NgayNhap == DataProvider.Ins.DB.NHAPHANGs.Max(y => y.NgayNhap));
+            TotalGiaTriTonKho = (double)DataProvider.Ins.DB.CTSPs.Sum(x => x.SLConLai * x.DonGiaNhap);
+            int slspNhap = DataProvider.Ins.DB.CTSPs.Where(x => x.idNH == nhaphang.idNH).Count();
+            ////text ui
             txtMoreImport.Text = "Giá trị nhập gần đây " + nhaphang.ThanhTien.ToString("N0") + " VND";
             txtMoreTonKho.Text = "Số sản phẩm nhập gần đây " + slspNhap.ToString("N0") + " sản phẩm";
         }
