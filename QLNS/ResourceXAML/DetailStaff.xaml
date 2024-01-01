@@ -163,7 +163,7 @@
                                                      NotifyOnValidationError="True"
                                                      UpdateSourceTrigger="PropertyChanged">
                                                 <Binding.ValidationRules>
-                                                    <vld:EmptyDateValid></vld:EmptyDateValid>
+                                                    <vld:StaffBirthdayValid></vld:StaffBirthdayValid>
                                                 </Binding.ValidationRules>
                                             </Binding>
                                         </DatePicker.SelectedDate>
@@ -259,7 +259,7 @@
                                                      NotifyOnValidationError="True"
                                                      UpdateSourceTrigger="PropertyChanged">
                                                 <Binding.ValidationRules>
-                                                    <vld:EmptyDateValid></vld:EmptyDateValid>
+                                                    <vld:StaffDayOfWorkValid></vld:StaffDayOfWorkValid>
                                                 </Binding.ValidationRules>
                                             </Binding>
                                         </DatePicker.SelectedDate>
