@@ -126,11 +126,11 @@
                                 x:Name="productDataGrid"
                                 Grid.Row="0"
                                 Height="auto"
-                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
                                 AutoGenerateColumns="False"
                                 HorizontalScrollBarVisibility="Visible">
                                 <DataGrid.Resources>
-                                    <local:StatusProductConvert x:Key="statusProductConvert"></local:StatusProductConvert>
+                                    <local:StatusProductConvert x:Key="statusProductConvert" />
                                 </DataGrid.Resources>
 
                                 <DataGrid.Columns>
@@ -143,7 +143,7 @@
                                         IsReadOnly="True" />
                                     <!--  Tên sản phẩm  -->
                                     <DataGridTextColumn
-                                        Width="2*"
+                                        Width="*"
                                         Binding="{Binding TenSP}"
                                         Header="Tên sản phẩm"
                                         IsReadOnly="True" />
@@ -154,16 +154,8 @@
                                         Binding="{Binding DaBan}"
                                         Header="Đã bán"
                                         IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Width="auto"
-                                        Binding="{Binding DonGiaNhap}"
-                                        Header="Đơn giá nhập"
-                                        IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Width="auto"
-                                        Binding="{Binding DonGiaXuat}"
-                                        Header="Đơn giá bán"
-                                        IsReadOnly="True" />
+
+
                                     <DataGridTextColumn
                                         Width="auto"
                                         Binding="{Binding TinhTrang, Converter={StaticResource ResourceKey=statusProductConvert}}"
@@ -179,17 +171,14 @@
                                         IsReadOnly="True" />
 
                                     <!--  Ngày vào làm  -->
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding TenDM}"
-                                        Header="Danh mục"
-                                        IsReadOnly="True" />
+
 
 
                                     <DataGridTemplateColumn Width="auto" IsReadOnly="True">
 
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
+
                                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                                     <Button
                                                         x:Name="btnDetail"
@@ -208,7 +197,9 @@
                                                     </Button>
                                                 </StackPanel>
                                             </DataTemplate>
+
                                         </DataGridTemplateColumn.CellTemplate>
+
                                     </DataGridTemplateColumn>
 
 
@@ -284,32 +275,25 @@
                                 AutoGenerateColumns="False">
 
                                 <DataGrid.Columns>
-                                    <!--  Mã sản phẩm  -->
                                     <DataGridTextColumn
                                         Width="auto"
                                         Binding="{Binding maSPL}"
                                         CanUserResize="False"
                                         Header="Mã sản phẩm lỗi"
                                         IsReadOnly="True" />
-                                    <!--  Tên sản phẩm  -->
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding tenSPL}"
                                         Header="Tên sản phẩm lỗi"
                                         IsReadOnly="True" />
 
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding idctsp}"
-                                        Header="Id chi tiết sản phẩm"
-                                        IsReadOnly="True" />
-                                    <!--  Mô tả  -->
+
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding soluongloi}"
                                         Header="Số lượng sản phẩm lỗi"
                                         IsReadOnly="True" />
-                                    <!--  Ngày vào làm  -->
+
                                     <DataGridTextColumn
                                         Width="*"
                                         Binding="{Binding ngayloi}"
@@ -320,11 +304,7 @@
                                         Binding="{Binding chitietloi}"
                                         Header="Chi tiết lỗi"
                                         IsReadOnly="True" />
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding danhmuc}"
-                                        Header="Danh mục"
-                                        IsReadOnly="True" />
+
 
 
                                     <DataGridTemplateColumn Width="auto" IsReadOnly="True">
@@ -344,6 +324,7 @@
                                                         Margin="5,0,0,0"
                                                         Click="btnErrorDelete_Click"
                                                         Style="{DynamicResource gridViewButton}">
+
                                                         <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
                                                 </StackPanel>

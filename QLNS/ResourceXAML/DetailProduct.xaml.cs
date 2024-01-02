@@ -39,6 +39,8 @@ namespace QLNS.ResourceXAML
         private string maSanPham;
         public string MaSanPham { get { return maSanPham; } set { maSanPham = value; OnPropertyChanged(); } }
 
+        public int idLND {  get; set; }
+
         public DetailProduct()
         {
             InitializeComponent();
@@ -83,6 +85,13 @@ namespace QLNS.ResourceXAML
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if(idLND != 1 || idLND != 2)
+            {
+                Message message = new Message();
+                message.message.Text = "Nhân viên không có quyền thay đổi thông tin";
+                message.Show();
+                return;
+            }
             SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.Find(idSP);
             CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(idCTSP);
             if (sanpham != null)

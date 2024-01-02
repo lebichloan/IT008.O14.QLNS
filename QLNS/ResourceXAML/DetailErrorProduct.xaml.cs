@@ -36,6 +36,8 @@ namespace QLNS.ResourceXAML
 
         private string maSPLoi;
         public string MaSPLoi { get { return maSPLoi; } set { maSPLoi = value; OnPropertyChanged(); } }
+
+        public int idLND {  get; set; }
         public DetailErrorProduct()
         {
             InitializeComponent();
@@ -49,6 +51,13 @@ namespace QLNS.ResourceXAML
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (idLND != 1 || idLND != 2)
+            {
+                Message message = new Message();
+                message.message.Text = "Nhân viên không có quyền thay đổi thông tin";
+                message.Show();
+                return;
+            }
             SANPHAMLOI sanphamloi = DataProvider.Ins.DB.SANPHAMLOIs.Find(idSPL);
             CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(idCTSP);
             if (sanphamloi != null)
