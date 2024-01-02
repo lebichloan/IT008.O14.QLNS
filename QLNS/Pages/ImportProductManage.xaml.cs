@@ -36,8 +36,9 @@ namespace QLNS.Pages
             }
             else
             {
-                MessageBox.Show("Vui lòng đăng nhập");
-
+                Message message = new Message();
+                message.message.Text = "Vui lòng đăng nhập";
+                message.ShowDialog();
             }
         }
         public ImportProductManage(int userID)
