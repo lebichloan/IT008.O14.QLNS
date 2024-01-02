@@ -169,7 +169,7 @@ namespace QLNS.Pages
                 RevenueChart_AxisX_Separator.Step = chartRevenueValues.Count() / 5;
             }
             int temp = maxRevenueValues / 50000;
-            RevenueChart_AxisY.MaxValue = (temp + 1) * 50000;
+            //RevenueChart_AxisY.MaxValue = (temp + 1) * 50000;
             // Chart khách hàng (trục X, Y)
             CustomerChart_AxisX.Labels = dateLabels;
             CustomerChart_AxisX_Separator.Step = RevenueChart_AxisX_Separator.Step;

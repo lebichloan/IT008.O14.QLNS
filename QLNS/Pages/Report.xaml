@@ -114,7 +114,7 @@
                         </lvc:CartesianChart.AxisX>
 
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0" MaxValue="100">
+                            <lvc:Axis x:Name="RevenueChart_AxisY" ShowLabels="True" Foreground="Black" MinValue="0">
                                 <lvc:Axis.Separator>
                                     <lvc:Separator StrokeThickness="1" Stroke="#999999" />
                                 </lvc:Axis.Separator>
