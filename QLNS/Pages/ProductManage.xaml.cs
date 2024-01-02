@@ -102,11 +102,14 @@ namespace QLNS.Pages
         }
 
         private int idND = -1;
+        private int idLND = -1;
 
         QLNSEntities qLNSEntities = new QLNSEntities();
         public ProductManage()
         {
             InitializeComponent();
+            btnAddProduct.Visibility = Visibility.Collapsed;
+            
             if (App.Current.Properties["idND_Sale"] != null)
             {
                 idND = int.Parse(App.Current.Properties["idND_Sale"].ToString());
@@ -117,6 +120,11 @@ namespace QLNS.Pages
                 message.message.Text = "Vui lòng đăng nhập";
                 message.ShowDialog();
             }
+            if (App.Current.Properties["idLND"] != null)
+            {
+                idLND = int.Parse(App.Current.Properties["idLND"].ToString());
+            }
+            
         }
         public ProductManage(int userID)
         {
@@ -124,6 +132,7 @@ namespace QLNS.Pages
             idND = userID;
         }
 
+        
 
         int pageNumber = 0;
         int pageSize = 15;
@@ -181,6 +190,7 @@ namespace QLNS.Pages
                         };
 
             productDataGrid.ItemsSource = query.Skip(pageSize * page).Take(pageSize).ToArray();
+            
             btnPre.IsEnabled = page > 0; // Được ấn nếu page > 0
             btnNext.IsEnabled = query.Skip(pageSize * (page + 1)).Take(pageSize).Any(); // Được ấn nếu như trang tiếp theo có tồn tại dữ liệu
             lblPage.Text = string.Format("{0}/{1}", page + 1, (query.Count() + pageSize - 1) / pageSize);
@@ -192,6 +202,13 @@ namespace QLNS.Pages
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (idLND != 2 && idLND != 3)
+            {
+                Message message = new Message();
+                message.message.Text = "Nhân viên không có quyền xóa sản phẩm";
+                message.Show();
+                return;
+            }
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["QLNSEntities"].ToString();
             if (connectionString.ToLower().StartsWith("metadata="))
             {
@@ -242,6 +259,7 @@ namespace QLNS.Pages
 
         private void btnDetail_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
                 Product product = (Product)productDataGrid.SelectedItem;
@@ -249,7 +267,7 @@ namespace QLNS.Pages
                 detail.productManage = this;
                 detail.idSP = product.idSP;
                 detail.idCTSP = product.idCTSP;
-
+                detail.idLND = idLND;
                 foreach (var danhmuc in DataProvider.Ins.DB.DANHMUCs)
                 {
                     ComboBoxItem textBlock = new ComboBoxItem();
@@ -353,7 +371,7 @@ namespace QLNS.Pages
                 detailErrorProduct.idSPL = errorProduct.idSPL;
                 detailErrorProduct.idCTSP = errorProduct.idctsp;
 
-
+                detailErrorProduct.idLND = idLND;
 
                 detailErrorProduct.TenSPL.Text = errorProduct.tenSPL;
                 detailErrorProduct.SLL.Text = errorProduct.soluongloi.ToString();
@@ -376,6 +394,13 @@ namespace QLNS.Pages
 
         private void btnErrorDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (idLND != 2 && idLND != 3)
+            {
+                Message message = new Message();
+                message.message.Text = "Nhân viên không có quyền xóa sản phẩm lỗi";
+                message.Show();
+                return;
+            }
             try
             {
                 var errorProduct = (dynamic)errorProductDataGrid.SelectedItem;
@@ -450,6 +475,13 @@ namespace QLNS.Pages
 
         private void btnDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
+            if(idLND != 1 && idLND != 3)
+            {
+                Message message = new Message();
+                message.message.Text = "Nhân viên không có quyền xóa danh mục";
+                message.Show();
+                return;
+            }
             try
             {
                 string MaDM = ((TextBlock)categoryDataGrid.SelectedCells[0].Column.GetCellContent(categoryDataGrid.SelectedCells[0].Item)).Text;
@@ -513,7 +545,7 @@ namespace QLNS.Pages
             pageNumber = 0;
             btnAddErrorProduct.Visibility = Visibility.Collapsed;
             btnAddCategory.Visibility = Visibility.Collapsed;
-            btnAddProduct.Visibility = Visibility.Visible;
+            //btnAddProduct.Visibility = Visibility.Visible;
             pageTitle.Text = "Quản lý sản phẩm";
             pageTitle.DataContext = this;
         }

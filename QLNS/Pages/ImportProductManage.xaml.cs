@@ -26,10 +26,14 @@ namespace QLNS.Pages
         public int pageNumber = 0;
         public int pageSize = 10;
 
+        private int idLND = -1;
+
+
         public int idND {  get; set; }
         public ImportProductManage()
         {
             InitializeComponent();
+            btnAddImportDetail.Visibility = Visibility.Collapsed;
             if (App.Current.Properties["idND_Sale"] != null)
             {
                 idND = int.Parse(App.Current.Properties["idND_Sale"].ToString());
@@ -40,6 +44,20 @@ namespace QLNS.Pages
                 message.message.Text = "Vui lòng đăng nhập";
                 message.ShowDialog();
             }
+            if (App.Current.Properties["idLND"] != null)
+            {
+                idLND = int.Parse(App.Current.Properties["idLND"].ToString());
+            }
+            if (idLND == 3)
+            {
+                btnAddImportDetail.Visibility = Visibility.Visible;
+            }
+            //else
+            //{
+            //    btnAddImportDetail.Visibility = Visibility.Collapsed;  
+            //}
+
+
         }
         public ImportProductManage(int userID)
         {
