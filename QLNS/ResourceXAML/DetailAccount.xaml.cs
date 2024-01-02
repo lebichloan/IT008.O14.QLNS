@@ -57,16 +57,36 @@ namespace QLNS.ResourceXAML
             Close();
         }
 
+        private string ConvertPhoneNumber(string phoneNumber)
+        {
+            if (phoneNumber.StartsWith("0"))
+            {
+                return "+84" + phoneNumber.Substring(1);
+            }
+            else
+            {
+                return phoneNumber;
+            }
+        }
+
         private void btnResetPass_Click(object sender, RoutedEventArgs e)
         {
             string accountSid = "ACf95b337f4f1ffa4d2e28cdea1ee744f6";
-            string authToken = "2b5ea766def589821d570e347210eb56";
+            string authToken = "91533a2a3d0ae13b4d6a3ec6776bf9c8";
             string twilioPhoneNumber = "+12054985938";
 
-            string userPhoneNumber = "+84338439300";
-            string newPassword = GenerateRandomPassword();
+            if (phoneNumber == null)
+            {
+                MessageBox.Show("Vui lòng cập nhật số điện thoại của nhân viên");
+                return;
+            }
+            else
+            {
+                string userPhoneNumber = ConvertPhoneNumber(phoneNumber);
+                string newPassword = GenerateRandomPassword();
 
-            SendResetSMS(accountSid, authToken, twilioPhoneNumber, userPhoneNumber, newPassword);
+                SendResetSMS(accountSid, authToken, twilioPhoneNumber, userPhoneNumber, newPassword);
+            }
         }
 
         private void SendResetSMS(string accountSid, string authToken, string twilioPhoneNumber, string userPhoneNumber, string newPassword)
@@ -85,6 +105,8 @@ namespace QLNS.ResourceXAML
                 mess.message.Text = $"SMS sent successfully to {userPhoneNumber}.";
                 mess.ShowDialog();
                 Close();
+
+                SavePassword(newPassword);
             }
             catch (Exception ex)
             {
@@ -92,6 +114,26 @@ namespace QLNS.ResourceXAML
                 Message mess = new Message();
                 mess.message.Text = $"Error sending reset SMS: {ex.Message}";
                 mess.ShowDialog();
+            }
+        }
+
+        private void SavePassword(string newPassword)
+        {
+            NGUOIDUNG nguoidung = DataProvider.Ins.DB.NGUOIDUNGs.Find(idAccount);
+            if (nguoidung != null)
+            {
+                try
+                {
+                    nguoidung.MatKhau = newPassword;
+
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Message message = new Message();
+                    message.message.Text = ex.Message;
+                    message.ShowDialog();
+                }
             }
         }
 
