@@ -106,7 +106,6 @@
                                      VerticalAlignment="Center"
                                      FontSize="14"         
                                      Margin="0 0 0 20"
-                                     materialDesign:HintAssist.Hint="Tên khuyến mãi"
                                      Style="{StaticResource HintTextBoxStyle}">
                                 <TextBox.Text>
                                     <Binding Path="Text"
@@ -140,7 +139,6 @@
                                     <ComboBox Name="loaiKH"
                                               VerticalAlignment="Center"
                                               FontSize="14"       
-                                              materialDesign:HintAssist.Hint="Loại khách hàng"
                                               Style="{StaticResource ComboBoxStyle}">
                                         <ComboBox.SelectedValue>
                                             <Binding Path="SelectedValue"
@@ -169,7 +167,6 @@
                                     <TextBox Name="giamGia"
                                              VerticalAlignment="Center"
                                              FontSize="14"
-                                             materialDesign:HintAssist.Hint="Giảm giá"
                                              Style="{StaticResource HintTextBoxStyle}">
                                         <TextBox.Text>
                                             <Binding Path="Text"
@@ -207,7 +204,6 @@
                                     <DatePicker Name="ngayBatDau"
                                                 FontSize="14"
                                                 Height="41"
-                                                materialDesign:HintAssist.Hint="Ngày bắt đầu"
                                                 Style="{StaticResource DatePickerStyle}">
                                         <DatePicker.SelectedDate>
                                             <Binding Path="SelectedDate" 
@@ -244,7 +240,6 @@
                                     <DatePicker Name="ngayKetThuc"
                                                 Height="41" 
                                                 FontSize="14"
-                                                materialDesign:HintAssist.Hint="Ngày kết thúc"
                                                 Style="{StaticResource DatePickerStyle}">
                                         <DatePicker.SelectedDate>
                                             <Binding Path="SelectedDate" 
@@ -285,7 +280,6 @@
                                      VerticalAlignment="Center"
                                      FontSize="14"         
                                      Margin="0 0 0 20"
-                                     materialDesign:HintAssist.Hint="Mô tả"
                                      Style="{StaticResource HintTextBoxStyle}"
                                      TextWrapping="Wrap">
                             </TextBox>

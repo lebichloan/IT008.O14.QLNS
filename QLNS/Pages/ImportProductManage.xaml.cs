@@ -120,5 +120,15 @@ namespace QLNS.Pages
             DetailImport detailImport = new DetailImport(selectedImport.idNH);
             detailImport.ShowDialog();
         }
+
+        private void importDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(importDataGrid.SelectedItems.Count > 0)
+            {
+                var selectedImport = (dynamic)importDataGrid.SelectedItem;
+                DetailImport detailImport = new DetailImport(selectedImport.idNH);
+                detailImport.ShowDialog();
+            }
+        }
     }
 }

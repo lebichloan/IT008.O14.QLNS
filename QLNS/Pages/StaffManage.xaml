@@ -165,7 +165,8 @@
                                 <!-- Staff datagrid -->
                                 <DataGrid
                                           x:Name="staffDataGrid"
-                                          AutoGenerateColumns="False" Grid.ColumnSpan="2" Margin="0,37,0,0" Grid.RowSpan="2">
+                                          AutoGenerateColumns="False" Grid.ColumnSpan="2" Margin="0,37,0,0" Grid.RowSpan="2"
+                                    MouseDoubleClick="staffDataGrid_MouseDoubleClick">
                                     <DataGrid.Resources>
                                         <local:StatusConvert x:Key="statusConvert"></local:StatusConvert>
                                     </DataGrid.Resources>
@@ -185,16 +186,6 @@
                                                             Binding="{Binding GioiTinh}"
                                                             IsReadOnly="True"
                                                             Width="*"/>
-                                        <!-- SDT -->
-                                        <DataGridTextColumn Header="SDT"
-                                                            Binding="{Binding SDT}"
-                                                            IsReadOnly="True"
-                                                            Width="*"/>
-                                        <!-- Ngày vào làm -->
-                                        <DataGridTextColumn Header="Ngày vào làm"
-                                                            Binding="{Binding NgayVL}"
-                                                            IsReadOnly="True"
-                                                            Width="*"/>
                                         <!-- Chức vụ -->
                                         <DataGridTextColumn Header="Chức vụ"
                                                             Binding="{Binding ChucVu}"
@@ -211,7 +202,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <Button x:Name="btnShowDetail" Style="{DynamicResource gridViewButton}"
+                                                        <Button x:Name="btnShowDetail" Style="{DynamicResource detailRecordButton}"
                                                                 Margin="0 0 5 0" Click="btnShowDetail_Click">
                                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                        Style="{DynamicResource gridButtonIcon}"/>
@@ -222,7 +213,7 @@
                                                                 Name="btnDelete"
                                                                 Margin="5,0,0,0"
                                                                 Click="btnDelete_Click"
-                                                                Style="{DynamicResource gridViewButton}">
+                                                                Style="{DynamicResource deleteRecordButton}">
                                                             <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                         </Button>
                                                     </StackPanel>
@@ -363,7 +354,8 @@
                                 <!-- Staff datagrid -->
                                 <DataGrid Grid.Row="1"
                                           x:Name="userDataGrid"
-                                          AutoGenerateColumns="False">
+                                          AutoGenerateColumns="False"
+                                          MouseDoubleClick="userDataGrid_MouseDoubleClick">
                                     <DataGrid.Resources>
                                         <local:UserStatusConvert x:Key="userStatusConvert"></local:UserStatusConvert>
                                     </DataGrid.Resources>
@@ -406,7 +398,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <Button x:Name="btnShowDetail" Style="{DynamicResource gridViewButton}"
+                                                        <Button x:Name="btnShowDetail" Style="{DynamicResource detailRecordButton}"
                                                                 Margin="0 0 5 0" Click="btnShowUserDetail_Click">
                                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                        Style="{DynamicResource gridButtonIcon}"/>
@@ -417,7 +409,7 @@
                                                                 Name="btnDelete"
                                                                 Margin="5,0,0,0"
                                                                 Click="btnDeleteUser_Click"
-                                                                Style="{DynamicResource gridViewButton}">
+                                                                Style="{DynamicResource deleteRecordButton}">
                                                             <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                         </Button>
                                                     </StackPanel>

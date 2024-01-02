@@ -432,10 +432,10 @@ namespace QLNS.Pages
                     detail.DiaChi.Text = lst[0].DiaChi.ToString();
                 }
 
-                detail.SDT.Text = ((TextBlock)staffDataGrid.SelectedCells[3].Column.GetCellContent(staffDataGrid.SelectedCells[3].Item)).Text;
+                detail.SDT.Text = lst[0].SDT;
 
-                detail.NgayVL.SelectedDate = DateTime.Parse(((TextBlock)staffDataGrid.SelectedCells[4].Column.GetCellContent(staffDataGrid.SelectedCells[4].Item)).Text);
-                detail.ChucVu.Text = ((TextBlock)staffDataGrid.SelectedCells[5].Column.GetCellContent(staffDataGrid.SelectedCells[5].Item)).Text;
+                detail.NgayVL.SelectedDate = lst[0].NgayVL;
+                detail.ChucVu.Text = ((TextBlock)staffDataGrid.SelectedCells[3].Column.GetCellContent(staffDataGrid.SelectedCells[3].Item)).Text;
                 //if (nhanvien.TinhTrang == 0)
                 //{
                 //    detail.TinhTrang.SelectedIndex = 0;
@@ -444,7 +444,7 @@ namespace QLNS.Pages
                 //{
                 //    detail.TinhTrang.SelectedIndex = 1;
                 //}
-                detail.TinhTrang.Text = ((TextBlock)staffDataGrid.SelectedCells[6].Column.GetCellContent(staffDataGrid.SelectedCells[6].Item)).Text;
+                detail.TinhTrang.Text = ((TextBlock)staffDataGrid.SelectedCells[4].Column.GetCellContent(staffDataGrid.SelectedCells[4].Item)).Text;
                 if (lst[0].GhiChu == "")
                     detail.GhiChu.Text = "";
                 else
@@ -491,6 +491,76 @@ namespace QLNS.Pages
             pageTitle.DataContext = this;
         }
 
+        private void staffDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(staffDataGrid.SelectedItems.Count > 0)
+            {
+                try
+                {
+                    string maNV = ((TextBlock)staffDataGrid.SelectedCells[0].Column.GetCellContent(staffDataGrid.SelectedCells[0].Item)).Text;
+                    var query = from nv in DataProvider.Ins.DB.NHANVIENs
+                                orderby nv.idNV
+                                where nv.MaNV == maNV
+                                select nv;
+                    var lst = query.ToList();
 
+                    DetailStaff detail = new DetailStaff();
+                    detail.staffManage = this;
+                    detail.idNV = lst[0].idNV;
+                    detail.TenNV.Text = ((TextBlock)staffDataGrid.SelectedCells[1].Column.GetCellContent(staffDataGrid.SelectedCells[1].Item)).Text;
+                    detail.NgaySinh.SelectedDate = lst[0].NgaySinh;
+                    detail.GioiTinh.Text = ((TextBlock)staffDataGrid.SelectedCells[2].Column.GetCellContent(staffDataGrid.SelectedCells[2].Item)).Text;
+
+                    if (lst[0].DiaChi == "" || lst[0].DiaChi is null)
+                    {
+                        detail.DiaChi.Text = "";
+                    }
+                    else
+                    {
+                        detail.DiaChi.Text = lst[0].DiaChi.ToString();
+                    }
+
+                    detail.SDT.Text = lst[0].SDT;
+
+                    detail.NgayVL.SelectedDate = lst[0].NgayVL;
+                    detail.ChucVu.Text = ((TextBlock)staffDataGrid.SelectedCells[3].Column.GetCellContent(staffDataGrid.SelectedCells[3].Item)).Text;
+                    //if (nhanvien.TinhTrang == 0)
+                    //{
+                    //    detail.TinhTrang.SelectedIndex = 0;
+                    //}
+                    //else
+                    //{
+                    //    detail.TinhTrang.SelectedIndex = 1;
+                    //}
+                    detail.TinhTrang.Text = ((TextBlock)staffDataGrid.SelectedCells[4].Column.GetCellContent(staffDataGrid.SelectedCells[4].Item)).Text;
+                    if (lst[0].GhiChu == "")
+                        detail.GhiChu.Text = "";
+                    else
+                        detail.GhiChu.Text = lst[0].GhiChu;
+                    detail.ShowDialog();
+
+                    LoadDataCurrent();
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        private void userDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(userDataGrid.SelectedItems.Count > 0)
+            {
+                if (userDataGrid.SelectedItems.Count > 0)
+                {
+                    var selectedItem = (dynamic)userDataGrid.SelectedItem;
+                    int selectedId = selectedItem.idND;
+
+                    DetailAccount detailAccount = new DetailAccount(selectedId);
+                    detailAccount.ShowDialog();
+                    LoadUserDataCurrent();
+                }
+            }
+        }
     }
 }

@@ -128,7 +128,8 @@
                                 Height="auto"
                                 HorizontalContentAlignment="Center"
                                 AutoGenerateColumns="False"
-                                HorizontalScrollBarVisibility="Visible">
+                                HorizontalScrollBarVisibility="Visible"
+                                MouseDoubleClick="productDataGrid_MouseDoubleClick">
                                 <DataGrid.Resources>
                                     <local:StatusProductConvert x:Key="statusProductConvert" />
                                 </DataGrid.Resources>
@@ -184,7 +185,7 @@
                                                         x:Name="btnDetail"
                                                         Margin="0,0,5,0"
                                                         Click="btnDetail_Click"
-                                                        Style="{DynamicResource gridViewButton}">
+                                                        Style="{DynamicResource detailRecordButton}">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
 
@@ -192,7 +193,7 @@
                                                         Name="btnDelete"
                                                         Margin="5,0,0,0"
                                                         Click="btnDelete_Click"
-                                                        Style="{DynamicResource gridViewButton}">
+                                                        Style="{DynamicResource deleteRecordButton}">
                                                         <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
                                                 </StackPanel>
@@ -315,7 +316,7 @@
                                                         x:Name="btnErrorDetail"
                                                         Margin="0,0,5,0"
                                                         Click="btnErrorDetail_Click"
-                                                        Style="{DynamicResource gridViewButton}">
+                                                        Style="{DynamicResource detailRecordButton}">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
 
@@ -323,7 +324,7 @@
                                                         Name="btnErrorDelete"
                                                         Margin="5,0,0,0"
                                                         Click="btnErrorDelete_Click"
-                                                        Style="{DynamicResource gridViewButton}">
+                                                        Style="{DynamicResource deleteRecordButton}">
 
                                                         <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
@@ -432,7 +433,7 @@
                                                         Name="btnDelete"
                                                         Margin="5,0,0,0"
                                                         Click="btnDeleteCategory_Click"
-                                                        Style="{DynamicResource gridViewButton}">
+                                                        Style="{DynamicResource deleteRecordButton}">
                                                         <Icon:PackIconMaterial Kind="TrashCan" Style="{DynamicResource gridButtonIcon}" />
                                                     </Button>
                                                 </StackPanel>

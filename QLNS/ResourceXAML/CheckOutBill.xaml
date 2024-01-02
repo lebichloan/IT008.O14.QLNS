@@ -449,8 +449,8 @@
                           Margin="25 5"
                       SelectedValuePath="idPT"
                           SelectionChanged="paymentComboBox_SelectionChanged"
-                          BorderBrush="{DynamicResource PrimaryTextColor}"
                           BorderThickness="0 0 0 0.5"
+                              Style="{DynamicResource ComboBoxStyle}"
                       >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>

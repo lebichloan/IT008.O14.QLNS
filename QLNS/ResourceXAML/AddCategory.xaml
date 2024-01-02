@@ -103,7 +103,6 @@
                                 <TextBox Name="tenDM"
                                          VerticalAlignment="Center"
                                          FontSize="14"   
-                                         materialDesign:HintAssist.Hint="Tên danh mục"
                                          Style="{StaticResource HintTextBoxStyle}">
                                     <TextBox.Text>
                                         <Binding Path="Text"
@@ -136,7 +135,6 @@
                                      FontSize="14"         
                                      Margin="0 0 10 0"
                                      TextWrapping="Wrap"
-                                     materialDesign:HintAssist.Hint="Mô tả"
                                      Style="{StaticResource HintTextBoxStyle}">
                             </TextBox>
                         </StackPanel>

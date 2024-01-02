@@ -42,6 +42,13 @@ namespace QLNS.Pages
         private void sale_Loaded(object sender, RoutedEventArgs e)
         {
             //Load dữ liệu ban đầu khi vừa vào
+            if (App.Current.Properties["idLND"] != null)
+            {
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 1)
+                {
+                    btnAddSale.Visibility = Visibility.Collapsed;
+                }
+            }
             LoadData(0);
         }
 
@@ -155,26 +162,19 @@ namespace QLNS.Pages
                 detailSale.idKM = lst[0].idKM;
 
                 detailSale.TenKM.Text = ((TextBlock)saleDataGrid.SelectedCells[1].Column.GetCellContent(saleDataGrid.SelectedCells[1].Item)).Text;
-                detailSale.NgayBD.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text);
-                detailSale.NgayKT.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[4].Column.GetCellContent(saleDataGrid.SelectedCells[4].Item)).Text);
-                detailSale.GiamGia.Text = ((TextBlock)saleDataGrid.SelectedCells[5].Column.GetCellContent(saleDataGrid.SelectedCells[5].Item)).Text;
+                detailSale.NgayBD.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text);
+                detailSale.NgayKT.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text);
+                detailSale.GiamGia.Text = ((TextBlock)saleDataGrid.SelectedCells[4].Column.GetCellContent(saleDataGrid.SelectedCells[4].Item)).Text;
 
-                if (((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text == "")
-                {
-                    detailSale.LoaiKH.SelectedIndex = -1;
-                }
-                else
-                {
-                    detailSale.LoaiKH.Text = ((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text;
-                }
+                detailSale.LoaiKH.Text = lst[0].LOAIKHACHHANG.TenLKH;
 
-                if (((TextBlock)saleDataGrid.SelectedCells[6].Column.GetCellContent(saleDataGrid.SelectedCells[6].Item)).Text == "")
+                if (lst[0].MoTa == "")
                 {
                     detailSale.MoTa.Text = "";
                 }
                 else
                 {
-                    detailSale.MoTa.Text = ((TextBlock)saleDataGrid.SelectedCells[6].Column.GetCellContent(saleDataGrid.SelectedCells[6].Item)).Text;
+                    detailSale.MoTa.Text = lst[0].MoTa;
                 }
 
                 detailSale.ShowDialog();
@@ -293,5 +293,48 @@ namespace QLNS.Pages
             }
         }
 
+        private void saleDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(saleDataGrid.SelectedItems.Count > 0) 
+            {
+                try
+                {
+                    //KHUYENMAI khuyenmai = (KHUYENMAI)saleDataGrid.SelectedItem;
+                    string content = ((TextBlock)saleDataGrid.SelectedCells[0].Column.GetCellContent(saleDataGrid.SelectedCells[0].Item)).Text;
+
+                    var query = from km in qlnsEntities.KHUYENMAIs
+                                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on km.idLKH equals loaikhachhang.idLKH
+                                where content == km.MaKM
+                                select km;
+
+                    var lst = query.ToList();
+
+                    DetailSale detailSale = new DetailSale();
+                    detailSale.saleManage = this;
+                    detailSale.idKM = lst[0].idKM;
+
+                    detailSale.TenKM.Text = ((TextBlock)saleDataGrid.SelectedCells[1].Column.GetCellContent(saleDataGrid.SelectedCells[1].Item)).Text;
+                    detailSale.NgayBD.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[2].Column.GetCellContent(saleDataGrid.SelectedCells[2].Item)).Text);
+                    detailSale.NgayKT.SelectedDate = DateTime.Parse(((TextBlock)saleDataGrid.SelectedCells[3].Column.GetCellContent(saleDataGrid.SelectedCells[3].Item)).Text);
+                    detailSale.GiamGia.Text = ((TextBlock)saleDataGrid.SelectedCells[4].Column.GetCellContent(saleDataGrid.SelectedCells[4].Item)).Text;
+
+                    detailSale.LoaiKH.Text = lst[0].LOAIKHACHHANG.TenLKH;
+
+                    if (lst[0].MoTa == "")
+                    {
+                        detailSale.MoTa.Text = "";
+                    }
+                    else
+                    {
+                        detailSale.MoTa.Text = lst[0].MoTa;
+                    }
+
+                    detailSale.ShowDialog();
+                    LoadDataCurrent();
+
+                }
+                catch { }
+            }
+        }
     }
 }

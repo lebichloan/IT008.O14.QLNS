@@ -76,7 +76,8 @@
 
 
             <TabControl HorizontalContentAlignment="Left" 
-                        Grid.Row="2">
+                        Grid.Row="2"
+                        SelectionChanged="TabControl_SelectionChanged">
                 <TabItem x:Name="customerTab"
                          Header="Quản lý khách hàng" 
                          Width="200" 
@@ -169,7 +170,8 @@
                             <DataGrid Grid.Row="1"
                                       x:Name="CustomerDataGrid"
                                       AutoGenerateColumns="False"
-                                      VerticalAlignment="Top">
+                                      VerticalAlignment="Top"
+                                      MouseDoubleClick="CustomerDataGrid_MouseDoubleClick">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Mã khách hàng"
                                                         Binding="{Binding MaKH}"
@@ -192,18 +194,8 @@
                                                         IsReadOnly="True"
                                                         Width="auto"/>
 
-                                    <DataGridTextColumn Header="Địa chỉ"
-                                                        Binding="{Binding DiaChi}"
-                                                        IsReadOnly="True"
-                                                        Width="*"/>
-
                                     <DataGridTextColumn Header="Số điện thoại"
                                                         Binding="{Binding SDT}"
-                                                        IsReadOnly="True"
-                                                        Width="*"/>
-
-                                    <DataGridTextColumn Header="Ngày tham gia"
-                                                        Binding="{Binding NgayTG}"
                                                         IsReadOnly="True"
                                                         Width="*"/>
 
@@ -223,11 +215,11 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                    <Button x:Name="btnDetailCustommer" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetailCustommer_Click">
+                                                    <Button x:Name="btnDetailCustommer" Margin="0,0,5,0" Style="{DynamicResource detailRecordButton}" Click="btnDetailCustommer_Click">
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
-                                                    <Button x:Name="btnDeleteCustomer" Margin="5,0,0,0" Style="{DynamicResource gridViewButton}" Click="btnDeleteCustomer_Clicked">
+                                                    <Button x:Name="btnDeleteCustomer" Margin="5,0,0,0" Style="{DynamicResource deleteRecordButton}" Click="btnDeleteCustomer_Clicked">
                                                         <Icon:PackIconMaterial Kind="TrashCan"
                                                                                Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
@@ -369,7 +361,8 @@
 
                             <DataGrid x:Name="CustomerTypesDataGrid"
                                       AutoGenerateColumns="False"
-                                      Grid.Row="1">
+                                      Grid.Row="1"
+                                      MouseDoubleClick="CustomerTypesDataGrid_MouseDoubleClick">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Mã loại khách hàng"
                                                 Binding="{Binding MaLKH}"
@@ -397,14 +390,14 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Button Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="buttonDetailCustomerType_Clicked"
+                                                    <Button Margin="0,0,5,0" Style="{DynamicResource detailRecordButton}" Click="buttonDetailCustomerType_Clicked"
                                                                 >
                                                         <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                         Style="{DynamicResource gridButtonIcon}"/>
                                                     </Button>
 
                                                     <Button x:Name="buttonDeleteLKH"
-                                                            Style="{DynamicResource gridViewButton}"
+                                                            Style="{DynamicResource deleteRecordButton}"
                                                                 Margin="5,0,0,0"
                                                             Click="buttonDeleteLKH_Clicked">
                                                         <Icon:PackIconMaterial Kind="TrashCan"

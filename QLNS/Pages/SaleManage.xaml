@@ -111,7 +111,8 @@
                 <!-- Member datagrid -->
                 <DataGrid Grid.Row="3"
                           x:Name="saleDataGrid"
-                          AutoGenerateColumns="False">
+                          AutoGenerateColumns="False"
+                          MouseDoubleClick="saleDataGrid_MouseDoubleClick">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Mã khuyến mãi"
                                             Binding="{Binding MaKM}"
@@ -122,11 +123,6 @@
                                             Binding="{Binding TenKM}"
                                             IsReadOnly="True"
                                             Width="*"/>
-
-                        <DataGridTextColumn Header="Loại khách hàng"
-                                            Binding="{Binding idLKH}"
-                                            IsReadOnly="True"
-                                            Width="auto"/>
 
                         <DataGridTextColumn Header="Ngày bắt đầu"
                                             Binding="{Binding NgayBD}"
@@ -143,18 +139,13 @@
                                             IsReadOnly="True"
                                             Width="*"/>
 
-                        <DataGridTextColumn Header="Mô tả"
-                                            Binding="{Binding MoTa}"
-                                            IsReadOnly="True"
-                                            Width="*"/>
-
                         <DataGridTemplateColumn Header="Operations"
                                                 IsReadOnly="True"
                                                 Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="btnDetailSale" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}"
+                                        <Button x:Name="btnDetailSale" Margin="0,0,5,0" Style="{DynamicResource detailRecordButton}"
                                                 Click="btnDetail_Click" >
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline"
                                                                    Style="{DynamicResource gridButtonIcon}"/>
@@ -162,7 +153,7 @@
 
 
                                         <Button x:Name="btnDeleteSale"
-                                                Style="{DynamicResource gridViewButton}"
+                                                Style="{DynamicResource deleteRecordButton}"
                                                 Margin="5,0,0,0"
                                                 Click="btnDeleteSale_Clicked">
                                             <Icon:PackIconMaterial Kind="TrashCan"

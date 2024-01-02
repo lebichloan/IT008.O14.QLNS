@@ -149,7 +149,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{DynamicResource gridViewButton}" 
+                                        <Button Style="{DynamicResource detailRecordButton}" 
                                                 Name="btnDetail"
                                                 Click="btnDetail_Click"
                                                 >
