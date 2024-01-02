@@ -49,6 +49,7 @@ namespace QLNS.ViewModel
             {
                 idND = existingUser.idND;
                 App.Current.Properties["idND_Sale"] = existingUser.idND;
+                App.Current.Properties["idLND"] = existingUser.idLND;
 
                 // Loại người dùng
                 if (existingUser.idLND == 1)
