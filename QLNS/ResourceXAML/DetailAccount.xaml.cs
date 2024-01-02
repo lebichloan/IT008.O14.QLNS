@@ -80,12 +80,18 @@ namespace QLNS.ResourceXAML
                     from: new PhoneNumber(twilioPhoneNumber),
                     to: new PhoneNumber(userPhoneNumber)
                     );
-                MessageBox.Show($"SMS sent successfully to {userPhoneNumber}.");
+                //MessageBox.Show($"SMS sent successfully to {userPhoneNumber}.");
+                Message mess = new Message();
+                mess.message.Text = $"SMS sent successfully to {userPhoneNumber}.";
+                mess.ShowDialog();
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error sending reset SMS: {ex.Message}");
+                //MessageBox.Show($"Error sending reset SMS: {ex.Message}");
+                Message mess = new Message();
+                mess.message.Text = $"Error sending reset SMS: {ex.Message}";
+                mess.ShowDialog();
             }
         }
 
