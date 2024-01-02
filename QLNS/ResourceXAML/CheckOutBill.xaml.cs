@@ -235,7 +235,9 @@ namespace QLNS.ResourceXAML
                 TienKhachDua = decimal.Parse(txtTienKhachDua.Text);
                 if (TienKhachDua < TongThanhToanHD)
                 {
-                    MessageBox.Show("Số tiền khách đưa nhỏ hơn tổng thanh toán hóa đơn");
+                    Message message = new Message();
+                    message.message.Text = "Số tiền khách đưa nhỏ hơn tổng thanh toán hóa đơn!";
+                    message.ShowDialog();
                     return;
                 }
                 else
@@ -246,7 +248,9 @@ namespace QLNS.ResourceXAML
             }
             catch (FormatException)
             {
-                MessageBox.Show("Vui lòng nhập số tiền khách đưa hợp lệ");
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số tiền khách đưa hợp lệ!";
+                message.ShowDialog();
             }
 
         }
@@ -255,13 +259,17 @@ namespace QLNS.ResourceXAML
         {
             if (idPaymentSelected == 0)
             {
-                MessageBox.Show("Vui lòng chọn phương thức thanh toán");
+                Message message = new Message();
+                message.message.Text = "Vui lòng chọn phương thức thanh toán!";
+                message.ShowDialog();
             }
             else
             {
                 if (txtTienKhachDua.Text == "" && paymentComboBox.SelectedIndex == 0)
                 {
-                    MessageBox.Show("Vui lòng nhập vào số tiền khách đưa");
+                    Message message = new Message();
+                    message.message.Text = "Vui lòng nhập vào số tiền khách đưa!";
+                    message.ShowDialog();
                 }
                 else
                 {
@@ -277,8 +285,9 @@ namespace QLNS.ResourceXAML
                         DataProvider.Ins.DB.SaveChanges();
                         SetSLSP(item.itemIdCTSP, item.itemSoLuongSP);
                     }
-
-                    MessageBox.Show("Thêm hóa đơn thành công");
+                    Message message = new Message();
+                    message.message.Text = "Thêm hóa đơn thành công!";
+                    message.ShowDialog();
                     this.Close();
                 }
             }

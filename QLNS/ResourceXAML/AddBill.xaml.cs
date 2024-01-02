@@ -213,14 +213,22 @@ namespace QLNS.ResourceXAML
 
         private void txtSoLuongSanPham_LostFocus(object sender, RoutedEventArgs e)
         {
-            GetValueSoLuongSP();
+            if(tempSLHD <= 0)
+            {
+                GetValueSoLuongSP();
+            }
+            else
+            {
+                SLSPHD = tempSLHD;
+                GetValueSoLuongSP();
+            }
         }
 
         private void GetValueSoLuongSP()
         {
             if (txtSoLuongSanPham.Text == "")
             {
-                MessageBox.Show("Vui long nhap so luong lon hon 0");
+                
             }
             else
             {
@@ -229,12 +237,15 @@ namespace QLNS.ResourceXAML
                     int soLuongSPInput = int.Parse(txtSoLuongSanPham.Text);
                     if (soLuongSPInput <= 0)
                     {
-                        MessageBox.Show("Vui long nhap so luong lon hon 0");
-                        //txtSoLuongSanPham.Focus();
+                        //Message message = new Message();
+                        //message.message.Text = "Vui lòng nhập số lượng lớn hơn 0!";
+                        //message.ShowDialog();
                     }
                     else if (soLuongSPInput > SLSPCL)
                     {
-                        MessageBox.Show("Kho khong the cung cap so luong nay");
+                        Message message = new Message();
+                        message.message.Text = "Kho không thể cung cấp số lượng này!";
+                        message.ShowDialog();
                         //txtSoLuongSanPham.Focus();
                     }
                     else
@@ -247,7 +258,9 @@ namespace QLNS.ResourceXAML
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Khong the doi thanh so");
+                    Message message = new Message();
+                    message.message.Text = "Không thể đổi thành số!";
+                    message.ShowDialog();
                     txtSoLuongSanPham.Text = SLSPHD.ToString();
                 }
                 CheckInputSoLuong(SLSPHD);
@@ -293,12 +306,16 @@ namespace QLNS.ResourceXAML
         {
             if (SLSPHD <= 0)
             {
-                MessageBox.Show("Vui long nhap so luong lon hon 0");
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số lượng lớn hơn 0!";
+                message.ShowDialog();
                 //txtSoLuongSanPham.Focus();
             }
             else if (SLSPHD > SLSPCL)
             {
-                MessageBox.Show("Kho khong the cung cap so luong nay");
+                Message message = new Message();
+                message.message.Text = "Kho không thể cung cấp số lượng này!";
+                message.ShowDialog();
             }
             else
             {
@@ -311,6 +328,10 @@ namespace QLNS.ResourceXAML
         private decimal TongTienHD = 0;
         private void addProducttoBill()
         {
+            if(tempSLHD > 0)
+            {
+                SLSPHD = tempSLHD;
+            }
             productListBox.Items.Add(new BillProductListBoxItem(
                 idCTSP,
                 headerProductExpander.Text,
@@ -324,6 +345,7 @@ namespace QLNS.ResourceXAML
             lblTongTienHoaDon.Text = TongTienHD.ToString();
 
             btnNext.IsEnabled = true;
+            tempSLHD = 0;
         }
 
         private void productListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -351,6 +373,16 @@ namespace QLNS.ResourceXAML
             }
 
             return listProduct;
+        }
+
+        int tempSLHD = 0;
+        private void txtSoLuongSanPham_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (int.TryParse(txtSoLuongSanPham.Text, out _))
+            {
+                tempSLHD = int.Parse(txtSoLuongSanPham.Text);
+                lblThanhTienSanPham.Text = (tempSLHD * DonGiaSP).ToString();
+            }
         }
     }
 }
