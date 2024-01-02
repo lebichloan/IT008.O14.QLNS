@@ -74,7 +74,8 @@
                 <DataGrid
                     x:Name="importDataGrid"
                     Grid.Row="3"
-                    AutoGenerateColumns="False">
+                    AutoGenerateColumns="False"
+                    MouseDoubleClick="importDataGrid_MouseDoubleClick">
                     <DataGrid.Columns>
                         <!--  Tên nhân viên  -->
                         <DataGridTextColumn
@@ -106,7 +107,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <Button Name="btnDetailImport" Margin="0,0,5,0" Style="{DynamicResource gridViewButton}" Click="btnDetailImport_Click">
+                                        <Button Name="btnDetailImport" Margin="0,0,5,0" Style="{DynamicResource detailRecordButton}" Click="btnDetailImport_Click">
                                             <Icon:PackIconMaterial Kind="EyeCheckOutline" Style="{DynamicResource gridButtonIcon}" />
                                         </Button>
 

@@ -43,6 +43,13 @@ namespace QLNS.Pages
         private void customer_Loaded(object sender, RoutedEventArgs e)
         {
             //Load dữ liệu ban đầu khi vừa vào
+            if (App.Current.Properties["idLND"] != null)
+            {
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 2)
+                {
+                    btnAddCustomer.Visibility = Visibility.Collapsed;
+                }
+            }
             LoadCustomerData(0);
         }
 
@@ -122,6 +129,13 @@ namespace QLNS.Pages
         private void customerTypes_Loaded(object sender, RoutedEventArgs e)
         {
             //Load dữ liệu ban đầu khi vừa vào
+            if (App.Current.Properties["idLND"] != null)
+            {
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 1)
+                {
+                    btnAddCustomerTypes.Visibility = Visibility.Collapsed;
+                }
+            }
             LoadCustomerTypesData(0);
         }
 
@@ -229,18 +243,18 @@ namespace QLNS.Pages
                 else
                     detail.NgaySinh.Text = "";
 
-                if (((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text == "")// can null
+                if (lst[0].DiaChi == "" || lst[0].DiaChi is null)// can null
                 {
                     detail.DiaChi.Text = "";
                 }
                 else
                 {
-                    detail.DiaChi.Text = ((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text;
+                    detail.DiaChi.Text = lst[0].DiaChi;
                 }
-                detail.SDT.Text = ((TextBlock)CustomerDataGrid.SelectedCells[5].Column.GetCellContent(CustomerDataGrid.SelectedCells[5].Item)).Text;
-                detail.NgayTG.SelectedDate = DateTime.Parse(((TextBlock)CustomerDataGrid.SelectedCells[6].Column.GetCellContent(CustomerDataGrid.SelectedCells[6].Item)).Text);
-                detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[7].Column.GetCellContent(CustomerDataGrid.SelectedCells[7].Item)).Text;
-                detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[8].Column.GetCellContent(CustomerDataGrid.SelectedCells[8].Item)).Text;
+                detail.SDT.Text = ((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text;
+                detail.NgayTG.SelectedDate = lst[0].NgayTG;
+                detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[5].Column.GetCellContent(CustomerDataGrid.SelectedCells[5].Item)).Text;
+                detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[6].Column.GetCellContent(CustomerDataGrid.SelectedCells[6].Item)).Text;
                 detail.ShowDialog();
 
                 LoadDataCustomerCurrent();
@@ -257,6 +271,16 @@ namespace QLNS.Pages
 
         private void buttonDeleteLKH_Clicked(object sender, RoutedEventArgs e)
         {
+            if (App.Current.Properties["idLND"] != null)
+            {
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 1)
+                {
+                    Message msg = new Message();
+                    msg.message.Text = "Nhân viên không có quyền xóa loại khách hàng!";
+                    msg.ShowDialog();
+                    return;
+                }
+            }
             try
             {
                 string maLKH = ((TextBlock)CustomerTypesDataGrid.SelectedCells[0].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[0].Item)).Text;
@@ -522,6 +546,109 @@ namespace QLNS.Pages
             {
                 CustomerTypePageNumberFilter--;
                 FilterCustomerTypeData(CustomerTypeSearchTerm, CustomerTypePageNumberFilter);
+            }
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (App.Current.Properties["idLND"] != null)
+            {
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 2)
+                {
+                    btnAddCustomer.Visibility = Visibility.Collapsed;
+                }
+            }
+            if (App.Current.Properties["idLND"] != null)
+            {
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 1)
+                {
+                    btnAddCustomerTypes.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void CustomerDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(CustomerDataGrid.SelectedItems.Count > 0)
+            {
+                try
+                {
+                    var cellInfo = CustomerDataGrid.SelectedCells[0];
+                    var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
+                    var query = from kh in qlnsEntities.KHACHHANGs
+                                join loaikhachhang in qlnsEntities.LOAIKHACHHANGs on kh.idLKH equals loaikhachhang.idLKH
+                                where content == kh.MaKH
+                                select kh;
+
+                    var lst = query.ToList();
+
+                    DetailCustomer detail = new DetailCustomer();
+                    detail.customerManage = this;
+                    detail.idKH = lst[0].idKH;
+                    detail.TenKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[1].Column.GetCellContent(CustomerDataGrid.SelectedCells[1].Item)).Text;
+                    detail.GioiTinh.Text = ((TextBlock)CustomerDataGrid.SelectedCells[2].Column.GetCellContent(CustomerDataGrid.SelectedCells[2].Item)).Text;
+
+                    if (((TextBlock)CustomerDataGrid.SelectedCells[3].Column.GetCellContent(CustomerDataGrid.SelectedCells[3].Item)).Text != "")// can null
+                    {
+                        DateTime temp = DateTime.Parse(((TextBlock)CustomerDataGrid.SelectedCells[3].Column.GetCellContent(CustomerDataGrid.SelectedCells[3].Item)).Text);
+                        detail.NgaySinh.SelectedDate = temp;
+                    }
+                    else
+                        detail.NgaySinh.Text = "";
+
+                    if (lst[0].DiaChi == "" || lst[0].DiaChi is null)// can null
+                    {
+                        detail.DiaChi.Text = "";
+                    }
+                    else
+                    {
+                        detail.DiaChi.Text = lst[0].DiaChi;
+                    }
+                    detail.SDT.Text = ((TextBlock)CustomerDataGrid.SelectedCells[4].Column.GetCellContent(CustomerDataGrid.SelectedCells[4].Item)).Text;
+                    detail.NgayTG.SelectedDate = lst[0].NgayTG;
+                    detail.DTL.Text = ((TextBlock)CustomerDataGrid.SelectedCells[5].Column.GetCellContent(CustomerDataGrid.SelectedCells[5].Item)).Text;
+                    detail.LoaiKH.Text = ((TextBlock)CustomerDataGrid.SelectedCells[6].Column.GetCellContent(CustomerDataGrid.SelectedCells[6].Item)).Text;
+                    detail.ShowDialog();
+
+                    LoadDataCustomerCurrent();
+                }
+                catch { }
+            }
+        }
+
+        private void CustomerTypesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(CustomerTypesDataGrid.SelectedItems.Count > 0) 
+            {
+                try
+                {
+                    var cellInfo = CustomerTypesDataGrid.SelectedCells[0];
+                    var content = ((TextBlock)cellInfo.Column.GetCellContent(cellInfo.Item)).Text;
+                    var query = from lkh in qlnsEntities.LOAIKHACHHANGs
+                                where content == lkh.MaLKH
+                                select lkh;
+
+                    var lst = query.ToList();
+
+                    DetailCustomerType detail = new DetailCustomerType();
+                    detail.customerManage = this;
+                    detail.idLKH = lst[0].idLKH;
+                    detail.TenLKH.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[1].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[1].Item)).Text;
+
+                    if (((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text == "")// can null
+                    {
+                        detail.MoTa.Text = "";
+                    }
+                    else
+                    {
+                        detail.MoTa.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[2].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[2].Item)).Text;
+                    }
+                    detail.DTLTT.Text = ((TextBlock)CustomerTypesDataGrid.SelectedCells[3].Column.GetCellContent(CustomerTypesDataGrid.SelectedCells[3].Item)).Text;
+                    detail.ShowDialog();
+
+                    LoadDataCustomerTypesCurrent();
+                }
+                catch { }
             }
         }
         //End: Search customer type by MaLKH || TenLKH

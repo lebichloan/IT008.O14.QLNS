@@ -293,7 +293,7 @@ namespace QLNS.Pages
                 }
 
                 detail.ShowDialog();
-                LoadData(0);
+                LoadData(pageNumber);
             }
             catch { }
         }
@@ -572,6 +572,47 @@ namespace QLNS.Pages
             pageTitle.DataContext = this;
         }
 
+        private void productDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(productDataGrid.SelectedItems.Count > 0)
+            {
+                try
+                {
+                    Product product = (Product)productDataGrid.SelectedItem;
+                    DetailProduct detail = new DetailProduct();
+                    detail.productManage = this;
+                    detail.idSP = product.idSP;
+                    detail.idCTSP = product.idCTSP;
+                    detail.idLND = idLND;
+                    foreach (var danhmuc in DataProvider.Ins.DB.DANHMUCs)
+                    {
+                        ComboBoxItem textBlock = new ComboBoxItem();
+                        textBlock.Content = danhmuc.TenDM;
+                        detail.LoaiSP.Items.Add(textBlock);
+                    }
 
+                    detail.TenSP.Text = product.TenSP.ToString();
+                    detail.GiaBan.Text = product.DonGiaXuat.ToString();
+                    detail.GiaNhap.Text = product.DonGiaNhap.ToString();
+                    detail.SLCL.Text = product.SoLuongConLai.ToString();
+                    detail.SLDB.Text = product.DaBan.ToString();
+                    detail.TinhTrang.SelectedIndex = product.TinhTrang;
+                    detail.LoaiSP.Text = product.TenDM.ToString();
+
+                    if (product.MoTa == null)
+                    {
+                        detail.MoTa.Text = "";
+                    }
+                    else
+                    {
+                        detail.MoTa.Text = product.MoTa.ToString();
+                    }
+
+                    detail.ShowDialog();
+                    LoadData(0);
+                }
+                catch { }
+            }
+        }
     }
 }

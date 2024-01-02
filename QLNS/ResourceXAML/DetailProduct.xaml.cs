@@ -85,13 +85,23 @@ namespace QLNS.ResourceXAML
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if(idLND != 1 || idLND != 2)
+            if (App.Current.Properties["idLND"] != null)
             {
-                Message message = new Message();
-                message.message.Text = "Nhân viên không có quyền thay đổi thông tin";
-                message.Show();
-                return;
+                if (int.Parse(App.Current.Properties["idLND"].ToString()) != 3)
+                {
+                    Message message = new Message();
+                    message.message.Text = "Nhân viên không có quyền thay đổi thông tin";
+                    message.Show();
+                    return;
+                }
             }
+            //if (idLND != 1 && idLND != 2)
+            //{
+            //    Message message = new Message();
+            //    message.message.Text = "Nhân viên không có quyền thay đổi thông tin";
+            //    message.Show();
+            //    return;
+            //}
             SANPHAM sanpham = DataProvider.Ins.DB.SANPHAMs.Find(idSP);
             CTSP ctsp = DataProvider.Ins.DB.CTSPs.Find(idCTSP);
             if (sanpham != null)
