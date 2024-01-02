@@ -326,7 +326,7 @@
                              Style="{DynamicResource HintTextBoxStyle}"
                              BorderBrush="{DynamicResource PrimaryTextColor}"
                              BorderThickness="0 0 0 0.5"
-                             KeyDown="txtSearchCustomer_KeyDown"
+                             KeyDown="txtSearchVoucher_KeyDown"
                                  Grid.Column="1"
                                  Margin="10 0"
                          />

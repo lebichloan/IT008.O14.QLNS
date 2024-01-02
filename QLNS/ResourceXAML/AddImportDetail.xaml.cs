@@ -166,7 +166,6 @@ namespace QLNS.ResourceXAML
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(lblThanhTienSanPham.Text);
             if (textBoxDonGia.Text == "0")
             {
                 Message message = new Message();
@@ -176,8 +175,9 @@ namespace QLNS.ResourceXAML
             }
             if (SLSPNH <= 0)
             {
-                MessageBox.Show("Vui long nhap so luong lon hon 0");
-                //txtSoLuongSanPham.Focus();
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số nguyên dương!";
+                message.ShowDialog();
             }
             else
             {
@@ -211,7 +211,6 @@ namespace QLNS.ResourceXAML
 
         public void SetValues()
         {
-            MessageBox.Show("OKOKK");
             lblSoLuongNhapHang.Text = "0";
             lblTongTienNhapHang.Text = "0";
             btnNext.IsEnabled = false;
@@ -251,7 +250,9 @@ namespace QLNS.ResourceXAML
         {
             if (txtSoLuongSanPham.Text == "")
             {
-                MessageBox.Show("Vui long nhap so luong lon hon 0");
+                Message message = new Message();
+                message.message.Text = "Vui lòng nhập số nguyên dương!";
+                message.ShowDialog();
             }
             else
             {
@@ -260,8 +261,9 @@ namespace QLNS.ResourceXAML
                     short soLuongSPInput = short.Parse(txtSoLuongSanPham.Text);
                     if (soLuongSPInput <= 0)
                     {
-                        MessageBox.Show("Vui long nhap so luong lon hon 0");
-                        //txtSoLuongSanPham.Focus();
+                        Message message = new Message();
+                        message.message.Text = "Vui lòng nhập số nguyên dương!";
+                        message.ShowDialog();
                     }
                     else
                     {
@@ -273,7 +275,9 @@ namespace QLNS.ResourceXAML
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Khong the doi thanh so");
+                    Message message = new Message();
+                    message.message.Text = "Không thể đổi thành số!";
+                    message.ShowDialog();
                     txtSoLuongSanPham.Text = SLSPNH.ToString();
                 }
                 CheckInputSoLuong(SLSPNH);
@@ -297,7 +301,6 @@ namespace QLNS.ResourceXAML
         private decimal TongTienNH = 0;
         private void addProducttoBill()
         {
-            //MessageBox.Show(tempThanhTien.ToString());
             if(textBoxDonGia.Text == "")
             {
                 //var selectedProduct = (dynamic)productDataGrid.SelectedItem;
@@ -384,7 +387,6 @@ namespace QLNS.ResourceXAML
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(tempThanhTien.ToString());
             NHAPHANG nhaphang = CreateImport();
             DataProvider.Ins.DB.NHAPHANGs.Add(nhaphang);
             DataProvider.Ins.DB.SaveChanges();

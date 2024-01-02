@@ -439,6 +439,7 @@
                                     Foreground="{DynamicResource PrimaryTextColor}"
                                     KeyDown="txtSoLuongSanPham_KeyDown"
                                     LostFocus="txtSoLuongSanPham_LostFocus"
+                                    TextChanged="txtSoLuongSanPham_TextChanged"
                                     TextAlignment="Center" />
 
                                 <Button
