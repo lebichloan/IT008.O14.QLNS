@@ -1,5 +1,5 @@
 
-# Music App
+# Bookstore Management
 
 ## 1. Contributors:
 
@@ -11,7 +11,7 @@
 * Bùi Thái Hoàng – 22520456 - https://github.com/BTH260704
 ### Supervisors:
 
-* Nguyễn Tấn Toàn - Khoa Công nghệ phần mềm, Trường ĐH Công nghệ thông tin - ĐHQGHCM - toannt@uit.edu.vn
+* ThS. Nguyễn Tấn Toàn - Khoa Công nghệ phần mềm, Trường ĐH Công nghệ thông tin - ĐHQGHCM - toannt@uit.edu.vn
 
 
 ## 2. Description: 
