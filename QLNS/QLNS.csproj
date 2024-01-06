@@ -663,6 +663,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>QLNS.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Báo cáo\[IT008.O14] Báo cáo đồ án.docx" />
     <None Include="Model\QLNS.edmx.diagram">
       <DependentUpon>QLNS.edmx</DependentUpon>
     </None>
